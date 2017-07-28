@@ -2,14 +2,14 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'CTT Yii Application';
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
         <h1>CTT Exp. & Rentals - CTTWApp 1.0</h1>
 
-        <p class="lead">Sistema de Gestion de Procesos de CTT.</p>
+        <p class="lead">CTT Web Application - Sistema de Administración de Procesos.</p>
 
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>

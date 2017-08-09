@@ -149,3 +149,5 @@
 127.0.0.1 - - [04/Aug/2017:11:58:38 -0500] "GET /favicon.ico HTTP/1.1" 200 318 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
 127.0.0.1 - - [04/Aug/2017:12:35:16 -0500] "GET /index.php HTTP/1.1" 200 7322 "http://cttwapp.com/index.php?r=site%2Flogin" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
 127.0.0.1 - - [04/Aug/2017:12:35:17 -0500] "GET /index.php?r=debug%2Fdefault%2Ftoolbar&tag=5984b0549c874 HTTP/1.1" 200 3369 "http://cttwapp.com/index.php" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+127.0.0.1 - - [09/Aug/2017:09:36:22 -0500] "GET /index.php HTTP/1.1" 200 7330 "http://cttwapp.com/index.php?r=site%2Flogin" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+127.0.0.1 - - [09/Aug/2017:09:36:23 -0500] "GET /index.php?r=debug%2Fdefault%2Ftoolbar&tag=598b1de543171 HTTP/1.1" 200 3371 "http://cttwapp.com/index.php" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"

@@ -10,11 +10,11 @@
     $commands = array(
         'echo $PWD',
         'whoami',
-        'git pull 2>&1',
-        'git status',
-        'git submodule sync 2>&1',
-        'git submodule update 2>&1',
-        'git submodule status 2>&1',
+        '/var/www/web/cttwapp/git pull 2>&1',
+        '/var/www/web/cttwapp/git status',
+        '/var/www/web/cttwapp/git submodule sync 2>&1',
+        '/var/www/web/cttwapp/git submodule update 2>&1',
+        '/var/www/web/cttwapp/git submodule status 2>&1',
     );
 
     // exec commands

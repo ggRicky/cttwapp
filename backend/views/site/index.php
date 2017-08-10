@@ -2,14 +2,14 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'CTT Yii Application';
+$this->title = 'CTTWApp - Backend';
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>CTT Exp. & Rentals - CTTWApp 1.0</h1>
+        <h1>CTT Exp. & Rentals - Backend</h1>
 
-        <p class="lead">2017-08-09 15:25 hrs. - CTT Web Application - Backend.</p>
+        <p class="lead">2017-08-09 22:28 hrs. - CTT Web Application - CTTWApp 1.0</p>
 
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>

@@ -10,7 +10,7 @@ $this->title = 'CTTWApp - Frontend';
     <div class="jumbotron">
         <h1>CTT Exp. & Rentals - Frontend</h1>
 
-        <p class="lead">2017-08-09 22:44 hrs. - CTT Web Application - CTTWApp 1.0</p>
+        <p class="lead">2017-08-10 22:24 hrs. - CTT Web Application - CTTWApp 1.0</p>
 
         <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>

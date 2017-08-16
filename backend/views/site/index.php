@@ -9,14 +9,14 @@ $this->title = 'CTTWApp - Backend';
     <div class="jumbotron">
         <h1>CTT Exp. & Rentals - Backend</h1>
 
-        <p class="lead">2017-08-15 21:15 hrs. - CTT Web Application - CTTWApp 1$
+        <p class="lead">2017-08-15 22:20 hrs. - CTT Web Application - CTTWApp 1.0</p>
 
         <p class="lead">
             <a href="https://ssl.comodo.com">
-                <img src="https://ssl.comodo.com/images/comodo_secure_seal_100x$
+                <img src="https://ssl.comodo.com/images/comodo_secure_seal_100x85_transp.png" alt="SSL Certificate" width="100" height="85" style="border: 0px;">
                 <br>
                 <span>
-                    <a class="btn-link" href="https://ssl.comodo.com">SSL Certi$
+                    <a class="btn-link" href="https://ssl.comodo.com">SSL Certificate</a>
                 </span>
                 <br>
             </a>

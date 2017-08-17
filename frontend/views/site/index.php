@@ -10,7 +10,7 @@ $this->title = 'CTTWApp - Frontend';
     <div class="jumbotron">
         <h1>CTT Exp. & Rentals - Frontend</h1>
 
-        <p class="lead">Last Update : 2017-08-16 21:00 hrs.</p>
+        <p class="lead">Last Update : 2017-08-16 22:15 hrs.</p>
 
         <p class="lead">
             <a href="https://ssl.comodo.com">

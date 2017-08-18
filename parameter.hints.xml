@@ -1,0 +1,9 @@
+<application>
+  <component name="ParameterNameHintsSettings">
+    <blacklists>
+      <blacklist language="PHP">
+        <added pattern="\yii\helpers\BaseUrl.toRoute(route,scheme)" />
+      </blacklist>
+    </blacklists>
+  </component>
+</application>

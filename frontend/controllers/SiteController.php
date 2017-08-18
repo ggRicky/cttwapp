@@ -21,6 +21,54 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
+
+    /**
+     *
+     * Acción para el tutorial 3 - Yii Framework 2 Conectar acción-vista (Hola Mundo)
+     *
+     */
+
+    public function actionSaluda($get = "Tutorial Yii2")
+    {
+        $mensaje = "Hola Mundo";
+        $numeros= [0, 1, 2, 3, 4, 5];
+        return $this->render("saluda",
+                            [
+                                "mensaje"=>$mensaje,
+                                "numeros"=>$numeros,
+                                "parametro"=>$get,
+                            ]);
+    }
+
+    /**
+     *
+     * Acción para el tutorial 4 - Yii Framework 2 Conectar vista-acción (formularios y redirecciones)
+     *
+     */
+
+    public function actionFormulario($mensaje=null)
+    {
+        return $this->render("formulario",["mensaje"=>$mensaje]);
+    }
+
+    /**
+     *
+     * Acción para el tutorial 4 - Yii Framework 2 Conectar vista-acción (formularios y redirecciones)
+     *
+     */
+
+    public function actionRequest()
+    {
+        $mensaje= null;
+
+        if (isset($_REQUEST["nombre"]))
+        {
+            $mensaje = "Bien, has enviado tu nombre correctamente " . $_REQUEST["nombre"];
+        }
+
+        $this->redirect(["site/formulario","mensaje"=>$mensaje]);
+    }
+
     public function behaviors()
     {
         return [

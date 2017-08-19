@@ -12,6 +12,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use app\models\ValidarFormulario;
 
 /**
  * Site controller
@@ -46,9 +47,9 @@ class SiteController extends Controller
      *
      */
 
-    public function actionFormulario($mensaje=null)
+    public function actionFormulario($mensaje = null)
     {
-        return $this->render("formulario",["mensaje"=>$mensaje]);
+        return $this->render("formulario",["mensaje" => $mensaje]);
     }
 
     /**
@@ -59,15 +60,41 @@ class SiteController extends Controller
 
     public function actionRequest()
     {
-        $mensaje= null;
+        $mensaje = null;
 
         if (isset($_REQUEST["nombre"]))
         {
             $mensaje = "Bien, has enviado tu nombre correctamente " . $_REQUEST["nombre"];
         }
 
-        $this->redirect(["site/formulario","mensaje"=>$mensaje]);
+        $this->redirect(["site/formulario","mensaje" => $mensaje]);
     }
+
+    /**
+     *
+     * Accion para el tutorial 5 - Yii Framework 2 - Validar formularios lado cliente y servidor (ActiveForm)
+     *
+     */
+
+    public function actionValidarformulario()
+    {
+        $model = new ValidarFormulario;
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            if ($model->validate())
+            {
+                // Por ejemplo, se puede consultar una base de datos
+            }
+            else
+            {
+                $model->getErrors();
+            }
+        }
+
+        return $this->render("validarformulario", ["model" => $model]);
+    }
+
 
     public function behaviors()
     {

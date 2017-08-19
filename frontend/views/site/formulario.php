@@ -23,7 +23,7 @@ use yii\helpers\Html;
                         "get",              // method
                         ["class"=>"form-inline"]   // options
 
-               );
+                    );
 ?>
 
 <div class ="form-group">
@@ -31,8 +31,9 @@ use yii\helpers\Html;
     <?= Html::label("Introduce tu nombre","nombre") ?>
     <?= Html::textInput("nombre",null, ["class"=>"form-control"]) ?>
 
-    <?= Html::submitInput("Enviar nombre",["class"=>"btn btn-primary"]) ?>
-
 </div>
+
+<?= Html::submitInput("Enviar nombre",["class"=>"btn btn-primary"]) ?>
+
 
 <?= Html::endForm(); ?>

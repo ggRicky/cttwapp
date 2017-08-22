@@ -13,6 +13,9 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use app\models\ValidarFormulario;
+use app\models\ValidarFormularioAjax;
+use yii\widgets\ActiveForm;
+use yii\web\response;
 
 /**
  * Site controller
@@ -93,6 +96,38 @@ class SiteController extends Controller
         }
 
         return $this->render("validarformulario", ["model" => $model]);
+    }
+
+
+    public function actionValidarformularioajax()
+    {
+        $model = new ValidarFormularioAjax();
+        $msg = null;
+
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax)
+        {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            if($model->validate())
+            {
+                // Por ejemplo aqui hacemos una consulta a una base de datos
+                $msg = "Enhorabuena, formulario enviado correctamente.";
+                $model -> nombre = null;
+                $model -> email = null;
+            }
+            else
+            {
+                $model->getErrors();
+            }
+
+        }
+
+        return $this->render("validarformularioajax",['model' => $model, 'msg' => $msg ]);
+
     }
 
 

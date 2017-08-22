@@ -43,6 +43,7 @@ class ValidarFormularioAjax extends model
     public function email_existe($attribute, $params)
     {
         $email = ["ricardo@mail.com", "angel@mail.com"];
+
         foreach($email as $val)
         {
             if ($this->email == $val)
@@ -50,11 +51,10 @@ class ValidarFormularioAjax extends model
                 $this->addError($attribute,"El mail seleccionado existe.");
                 return true;
             }
-            else
-            {
-                return false;
-            }
         }
+
+        return false;
+
     }
 
 }

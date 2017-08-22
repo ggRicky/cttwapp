@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     "method" => "post",
     "id" => "formulario",
-    "enableClientValidation" => false,
+    "enableClientValidation" => true,
     "enableAjaxValidation" => true,
 
 ]);

@@ -16,6 +16,9 @@ use app\models\ValidarFormulario;
 use app\models\ValidarFormularioAjax;
 use yii\widgets\ActiveForm;
 use yii\web\response;
+use app\models\FormAlumnos;
+use app\models\Alumnos;
+
 
 /**
  * Site controller
@@ -31,6 +34,49 @@ class SiteController extends Controller
      * Acción para el tutorial 3 - Yii Framework 2 Conectar acción-vista (Hola Mundo)
      *
      */
+
+    public function actionCreate()
+    {
+        $model = new FormAlumnos;
+        $msg = null;
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            if ($model->validate())
+            {
+                $table = new Alumnos;
+
+                $table->nombre = $model->nombre;
+                $table->apellidos = $model->apellidos;
+                $table->clase = $model->clase;
+                $table->nota_final = $model->nota_final;
+
+                if ($table->insert())
+                {
+
+                    $msg = "Enhorabuenaregistro guardado correctamente";
+                    $model->nombre = null;
+                    $model->apellidos = null;
+                    $model->clase = null;
+                    $model->nota_final = null;
+
+                }
+                else
+                {
+                    $msg = "Ha ocurrido un error al insertar el registro";
+                }
+
+            }
+            else
+            {
+                $model-> getErrors();
+            }
+        }
+
+        return $this -> render("create", ['model' => $model,'msg' => $msg]);
+
+    }
+
 
     public function actionSaluda($get = "Tutorial Yii2")
     {

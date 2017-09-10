@@ -14,11 +14,15 @@ use yii\base\Model;
 class FormAlumnos extends Model
 {
 
+    // Propiedades de la clase FormAlumnos que serán usados por el formulario
+
     public $id_alumno;
     public $nombre;
     public $apellidos;
     public $clase;
     public $nota_final;
+
+    // Reglas que se han de aplicar al ingreso de datos en el formulario
 
     public function rules()
     {

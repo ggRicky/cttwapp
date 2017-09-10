@@ -25,16 +25,116 @@ use app\models\Alumnos;
  */
 class SiteController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
 
     /**
      *
      * Acción para el tutorial 3 - Yii Framework 2 Conectar acción-vista (Hola Mundo)
      *
      */
+    public function actionSaluda($get = "Tutorial Yii2")
+    {
+        $mensaje = "Hola Mundo";
+        $numeros= [0, 1, 2, 3, 4, 5];
+        return $this->render("saluda",
+                            [
+                                "mensaje"=>$mensaje,
+                                "numeros"=>$numeros,
+                                "parametro"=>$get,
+                            ]);
+    }
 
+    /**
+     *
+     * Acción para el tutorial 4 - Yii Framework 2 Conectar vista-acción (formularios y redirecciones)
+     *
+     */
+    public function actionFormulario($mensaje = null)
+    {
+        return $this->render("formulario",["mensaje" => $mensaje]);
+    }
+
+    /**
+     *
+     * Acción para el tutorial 4 - Yii Framework 2 Conectar vista-acción (formularios y redirecciones)
+     *
+     */
+    public function actionRequest()
+    {
+        $mensaje = null;
+
+        if (isset($_REQUEST["nombre"]))
+        {
+            $mensaje = "Bien, has enviado tu nombre correctamente " . $_REQUEST["nombre"];
+        }
+
+        $this->redirect(["site/formulario","mensaje" => $mensaje]);
+    }
+
+    /**
+     *
+     * Accion para el tutorial 5 - Yii Framework 2 - Validar formularios lado cliente y servidor (ActiveForm)
+     *
+     */
+    public function actionValidarformulario()
+    {
+        $model = new ValidarFormulario;
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            if ($model->validate())
+            {
+                // Por ejemplo, se puede consultar una base de datos
+            }
+            else
+            {
+                $model->getErrors();
+            }
+        }
+
+        return $this->render("validarformulario", ["model" => $model]);
+    }
+
+    /**
+     *
+     * Accion para el tutorial 6 - Yii Framework 2 - Validar formulario con AJAX
+     *
+     */
+    public function actionValidarformularioajax()
+    {
+        $model = new ValidarFormularioAjax();
+        $msg = null;
+
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax)
+        {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post()))
+        {
+            if($model->validate())
+            {
+                // Por ejemplo aqui hacemos una consulta a una base de datos
+                $msg = "Enhorabuena, formulario enviado correctamente.";
+                $model -> nombre = null;
+                $model -> email = null;
+            }
+            else
+            {
+                $model->getErrors();
+            }
+
+        }
+
+        return $this->render("validarformularioajax",['model' => $model, 'msg' => $msg ]);
+
+    }
+
+    /**
+     *
+     * Acción para el tutorial 7 - Yii Framework 2  CRUD ActiveRecord Create
+     *
+     */
     public function actionCreate()
     {
         $model = new FormAlumnos;
@@ -77,106 +177,9 @@ class SiteController extends Controller
 
     }
 
-
-    public function actionSaluda($get = "Tutorial Yii2")
-    {
-        $mensaje = "Hola Mundo";
-        $numeros= [0, 1, 2, 3, 4, 5];
-        return $this->render("saluda",
-                            [
-                                "mensaje"=>$mensaje,
-                                "numeros"=>$numeros,
-                                "parametro"=>$get,
-                            ]);
-    }
-
     /**
-     *
-     * Acción para el tutorial 4 - Yii Framework 2 Conectar vista-acción (formularios y redirecciones)
-     *
+     * @inheritdoc
      */
-
-    public function actionFormulario($mensaje = null)
-    {
-        return $this->render("formulario",["mensaje" => $mensaje]);
-    }
-
-    /**
-     *
-     * Acción para el tutorial 4 - Yii Framework 2 Conectar vista-acción (formularios y redirecciones)
-     *
-     */
-
-    public function actionRequest()
-    {
-        $mensaje = null;
-
-        if (isset($_REQUEST["nombre"]))
-        {
-            $mensaje = "Bien, has enviado tu nombre correctamente " . $_REQUEST["nombre"];
-        }
-
-        $this->redirect(["site/formulario","mensaje" => $mensaje]);
-    }
-
-    /**
-     *
-     * Accion para el tutorial 5 - Yii Framework 2 - Validar formularios lado cliente y servidor (ActiveForm)
-     *
-     */
-
-    public function actionValidarformulario()
-    {
-        $model = new ValidarFormulario;
-
-        if ($model->load(Yii::$app->request->post()))
-        {
-            if ($model->validate())
-            {
-                // Por ejemplo, se puede consultar una base de datos
-            }
-            else
-            {
-                $model->getErrors();
-            }
-        }
-
-        return $this->render("validarformulario", ["model" => $model]);
-    }
-
-
-    public function actionValidarformularioajax()
-    {
-        $model = new ValidarFormularioAjax();
-        $msg = null;
-
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax)
-        {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
-
-        if ($model->load(Yii::$app->request->post()))
-        {
-            if($model->validate())
-            {
-                // Por ejemplo aqui hacemos una consulta a una base de datos
-                $msg = "Enhorabuena, formulario enviado correctamente.";
-                $model -> nombre = null;
-                $model -> email = null;
-            }
-            else
-            {
-                $model->getErrors();
-            }
-
-        }
-
-        return $this->render("validarformularioajax",['model' => $model, 'msg' => $msg ]);
-
-    }
-
-
     public function behaviors()
     {
         return [

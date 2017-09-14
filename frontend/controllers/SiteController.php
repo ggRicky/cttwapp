@@ -18,7 +18,10 @@ use yii\widgets\ActiveForm;
 use yii\web\response;
 use app\models\FormAlumnos;
 use app\models\Alumnos;
-
+use app\models\FormSearch;
+use yii\helpers\Html;
+use yii\data\Pagination;
+use yii\helpers\Url;
 
 /**
  * Site controller
@@ -132,7 +135,7 @@ class SiteController extends Controller
 
     /**
      *
-     * Acción para el tutorial 7 - Yii Framework 2  CRUD ActiveRecord Create
+     * Acción para el tutorial 7 - Yii Framework 2  CRUD ActiveRecord Create (Crear registros)
      *
      */
     public function actionCreate()
@@ -176,6 +179,157 @@ class SiteController extends Controller
         return $this -> render("create", ['model' => $model,'msg' => $msg]);
 
     }
+
+
+    /**
+     *
+     * Acción para el tutorial 8 - Yii Framework 2  CRUD ActiveRecord Read (Lectura de registros)
+     *
+    public function actionView()
+    {
+
+        $table = new Alumnos;
+        $model = $table->find()->all();
+
+        return $this->render("view", ["model" => $model]);
+
+    }
+    */
+
+    /**
+     *
+     * Acción para el tutorial 9 - Yii Framework 2 - CRUD ActiveRecord Search (Formulario de búsqueda)
+     *
+    public function actionView()
+    {
+        $table = new Alumnos;
+        $model = $table->find()->all();
+
+        $form = new FormSearch;
+        $search = null;
+        if($form->load(Yii::$app->request->get()))
+        {
+            if ($form->validate())
+            {
+                $search = Html::encode($form->q);
+
+                // 2017-09-11 INCIDENCIA : Al ejecutar el siguiente código original del tutorial .....
+
+                //       $query = "SELECT * FROM alumnos WHERE id_alumno LIKE '%$search%' OR ...";
+
+                // Ocurrió un error :
+
+                //      $query = "SELECT * FROM alumnos WHERE id_alumno LIKE '%Fernández%' OR ...";
+                //                                                            ^
+                //                                                            |
+                //      ERROR : Hint: Ningún operador coincide con el nombre y el tipo de los argumentos. Puede ser necesario agregar conversiones explícitas de tipos.
+
+                // Explicación : Este error se provocó debido a que el campo 'id_alumno' es de tipo numérico, y se usa el operador LIKE que trabaja con valores de TEXTO en la consulta SQL.
+                //               MySQL hace una conversión implícita, pero Postrgesql NO la hace. Así que se debe realizar de forma explícita con la función CAST ( AS TEXT).
+
+                // Solución :
+
+                //       $query = "SELECT * FROM alumnos WHERE CAST(id_alumno AS TEXT) LIKE '%$search%' OR ";
+
+                $query = "SELECT * FROM alumnos WHERE CAST(id_alumno AS TEXT) LIKE '%$search%' OR ";
+                $query .= "nombre LIKE '%$search%' OR apellidos LIKE '%$search%'";
+                $model = $table->findBySql($query)->all();
+            }
+            else
+            {
+                $form->getErrors();
+            }
+        }
+        return $this->render("view", ["model" => $model, "form" => $form, "search" => $search]);
+    }
+     */
+
+    /**
+     *
+     * Acción para el tutorial 10 - Yii Framework 2 - CRUD ActiveRecord Pagination (Paginación de resultados)
+     *
+     */
+    public function actionView()
+    {
+        $form = new FormSearch;
+        $search = null;
+        if($form->load(Yii::$app->request->get()))
+        {
+            if ($form->validate())
+            {
+                $search = Html::encode($form->q);
+                $table = Alumnos::find()
+                    ->where(["like", "id_alumno", $search])
+                    ->orWhere(["like", "nombre", $search])
+                    ->orWhere(["like", "apellidos", $search]);
+                $count = clone $table;
+                $pages = new Pagination([
+                    "pageSize" => 1,
+                    "totalCount" => $count->count()
+                ]);
+                $model = $table
+                    ->offset($pages->offset)
+                    ->limit($pages->limit)
+                    ->all();
+            }
+            else
+            {
+                $form->getErrors();
+            }
+        }
+        else
+        {
+            $table = Alumnos::find();
+            $count = clone $table;
+            $pages = new Pagination([
+                "pageSize" => 1,
+                "totalCount" => $count->count(),
+            ]);
+            $model = $table
+                ->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+        }
+        return $this->render("view", ["model" => $model, "form" => $form, "search" => $search, "pages" => $pages]);
+    }
+
+    /**
+     *
+     * Acción para el tutorial 11 - Yii Framework 2 - CRUD ActiveRecord Delete (Eliminar Registros)
+     *
+     */
+
+    public function actionDelete()
+    {
+        if(Yii::$app->request->post())
+        {
+            $id_alumno = Html::encode($_POST["id_alumno"]);
+            if((int) $id_alumno)
+            {
+                if(Alumnos::deleteAll("id_alumno=:id_alumno", [":id_alumno" => $id_alumno]))
+                {
+                    echo "Alumno con id $id_alumno eliminado con éxito, redireccionando ...";
+                    echo "<meta http-equiv='refresh' content='3; ".Url::toRoute("site/view")."'>";
+                }
+                else
+                {
+                    echo "Ha ocurrido un error al eliminar el alumno, redireccionando ...";
+                    echo "<meta http-equiv='refresh' content='3; ".Url::toRoute("site/view")."'>";
+                }
+            }
+            else
+            {
+                echo "Ha ocurrido un error al eliminar el alumno, redireccionando ...";
+                echo "<meta http-equiv='refresh' content='3; ".Url::toRoute("site/view")."'>";
+            }
+        }
+        else
+        {
+            return $this->redirect(["site/view"]);
+        }
+    }
+
+
 
     /**
      * @inheritdoc

@@ -2,7 +2,6 @@
 
 /* @var $this yii\web\View */
 
-
 $this->title = 'CTTWApp - Frontend';
 ?>
 <div class="site-index">
@@ -10,7 +9,7 @@ $this->title = 'CTTWApp - Frontend';
     <div class="jumbotron">
         <h1>CTT Exp. & Rentals - Frontend</h1>
 
-        <p class="lead">Last Update : 2017-09-25 12:07 hrs.</p>
+        <p class="lead">Last Update : 2017-10-02 09:30 hrs.</p>
 
         <p class="lead">
             <a href="https://ssl.comodo.com">

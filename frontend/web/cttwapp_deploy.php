@@ -31,7 +31,7 @@
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <title>Git Deployment Script</title>
+    <title>CTTwapp Project - Git Deployment Script</title>
 </head>
 <style>
     body {
@@ -44,12 +44,12 @@
 </style>
 <body>
 
-	<h1>Git Deployment Script</h1>
+	<h1>CTTwapp Project - Git Deployment Script</h1>
 	<p>This page reports about git's commands status, for a production server updates based on GitHub's WebHooks.</p>
 
 	<div style="width:700px">
 		<div style="float:left;width:350px;">
-    			<p style="color:white;">Git Deployment Script</p>
+    			<p style="color:white;">CTTwapp Project - Git Deployment Script</p>
 			<?php echo $output; ?>
 		</div>
 	</div>

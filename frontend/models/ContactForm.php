@@ -48,14 +48,9 @@ class ContactForm extends Model
      * @param string $email the target email address
      * @return bool whether the email was sent
      */
-    public function sendEmail($email)       // En el tutorial de Yii2, este método lleva el nombre de contact en lugar de sendEmail
+    public function sendEmail($email)
     {
-        $content = "<p>Email: " . $this->email . "</p>";
-        $content .= "<p>Name: " . $this->name . "</p>";
-        $content .= "<p>Subject: " . $this->subject . "</p>";
-        $content .= "<p>Body: " . $this->body . "</p>";
-
-        return Yii::$app->mailer->compose("@common/mail/layouts/html", ["content" => $content])
+        return Yii::$app->mailer->compose()
             ->setTo($email)
             ->setFrom([$this->email => $this->name])
             ->setSubject($this->subject)

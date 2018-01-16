@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 
@@ -26,16 +27,30 @@ $baseUrl = $asset->baseUrl;
         </div>
         <!-- CTT default options ribbon -->
         <div class="ctt-mini-bar-top">
-            <div class="btn-group">
-                <?php echo "<a href='" . Url::to(['site/about']) . "' class=\"btn btn-primary\">Acerca</a>"; ?>
-                <?php echo "<a href='" . Url::to(['site/signup']) . "' class=\"btn btn-primary\">Registro</a>"; ?>
-                <?php echo "<a href='" . Url::to(['site/login']) . "' class=\"btn btn-primary\">Sesión</a>"; ?>
-            </div>
+            <?php
+                if (Yii::$app->user->isGuest) {
+                    echo "<div class=\"btn-group\">";
+                    echo "<a href='" . Url::to(['site/about']) . "' class=\"btn btn-primary\">Acerca</a>";
+                    echo "<a href='" . Url::to(['site/signup']) . "' class=\"btn btn-primary\">Registro</a>";
+                    echo "<a href='" . Url::to(['site/login']) . "' class=\"btn btn-primary\">Sesión</a>";
+                    echo "</div>";
+                }
+                else{
+                    $options = ['style' => ['color' => 'white', 'font-size' => 'large']];
+                    echo Html::beginForm(['/site/logout'], 'post');
+                    echo Html::tag('label', Yii::$app->user->identity->username, $options) . "&nbsp;&nbsp;&nbsp;";
+                    echo Html::submitButton('Cerrar', ['class' => 'btn btn-primary']);
+                    echo Html::endForm();
+                }
+            ?>
         </div>
+
+        <!-- Disabled for design purposes -->
         <!-- Menu title -->
         <!--  <li class="sidebar-brand">-->
         <!--      <a href="#top">P r o c e s o s</a>-->
         <!--  </li>-->
+
         <!-- Content menu -->
         <li>
             <a href="/site/clientes">Clientes</a>

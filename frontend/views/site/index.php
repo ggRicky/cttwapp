@@ -2,6 +2,7 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 
@@ -21,18 +22,19 @@ $baseUrl = $asset->baseUrl;
         <div class="sidebar-top">
             <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right btn-toggle"><i class="fa fa-times"></i></a>
         </div>
+
         <!-- CTT mini-logo ribbon -->
         <div class="container-fluid ctt-mini-logo-top">
             <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="pull-left img-responsive" height="42" width="105"/>
         </div>
+
         <!-- CTT default options ribbon -->
         <div class="ctt-mini-bar-top">
             <?php
-                if (Yii::$app->user->isGuest) {
+                if (Yii::$app->user->isGuest){
                     echo "<div class=\"btn-group\">";
-                    echo "<a href='" . Url::to(['site/about']) . "' class=\"btn btn-primary\">Acerca</a>";
                     echo "<a href='" . Url::to(['site/signup']) . "' class=\"btn btn-primary\">Registro</a>";
-                    echo "<a href='" . Url::to(['site/login']) . "' class=\"btn btn-primary\">Sesión</a>";
+                    echo "<a href='" . Url::to(['site/login', '#' => 'work-area-index'])  . "' class=\"btn btn-primary\">Sesión</a>";
                     echo "</div>";
                 }
                 else{
@@ -41,37 +43,43 @@ $baseUrl = $asset->baseUrl;
                     echo Html::tag('label', Yii::$app->user->identity->username, $options) . "&nbsp;&nbsp;&nbsp;";
                     echo Html::submitButton('Cerrar', ['class' => 'btn btn-primary']);
                     echo Html::endForm();
-                }
+                };
             ?>
         </div>
 
-        <!-- Disabled for design purposes -->
-        <!-- Menu title -->
-        <!--  <li class="sidebar-brand">-->
-        <!--      <a href="#top">P r o c e s o s</a>-->
-        <!--  </li>-->
-
         <!-- Content menu -->
         <li>
-            <a href="/site/clientes">Clientes</a>
+            <div class="ctt-mini-bar-opts">
+                <?= "<a href='" . Url::to(['site/about'])  . "'>Acerca</a>" ?>
+            </div>
         </li>
         <li>
-            <a href="#parallax1">Catálogos</a>
+            <div class="ctt-mini-bar-opts">
+                <?= "<a href='" . Url::to(['site/help'])    . "'>Ayuda</a>" ?>
+            </div>
         </li>
         <li>
-            <a href="#ctt-portfolio">Inventarios</a>
+            <div class="ctt-mini-bar-opts">
+                <?= "<a href='" . Url::to(['site/contact'])  . "'>Contacto</a>" ?>
+            </div>
         </li>
         <li>
-            <a href="#services">Proyectos</a>
+            <?= "<a href='" . Url::to(['client/index'])  . "'>Clientes</a>" ?>
         </li>
         <li>
-            <a href="#parallax1">Reservaciones</a>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Catálogos</a>
         </li>
         <li>
-            <a href="#ctt-portfolio">Cotizaciones</a>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Inventarios</a>
         </li>
         <li>
-            <a href="#contact">Ayuda</a>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Proyectos</a>
+        </li>
+        <li>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Reservaciones</a>
+        </li>
+        <li>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Cotizaciones</a>
         </li>
     </ul>
 </nav>
@@ -98,7 +106,20 @@ $baseUrl = $asset->baseUrl;
         <div class="row text-center">
             <div class="col-lg-12">
                 <h2>CTT Web Application v-1.0</h2>
-                <p class="lead">Sistema Gestor de Operaciones</p>
+
+                <!-- Call to Yii translation function for automated message translation -->
+                <p class="lead"><?= Yii::t('app','Sistema Gestor de Operaciones') ?></p>
+
+                <!-- Builds a language options ribbon -->
+                <div>
+                    <?php
+                    echo "|&nbsp;";
+                    foreach(Yii::$app->params['languages'] as $key => $language){
+                        echo "<a href=\"#\" class=\"language\" id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
+                    }
+                    ?>
+                </div>
+
                 <h2 class="barcode-font">ISC-RGG</h2>
             </div>
         </div>
@@ -131,7 +152,7 @@ $baseUrl = $asset->baseUrl;
                             </h4>
                             <hr class="small">
                             <p></p>
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-info">I n g r e s a r</a>
+                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction">I n g r e s a r</a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -145,7 +166,7 @@ $baseUrl = $asset->baseUrl;
                             </h4>
                             <hr class="small">
                             <p></p>
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-warning">I n g r e s a r</a>
+                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction">I n g r e s a r</a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -159,7 +180,7 @@ $baseUrl = $asset->baseUrl;
                             </h4>
                             <hr class="small">
                             <p></p>
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-error">I n g r e s a r</a>
+                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction">I n g r e s a r</a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -173,7 +194,7 @@ $baseUrl = $asset->baseUrl;
                             </h4>
                             <hr class="small">
                             <p></p>
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-success">I n g r e s a r</a>
+                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction">I n g r e s a r</a>
                         </div>
                     </div>
                 </div>
@@ -231,7 +252,7 @@ $baseUrl = $asset->baseUrl;
                     </div>
                 </div>
                 <!-- /.row (nested) -->
-                <a href="#" class="btn btn-dark" data-toggle="modal" data-target="#ctt-modal-question">R e s e r v a c i o n e s</a>
+                <a href="#" class="btn btn-dark" data-toggle="modal" data-target="#ctt-modal-in-construction">R e s e r v a c i o n e s</a>
             </div>
             <!-- /.col-lg-10 -->
         </div>
@@ -253,7 +274,7 @@ $baseUrl = $asset->baseUrl;
 
 <!-- Google Map  CTT's loction -->
 <section id="contact" class="ctt-map">
-    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d15065.048251249942!2d-99.1300126!3d19.2709666!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1510717183118;output=embed"></iframe>
+    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15065.048251249942!2d-99.1300126!3d19.2709666!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x348e42d70e47e22e!2sCTT+EXP+%26+RENTALS!5e0!3m2!1ses-419!2smx!4v1516220271074" style="border:0" allowfullscreen></iframe>
     <br />
     <div class="col-lg-12" >
         <small>
@@ -302,7 +323,7 @@ $baseUrl = $asset->baseUrl;
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
                         <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017 <br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-2018 <br/>TSR Development Software</p>
                     </div>
                 </div>
             </div>
@@ -318,6 +339,95 @@ $baseUrl = $asset->baseUrl;
     </section>
 
 </footer>
+
+
+<!-- Modal Warning ; Functionality not implemented yet  -->
+<div id="ctt-modal-in-construction" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-backdrop">
+
+            <!-- Modal Header -->
+            <div class="modal-shadow-effect modal-header-water-mark">
+                <div class="modal-header modal-header-config ctt-modal-header-warning">
+                    <div class="row">
+                        <!--
+                             ctt-modal-header-info        glyphicon-info-sign
+                             ctt-modal-header-success     glyphicon-ok-sign
+                             ctt-modal-header-question    glyphicon-question-sign
+                             ctt-modal-header-warning     glyphicon-warning-sign
+                             ctt-modal-header-error       glyphicon-exclamation-sign
+                        -->
+                        <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
+                        <div class="col-sm-7"><h4 class="modal-title">Advertencia</h4></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                    </div>
+                </div>
+
+                <!-- Modal Content -->
+                <div class="modal-body modal-body-config">
+                    <p>Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.</p>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer modal-footer-config">
+                    <div class="row">
+                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Success : User Logged -->
+<div id="ctt-modal-usr-logged" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-backdrop">
+
+            <!-- Modal Header -->
+            <div class="modal-shadow-effect modal-header-water-mark">
+                <div class="modal-header modal-header-config ctt-modal-header-success">
+                    <div class="row">
+                        <!--
+                             ctt-modal-header-info        glyphicon-info-sign
+                             ctt-modal-header-success     glyphicon-ok-sign
+                             ctt-modal-header-question    glyphicon-question-sign
+                             ctt-modal-header-warning     glyphicon-warning-sign
+                             ctt-modal-header-error       glyphicon-exclamation-sign
+                        -->
+                        <div class="col-sm-1"><span class="glyphicon glyphicon-ok-sign"></span></div>
+                        <div class="col-sm-7"><h4 class="modal-title">Éxito</h4></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                    </div>
+                </div>
+
+                <!-- Modal Content -->
+                <div class="modal-body modal-body-config">
+                    <p><?= Yii::$app->session->getFlash('successLogin'); ?></p>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer modal-footer-config">
+                    <div class="row">
+                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!--Modal Templates ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
 
 <!-- Modal Info -->
 <div id="ctt-modal-info" class="modal fade" role="dialog">
@@ -491,7 +601,7 @@ $baseUrl = $asset->baseUrl;
     </div>
 </div>
 
-<!-- Modal Error -->
+<!-- Modal Question -->
 <div id="ctt-modal-question" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -533,3 +643,18 @@ $baseUrl = $asset->baseUrl;
 
     </div>
 </div>
+
+<!--If the user was logged successfully, then display the modal window notification, using PHP & jQuery -->
+
+<?php
+
+$session = Yii::$app->session;
+
+if ($session->has('successLogin')) {
+
+    $script = "jQuery(document).ready(function () { $(\"#ctt-modal-usr-logged\").modal({show: true, backdrop: \"static\"}); });";
+    $this->registerJs($script, View::POS_READY);
+
+}
+
+?>

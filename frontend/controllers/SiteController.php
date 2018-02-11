@@ -29,7 +29,7 @@ class SiteController extends Controller
                 'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['signup','language'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -88,6 +88,8 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            // Exito en el acceso
+            Yii::$app->session->setFlash('successLogin', Yii::t('app','<h4>Bienvenido <b>'.Yii::$app->user->identity->username).'</b></h4><p>Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.<br/></p>');
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -118,11 +120,10 @@ class SiteController extends Controller
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+                Yii::$app->session->setFlash('success', Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'));
             } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
+                Yii::$app->session->setFlash('error', Yii::t('app','Se presentó un error al enviar su mensaje.'));
             }
-
             return $this->refresh();
         } else {
             return $this->render('contact', [
@@ -210,4 +211,39 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    /**
+     * Stores a language value user's preference to a cookie.
+     *
+     * 2018-02-05 13:34 Hrs.
+     *
+     * Source : Yii2 Lesson - 51 Internationalization | i18n File Based ( Nov 14 2015 )
+     * Resource : https://www.youtube.com/watch?v=_qNMcJKoEK0
+     */
+
+    public function actionLanguage(){
+
+        if (isset($_POST['lang'])){
+
+            Yii::$app->language = $_POST['lang'];
+            $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang']]);
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+
+        }
+
+    }
+
+    /**
+     * Display a window help for general topics about de application.
+     *
+     * 2018-02-07 14:23 Hrs.
+     *
+     */
+
+    public function actionHelp(){
+
+        return $this->render('help');
+
+    }
+
 }

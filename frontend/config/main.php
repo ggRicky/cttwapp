@@ -67,7 +67,7 @@ return [
         */
     ],
 
-    // 2018-02-05 13:54 Hrs. : Register a class to check .
+    // 2018-02-05 13:54 Hrs. : Register a class to change dynamically the language application .
 
     'as beforeRequest' => [
         'class' => 'frontend\components\ChgeDynLangApp',

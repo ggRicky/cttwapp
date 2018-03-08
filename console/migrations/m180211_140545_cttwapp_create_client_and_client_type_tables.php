@@ -12,6 +12,44 @@ class m180211_140545_cttwapp_create_client_and_client_type_tables extends Migrat
      */
     public function safeUp()
     {
+        // client
+        $this->createTable('{{%client}}', [
+            'id' => $this->integer()->notNull(),
+            'rfc' => $this->string(13)->notNull(),
+            'curp' => $this->char(18)->null(),
+            'moral' => $this->boolean()->notNull(),
+            'first_name' => $this->string(150)->null(),
+            'paternal_name' => $this->string(50)->null(),
+            'maternal_name' => $this->string(50)->null(),
+            'created_at' => $this->timestamp()->notNull(),
+            'updated_at' => $this->timestamp()->notNull(),
+            'created_by' => $this->integer()->notNull(),
+            'updated_by' => $this->integer()->notNull(),
+            'client_type_id' => $this->integer()->null(),
+            'PRIMARY KEY (id)',
+        ]);
+
+        // client_type
+        $this->createTable('{{%client_type}}', [
+            'id' => $this->primaryKey(),
+            'type_desc' => $this->string(50)->notNull(),
+        ]);
+
+        // user
+        $this->createTable('{{%user}}', [
+            'id' => $this->primaryKey(),
+            'username' => $this->string(255)->notNull()->unique(),
+            'auth_key' => $this->string(32)->notNull(),
+            'password_hash' => $this->string(255)->notNull(),
+            'password_reset_token' => $this->string(255)->null()->unique(),
+            'email' => $this->string(255)->notNull()->unique(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
+        ]);
+
+        // fk: client
+        $this->addForeignKey('fk_client_id', '{{%client}}', 'id', '{{%client_type}}', 'id');
 
     }
 
@@ -21,6 +59,10 @@ class m180211_140545_cttwapp_create_client_and_client_type_tables extends Migrat
     public function safeDown()
     {
         echo "m180211_140545_cttwapp_create_client_and_client_type_tables cannot be reverted.\n";
+
+        $this->dropTable('{{%client}}'); // fk: id
+        $this->dropTable('{{%client_type}}');
+        $this->dropTable('{{%user}}');
 
         return false;
     }

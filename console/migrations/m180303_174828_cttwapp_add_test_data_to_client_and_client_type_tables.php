@@ -36,6 +36,9 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
                                   [5,'Internacional']
                                 ]
        );
+
+       // This is records for client table in cttwapp_db
+
        // client test data
        $this->batchInsert('{{%client}}',
                                 ['id','rfc','curp','moral','first_name','paternal_name','maternal_name','created_at','updated_at','created_by','updated_by','client_type_id'],

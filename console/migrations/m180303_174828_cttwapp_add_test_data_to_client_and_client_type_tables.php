@@ -12,6 +12,7 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
      */
     public function safeUp()
     {
+       // This is records for user table in cttwapp_db
 
        // user data
        $this->batchInsert('{{%user}}',

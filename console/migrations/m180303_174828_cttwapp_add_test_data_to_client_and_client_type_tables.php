@@ -12,7 +12,7 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
      */
     public function safeUp()
     {
-       // This is records for user table in cttwapp_db
+       // These are test records for user table in cttwapp_db
 
        // user data
        $this->batchInsert('{{%user}}',
@@ -23,7 +23,7 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
            ]
        );
 
-       // This is records for client_type table in cttwapp_db
+       // These are test records for client_type table in cttwapp_db
 
        // client_type test data
        $this->batchInsert('{{%client_type}}',
@@ -37,7 +37,7 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
                                 ]
        );
 
-       // This is records for client table in cttwapp_db
+       // These are test records for client table in cttwapp_db
 
        // client test data
        $this->batchInsert('{{%client}}',

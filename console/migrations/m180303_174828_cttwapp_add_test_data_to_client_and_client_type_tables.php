@@ -18,8 +18,8 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
        $this->batchInsert('{{%user}}',
            ['id','username','auth_key','password_hash','password_reset_token','email','status','created_at','updated_at'],
            [
-               [1,'ggRicardo67','VME-eX2fUMhBKUmouNLnxf2DYTB9rI7_','$2y$13$3J0Dy8dSiRVwVuOEKtBis.b.xG/Ll.2Zl8mSk7KLcY7mzLg6w2I7W','NULL', 'ricardo.gonzalez@itcelaya.edu.mx', 10, 1498607808, 1498607808],
-               [2,'CTT1GG','TUVyGz98PPtuE1mtaS50HPOctesT2j2H','$$2y$13$6UkRvFjjrEt56YRTRNK4f.TlLCFW2chGzldl2gqHwoMvtmlkLSFo2','NULL', 'direccion@cttrentals.com', 10, 1518472527, 1518472527],
+               [1,'ggRicardo67','VME-eX2fUMhBKUmouNLnxf2DYTB9rI7_','$2y$13$3J0Dy8dSiRVwVuOEKtBis.b.xG/Ll.2Zl8mSk7KLcY7mzLg6w2I7W','abc', 'ricardo.gonzalez@itcelaya.edu.mx', 10, 1498607808, 1498607808],
+               [2,'CTT1GG','TUVyGz98PPtuE1mtaS50HPOctesT2j2H','$$2y$13$6UkRvFjjrEt56YRTRNK4f.TlLCFW2chGzldl2gqHwoMvtmlkLSFo2','xyz', 'direccion@cttrentals.com', 10, 1518472527, 1518472527],
            ]
        );
 
@@ -70,6 +70,7 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
 
         $this->db->createCommand('TRUNCATE TABLE client CASCADE')->execute();
         $this->db->createCommand('TRUNCATE TABLE client_type CASCADE')->execute();
-        $this->db->createCommand('TRUNCATE TABLE user')->execute();
+        $this->db->createCommand('TRUNCATE TABLE "user"')->execute();
+
     }
 }

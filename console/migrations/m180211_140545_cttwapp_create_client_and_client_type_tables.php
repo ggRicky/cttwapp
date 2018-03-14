@@ -64,7 +64,6 @@ class m180211_140545_cttwapp_create_client_and_client_type_tables extends Migrat
         $this->dropTable('{{%client_type}}');
         $this->dropTable('{{%user}}');
 
-        return false;
     }
 
     /*

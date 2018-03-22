@@ -4,6 +4,11 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use kartik\dialog\Dialog;
 
+/* 2018-03-17 : Used to display Description Type for the actual client record */
+use yii\helpers\ArrayHelper;
+use app\models\ClientType;
+
+
 /* @var $this yii\web\View */
 
 $this->title = 'Clientes';
@@ -73,9 +78,15 @@ $baseUrl = $asset->baseUrl;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+                        [ 'class' => 'yii\grid\SerialColumn',
+                          'headerOptions' => ['style' => 'width:3%'],
+                        ],
 
-                        'id',
+                        [
+                          'attribute' => 'id',
+                          'headerOptions' => ['style' => 'width:3%'],
+                        ],
+
                         'rfc',
                         'curp',
                         'moral:boolean',
@@ -86,11 +97,21 @@ $baseUrl = $asset->baseUrl;
                         'updated_at',
                         'created_by',
                         'updated_by',
-                        'client_type_id',
 
-                        ['class' => 'yii\grid\ActionColumn'],
+                        // 2018-03-17 : Modified to display the ID and the Client Type Description instead of the ID only.
+                        [
+                          'attribute' => 'client_type_id',
+                          'headerOptions' => ['style' => 'width:10%'],
+                          'value' => function($model){
+                                        return implode(",",ArrayHelper::map(ClientType::find()->where(['id' =>  $model->client_type_id])->all(),'id','displayTypeDesc'));
+                                     }
+                        ],
+
+                        [ 'class' => 'yii\grid\ActionColumn',
+                          'headerOptions' => ['style' => 'width:5%'],
+                        ],
                     ],
-                ]); ?>
+                ]);?>
 
             </div>
         </div>

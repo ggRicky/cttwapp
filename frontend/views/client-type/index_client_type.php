@@ -71,12 +71,24 @@ $baseUrl = $asset->baseUrl;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+                        [ 'class' => 'yii\grid\SerialColumn',
+                          'headerOptions' => ['style' => 'width:5%'],
+                        ],
 
-                        'id',
-                        'type_desc',
+                        [
+                          'attribute' => 'id',
+                          'headerOptions' => ['style' => 'width:5%'],
+                        ],
 
-                        ['class' => 'yii\grid\ActionColumn'],
+                        [
+                          'attribute' => 'type_desc',
+                          'headerOptions' => ['style' => 'width:85%'],
+                        ],
+
+                        [ 'class' => 'yii\grid\ActionColumn',
+                          'headerOptions' => ['style' => 'width:5%'],
+
+                        ],
                     ],
                 ]); ?>
 

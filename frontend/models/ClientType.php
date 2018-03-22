@@ -51,4 +51,13 @@ class ClientType extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Client::className(), ['id' => 'id']);
     }
+
+    /** 2018-03-16 : Get the string data ['id']-['type_desc']
+     *
+     */
+    public function getDisplayTypeDesc()
+    {
+        return $this->id . ' - ' . $this->type_desc;
+    }
+
 }

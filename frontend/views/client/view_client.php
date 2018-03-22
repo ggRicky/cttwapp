@@ -3,6 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+/* 2018-03-17 : Used to display Description Type for the actual client record */
+use yii\helpers\ArrayHelper;
+use app\models\ClientType;
+
 /* @var $this yii\web\View */
 
 $this->title = 'Cliente';
@@ -77,9 +81,13 @@ $baseUrl = $asset->baseUrl;
                         'updated_at',
                         'created_by',
                         'updated_by',
-                        'client_type_id',
-                    ],
-                ]) ?>
+                        // 2018-03-17 : Modified to display the ID and the Client Type Description instead of the ID only.
+                        [
+                          'attribute' => 'client_type_id',
+                          'value' => implode(",",ArrayHelper::map(ClientType::find()->where(['id' => $model->client_type_id])->all(),'id','displayTypeDesc')),
+                        ],
+                     ],
+                ]); ?>
 
             </div>
         </div>

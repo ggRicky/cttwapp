@@ -65,10 +65,13 @@ $baseUrl = $asset->baseUrl;
 
                 <?= DetailView::widget([
                     'model' => $model,
+                    // 2018-03-22 : Using this template the labels and values there are redistributing the row area
+                    'template' => '<tr><th width="10%">{label}</th><td width="80%">{value}</td></tr>',
                     'attributes' => [
                         'id',
                         'type_desc',
                     ],
+
                 ]) ?>
 
             </div>

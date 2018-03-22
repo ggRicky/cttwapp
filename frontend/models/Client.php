@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 
+
 /**
  * This is the model class for table "client".
  *
@@ -79,4 +80,6 @@ class Client extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ClientType::className(), ['id' => 'id']);
     }
+
+
 }

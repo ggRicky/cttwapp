@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 /* 2018-03-14 : Used for built a list of available ClientType records */
 use yii\helpers\ArrayHelper;
@@ -16,7 +17,35 @@ use app\models\ClientType;
 
 <div class="client-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin();
+
+     // Init the date model fields
+
+     $model->created_at = ($model->isNewRecord ? date('Y-m-d G:i:s') : $model->created_at);
+     $model->updated_at = date('Y-m-d G:i:s');
+
+     // Init the user model fields
+
+     if (isset(Yii::$app->user->identity)) {
+
+         // If the user identity object is created, then init the model fields with the user Id
+
+         $model->created_by = ($model->isNewRecord ? Yii::$app->user->identity->getId() : $model->created_by);
+         $model->updated_by = Yii::$app->user->identity->getId();
+
+     }
+     else{
+
+         // If the user identity object isn't created, then init the model fields with -1 ( Undefined yet )
+
+         // Important : In the future, any record ( inserted or updated ) will be done by one authenticated user.
+
+         $model->created_by = -1;
+         $model->updated_by = -1;
+
+     }
+
+    ?>
 
     <?= $form->field($model, 'id')->textInput() ?>
 
@@ -32,35 +61,37 @@ use app\models\ClientType;
 
     <?= $form->field($model, 'maternal_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <!-- The next fields are read only and filled automatically -->
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    <?= $form->field($model, 'created_at')->textInput(['readonly' => true]) ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    <?= $form->field($model, 'updated_at')->textInput(['readonly' => true]) ?>
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    <?= $form->field($model, 'created_by')->textInput(['readonly' => true]) ?>
+
+    <?= $form->field($model, 'updated_by')->textInput(['readonly' => true]) ?>
 
     <?php
 
-        // v1.0
+    // v1.0
 
-        // 2018-03-14 : Get all records from ClientType model.
-        // 2018-03-14 : Build an data array in pairs ['id']['type_desc'].
-        // 2018-03-14 : Add a dropDownList ClientType record selector.
+    // 2018-03-14 : Get all records from ClientType model.
+    // 2018-03-14 : Build an data array in pairs ['id']['type_desc'].
+    // 2018-03-14 : Add a dropDownList ClientType record selector.
 
-        // echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->all(),'id','type_desc'), ['prompt'=>'Seleccione...']);
+    // echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->all(),'id','type_desc'), ['prompt'=>'Seleccione...']);
 
-        // v2.0
+    // v2.0
 
-        // 2018-03-16 : Change find()->all() by find()->select(). This approach is more suitable because select only the requested columns.
+    // 2018-03-16 : Change find()->all() by find()->select(). This approach is more suitable because select only the requested columns.
 
-        // echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->all(),'id','type_desc'), ['prompt'=>'Seleccione...']);
+    // echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->all(),'id','type_desc'), ['prompt'=>'Seleccione...']);
 
-        // v3.0
+    // v3.0
 
-        // 2018-03-16 : Use a function callback ('displayTypeDesc') to return the Id and Description Type for this field ('client_type_id').
+    // 2018-03-16 : Use a function callback ('displayTypeDesc') to return the Id and Description Type for this field ('client_type_id').
 
-        echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->all(),'id','displayTypeDesc'), ['prompt'=>'Seleccione...']);
+    echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt'=>'Seleccione...']);
 
     ?>
 

@@ -28,24 +28,26 @@ $baseUrl = $asset->baseUrl;
             <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="pull-left img-responsive" height="42" width="105"/>
         </div>
 
-        <!-- CTT default options ribbon -->
-        <div class="ctt-mini-bar-top">
-            <?php
-                if (Yii::$app->user->isGuest){
-                    echo "<div class=\"btn-group\">";
-                    echo "<a href='" . Url::to(['site/signup']) . "' class=\"btn btn-primary\">Registro</a>";
-                    echo "<a href='" . Url::to(['site/login', '#' => 'work-area-index'])  . "' class=\"btn btn-primary\">Sesión</a>";
-                    echo "</div>";
-                }
-                else{
-                    $options = ['style' => ['color' => 'white', 'font-size' => 'large']];
-                    echo Html::beginForm(['/site/logout'], 'post');
-                    echo Html::tag('label', Yii::$app->user->identity->username, $options) . "&nbsp;&nbsp;&nbsp;";
-                    echo Html::submitButton('Cerrar', ['class' => 'btn btn-primary']);
-                    echo Html::endForm();
-                };
-            ?>
-        </div>
+        <!-- CTT default actions ribbon -->
+        <?php
+            // 2018-04-08 : This code was refactored, using only Html helper
+            if (Yii::$app->user->isGuest){
+                echo Html::begintag('div', ['class'=>'ctt-mini-bar-top-center']);
+                echo Html::begintag('div', ['class'=>'btn-group']);
+                echo Html::a('Registro', ['site/signup'], ['class'=>'btn btn-primary']);
+                echo Html::a('Sesión', ['site/login', '#'=>'work-area-index'], ['class'=>'btn btn-primary']);
+                echo Html::endtag('div');
+                echo Html::endtag('div');
+            }
+            else{
+                echo Html::begintag('div', ['class'=>'ctt-mini-bar-top-right']);
+                echo Html::beginForm(['/site/logout'], 'post');
+                echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color'=>'white', 'font-size'=>'large']]) . "&nbsp;&nbsp;&nbsp;";
+                echo Html::submitButton('Cerrar', ['class'=>'btn btn-primary']);
+                echo Html::endForm();
+                echo Html::endtag('div');
+            };
+        ?>
 
         <!-- Content menu -->
         <li>
@@ -323,7 +325,7 @@ $baseUrl = $asset->baseUrl;
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
                         <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-2018 <br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
                     </div>
                 </div>
             </div>
@@ -384,7 +386,7 @@ $baseUrl = $asset->baseUrl;
     </div>
 </div>
 
-<!-- Modal Success : User Logged -->
+<!-- 2018-02-09 : Modal Success : User Logged -->
 <div id="ctt-modal-usr-logged" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -644,7 +646,7 @@ $baseUrl = $asset->baseUrl;
     </div>
 </div>
 
-<!--If the user was logged successfully, then display the modal window notification, using PHP & jQuery -->
+<!-- 2018-02-09 : If the user was logged successfully, then display the modal window notification, using PHP & jQuery -->
 
 <?php
 

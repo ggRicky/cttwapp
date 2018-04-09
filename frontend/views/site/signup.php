@@ -12,6 +12,20 @@ $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
 ?>
+
+<?php
+
+// 2018-04-08 : If there is an flash message, then skip the header and go to the error-area using javascript.
+If (Yii::$app->session->hasFlash('error'))
+{
+$script = <<< JS
+    location.hash = "#error-area"; 
+JS;
+$this->registerJs($script);
+}
+
+?>
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
@@ -27,7 +41,7 @@ $baseUrl = $asset->baseUrl;
 </header>
 
 <!-- Blue ribbon decoration -->
-<section class="ctt-section bg-primary">
+<section id="error-area" class="ctt-section bg-primary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
@@ -66,17 +80,41 @@ $baseUrl = $asset->baseUrl;
 
             <p>Para registrarse como usuario, por favor ingrese sus datos de autentificación en los siguientes campos :</p>
 
+            <!-- 2018-04-08 : If there is an flash message, then display it.-->
+            <?php If (Yii::$app->session->hasFlash('error')): ?>
+               <div class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h4><strong>¡ Advertencia !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+               </div>
+            <?php endif; ?>
+
             <div class="site-signup">
 
                 <div class="row">
                     <div class="col-lg-5">
-                        <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+
+                        <?php $form = ActiveForm::begin(['id' => 'signup-form']); ?>
 
                             <?= $form->field($model, 'username')->textInput() ?>
 
                             <?= $form->field($model, 'email') ?>
 
                             <?= $form->field($model, 'password')->passwordInput() ?>
+
+                            <!-- 2018-04-05 : The new user form fields -->
+
+                            <?= $form->field($model, 'first')->textInput(['style'=>'text-transform: uppercase']) ?>
+
+                            <?= $form->field($model, 'paternal')->textInput(['style'=>'text-transform: uppercase']) ?>
+
+                            <?= $form->field($model, 'maternal')->textInput(['style'=>'text-transform: uppercase']) ?>
+
+                            <?= $form->field($model, 'curp')->textInput(['style'=>'text-transform: uppercase']) ?>
+
+                            <div>
+                                <p class="required-field">* Campo Requerido</p><br><br>
+                            </div>
 
                             <div class="form-group">
                                 <?= Html::submitButton('Registrar', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
@@ -106,7 +144,7 @@ $baseUrl = $asset->baseUrl;
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
                         <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-2018 <br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
                     </div>
                 </div>
             </div>

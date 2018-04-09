@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 
 /**
  * This is the model class for table "client".
@@ -17,6 +15,10 @@ use Yii;
  * @property string $maternal_name
  * @property string $created_at
  * @property string $updated_at
+ * @property string $phone1
+ * @property string $phone2
+ * @property string $email1
+ * @property string $email2
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $client_type_id
@@ -39,16 +41,16 @@ class Client extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'rfc', 'moral', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
+            [['id', 'rfc', 'moral', 'first_name', 'paternal_name', 'maternal_name'], 'required'],
             [['id', 'created_by', 'updated_by', 'client_type_id'], 'integer'],
+            [['id'], 'unique'],
             [['moral'], 'boolean'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at'], 'date', 'format' => 'php:Y-m-d G:i:s'],
             [['rfc'], 'string', 'max' => 13],
             [['curp'], 'string', 'max' => 18],
             [['first_name'], 'string', 'max' => 150],
             [['paternal_name', 'maternal_name'], 'string', 'max' => 50],
-            [['id'], 'unique'],
-            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => ClientType::className(), 'targetAttribute' => ['id' => 'id']],
+            [['client_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ClientType::className(), 'targetAttribute' => ['client_type_id' => 'id']],
         ];
     }
 

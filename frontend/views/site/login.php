@@ -110,7 +110,7 @@ $baseUrl = $asset->baseUrl;
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
                         <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-2018 <br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
                     </div>
                 </div>
             </div>
@@ -125,4 +125,3 @@ $baseUrl = $asset->baseUrl;
         </div>
     </section>
 </footer>
-

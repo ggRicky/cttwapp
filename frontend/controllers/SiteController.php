@@ -156,6 +156,13 @@ class SiteController extends Controller
                     return $this->goHome();
                 }
             }
+
+            // 2018-04-08 : An error occurred in the data capture. A flash message is issued.
+
+            Yii::$app->session->setFlash('error', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+            return $this->render('signup', [
+                'model' => $model,
+            ]);
         }
 
         return $this->render('signup', [
@@ -173,11 +180,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', Yii::t('app','Revise su correo para obtener más instrucciones.'));
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+                Yii::$app->session->setFlash('error', Yii::t('app','Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.'));
             }
         }
 
@@ -202,7 +209,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
+            Yii::$app->session->setFlash('success', Yii::t('app','Nueva contraseña generada.'));
 
             return $this->goHome();
         }

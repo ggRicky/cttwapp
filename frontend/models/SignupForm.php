@@ -1,6 +1,7 @@
 <?php
 namespace frontend\models;
 
+use yii;
 use yii\base\Model;
 use common\models\User;
 
@@ -13,6 +14,13 @@ class SignupForm extends Model
     public $email;
     public $password;
 
+    // 2018-04-05 : The new properties for the user's extended model
+
+    public $first;
+    public $paternal;
+    public $maternal;
+    public $curp;
+
 
     /**
      * @inheritdoc
@@ -22,17 +30,35 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('app','Este nombre de usuario ya fue asignado.')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('app','Esta dirección de correo ya fue asignada.')],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+
+            // 2018-04-05 : The rules for the user new fields
+
+            ['first', 'trim'],
+            ['first', 'required'],
+            ['first', 'string', 'max' => 50],
+
+            ['paternal', 'trim'],
+            ['paternal', 'required'],
+            ['paternal', 'string', 'max' => 35],
+
+            ['maternal', 'trim'],
+            ['maternal', 'required'],
+            ['maternal', 'string', 'max' => 35],
+
+            ['curp', 'trim'],
+            ['curp', 'required'],
+            ['curp', 'string', 'min' => 18, 'max' => 18],
         ];
     }
 
@@ -42,6 +68,13 @@ class SignupForm extends Model
             'username' => 'Usuario',
             'password' => 'Contraseña',
             'email'    => 'Correo electrónico',
+
+            // 2018-04-05 : The labels for the user new fields
+
+            'first'    => 'Nombre',
+            'paternal' => 'Apellido Paterno',
+            'maternal' => 'Apellido Materno',
+            'curp'     => 'CURP',
         ];
     }
 
@@ -61,7 +94,14 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        
+
+        // 2018-04-05 : The values for the user new fields
+
+        $user->first_name = mb_strtoupper($this->first, 'UTF-8');
+        $user->paternal_name = mb_strtoupper($this->paternal, 'UTF-8');
+        $user->maternal_name = mb_strtoupper($this->maternal, 'UTF-8');
+        $user->curp = strtoupper($this->curp);
+
         return $user->save() ? $user : null;
     }
 }

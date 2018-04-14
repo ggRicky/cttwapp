@@ -82,6 +82,7 @@ $this->registerJs($script);
                 <?= Html::a('Tipos de Clientes', ['client-type/index', '#' => 'work-area-index-cte'], ['class' => 'btn btn-primary']) ?>
             </p>
 
+            <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
             <div id="div-scroll" class="div-scroll-area">
 
                 <?= GridView::widget([

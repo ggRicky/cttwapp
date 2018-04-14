@@ -74,6 +74,7 @@ JS;
                 <?= Html::a('Crear Tipo de Cliente', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
 
+            <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
             <div id="div-scroll" class="div-scroll-area">
 
                 <?= GridView::widget([

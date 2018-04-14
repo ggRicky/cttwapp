@@ -1,7 +1,6 @@
 <?php
 
-use yii\db\Schema;
-use jamband\schemadump\Migration;
+use yii\db\Migration;
 
 class m180409_004812_cttwapp_modify_user_table_and_fk_client_client_type_id extends Migration
 {
@@ -18,7 +17,6 @@ class m180409_004812_cttwapp_modify_user_table_and_fk_client_client_type_id exte
 
         // 2018-04-06 : fk: Add the new client foreign key.
         $this->addForeignKey('fk_client_client_type_id', '{{%client}}', 'client_type_id', '{{%client_type}}', 'id');
-
     }
 
     public function safeDown()

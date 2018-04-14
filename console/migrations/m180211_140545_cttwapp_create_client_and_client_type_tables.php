@@ -35,19 +35,6 @@ class m180211_140545_cttwapp_create_client_and_client_type_tables extends Migrat
             'type_desc' => $this->string(50)->notNull(),
         ]);
 
-        // user
-        $this->createTable('{{%user}}', [
-            'id' => $this->primaryKey(),
-            'username' => $this->string(255)->notNull()->unique(),
-            'auth_key' => $this->string(32)->notNull(),
-            'password_hash' => $this->string(255)->notNull(),
-            'password_reset_token' => $this->string(255)->null()->unique(),
-            'email' => $this->string(255)->notNull()->unique(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
-        ]);
-
         // fk: client
         $this->addForeignKey('fk_client_id', '{{%client}}', 'id', '{{%client_type}}', 'id');
 

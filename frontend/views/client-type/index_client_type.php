@@ -70,11 +70,11 @@ JS;
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
-            <div class="client-index">
+            <p>
+                <?= Html::a('Crear Tipo de Cliente', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
 
-                <p>
-                    <?= Html::a('Crear Tipo de Cliente', ['create'], ['class' => 'btn btn-success']) ?>
-                </p>
+            <div id="div-scroll" class="div-scroll-area">
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,

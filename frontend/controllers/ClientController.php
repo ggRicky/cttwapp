@@ -41,6 +41,7 @@ class ClientController extends Controller
         return $this->render('index_client', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'qryParams' => Yii::$app->request->queryParams,   // 2018-04-11 : This parameter is send to index_client.php view for test if 'ClientSearch'
         ]);
     }
 

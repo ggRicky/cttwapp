@@ -2,10 +2,8 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Client;
 
 /**
  * ClientSearch represents the model behind the search form about `app\models\Client`.
@@ -18,9 +16,8 @@ class ClientSearch extends Client
     public function rules()
     {
         return [
-            [['id', 'created_by', 'updated_by', 'client_type_id'], 'integer'],
-            [['rfc', 'curp', 'first_name', 'paternal_name', 'maternal_name', 'created_at', 'updated_at'], 'safe'],
-            [['moral'], 'boolean'],
+            [['id'], 'integer'],
+            [['rfc', 'curp', 'taxpayer'], 'safe'],
         ];
     }
 
@@ -61,19 +58,13 @@ class ClientSearch extends Client
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'moral' => $this->moral,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'client_type_id' => $this->client_type_id,
         ]);
 
+        // 2018-04-10 : New fields add to client table in refactoring action.
+
         $query->andFilterWhere(['like', 'rfc', $this->rfc])
-            ->andFilterWhere(['like', 'curp', $this->curp])
-            ->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'paternal_name', $this->paternal_name])
-            ->andFilterWhere(['like', 'maternal_name', $this->maternal_name]);
+              ->andFilterWhere(['like', 'curp', $this->curp])
+              ->andFilterWhere(['like', 'taxpayer', $this->taxpayer]);
 
         return $dataProvider;
     }

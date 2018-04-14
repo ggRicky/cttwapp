@@ -15,7 +15,17 @@ $this->title = 'Clientes';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+// 2018-04-11 : If there are a query or a sort criteria in process, then skip the header and go to the work-area-index using javascript code.
+If (array_key_exists('ClientSearch',$qryParams) || array_key_exists('sort',$qryParams))
+{
+$script = <<< JS
+    location.hash = "#work-area-index";
+JS;
+$this->registerJs($script);
+}
+
 ?>
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
@@ -67,17 +77,21 @@ $baseUrl = $asset->baseUrl;
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
-            <div class="client-index">
+            <p>
+                <?= Html::a('Crear Cliente', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Tipos de Clientes', ['client-type/index', '#' => 'work-area-index-cte'], ['class' => 'btn btn-primary']) ?>
+            </p>
 
-                <p>
-                    <?= Html::a('Crear Cliente', ['create'], ['class' => 'btn btn-success']) ?>
-                    <?= Html::a('Tipos de Clientes', ['client-type/index', '#' => 'work-area-index-cte'], ['class' => 'btn btn-primary']) ?>
-                </p>
+            <div class="div-scroll-area">
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
+                        [ 'class' => 'yii\grid\ActionColumn',
+                            'headerOptions' => ['style' => 'width:4%'],
+                        ],
+
                         [ 'class' => 'yii\grid\SerialColumn',
                           'headerOptions' => ['style' => 'width:3%'],
                         ],
@@ -89,10 +103,41 @@ $baseUrl = $asset->baseUrl;
 
                         'rfc',
                         'curp',
-                        'moral:boolean',
-                        'first_name',
-                        'paternal_name',
-                        'maternal_name',
+                        [
+                          'attribute' => 'taxpayer',
+                          'value' => function($model){
+                                return ($model->taxpayer=='M'?'Moral':'Física');
+                           },
+                          'contentOptions' => function ($model, $key, $index, $column) {
+                                return ['style' => 'color:'. ($model->taxpayer=='M'?'grey':'#428bca')];
+                           },
+                        ],
+
+                        // 2018-04-10 : New fields add to client table in refactoring action.
+
+                        [
+                          'attribute' => 'business_name',
+                          'contentOptions' => ['style' => 'color:red'],
+                        ],
+
+                        'corporate',
+                        'provenance',
+                        'contact_name',
+                        'contact_email',
+                        'tax_residence',
+                        'street',
+                        'outdoor_number',
+                        'interior_number',
+                        'suburb',
+                        'municipality',
+                        'delegation',
+                        'state',
+                        'zip_code',
+                        'phone_number_1',
+                        'phone_number_2',
+                        'web_page',
+                        'client_email',
+
                         'created_at',
                         'updated_at',
                         'created_by',
@@ -101,14 +146,10 @@ $baseUrl = $asset->baseUrl;
                         // 2018-03-17 : Modified to display the ID and the Client Type Description instead of the ID only.
                         [
                           'attribute' => 'client_type_id',
-                          'headerOptions' => ['style' => 'width:10%'],
+                          'headerOptions' => ['style' => 'width:12%'],
                           'value' => function($model){
                                         return implode(",",ArrayHelper::map(ClientType::find()->where(['id' =>  $model->client_type_id])->all(),'id','displayTypeDesc'));
                                      }
-                        ],
-
-                        [ 'class' => 'yii\grid\ActionColumn',
-                          'headerOptions' => ['style' => 'width:5%'],
                         ],
                     ],
                 ]);?>
@@ -121,8 +162,8 @@ $baseUrl = $asset->baseUrl;
 <section>
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <a href="#work-area-index">
-            <span class="glyphicon glyphicon-circle-arrow-up"></span>
+        <a class="tooltip-conf" href="#work-area-index" data-toggle="tooltip" title="Ir al inicio">
+           <span class="glyphicon glyphicon-circle-arrow-up"></span>
         </a>
     </div>
 </section>

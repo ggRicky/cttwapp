@@ -14,6 +14,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type_desc')->textInput(['maxlength' => true]) ?>
 
+    <div>
+        <p class="required-field">* <?= Yii::t('app','Campo Requerido') ?></p><br><br>
+    </div>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

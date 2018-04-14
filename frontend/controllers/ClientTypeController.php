@@ -41,6 +41,7 @@ class ClientTypeController extends Controller
         return $this->render('index_client_type', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'qryParams' => Yii::$app->request->queryParams,   // 2018-04-11 : This parameter is send to index_client_type.php view for test if 'ClientTypeSearch'
         ]);
     }
 

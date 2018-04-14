@@ -21,6 +21,7 @@ return [
     'Revise su correo para obtener más instrucciones.' => 'Check your email for further instructions.',
     'Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.' => 'Sorry, we are unable to reset password for the provided email address.',
     'Nueva contraseña generada.' => 'New password saved.',
+    'Campo Requerido' => 'Required Field',
 ];
 
 ?>

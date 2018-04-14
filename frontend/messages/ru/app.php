@@ -16,6 +16,7 @@ return [
     'Revise su correo para obtener más instrucciones.' => 'Проверьте свои электронные письма для получения дополнительных инструкций.',
     'Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.' => 'К сожалению, нам не удалось повторно ввести пароль указанной учетной записи электронной почты.',
     'Nueva contraseña generada.' => 'Создан новый пароль.',
+    'Campo Requerido' => 'Поле обязательное',
 ];
 
 ?>

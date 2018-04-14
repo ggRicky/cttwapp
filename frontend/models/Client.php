@@ -9,22 +9,34 @@ namespace app\models;
  * @property integer $id
  * @property string $rfc
  * @property string $curp
- * @property boolean $moral
- * @property string $first_name
- * @property string $paternal_name
- * @property string $maternal_name
+ * @property string $taxpayer
  * @property string $created_at
  * @property string $updated_at
- * @property string $phone1
- * @property string $phone2
- * @property string $email1
- * @property string $email2
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $client_type_id
+ * @property string $provenance
+ * @property string $business_name
+ * @property string $corporate
+ * @property string $contact_name
+ * @property string $contact_email
+ * @property string $tax_residence
+ * @property string $street
+ * @property string $outdoor_number
+ * @property string $interior_number
+ * @property string $suburb
+ * @property string $municipality
+ * @property string $delegation
+ * @property string $state
+ * @property string $zip_code
+ * @property string $phone_number_1
+ * @property string $phone_number_2
+ * @property string $web_page
+ * @property string $client_email
  *
  * @property ClientType $id0
  */
+
 class Client extends \yii\db\ActiveRecord
 {
     /**
@@ -41,15 +53,26 @@ class Client extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'rfc', 'moral', 'first_name', 'paternal_name', 'maternal_name'], 'required'],
+            [['id', 'rfc', 'taxpayer', 'provenance', 'business_name', 'state', 'corporate', 'tax_residence', 'street',
+              'outdoor_number', 'suburb', 'municipality', 'delegation', 'zip_code', 'phone_number_1', 'client_email',], 'required'],
             [['id', 'created_by', 'updated_by', 'client_type_id'], 'integer'],
             [['id'], 'unique'],
-            [['moral'], 'boolean'],
+
             [['created_at', 'updated_at'], 'date', 'format' => 'php:Y-m-d G:i:s'],
             [['rfc'], 'string', 'max' => 13],
             [['curp'], 'string', 'max' => 18],
-            [['first_name'], 'string', 'max' => 150],
-            [['paternal_name', 'maternal_name'], 'string', 'max' => 50],
+
+            [['taxpayer', 'provenance'], 'string', 'max' => 1],
+            [['business_name'], 'string', 'max' => 150],
+            [['tax_residence'], 'string', 'max' => 100],
+            [['street'], 'string', 'max' => 60],
+            [['corporate', 'contact_name', 'suburb', 'municipality', 'delegation'], 'string', 'max' => 80],
+            [['outdoor_number', 'interior_number'], 'string', 'max' => 10],
+            [['state', 'web_page'], 'string', 'max' => 50],
+            [['zip_code'], 'string', 'max' => 5],
+            [['phone_number_1', 'phone_number_2'], 'string', 'max' => 15],
+            [['client_email', 'contact_email'], 'string', 'max' => 255],
+
             [['client_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ClientType::className(), 'targetAttribute' => ['client_type_id' => 'id']],
         ];
     }
@@ -63,15 +86,30 @@ class Client extends \yii\db\ActiveRecord
             'id' => 'ID',
             'rfc' => 'RFC',
             'curp' => 'CURP',
-            'moral' => 'Moral',
-            'first_name' => 'Nombre',
-            'paternal_name' => 'Apellido Paterno',
-            'maternal_name' => 'Apellido Materno',
+            'taxpayer' => 'Contribuyente',
+            'business_name' => 'Razón Social',
+            'provenance' => 'Procedencia',
+            'corporate' => 'Corporativo',
+            'contact_name' => 'Nombre del Contacto',
+            'contact_email' => 'Email del contacto',
+            'tax_residence' => 'Domicilio Fiscal',
+            'street' => 'Calle',
+            'outdoor_number' => 'Número Exterior',
+            'interior_number' => 'Número Interior',
+            'suburb' => 'Colonia',
+            'municipality' => 'Municipio',
+            'delegation' => 'Delegación',
+            'state' => 'Estado',
+            'zip_code' => 'Código Postal',
+            'phone_number_1' => 'Teléfono 1',
+            'phone_number_2' => 'Teléfono 2',
+            'web_page' => 'Página Web',
+            'client_email' => 'Email del Cliente',
             'created_at' => 'Creado en',
             'updated_at' => 'Actualizado en',
             'created_by' => 'Creado por',
             'updated_by' => 'Actualizado por',
-            'client_type_id' => 'ID Tipo de cliente',
+            'client_type_id' => 'Tipo de Cliente',
         ];
     }
 
@@ -82,6 +120,5 @@ class Client extends \yii\db\ActiveRecord
     {
         return $this->hasOne(ClientType::className(), ['id' => 'id']);
     }
-
 
 }

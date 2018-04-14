@@ -9,6 +9,15 @@ $this->title = 'Tipos de Clientes';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+// 2018-04-11 : If there is a query in process, then skip the header and go to the work-area-index using javascript.
+If (array_key_exists('ClientTypeSearch',$qryParams))
+{
+    $script = <<< JS
+    location.hash = "#work-area-index-cte";
+JS;
+    $this->registerJs($script);
+}
+
 ?>
 <!-- Header -->
 <header id="top">
@@ -71,6 +80,11 @@ $baseUrl = $asset->baseUrl;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
+                        [ 'class' => 'yii\grid\ActionColumn',
+                            'headerOptions' => ['style' => 'width:5%'],
+
+                        ],
+
                         [ 'class' => 'yii\grid\SerialColumn',
                           'headerOptions' => ['style' => 'width:5%'],
                         ],
@@ -84,11 +98,6 @@ $baseUrl = $asset->baseUrl;
                           'attribute' => 'type_desc',
                           'headerOptions' => ['style' => 'width:85%'],
                         ],
-
-                        [ 'class' => 'yii\grid\ActionColumn',
-                          'headerOptions' => ['style' => 'width:5%'],
-
-                        ],
                     ],
                 ]); ?>
 
@@ -100,7 +109,7 @@ $baseUrl = $asset->baseUrl;
 <section>
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <a href="#work-area-index-cte">
+        <a class="tooltip-conf" href="#work-area-index-cte" data-toggle="tooltip" title="Ir al inicio">
             <span class="glyphicon glyphicon-circle-arrow-up"></span>
         </a>
     </div>

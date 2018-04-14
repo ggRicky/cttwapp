@@ -19,12 +19,12 @@ use app\models\ClientType;
 
     <?php $form = ActiveForm::begin();
 
-     // Init the date model fields
+     // Init the model's fields, with the today's date data.
 
      $model->created_at = ($model->isNewRecord ? date('Y-m-d G:i:s') : $model->created_at);
      $model->updated_at = date('Y-m-d G:i:s');
 
-     // Init the user model fields
+     // Init the model's fields, with the user's data.
 
      if (isset(Yii::$app->user->identity)) {
 
@@ -36,7 +36,7 @@ use app\models\ClientType;
      }
      else{
 
-         // If the user identity object isn't created, then init the model fields with -1 ( Undefined yet )
+         // If the user identity object isn't created, then init the model fields with -1 ( User undefined yet )
 
          // Important : In the future, any record ( inserted or updated ) will be done by one authenticated user.
 
@@ -48,27 +48,36 @@ use app\models\ClientType;
     ?>
 
     <?= $form->field($model, 'id')->textInput() ?>
-
     <?= $form->field($model, 'rfc')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'curp')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'taxpayer')->radioList(['M' => 'Persona Moral', 'F' => 'Persona Física']) ?>
 
-    <?= $form->field($model, 'moral')->checkbox() ?>
+    <!-- 2018-04-10 : New fields add to client table in refactoring action.-->
 
-    <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'provenance')->radioList(['N' => 'Nacional', 'E' => 'Extranjero']) ?>
+    <?= $form->field($model, 'business_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'corporate')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'contact_email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'tax_residence')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'outdoor_number')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'interior_number')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'suburb')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'municipality')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'delegation')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'state')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'zip_code')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'phone_number_1')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'phone_number_2')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'web_page')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'client_email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'paternal_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'maternal_name')->textInput(['maxlength' => true]) ?>
-
-    <!-- The next fields are read only and filled automatically -->
+    <!-- The next four fields are read only and filled automatically -->
 
     <?= $form->field($model, 'created_at')->textInput(['readonly' => true]) ?>
-
     <?= $form->field($model, 'updated_at')->textInput(['readonly' => true]) ?>
-
     <?= $form->field($model, 'created_by')->textInput(['readonly' => true]) ?>
-
     <?= $form->field($model, 'updated_by')->textInput(['readonly' => true]) ?>
 
     <?php
@@ -94,6 +103,10 @@ use app\models\ClientType;
     echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt'=>'Seleccione...']);
 
     ?>
+
+    <div>
+        <p class="required-field">* <?= Yii::t('app','Campo Requerido') ?></p><br><br>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

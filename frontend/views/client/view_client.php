@@ -58,8 +58,7 @@ $baseUrl = $asset->baseUrl;
 
                 <p>
                     <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger',
+                    <?= Html::a('Eliminar', ['delete', 'id' => $model->id],   ['class' => 'btn btn-danger',
                         'data' => [
                             'confirm' => Yii::t('app','¿Está seguro de eliminar este elemento?'),
                             'method' => 'post',
@@ -73,15 +72,36 @@ $baseUrl = $asset->baseUrl;
                         'id',
                         'rfc',
                         'curp',
-                        'moral:boolean',
-                        'first_name',
-                        'paternal_name',
-                        'maternal_name',
+                        'taxpayer',
+
+                        // 2018-04-10 : New fields add to client table in refactoring action.
+
+                        'business_name',
+                        'corporate',
+                        'provenance',
+                        'contact_name',
+                        'contact_email',
+                        'tax_residence',
+                        'street',
+                        'outdoor_number',
+                        'interior_number',
+                        'suburb',
+                        'municipality',
+                        'delegation',
+                        'state',
+                        'zip_code',
+                        'phone_number_1',
+                        'phone_number_2',
+                        'web_page',
+                        'client_email',
+
                         'created_at',
                         'updated_at',
                         'created_by',
                         'updated_by',
+
                         // 2018-03-17 : Modified to display the ID and the Client Type Description instead of the ID only.
+
                         [
                           'attribute' => 'client_type_id',
                           'value' => implode(",",ArrayHelper::map(ClientType::find()->where(['id' => $model->client_type_id])->all(),'id','displayTypeDesc')),
@@ -97,7 +117,7 @@ $baseUrl = $asset->baseUrl;
 <section>
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <a href="#work-area-view">
+        <a class="tooltip-conf" href="#work-area-view" data-toggle="tooltip" title="Ir al inicio">
             <span class="glyphicon glyphicon-circle-arrow-up"></span>
         </a>
     </div>

@@ -2,30 +2,16 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
-
-/* 2018-03-17 : Used to display Description Type for the actual client record */
-use yii\helpers\ArrayHelper;
-use app\models\ClientType;
-
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Clientes';
+$this->title = 'Clientes - Modals';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-04-11 : If there are a query or a sort criteria in process, then skip the header and go to the work-area-index using javascript code.
-If (array_key_exists('ClientSearch',$qryParams) || array_key_exists('sort',$qryParams))
-{
-$script = <<< JS
-    location.hash = "#work-area-index";
-JS;
-$this->registerJs($script);
-}
-
 ?>
-
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
@@ -74,87 +60,52 @@ $this->registerJs($script);
         </div>
     </div>
 
+
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
+            <div class="client-index">
 
-            <p>
-                <?= Html::a('Crear Cliente', ['create'], ['class' => 'btn btn-success']) ?>
-                <?= Html::a('Tipos de Clientes', ['client-type/index', '#' => 'work-area-index-cte'], ['class' => 'btn btn-primary']) ?>
-            </p>
+                <p>
+                    <?= Html::button('Crear Cliente', ['value' => Url::to('index.php?r=client/create'), 'class' => 'btn btn-success', 'id' => 'modalButton']) ?>
+                    <?= Html::a('Tipos de Clientes', ['client-type/index', '#' => 'work-area-index-cte'], ['class' => 'btn btn-primary']) ?>
+                </p>
 
-            <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
-            <div id="div-scroll" class="div-scroll-area">
+                <?php
+                Modal::begin([
+                    'header' => '<div class="modal-header-config-1"><span class="glyphicon glyphicon-warning-sign"></span><div class="modal-header-content-1"><h4 class="modal-title-1">Advertencia</h4></div><button type="button" class="close" data-dismiss="modal">&times;</button></div>',
+                    'closeButton' => false,
+                    'id'   => 'modal',
+                    'size' => 'modal-lg',
+                ]);
+
+                echo "<div id=\"modalContent\"></div>";
+
+                Modal::end();
+                ?>
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
-                        [ 'class' => 'yii\grid\ActionColumn',
-                            'headerOptions' => ['style' => 'width:4%'],
-                        ],
+                        ['class' => 'yii\grid\SerialColumn'],
 
-                        [ 'class' => 'yii\grid\SerialColumn',
-                          'headerOptions' => ['style' => 'width:3%'],
-                        ],
-
-                        [
-                          'attribute' => 'id',
-                          'headerOptions' => ['style' => 'width:3%'],
-                        ],
-
+                        'id',
                         'rfc',
                         'curp',
-                        [
-                          'attribute' => 'taxpayer',
-                          'value' => function($model){
-                                return ($model->taxpayer=='M'?'Moral':'Física');
-                           },
-                          'contentOptions' => function ($model, $key, $index, $column) {
-                                return ['style' => 'color:'. ($model->taxpayer=='M'?'grey':'#428bca')];
-                           },
-                        ],
-
-                        // 2018-04-10 : New fields add to client table in refactoring action.
-
-                        [
-                          'attribute' => 'business_name',
-                          'contentOptions' => ['style' => 'color:red'],
-                        ],
-
-                        'corporate',
-                        'provenance',
+                        'taxpayer',
+                        'business_name',
                         'contact_name',
-                        'contact_email',
-                        'tax_residence',
-                        'street',
-                        'outdoor_number',
-                        'interior_number',
-                        'suburb',
-                        'municipality',
-                        'delegation',
-                        'state',
-                        'zip_code',
-                        'phone_number_1',
-                        'phone_number_2',
-                        'web_page',
-                        'client_email',
-
+                        'corporate',
                         'created_at',
                         'updated_at',
                         'created_by',
                         'updated_by',
+                        'client_type_id',
 
-                        // 2018-03-17 : Modified to display the ID and the Client Type Description instead of the ID only.
-                        [
-                          'attribute' => 'client_type_id',
-                          'headerOptions' => ['style' => 'width:12%'],
-                          'value' => function($model){
-                                        return implode(",",ArrayHelper::map(ClientType::find()->where(['id' =>  $model->client_type_id])->all(),'id','displayTypeDesc'));
-                                     }
-                        ],
+                        ['class' => 'yii\grid\ActionColumn'],
                     ],
-                ]);?>
+                ]); ?>
 
             </div>
         </div>
@@ -165,7 +116,7 @@ $this->registerJs($script);
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
         <a class="tooltip-conf" href="#work-area-index" data-toggle="tooltip" title="Ir al inicio">
-           <span class="glyphicon glyphicon-circle-arrow-up"></span>
+            <span class="glyphicon glyphicon-circle-arrow-up"></span>
         </a>
     </div>
 </section>

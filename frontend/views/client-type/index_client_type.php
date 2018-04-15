@@ -83,7 +83,6 @@ JS;
                     'columns' => [
                         [ 'class' => 'yii\grid\ActionColumn',
                             'headerOptions' => ['style' => 'width:5%'],
-
                         ],
 
                         [ 'class' => 'yii\grid\SerialColumn',

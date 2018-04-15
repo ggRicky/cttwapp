@@ -87,48 +87,50 @@ HTML;
 echo $btns;
 
 // Javascript for triggering the dialogs
-$js = "$(\"#btn-alert\").on(\"click\", function() {
-       krajeeDialog.alert(\"This is a Krajee Dialog Alert!\")
-});
-$(\"#btn-confirm\").on(\"click\", function() {
-       krajeeDialog.confirm(\"Are you sure you want to proceed?\", function (result) {
-          if (result) {
-             alert('Great! You accepted!');
-          } else {
-               alert('Oops! You declined!');
-          }
+$js = <<< JS
+     $("#btn-alert").on("click", function() {
+           krajeeDialog.alert("This is a Krajee Dialog Alert!")
+    });
+    $("#btn-confirm").on("click", function() {
+           krajeeDialog.confirm("Are you sure you want to proceed?", function (result) {
+              if (result) {
+                 alert('Great! You accepted!');
+              } else {
+                   alert('Oops! You declined!');
+              }
+           });
+    });
+    $("#btn-prompt-1").on("click", function() {
+           krajeeDialog.prompt({label:'Provide reason', value: 'This is an initial reason.', placeholder:'Upto 30 characters...', maxlength: 30}, function (result) {
+              if (result) {
+                 if (result === 'This is an initial reason.') {
+                    alert('Ok! Accepting the initial reason');
+              } else {
+                   alert('Great! You provided a reason: \\n\\n' + result);
+              }
+            } else {
+                 alert('Oops! You declined!');
+            }
        });
-});
-$(\"#btn-prompt-1\").on(\"click\", function() {
-       krajeeDialog.prompt({label:'Provide reason', value: 'This is an initial reason.', placeholder:'Upto 30 characters...', maxlength: 30}, function (result) {
-          if (result) {
-             if (result === 'This is an initial reason.') {
-                alert('Ok! Accepting the initial reason');
-          } else {
-               alert('Great! You provided a reason: \\n\\n' + result);
-          }
-        } else {
-             alert('Oops! You declined!');
-        }
-   });
-});
-$(\"#btn-prompt-2\").on(\"click\", function() {
-       krajeeDialog.prompt({type: 'password', label:'Authenticate', placeholder:'Enter password to authenticate...'}, function (result) {
-       if (result) {
-          alert('Great! You provided a password: \\n\\n' + result);
-       } else {
-          alert('Oops! You declined to provide a password!');
-       }
-   });
-});
-$(\"#btn-dialog\").on(\"click\", function() {
-       krajeeDialog.dialog(
-           'This is a <b>custom dialog</b>. The dialog box is <em>draggable</em> by default and <em>closable</em> ' +
-           '(try it). Note that the Ok and Cancel buttons will do nothing here until you write the relevant JS code ' +
-           'for the buttons within \"options\". Exit the dialog by clicking the cross icon on the top right.',
-       function (result) {alert(result);}  );
-});";
+    });
+    $("#btn-prompt-2").on("click", function() {
+           krajeeDialog.prompt({type: 'password', label:'Authenticate', placeholder:'Enter password to authenticate...'}, function (result) {
+           if (result) {
+              alert('Great! You provided a password: \\n\\n' + result);
+           } else {
+              alert('Oops! You declined to provide a password!');
+           }
+       });
+    });
+    $("#btn-dialog").on("click", function() {
+           krajeeDialog.dialog(
+               'This is a <b>custom dialog</b>. The dialog box is <em>draggable</em> by default and <em>closable</em> ' +
+               '(try it). Note that the Ok and Cancel buttons will do nothing here until you write the relevant JS code ' +
+               'for the buttons within "options". Exit the dialog by clicking the cross icon on the top right.',
+           function (result) {alert(result);}  );
+    });
 
+JS;
 // Register your Javascript
 $this->registerJs($js);
 
@@ -150,10 +152,10 @@ $this->registerJs($js);
                         'id',
                         'rfc',
                         'curp',
-                        'moral:boolean',
-                        'first_name',
-                        'paternal_name',
-                        'maternal_name',
+                        'taxpayer',
+                        'business_name',
+                        'contact_name',
+                        'corporate',
                         'created_at',
                         'updated_at',
                         'created_by',

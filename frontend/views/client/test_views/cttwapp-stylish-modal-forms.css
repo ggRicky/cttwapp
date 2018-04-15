@@ -1,0 +1,708 @@
+/*
+CTTwapp v1.0
+Default CSS for application frontend
+
+Supported by ISC. Ricardo González González
+Last update : 2017-12-07
+*/
+
+/* Global Styles   |||||||||||||||||||||||||||||||||*/
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+/* Body   ||||||||||||||||||||||||||||||||||||||||||*/
+
+body {
+    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/* Footer   ||||||||||||||||||||||||||||||||||||||||*/
+
+footer {
+    padding: 50px 0 0 0;            /* top, right, bottom, left   */
+}
+
+/* Custom text styles   ||||||||||||||||||||||||||||*/
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.text-vertical-center h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 4.5em;
+    font-weight: 700;
+}
+
+.barcode-font {                     /*  Used to define a font-family needed to code the author´s signature */
+    font-family: "Libre Barcode 39 Extended","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 4.0em;
+}
+
+/* Custom Button Styles   ||||||||||||||||||||||||||*/
+
+.btn-dark {
+    border-radius: 0;
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+    color: #fff;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.btn-light {
+    border-radius: 0;
+    color: #333;
+    background-color: rgb(255,255,255);
+}
+
+.btn-light:hover,
+.btn-light:focus,
+.btn-light:active {
+    color: #333;
+    background-color: rgba(255,255,255,0.8);
+}
+
+/* Custom Horizontal Rule   ||||||||||||||||||||||||*/
+
+hr.small {
+    max-width: 100px;
+}
+
+/* Side Menu   |||||||||||||||||||||||||||||||||||||*/
+
+#sidebar-wrapper {
+    z-index: 1000;
+    opacity: .8;                /*  This property set the opacity level for the sidebar navigation  */
+    position: fixed;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    margin-right: -250px;
+    overflow-y: auto;
+    background: #373535;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-top {                  /* Used to define the attributes for a little black ribbon at top of sidebar navigation */
+    background: #000000;
+    position:relative;
+    z-index: 1;
+    height: 73px;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration:  none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 70px;
+    font-size: 22px;
+    line-height: 55px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+.btn-toggle {                   /* Used to define Close/Open button margins over the sidebar navigation */
+    margin: 15px 15px 0 0;      /* top, right, bottom, left   */
+}
+
+.ctt-mini-logo-top {            /* Used to define class selector and needed properties for the decorative black ribbon, including ctt-mini-logo in the right sidebar navigation */
+    background-color: #000000;
+    padding: 0px 0 13px 18px;   /* top, right, bottom, left   */
+}
+
+.ctt-mini-bar-top-center {      /* Used to define class selector and needed properties to include signup, and login links into black ribbon --Center Aligment-- */
+    background-color: #FF8E00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 8px 18px 8px;  /* top, right, bottom, left   */
+}
+
+.ctt-mini-bar-top-right {        /* Used to define class selector and needed properties to include user info, and logout link into black ribbon  --Right Aligment-- */
+    background-color: #FF8E00;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 18px 8px 18px 8px;  /* top, right, bottom, left   */
+}
+
+.ctt-mini-bar-opts {              /* Used to define class selector and needed properties to include about, help, signup, and login links into blue ribbon */
+    background-color: #15598c;
+}
+
+#menu-toggle {                  /* Used to define the attributes to the toggle button, pinned in the page right upper corner */
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#sidebar-wrapper.active {       /* Used to define Open/Close transition effect over sidebar navigation */
+    right: 250px;
+    width: 250px;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+/* Header   ||||||||||||||||||||||||||||||||||||||||*/
+
+.header {                       /* Used to define Header section settings in the host page */
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url(../img/poster_0.jpg) no-repeat center center scroll;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+/* About   |||||||||||||||||||||||||||||||||||||||||*/
+
+.about {
+    /* Used to define settings for About section in the host page */
+    padding: 20px 0 40px 0;     /* top, right, bottom, left   */
+}
+
+/* Operations   ||||||||||||||||||||||||||||||||||||*/
+
+.ctt-operations {
+    width: 100vw;
+    padding: 50px 0 50px 0;     /* top, right, bottom, left   */
+}
+
+.ctt-operations-item {
+    margin-bottom: 30px;
+}
+
+/* ARRI Portfolio   ||||||||||||||||||||||||||||||||*/
+
+.arri-portfolio {
+    padding: 50px 0;            /* top, right, bottom, left   */
+}
+
+.arri-portfolio-item {
+    margin-bottom: 30px;
+}
+
+.img-arri-portfolio {
+    margin: 0 auto;
+}
+
+.img-arri-portfolio:hover {
+    opacity: 0.7;
+}
+
+/* CTT  ||||||||||||||||||||||||||||||||||||||||||||*/
+
+.crop-video {                   /* Used to define a class and properties for crop the video output. */
+    width: 100vw;
+    height: 60vh;
+    object-fit: cover;
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.crop-video-1 {                 /* Used to define a class and properties for crop the video output. */
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.ctt-logo {                     /* Used to define class selector and needed properties to position-size the ctt logo */
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 100.0%;
+    height: auto;
+    width: auto;
+    opacity: .8;                /* This property set the opacity level for the main CTT logo  */
+}
+
+.ctt-mask {                     /* Used to define class selector and needed properties to cover the video with a soften blue mask if needed */
+    background-color:rgba(01,60,98,.0);   /* Blue 0% opacity - Currently disabled */
+    width: 100vw;
+    height: 60vh;
+    overflow: hidden;           /* Chrome :  This attribute help to display the video into the div ( ctt-mask ), without altering the next elements */
+}
+
+.ctt-mask-1 {                   /* Used to define class selector and needed properties to cover the video with a soften gray mask if needed */
+    background-color:rgba(40,55,71,.0);   /* Gray 0% opacity - Currently disabled */
+    width: 100vw;
+    height: 60vh;
+    overflow: hidden;           /* Chrome :  This attribute is needed to display the video into the div ( ctt-mask ), without altering the others next elements */
+}
+
+.ctt-section {                  /* Used to define class selector and needed properties for the decorative ribbon */
+    width: 100vw;
+    height: 15vh;
+}
+
+/* Map   ||||||||||||||||||||||||||||||||||||||||||||*/
+
+.ctt-map-ribbon {               /* Used to define class selector and needed properties, for the decorative ribbon at Google Maps section */
+    width: 100vw;
+    padding: 50px;              /* top, right, bottom, left   */
+}
+
+.ctt-map {                      /* Used to define a container for store the CTT location in Google Maps */
+    width: 100vw;
+    height: 500px;
+}
+
+.ctt-title-spacing {            /*  Used to define letter spacing used in the Google Maps ribbon */
+    letter-spacing: 0.4em
+}
+
+/* Parallax    |||||||||||||||||||||||||||||||||||||*/
+
+.parallax-section {             /* Used to define a container for show parallax effect applied to an CTT image */
+    width: 100vw;
+    height: 60vh;
+    object-fit: cover;
+    color: #fff;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+#parallax1 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_1.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax2 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_2.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax3 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_3.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+/* Yii2   |||||||||||||||||||||||||||||||||||||||||||*/
+
+.yii2-page {
+    padding: 50px 0;            /* top, right, bottom, left   */
+}
+
+.yii2-header {                  /* Used to define the properties needed to display page's title */
+    font-size: 2.5em;
+    font-weight: 700;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-bottom: 0;
+    color: #3c3f41;
+}
+
+.yii2-description {             /* Used to define the properties needed to display page's subtitle */
+    font-size: 1.5em;
+    font-weight: 700;
+    padding-top: 0;
+    padding-left: 50px;
+    padding-bottom: 0;
+    color: #428bca;
+}
+
+.yii2-content {                 /* Used to define the properties needed to display page's content */
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 0;
+}
+
+.yii2-message-area {            /* Used to define the properties needed to display page's messages e.g. success, warnings, errors */
+    padding-top: 0;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 0;
+}
+
+.tsr-content {                  /* Used to define the properties needed to display the development's credits */
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+}
+
+/* Glyphicons  ||||||||||||||||||||||||||||||||||||||*/
+
+.glyphicon {                    /* Used to setup text attributes for glypicon in modal windows */
+    font-size: 40px;
+}
+
+.glyphicon-pencil{              /* Used to setup text attributes for glypicon GridView widget to modify data */
+    font-size: 18px;
+}
+
+.glyphicon-eye-open{            /* Used to setup text attributes for glypicon GridView widget to view data */
+    font-size: 18px;
+}
+
+.glyphicon-trash{               /* Used to setup text attributes for glypicon GridView widget to delete data */
+    font-size: 18px;
+}
+
+.glyphicon-calendar{            /* Used to setup text attributes for glypicon for calendar */
+    font-size: 18px;
+}
+
+.glyphicon-remove{              /* Used to setup text attributes for glypicon for remove */
+    font-size: 18px;
+}
+
+.glyphicon-circle-arrow-up {    /*  Used to define size and color for this glyphicon */
+    font-size: 35px;
+    color: rgba(0,0,0,0.4);
+}
+
+.glyphicon-circle-arrow-up:hover {  /*  Used to hover color for this glyphicon */
+    color: #428bca;
+}
+
+/* Modals   |||||||||||||||||||||||||||||||||||||||||*/
+
+.modal-header-config {
+    /* Header text color */
+    color:#fff;
+    /* Settings for header rounded corners in modal window. CSS used here will be applied after bootstrap.css */
+    padding:15px 20px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-body-config {           /* Used to define body's color in a modal window */
+    /*background-color: rgb(255,255,255);*/
+    background: linear-gradient(to right, rgba(255, 255, 255,1) 0%, rgba( 255, 255, 255 ,1) 100%);
+}
+
+.modal-footer-config {
+    /* Footer text color */
+    color: #fff;
+
+    /* Settings for footer linear gradient in modal window. */
+    background: linear-gradient(to right, rgba(0,0,0,1) 30%, rgba(0,0,0,.3) 70%);
+
+    /* Settings for footer rounded corners in modal window. CSS used here will be applied after bootstrap.css */
+    padding:15px 20px;
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.modal-shadow-effect {          /* Add a shadow effect in the modal window */
+    /* Apply shadow style around the modal window */
+    box-shadow: 13px 10px 18px #1d1d1d;
+
+    /* The same corners setting must be applied to div shadow */
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.modal-header-water-mark:before {   /* Used to define header's water mark in all modal windows */
+    content:'';
+    background: url(../img/ctt-header-alpha.jpg);
+    position:absolute;
+    width:148px;
+    height:74px;
+    top:0;
+    left:0;
+    opacity:0.3;
+}
+
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+/* 2018-04-15 : This configuration is for test the 'Yii2 Lesson - 23 Pop up Window for forms' */
+
+.modal-header-config-1 {        /* Used to define header's properties in the custom modal windows */
+    /* Header text color */
+    color:#fff;
+    /* Settings for header rounded corners in modal window. CSS used here will be applied after bootstrap.css */
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    /* Settings to control the color gradient */
+    background: -moz-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    position:absolute;
+    width:900px;
+    height:84px;
+    top:0;
+    left:0;
+    padding-top: 20px;           /* Top and left position for modal title */
+    padding-left: 15px;
+    padding-right: 20px;
+}
+
+.modal-header-config-1:before {   /* Used to define header's water mark in all modal windows */
+    content:'';
+    background: url(../img/ctt-header-alpha.jpg);
+    position:absolute;
+    width:148px;
+    height:74px;
+    top:0;
+    left:0;
+    opacity:0.3;
+}
+
+.modal-header-content-1{        /* Used to positioning the modal's title */
+    position:absolute;
+    top:25px;
+    left:70px;
+}
+
+.modal-title-1{                 /* Used to setup text attributes for title in modal windows */
+    font-weight: bold;          /* Used to put in boldface the header's title */
+    letter-spacing: 0.3em;      /* Letter spacing for modal title */
+    padding-top: 0px;           /* Top and left position for modal title */
+    padding-left: 0px;
+}
+
+.modal-header {                 /* Used to overright the Bootstrap's defualts modal-header. Needed to hide tiny gray line in border-bottom */
+    min-height: 16.42857143px;
+    padding: 15px;
+    border-bottom: 0px solid #e5e5e5;
+}
+
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+.modal-title {                  /* Used to setup text attributes for title in modal windows */
+    font-weight: bold;          /* Used to put in boldface the header's title */
+    letter-spacing: 0.3em;      /* Letter spacing for modal title */
+    padding-top: 9px;           /* Top and left position for modal title */
+    padding-left: 10px;
+}
+
+.modal-backdrop {
+    background-color: rgb(01,60,98);   /* Used to control windows background opacity */
+}
+
+.modal-backdrop.in {
+    opacity: 0.8;               /* Controls opacity for modal window in */
+}
+
+.close {                        /* This class is used to config the modal window close button  */
+    color: #fff;                /* Set the color value for X sign in the close button */
+    opacity: 1;                 /* Controls opacity for close button in a modal window */
+}
+
+.ctt-modal-header-info {        /* Used to define header's color in an INFO modal window */
+    /* Settings for header linear gradient in info modal window. */
+    /* Original config : background-color: rgb(0,109,148); */
+    background: rgba(4,118,217,1);
+    background: -moz-linear-gradient(left, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    background: -o-linear-gradient(left, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    background: linear-gradient(to right, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0476d9', endColorstr='#e1f5fe', GradientType=1 );
+}
+
+.ctt-modal-header-success {     /* Used to define header's color in a SUCCESS modal window */
+    /* Settings for header linear gradient in success modal window. */
+    /* Original config : background-color: rgb(104,159,56); */
+    background: rgba(91,153,0,1);
+    background: -moz-linear-gradient(left, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    background: -o-linear-gradient(left, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    background: linear-gradient(to right, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b9900', endColorstr='#f0f1ef', GradientType=1 );
+}
+
+.ctt-modal-header-question {    /* Used to define header's color in a QUESTION modal window */
+    /* Settings for header linear gradient in question modal window. */
+    /* Original config : background-color: rgb(30,136,229); */
+    background: rgba(16,166,130,1);
+    background: -moz-linear-gradient(left, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    background: -o-linear-gradient(left, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    background: linear-gradient(to right, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#10a682', endColorstr='#f2f4f4', GradientType=1 );
+}
+
+.ctt-modal-header-warning {     /* Used to define header's color in a WARNING modal window */
+    /* Settings for header linear gradient in warning modal window. */
+    /* Original config : background-color: rgb(240,184,35);  -- Caterpillar Yellow   Hex : F0B823   RGB : 240,184,35 */
+    background: rgba(255,142,0,1);
+    background: -moz-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    background: -o-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    background: linear-gradient(to right, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8e00', endColorstr='#fff8e1', GradientType=1 );
+}
+
+.ctt-modal-header-error {       /* Used to define header's color in an ERROR modal window */
+    /* Settings for header linear gradient in error modal window. */
+    /* Original config : background-color: rgb(255,0,0); */
+    background: rgba(239,27,36,1);
+    background: -moz-linear-gradient(left, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    background: -o-linear-gradient(left, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    background: linear-gradient(to right, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ef1b24', endColorstr='#ffebee', GradientType=1 );
+}
+
+.ctt-water-mark {               /* Used to setup a page water-mark */
+                                /* Define the image file and effects for display it */
+    background-image: url('../img/ctt-logo_3.png');
+    background-position: left;  /* If the 'right' option is here, then the image is put at the very right side */
+    background-repeat: no-repeat;
+    background-size: contain;   /* The 'cover' option it's well suitable too */
+                                /* Define opacity level */
+    opacity: 0.1;
+    filter: alpha(opacity=10);  /* For IE8 and earlier */
+                                /* Define image attributes for position and dimensions */
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.render-area {                  /* Used to define a work area for data in the views */
+    padding: 0 500px 0 0;       /* top, right, bottom, left   */
+}
+
+.up-btn-area{                   /*  Used to define spacing values around glyphicon-circle-arrow-up */
+    padding: 0 0 60px 0;        /* top, right, bottom, left   */
+
+}
+
+div.required label.control-label:after {  /* This CSS rule is used to style Yii2 required fields with asterisks */
+    content: " *";
+    color: red;
+}
+
+.required-field  {             /* This CSS rule is used to style Yii2 required fields with asterisks */
+    font-weight: bold;
+    color: red;
+}
+
+.alert-warning {               /* Used to redefine BS alert-warning color and backgound color default */
+    color: #14416c;
+    background: rgba(255,201,68,1);
+    background: -moz-linear-gradient(left, rgba(255,201,68,1) 30%, rgba(255,201,68,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(255,201,68,1) 30%, rgba(255,201,68,.3) 70%);
+    background: -o-linear-gradient(left, rgba(255,201,68,1) 30%, rgba(255,201,68,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(255,201,68,1) 30%, rgba(255,201,68,.3) 70%);
+    background: linear-gradient(to right, rgb(255,201,68) 30%, rgba(255,201,68,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8e00', endColorstr='#fff8e1', GradientType=1 );
+}
+
+.div-scroll-area{              /* Used to define an div scroll area and show here the GridView widget content */
+    overflow-x: scroll;
+    overflow-Y: scroll;
+    height: 500px;
+}
+
+.grid-view td {                /* Used to disable wrap word in the GridView's columns  */
+    white-space: nowrap;
+}
+                               /* Used to customizing the ToolTip properties */
+.tooltip-conf + .tooltip > .tooltip-inner {
+    text-align: center;
+    background-color: rgba(255,142,0,1);
+    color: #fff;
+    border: 0px solid rgba(255,142,0,1);
+    border-radius: 3px;
+    padding: 2px 5px 2px 5px;  /* top, right, bottom, left   */
+    font-size: 13px;
+    width: 100px;
+}
+                               /* Tooltip on top */
+.tooltip-conf + .tooltip.top > .tooltip-arrow {
+    border-top: 5px solid rgba(255,142,0,1);
+}
+                               /* Tooltip on bottom */
+.tooltip-conf + .tooltip.bottom > .tooltip-arrow {
+    border-bottom: 5px solid rgba(255,142,0,1);
+}
+                               /* Tooltip on left */
+.tooltip-conf + .tooltip.left > .tooltip-arrow {
+    border-left: 5px solid rgba(255,142,0,1);
+}
+                               /* Tooltip on right */
+.tooltip-conf + .tooltip.right > .tooltip-arrow {
+    border-right: 5px solid rgba(255,142,0,1);
+}

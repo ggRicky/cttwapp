@@ -89,6 +89,13 @@ $this->registerJs($script);
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'rowOptions' => function($model){
+                        if ($model->client_type_id == 1)
+                        {
+                            return ['class' => 'info'];
+                        }
+                        return ['class' => 'success'];
+                    },
                     'columns' => [
                         [ 'class' => 'yii\grid\ActionColumn',
                             'headerOptions' => ['style' => 'width:4%'],

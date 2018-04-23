@@ -90,11 +90,24 @@ $this->registerJs($script);
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'rowOptions' => function($model){
+                        // 2018-04-15 : Change the row background color
                         if ($model->client_type_id == 1)
                         {
-                            return ['class' => 'info'];
-                        }
-                        return ['class' => 'success'];
+                            return ['class' => 'blue-light'];
+                        }else if ($model->client_type_id == 2)
+                        {
+                            return ['class' => 'red-light'];
+                        }else if ($model->client_type_id == 3)
+                        {
+                            return ['class' => 'teal-light'];
+                        }else if ($model->client_type_id == 4)
+                        {
+                            return ['class' => 'lime-light'];
+                        }else  if ($model->client_type_id == 5)
+                        {
+                            return ['class' => 'orange-light'];
+                        };
+                        return [];
                     },
                     'columns' => [
                         [ 'class' => 'yii\grid\ActionColumn',

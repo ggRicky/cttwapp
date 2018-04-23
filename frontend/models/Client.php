@@ -6,7 +6,7 @@ namespace app\models;
 /**
  * This is the model class for table "client".
  *
- * @property integer $id
+ * @property string $id
  * @property string $rfc
  * @property string $curp
  * @property string $taxpayer
@@ -20,7 +20,6 @@ namespace app\models;
  * @property string $corporate
  * @property string $contact_name
  * @property string $contact_email
- * @property string $tax_residence
  * @property string $street
  * @property string $outdoor_number
  * @property string $interior_number
@@ -53,9 +52,9 @@ class Client extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'rfc', 'taxpayer', 'provenance', 'business_name', 'state', 'corporate', 'tax_residence', 'street',
-              'outdoor_number', 'suburb', 'municipality', 'delegation', 'zip_code', 'phone_number_1', 'client_email',], 'required'],
-            [['id', 'created_by', 'updated_by', 'client_type_id'], 'integer'],
+            [['id', 'rfc', 'taxpayer', 'provenance', 'business_name', 'state', 'corporate', 'street', 'outdoor_number', 'suburb',
+              'municipality', 'delegation', 'zip_code', 'phone_number_1', 'client_email',], 'required'],
+            [['created_by', 'updated_by', 'client_type_id'], 'integer'],
             [['id'], 'unique'],
 
             [['created_at', 'updated_at'], 'date', 'format' => 'php:Y-m-d G:i:s'],
@@ -92,7 +91,6 @@ class Client extends \yii\db\ActiveRecord
             'corporate' => 'Corporativo',
             'contact_name' => 'Nombre del Contacto',
             'contact_email' => 'Email del contacto',
-            'tax_residence' => 'Domicilio Fiscal',
             'street' => 'Calle',
             'outdoor_number' => 'Número Exterior',
             'interior_number' => 'Número Interior',

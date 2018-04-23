@@ -72,16 +72,35 @@ $baseUrl = $asset->baseUrl;
                         'id',
                         'rfc',
                         'curp',
-                        'taxpayer',
+
+                        // 2018-04-23 : For taxpayer type, the right legend is displayed and colored properly.
+
+                        [
+                          'attribute' => 'taxpayer',
+                          'value' => function($model){
+                              return ($model->taxpayer=='M'?'PERSONA MORAL':'PERSONA FÍSICA');
+                          },
+                          'contentOptions' => function ($model, $key, $index, $column) {
+                              return ['style' => 'color:'. ($model->taxpayer=='M'?'grey':'#428bca')];
+                          },
+                        ],
 
                         // 2018-04-10 : New fields add to client table in refactoring action.
 
                         'business_name',
                         'corporate',
-                        'provenance',
+
+                        // 2018-04-23 : For provenance type, the right legend is displayed.
+
+                        [
+                          'attribute' => 'provenance',
+                          'value' => function($model){
+                              return ($model->provenance=='N'?'NACIONAL':'EXTRANJERO');
+                          },
+                        ],
+
                         'contact_name',
                         'contact_email',
-                        'tax_residence',
                         'street',
                         'outdoor_number',
                         'interior_number',

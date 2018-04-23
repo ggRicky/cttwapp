@@ -59,7 +59,6 @@ use app\models\ClientType;
     <?= $form->field($model, 'corporate')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'contact_name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'contact_email')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'tax_residence')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'outdoor_number')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'interior_number')->textInput(['maxlength' => true]) ?>

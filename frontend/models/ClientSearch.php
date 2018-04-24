@@ -16,8 +16,8 @@ class ClientSearch extends Client
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['rfc', 'curp', 'taxpayer'], 'safe'],
+            [['id'], 'string'],
+            [['rfc', 'curp', 'business_name', 'contact_name', 'street', 'suburb', 'municipality', 'delegation', 'state', 'phone_number_1'], 'safe'],
         ];
     }
 
@@ -64,7 +64,14 @@ class ClientSearch extends Client
 
         $query->andFilterWhere(['like', 'rfc', $this->rfc])
               ->andFilterWhere(['like', 'curp', $this->curp])
-              ->andFilterWhere(['like', 'taxpayer', $this->taxpayer]);
+              ->andFilterWhere(['like', 'business_name', $this->business_name])
+              ->andFilterWhere(['like', 'contact_name', $this->contact_name])
+              ->andFilterWhere(['like', 'street', $this->street])
+              ->andFilterWhere(['like', 'suburb', $this->suburb])
+              ->andFilterWhere(['like', 'municipality', $this->municipality])
+              ->andFilterWhere(['like', 'delegation', $this->delegation])
+              ->andFilterWhere(['like', 'state', $this->state])
+              ->andFilterWhere(['like', 'phone_number_1', $this->phone_number_1]);
 
         return $dataProvider;
     }

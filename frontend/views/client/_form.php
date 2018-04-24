@@ -45,6 +45,10 @@ use app\models\ClientType;
 
      }
 
+    // 2018-04-23 : Init some model fields to an default value.
+
+    $model->contact_name = $model->contact_email = $model->interior_number = $model->phone_number_2 = $model->web_page = "N/D";
+
     ?>
 
     <?= $form->field($model, 'id')->textInput() ?>

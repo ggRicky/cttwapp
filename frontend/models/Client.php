@@ -82,11 +82,11 @@ class Client extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Identificador',
             'rfc' => 'RFC',
             'curp' => 'CURP',
             'taxpayer' => 'Contribuyente',
-            'business_name' => 'Razón Social',
+            'business_name' => 'Razón Social / Nombre',
             'provenance' => 'Procedencia',
             'corporate' => 'Corporativo',
             'contact_name' => 'Nombre del Contacto',

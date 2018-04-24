@@ -90,25 +90,29 @@ $this->registerJs($script);
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'rowOptions' => function($model){
-                        // 2018-04-15 : Change the row background color
-                        if ($model->client_type_id == 1)
-                        {
-                            return ['class' => 'blue-light'];
-                        }else if ($model->client_type_id == 2)
-                        {
-                            return ['class' => 'red-light'];
-                        }else if ($model->client_type_id == 3)
-                        {
-                            return ['class' => 'teal-light'];
-                        }else if ($model->client_type_id == 4)
-                        {
-                            return ['class' => 'lime-light'];
-                        }else  if ($model->client_type_id == 5)
-                        {
-                            return ['class' => 'orange-light'];
-                        };
-                        return [];
+                        // 2018-04-23 : The next conditional statement enable colored rows
+                        if (Yii::$app->getRequest()->getQueryParam('c') == 1){
+                           // 2018-04-15 : Change the row background color
+                           if ($model->client_type_id == 1)
+                           {
+                               return ['class' => 'blue-light'];
+                           }else if ($model->client_type_id == 2)
+                           {
+                               return ['class' => 'red-light'];
+                           }else if ($model->client_type_id == 3)
+                           {
+                               return ['class' => 'teal-light'];
+                           }else if ($model->client_type_id == 4)
+                           {
+                               return ['class' => 'lime-light'];
+                           }else  if ($model->client_type_id == 5)
+                           {
+                               return ['class' => 'orange-light'];
+                           };
+                           return [];
+                        }
                     },
+
                     'columns' => [
                         [ 'class' => 'yii\grid\ActionColumn',
                             'headerOptions' => ['style' => 'width:4%'],
@@ -126,6 +130,13 @@ $this->registerJs($script);
                         'rfc',
                         'curp',
 
+                        // 2018-04-10 : New fields add to client table in refactoring action.
+
+                        [
+                            'attribute' => 'business_name',
+                            'contentOptions' => ['style' => 'color:red'],
+                        ],
+
                         // 2018-04-23 : For taxpayer type, the right legend is displayed and colored properly.
 
                         [
@@ -136,13 +147,6 @@ $this->registerJs($script);
                           'contentOptions' => function ($model, $key, $index, $column) {
                                 return ['style' => 'color:'. ($model->taxpayer=='M'?'grey':'#428bca')];
                            },
-                        ],
-
-                        // 2018-04-10 : New fields add to client table in refactoring action.
-
-                        [
-                          'attribute' => 'business_name',
-                          'contentOptions' => ['style' => 'color:red'],
                         ],
 
                         'corporate',
@@ -188,6 +192,13 @@ $this->registerJs($script);
                 ]);?>
 
             </div>
+
+            <p>
+                <br/>
+                <?= Html::a('Codificar con colores', ['client/index', 'c' => 1], ['class' => 'btn btn-warning']) ?>
+                <?= Html::a('', ['client/index', 'c' => 0], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
+            </p>
+
         </div>
     </div>
 </section>

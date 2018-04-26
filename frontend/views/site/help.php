@@ -8,6 +8,9 @@ $this->title = 'Ayuda';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+//2018-04-26 : Used to get a random int, and display a random parallax.
+$randomBg = rand(1,13);
+
 ?>
 <!-- Header -->
 <header id="top">
@@ -16,7 +19,7 @@ $baseUrl = $asset->baseUrl;
             <!-- CTT logo to display over the parallax efect with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
             <!-- Parallax Efect -->
-            <div id="parallax2" class="parallax-section" data-stellar-background-ratio="0.5">
+            <div id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">
                 <div class="row"></div>
             </div>
         </div>

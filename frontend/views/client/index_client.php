@@ -33,7 +33,7 @@ $this->registerJs($script);
             <!-- CTT logo to display over the parallax efect with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
             <!-- Parallax Efect -->
-            <div id="parallax1" class="parallax-section" data-stellar-background-ratio="0.5">
+            <div id="parallax4" class="parallax-section" data-stellar-background-ratio="0.5">
                 <div class="row"></div>
             </div>
         </div>
@@ -206,7 +206,7 @@ $this->registerJs($script);
 <section>
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <a class="tooltip-conf" href="#work-area-index" data-toggle="tooltip" title="Ir al inicio">
+        <a class="tooltip-conf" href="#work-area-index" data-toggle="tooltip" data-placement="right" title="Ir al inicio">
            <span class="glyphicon glyphicon-circle-arrow-up"></span>
         </a>
     </div>

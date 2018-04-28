@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="client-type-form">
+<div class="div-scroll-area">
 
     <?php $form = ActiveForm::begin(); ?>
 

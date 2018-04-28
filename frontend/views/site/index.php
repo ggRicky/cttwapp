@@ -213,7 +213,7 @@ $randomBg = rand(1,13);
 </section>
 
 <!-- Parallax Efect -->
-<section id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">
+<section id="parallax1" class="parallax-section" data-stellar-background-ratio="0.5">
     <div class="text-vertical-center">
         <h1></h1>  <!-- Reserved for including text inside the parallax window -->
     </div>

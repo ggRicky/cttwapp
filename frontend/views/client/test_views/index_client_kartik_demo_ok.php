@@ -177,9 +177,12 @@ $this->registerJs($js);
 <section>
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <a class="tooltip-conf" href="#work-area-index" data-toggle="tooltip" title="Ir al inicio">
-            <span class="glyphicon glyphicon-circle-arrow-up"></span>
-        </a>
+        <div class="tooltip-conf">
+            <span class="tooltip-text">Ir al inicio</span>
+            <a href="#work-area-index">
+                <span class="glyphicon glyphicon-circle-arrow-up"></span>
+            </a>
+        </div>
     </div>
 </section>
 

@@ -198,7 +198,7 @@ $randomBg = rand(1,13);
 
             <p>
                 <br/>
-                <?= Html::a('Codificar con colores', ['client/index', 'c' => 1], ['class' => 'btn btn-warning']) ?>
+                <?= Html::a('Codificar con colores', ['client/index', 'c' => 1], ['class' => 'btn btn-ctt-warning']) ?>
                 <?= Html::a('', ['client/index', 'c' => 0], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
             </p>
 
@@ -209,10 +209,10 @@ $randomBg = rand(1,13);
 <section>
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <div class="tooltip-def" rel="tooltip-1" >
+        <div class="tooltip-conf">
             <span class="tooltip-text">Ir al inicio</span>
             <a href="#work-area-index">
-               <span class="glyphicon glyphicon-circle-arrow-up"></span>
+                <span class="glyphicon glyphicon-circle-arrow-up"></span>
             </a>
         </div>
     </div>

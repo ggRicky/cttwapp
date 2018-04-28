@@ -16,7 +16,7 @@ $baseUrl = $asset->baseUrl;
 $js = <<<SCRIPT
 /* To initialize BS3 tooltips set this below */
 $(function () { 
-    $("[data-toggle='tooltip']").tooltip({placement: "right", delay: {show: 500, hide: 500}}); 
+    $('[data-toggle="tooltip"]').tooltip({placement: "right", trigger: "hover", delay: {show: 500, hide: 500}});
 });;
 /* To initialize BS3 popovers set this below */
 $(function () { 

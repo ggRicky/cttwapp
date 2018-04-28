@@ -8,16 +8,44 @@ use yii\helpers\Html;
 $asset = frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-/* 2018-04-13: The next code is for Activating Bootstrap 3 Tooltip & Popover for your Yii Site
+/*
 
-  source : http://webtips.krajee.com/activating-bootstrap-3-tooltip-popover-yii-site/
+  2018-04-13 19:20 Hrs.
 
- */
+  The next code is for Activating Bootstrap 3 Tooltip & Popover for your Yii Site
+
+  link : http://webtips.krajee.com/activating-bootstrap-3-tooltip-popover-yii-site/
+
+
+  2018-04-25 22:45 Hrs.
+
+  Stackoverflow -- Bootstrap button tooltip hide on click --
+
+  link : https://stackoverflow.com/questions/35079509/bootstrap-button-tooltip-hide-on-click
+
+  description : The problem is that the tooltip stays visible after the button is clicked, and the modal is shown.
+                As soon as the modal is closed, the tooltip is hidden again.
+
+                The next code fixed it.
+
+                The problem was that focus stays on the button when it is pressed. Changing the trigger to hover
+                solves the problem.
+
+   code added : trigger: "hover"
+
+   original code in cttwapp-core.js :
+
+   $(document).ready(function(e){
+     $('[data-toggle="tooltip"]').tooltip({ placement: "right", trigger: "hover", delay: {show: 500, hide: 500}});
+   });
+
+*/
+
 $js = <<<SCRIPT
 /* To initialize BS3 tooltips set this below */
 $(function () { 
-    $('[data-toggle="tooltip"]').tooltip({placement: "right", trigger: "hover", delay: {show: 500, hide: 500}});
-});;
+    $('[data-toggle="tooltip"]').tooltip({placement: "right", trigger: "hover"});
+});
 /* To initialize BS3 popovers set this below */
 $(function () { 
     $("[data-toggle='popover']").popover(); 

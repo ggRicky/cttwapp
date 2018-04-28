@@ -54,7 +54,7 @@ $baseUrl = $asset->baseUrl;
         <div class="col-lg-12 text-justify yii2-content">
 
             <!-- Business logic for view a client -->
-            <div class="render-area">
+            <div class="client-update">
 
                 <p>
                     <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

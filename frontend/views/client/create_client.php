@@ -49,7 +49,7 @@ $baseUrl = $asset->baseUrl;
         <div class="col-lg-12 text-justify yii2-content">
 
             <!-- Business logic for create a client -->
-            <div class="render-area">
+            <div class="client-create">
 
                 <?= $this->render('_form', [
                     'model' => $model,

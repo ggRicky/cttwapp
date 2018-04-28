@@ -15,7 +15,7 @@ use app\models\ClientType;
 
 ?>
 
-<div class="div-scroll-area">
+<div class="client-form">
 
     <?php $form = ActiveForm::begin();
 

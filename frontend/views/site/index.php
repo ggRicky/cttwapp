@@ -337,9 +337,9 @@ $randomBg = rand(1,13);
     </div>
 
     <!-- Blue ribbon decoration -->
-    <section class="ctt-section bg-primary">
+    <section class="ctt-section-footer ctt-footer-container">
         <div class="col-lg-12">
-            <div class="row"></div>
+            <div class="row "></div>
         </div>
     </section>
 

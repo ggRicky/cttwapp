@@ -93,9 +93,9 @@ $randomBg = rand(1,13);
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'rowOptions' => function($model){
-                        // 2018-04-23 : The next conditional statement enable colored rows
+                        // 2018-04-23 : The next conditional statement enable colored rows based on specific database value
                         if (Yii::$app->getRequest()->getQueryParam('c') == 1){
-                           // 2018-04-15 : Change the row background color
+                           // 2018-04-15 : Change the row background color based on the client_type_id value.
                            if ($model->client_type_id == 1)
                            {
                                return ['class' => 'blue-light'];

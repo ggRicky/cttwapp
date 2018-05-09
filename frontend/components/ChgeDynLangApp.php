@@ -27,5 +27,4 @@ class ChgeDynLangApp extends \yii\base\Behavior
             \Yii::$app->language = \Yii::$app->getRequest()->getCookies()->getValue('lang');
         }
     }
-
 }

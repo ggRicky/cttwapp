@@ -6,6 +6,8 @@ class m180410_024336_cttwapp_refactoring_client_table extends Migration
 {
     public function safeUp()
     {
+        // tbl: client
+
         // 2018-04-09 : Remove unneeded columns from client table.
         $this->dropColumn('{{%client}}', 'first_name');
         $this->dropColumn('{{%client}}', 'paternal_name');
@@ -34,6 +36,8 @@ class m180410_024336_cttwapp_refactoring_client_table extends Migration
 
     public function safeDown()
     {
+        // tbl: client
+
         // 2018-04-10 : Remove the new columns from client table.
         $this->dropColumn('{{%client}}', 'provenance');
         $this->dropColumn('{{%client}}', 'business_name');

@@ -33,10 +33,11 @@ class LoginForm extends Model
 
     public function attributeLabels()
     {
+        // 2018-05-06 : Add I18N functionality
         return [
-            'username' => 'Usuario',
-            'password' => 'Contraseña',
-            'rememberMe' => 'Recordar contraseña',
+            'username' => Yii::t('app','Usuario'),
+            'password' => Yii::t('app','Contraseña'),
+            'rememberMe' => Yii::t('app','Recordar contraseña'),
         ];
     }
 
@@ -52,7 +53,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Nombre de usuario o contraseña incorrecta.');
+                $this->addError($attribute, Yii::t('app','Nombre de usuario o contraseña incorrecta.'));
             }
         }
     }

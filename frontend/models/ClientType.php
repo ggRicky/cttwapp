@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 
 /**
  * This is the model class for table "client_type".
@@ -38,8 +39,8 @@ class ClientType extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'type_desc' => 'Descripción',
+            'id' => Yii::t('app','Identificador'),
+            'type_desc' => Yii::t('app','Descripción del Tipo de Cliente'),
         ];
     }
 
@@ -58,5 +59,4 @@ class ClientType extends \yii\db\ActiveRecord
     {
         return $this->id . ' - ' . $this->type_desc;
     }
-
 }

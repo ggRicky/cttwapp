@@ -6,6 +6,8 @@ class m180409_004812_cttwapp_modify_user_table_and_fk_client_client_type_id exte
 {
     public function safeUp()
     {
+        // tbl: user
+
         // 2018-04-06 : Add four columns to the user table. This will contain more specific info about the user.
         $this->addColumn('{{%user}}', 'first_name', 'string(50)');
         $this->addColumn('{{%user}}', 'paternal_name', 'string(35)');
@@ -21,6 +23,8 @@ class m180409_004812_cttwapp_modify_user_table_and_fk_client_client_type_id exte
 
     public function safeDown()
     {
+        // tbl: user
+
         // 2018-04-09 : Remove the four columns added before.
         $this->dropColumn('{{%user}}', 'first_name');
         $this->dropColumn('{{%user}}', 'paternal_name');

@@ -17,7 +17,7 @@ class ClientSearch extends Client
     {
         return [
             [['id'], 'string'],
-            [['rfc', 'curp', 'business_name', 'contact_name', 'street', 'suburb', 'municipality', 'delegation', 'state', 'phone_number_1'], 'safe'],
+            [['rfc', 'curp', 'business_name', 'contact_name', 'street', 'suburb', 'municipality', 'delegation', 'state', 'phone_number_1', 'considerations'], 'safe'],
         ];
     }
 
@@ -71,7 +71,8 @@ class ClientSearch extends Client
               ->andFilterWhere(['like', 'municipality', $this->municipality])
               ->andFilterWhere(['like', 'delegation', $this->delegation])
               ->andFilterWhere(['like', 'state', $this->state])
-              ->andFilterWhere(['like', 'phone_number_1', $this->phone_number_1]);
+              ->andFilterWhere(['like', 'phone_number_1', $this->phone_number_1])
+              ->andFilterWhere(['like', 'considerations', $this->considerations]);
 
         return $dataProvider;
     }

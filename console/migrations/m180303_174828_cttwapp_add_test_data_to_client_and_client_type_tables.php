@@ -14,6 +14,8 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
     {
         // These are test records for user table in cttwapp_db
 
+        // tbl: user
+
         // user data
         $this->batchInsert('{{%user}}',
             ['id','username','auth_key','password_hash','password_reset_token','email','status','created_at','updated_at'],
@@ -24,6 +26,8 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
         );
 
         // These are test records for client_type table in cttwapp_db
+
+        // tbl: client_type
 
         // client_type test data
         $this->batchInsert('{{%client_type}}',
@@ -38,6 +42,8 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
         );
 
         // These are test records for client table in cttwapp_db
+
+        // tbl: client
 
         // client test data
         $this->batchInsert('{{%client}}',
@@ -57,7 +63,7 @@ class m180303_174828_cttwapp_add_test_data_to_client_and_client_type_tables exte
      */
     public function safeDown()
     {
-        // 2018-03-05 : Using $this->truncateTable() method in this migration, caused an error message was send,
+        // 2018-03-05 : Using $this->truncateTable() method in this migration, cause that an error message was send,
         // because foreigner keys was defined in a relationship between tables client and client_type.
 
         // This issue was resolved using the next method and an SQL statement :

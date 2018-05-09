@@ -35,18 +35,18 @@ $randomBg = rand(1,13);
         <?php
             // 2018-04-08 : This code was refactored, using only Html helper
             if (Yii::$app->user->isGuest){
-                echo Html::begintag('div', ['class'=>'ctt-mini-bar-top-center']);
-                echo Html::begintag('div', ['class'=>'btn-group']);
-                echo Html::a('Registro', ['site/signup'], ['class'=>'btn btn-primary']);
-                echo Html::a('Sesión', ['site/login', '#'=>'work-area-index'], ['class'=>'btn btn-primary']);
+                echo Html::begintag('div', ['class' => 'ctt-mini-bar-top-center']);
+                echo Html::begintag('div', ['class' => 'btn-group']);
+                echo Html::a(Yii::t('app','Registro'), ['site/signup'], ['class' => 'btn btn-primary']);
+                echo Html::a(Yii::t('app','Sesión'), ['site/login', '#' => 'work-area-index'], ['class' => 'btn btn-primary']);
                 echo Html::endtag('div');
                 echo Html::endtag('div');
             }
             else{
-                echo Html::begintag('div', ['class'=>'ctt-mini-bar-top-right']);
+                echo Html::begintag('div', ['class' => 'ctt-mini-bar-top-right']);
                 echo Html::beginForm(['/site/logout'], 'post');
-                echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color'=>'white', 'font-size'=>'large']]) . "&nbsp;&nbsp;&nbsp;";
-                echo Html::submitButton('Cerrar', ['class'=>'btn btn-primary']);
+                echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'large']]) . "&nbsp;&nbsp;&nbsp;";
+                echo Html::submitButton(Yii::t('app','Terminar'), ['class' => 'btn btn-primary']);
                 echo Html::endForm();
                 echo Html::endtag('div');
             };
@@ -55,36 +55,39 @@ $randomBg = rand(1,13);
         <!-- Content menu -->
         <li>
             <div class="ctt-mini-bar-opts">
-                <?= "<a href='" . Url::to(['site/about'])  . "'>Acerca</a>" ?>
+                <?= "<a href='".Url::to(['site/about'])."'>".Yii::t('app','Acerca')."</a>" ?>
             </div>
         </li>
         <li>
             <div class="ctt-mini-bar-opts">
-                <?= "<a href='" . Url::to(['site/help'])    . "'>Ayuda</a>" ?>
+                <?= "<a href='".Url::to(['site/help'])."'>".Yii::t('app','Ayuda')."</a>" ?>
             </div>
         </li>
         <li>
             <div class="ctt-mini-bar-opts">
-                <?= "<a href='" . Url::to(['site/contact'])  . "'>Contacto</a>" ?>
+                <?= "<a href='".Url::to(['site/contact'])."'>".Yii::t('app','Contacto')."</a>" ?>
             </div>
         </li>
         <li>
-            <?= "<a href='" . Url::to(['client/index'])  . "'>Clientes</a>" ?>
+            <?= "<a href='".Url::to(['client/index'])."'>".Yii::t('app','Clientes')."</a>" ?>
         </li>
         <li>
-            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Catálogos</a>
+            <?= "<a href='".Url::to(['catalog/index'])."'>".Yii::t('app','Catálogos')."</a>" ?>
         </li>
         <li>
-            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Inventarios</a>
+            <?= "<a href='".Url::to(['article/index'])."'>".Yii::t('app','Artículos')."</a>" ?>
         </li>
         <li>
-            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Proyectos</a>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Inventarios'); ?></a>
         </li>
         <li>
-            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Reservaciones</a>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Proyectos'); ?></a>
         </li>
         <li>
-            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction">Cotizaciones</a>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Reservaciones'); ?></a>
+        </li>
+        <li>
+            <a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Cotizaciones'); ?></a>
         </li>
     </ul>
 </nav>
@@ -143,7 +146,7 @@ $randomBg = rand(1,13);
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-10 col-lg-offset-1">
-                <h2>Operaciones</h2>
+                <h2><?= Yii::t('app','Operaciones') ?></h2>
                 <hr class="small">
                 <div class="row">
                     <div class="col-md-3 col-sm-6">
@@ -153,11 +156,11 @@ $randomBg = rand(1,13);
                                     <i class="fa fa-file-movie-o fa-stack-1x text-primary"></i>
                                 </span>
                             <h4>
-                                <strong>Proyectos</strong>
+                                <strong><?= Yii::t('app','Proyectos') ?></strong>
                             </h4>
                             <hr class="small">
                             <p></p>
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction">I n g r e s a r</a>
+                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','I n g r e s a r') ?></a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -167,11 +170,11 @@ $randomBg = rand(1,13);
                                     <i class="fa fa-calendar fa-stack-1x text-primary"></i>
                                 </span>
                             <h4>
-                                <strong>Gestión</strong>
+                                <strong><?= Yii::t('app','Gestión') ?></strong>
                             </h4>
                             <hr class="small">
                             <p></p>
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction">I n g r e s a r</a>
+                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','I n g r e s a r') ?></a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -181,11 +184,11 @@ $randomBg = rand(1,13);
                                     <i class="fa fa-barcode fa-stack-1x text-primary"></i>
                                 </span>
                             <h4>
-                                <strong>Operaciones</strong>
+                                <strong><?= Yii::t('app','Operaciones') ?></strong>
                             </h4>
                             <hr class="small">
                             <p></p>
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction">I n g r e s a r</a>
+                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','I n g r e s a r') ?></a>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -195,11 +198,11 @@ $randomBg = rand(1,13);
                                     <i class="fa fa-info fa-stack-1x text-primary"></i>
                                 </span>
                             <h4>
-                                <strong>Reportes</strong>
+                                <strong><?= Yii::t('app','Reportes') ?></strong>
                             </h4>
                             <hr class="small">
                             <p></p>
-                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction">I n g r e s a r</a>
+                            <a href="#" class="btn btn-light" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','I n g r e s a r') ?></a>
                         </div>
                     </div>
                 </div>
@@ -224,7 +227,7 @@ $randomBg = rand(1,13);
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
-                <h2>Nuestro Equipo</h2>
+                <h2><?= Yii::t('app','Nuestro Equipo') ?></h2>
                 <hr class="small">
                 <div class="row">
                     <div class="col-md-6">
@@ -257,7 +260,7 @@ $randomBg = rand(1,13);
                     </div>
                 </div>
                 <!-- /.row (nested) -->
-                <a href="#" class="btn btn-dark" data-toggle="modal" data-target="#ctt-modal-in-construction">R e s e r v a c i o n e s</a>
+                <a href="#" class="btn btn-dark" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','R e s e r v a c i o n e s') ?></a>
             </div>
             <!-- /.col-lg-10 -->
         </div>
@@ -283,7 +286,7 @@ $randomBg = rand(1,13);
     <br />
     <div class="col-lg-12" >
         <small>
-            <a href="https://www.google.com.mx/maps/@19.2709666,-99.1300126,15z/data=!4m2!7m1!2e1">Ubicación de CTT Exp. & Rentals.</a>
+            <a href="https://www.google.com.mx/maps/@19.2709666,-99.1300126,15z/data=!4m2!7m1!2e1"><?= Yii::t('app','Ubicación de') ?> CTT Exp. & Rentals.</a>
         </small>
     </div>
 </section>
@@ -327,16 +330,21 @@ $randomBg = rand(1,13);
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
-                        <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
+                        <hr class="small">
+                        <p class="text-muted">Supported by</p>
+                        <p>
+                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="40"/></a>
+                        </p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Blue ribbon decoration -->
+    <!-- Blue ribbon footer decoration -->
     <section class="ctt-section-footer ctt-footer-container">
         <div class="col-lg-12">
             <div class="row "></div>
@@ -365,21 +373,21 @@ $randomBg = rand(1,13);
                              ctt-modal-header-error       glyphicon-exclamation-sign
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title">Advertencia</h4></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
                         <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
                     </div>
                 </div>
 
                 <!-- Modal Content -->
                 <div class="modal-body modal-body-config">
-                    <p>Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.</p>
+                    <p><?= Yii::t('app','Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.') ?></p>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer modal-footer-config">
                     <div class="row">
                         <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
                     </div>
                 </div>
             </div>
@@ -408,7 +416,7 @@ $randomBg = rand(1,13);
                              ctt-modal-header-error       glyphicon-exclamation-sign
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-ok-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title">Éxito</h4></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Éxito') ?></h4></div>
                         <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
                     </div>
                 </div>
@@ -422,7 +430,7 @@ $randomBg = rand(1,13);
                 <div class="modal-footer modal-footer-config">
                     <div class="row">
                         <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
                     </div>
                 </div>
             </div>
@@ -453,7 +461,7 @@ $randomBg = rand(1,13);
                              ctt-modal-header-error       glyphicon-exclamation-sign
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-info-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title">Información</h4></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Información') ?></h4></div>
                         <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
                     </div>
                 </div>
@@ -467,7 +475,7 @@ $randomBg = rand(1,13);
                 <div class="modal-footer modal-footer-config">
                     <div class="row">
                         <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
                     </div>
                 </div>
             </div>
@@ -496,7 +504,7 @@ $randomBg = rand(1,13);
                              ctt-modal-header-error       glyphicon-exclamation-sign
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title">Advertencia</h4></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
                         <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
                     </div>
                 </div>
@@ -510,7 +518,7 @@ $randomBg = rand(1,13);
                 <div class="modal-footer modal-footer-config">
                     <div class="row">
                         <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
                     </div>
                 </div>
             </div>
@@ -553,7 +561,7 @@ $randomBg = rand(1,13);
                 <div class="modal-footer modal-footer-config">
                     <div class="row">
                         <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
                     </div>
                 </div>
             </div>
@@ -582,7 +590,7 @@ $randomBg = rand(1,13);
                              ctt-modal-header-error       glyphicon-exclamation-sign
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-ok-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title">Éxito</h4></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Éxito') ?></h4></div>
                         <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
                     </div>
                 </div>
@@ -596,7 +604,7 @@ $randomBg = rand(1,13);
                 <div class="modal-footer modal-footer-config">
                     <div class="row">
                         <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
                     </div>
                 </div>
             </div>
@@ -625,7 +633,7 @@ $randomBg = rand(1,13);
                              ctt-modal-header-error       glyphicon-exclamation-sign
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title">Pregunta</h4></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Pregunta') ?></h4></div>
                         <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
                     </div>
                 </div>
@@ -639,7 +647,7 @@ $randomBg = rand(1,13);
                 <div class="modal-footer modal-footer-config">
                     <div class="row">
                         <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
                     </div>
                 </div>
             </div>

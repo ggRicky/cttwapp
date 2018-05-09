@@ -27,21 +27,21 @@ $baseUrl = $asset->baseUrl;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a('R e g r e s a r', ['client/index', '#' => 'work-area-index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', '#' => 'work-area-index'], ['class' => 'btn btn-dark']) ?>
         </div>
     </div>
 
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Html::encode($this->title) ?></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
         </div>
     </div>
 
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p>Vista del Tipo de Cliente</p>
+            <p><?= Yii::t('app','Vista del Tipo de Cliente');?></p>
         </div>
     </div>
 
@@ -53,11 +53,11 @@ $baseUrl = $asset->baseUrl;
             <div class="client-type-view">
 
                 <p>
-                    <?= Html::a('Actualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
+                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger',
                         'data' => [
-                            'confirm' => Yii::t('app','¿Está seguro de eliminar este elemento?'),
+                            'confirm' => Yii::t('app','¿ Está seguro de eliminar este elemento ?'),
                             'method' => 'post',
                         ],
                     ]) ?>
@@ -83,7 +83,7 @@ $baseUrl = $asset->baseUrl;
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
         <div class="tooltip-conf">
-            <span class="tooltip-text">Ir al inicio</span>
+            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
             <a href="#work-area-view">
                 <span class="glyphicon glyphicon-circle-arrow-up"></span>
             </a>
@@ -105,15 +105,21 @@ $baseUrl = $asset->baseUrl;
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
-                        <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
+                        <hr class="small">
+                        <p class="text-muted">Supported by</p>
+                        <p>
+                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="40"/></a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Blue ribbon decoration -->
+    <!-- Blue ribbon footer decoration -->
     <section class="ctt-section bg-primary">
         <div class="col-lg-12">
             <div class="row"></div>

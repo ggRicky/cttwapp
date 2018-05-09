@@ -41,14 +41,14 @@ $baseUrl = $asset->baseUrl;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a('R e g r e s a r', ['site/index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
         </div>
     </div>
 
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Html::encode($this->title) ?></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
         </div>
     </div>
 
@@ -62,23 +62,30 @@ $baseUrl = $asset->baseUrl;
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
-            <table>
-                <tr>
-                    <td>Nombre clave</td><td> &nbsp;&nbsp;:&nbsp;&nbsp;CTTWapp</td>
-                </tr>
-                <tr>
-                    <td>Descripción</td><td> &nbsp;&nbsp;:&nbsp;&nbsp;Sistema de Administración de Procesos</td>
-                </tr>
-                <tr>
-                    <td>Plataforma</td><td> &nbsp;&nbsp;:&nbsp;&nbsp;Yii versión 2.0</td>
-                </tr>
-                <tr>
-                    <td>Última actualización</td><td> &nbsp;&nbsp;:&nbsp;&nbsp;2018-01-16 21:06 Hrs.</td>
-                </tr>
-                <tr>
-                    <td>Versión Prototipo</td><td> &nbsp;&nbsp;:&nbsp;&nbsp;001</td>
-                </tr>
-            </table>
+            <div class="table-responsive">
+                <table class="table-bordered table-striped table-hover">
+                    <tbody>
+                    <tr>
+                        <th><?= Yii::t('app','Clave') ?></th><td>CTTWapp</td>
+                    </tr>
+                    <tr>
+                        <th><?= Yii::t('app','Nombre Clave') ?></th><td>CTT Web Application</td>
+                    </tr>
+                    <tr>
+                        <th><?= Yii::t('app','Versión Prototipo') ?></th><td>001</td>
+                    </tr>
+                    <tr>
+                        <th><?= Yii::t('app','Descripción') ?></th><td><?= Yii::t('app','Sistema Gestor de Operaciones') ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= Yii::t('app','Plataforma') ?></th><td><?= Yii::t('app','Yii versión 2.0') ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2018-05-06 &nbsp;&nbsp;&nbsp; 23:30 Hrs.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -98,19 +105,24 @@ $baseUrl = $asset->baseUrl;
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
-                        <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
+                        <hr class="small">
+                        <p class="text-muted">Supported by</p>
+                        <p>
+                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="40"/></a>
+                        </p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Blue ribbon decoration -->
-    <section class="ctt-section bg-primary">
+    <!-- Blue ribbon footer decoration -->
+    <section class="ctt-section-footer ctt-footer-container">
         <div class="col-lg-12">
-            <div class="row"></div>
+            <div class="row "></div>
         </div>
     </section>
 </footer>

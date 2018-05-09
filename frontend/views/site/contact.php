@@ -48,30 +48,28 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a('R e g r e s a r', ['site/index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
         </div>
     </div>
 
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Html::encode($this->title) ?></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
         </div>
     </div>
 
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p>Equipo de Desarrollo</p>
+            <p><?= Yii::t('app','Equipo de Desarrollo'); ?></p>
         </div>
     </div>
 
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
-            <p>
-                Si tiene desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.
-            </p>
+            <p><?= Yii::t('app','Si tiene desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.'); ?></p>
 
             <div class="row">
                 <div class="col-lg-5">
@@ -90,7 +88,7 @@ $randomBg = rand(1,13);
                     ]) ?>
 
                     <div class="form-group">
-                        <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                        <?= Html::submitButton(Yii::t('app','Enviar'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                     </div>
 
                     <?php ActiveForm::end(); ?>
@@ -104,7 +102,7 @@ $randomBg = rand(1,13);
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
         <div class="tooltip-conf">
-            <span class="tooltip-text">Ir al inicio</span>
+            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
             <a href="#work-area-index">
                 <span class="glyphicon glyphicon-circle-arrow-up"></span>
             </a>
@@ -126,19 +124,24 @@ $randomBg = rand(1,13);
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
-                        <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
+                        <hr class="small">
+                        <p class="text-muted">Supported by</p>
+                        <p>
+                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="40"/></a>
+                        </p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Blue ribbon decoration -->
-    <section class="ctt-section bg-primary">
+    <!-- Blue ribbon footer decoration -->
+    <section class="ctt-section-footer ctt-footer-container">
         <div class="col-lg-12">
-            <div class="row"></div>
+            <div class="row "></div>
         </div>
     </section>
 </footer>

@@ -66,15 +66,21 @@ class ClientController extends Controller
     {
         $model = new Client();
 
-        $model->load(Yii::$app->request->post());
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('create_client', [
                 'model' => $model,
             ]);
         }
+
+        return $this->render('create_client', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -87,13 +93,21 @@ class ClientController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('update_client', [
                 'model' => $model,
             ]);
         }
+
+        return $this->render('update_client', [
+            'model' => $model,
+        ]);
     }
 
     /**

@@ -11,6 +11,15 @@ $this->title = 'Autentificación';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+// 2018-05-06 : If there is an flash message, then skip the header and go to the error-area using javascript.
+If (Yii::$app->session->hasFlash('error'))
+{
+    $script = <<< JS
+    location.hash = "#error-area"; 
+JS;
+    $this->registerJs($script);
+}
+
 //2018-04-26 : Used to get a random int, and display a random parallax.
 $randomBg = rand(1,13);
 
@@ -31,7 +40,7 @@ $randomBg = rand(1,13);
 </header>
 
 <!-- Blue ribbon decoration -->
-<section id="work-area-index" class="ctt-section bg-primary">
+<section id="error-area" class="ctt-section bg-primary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
@@ -46,21 +55,21 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a('R e g r e s a r', ['site/index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
         </div>
     </div>
 
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Html::encode($this->title) ?></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
         </div>
     </div>
 
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p>Inicie su sesión de trabajo.</p>
+            <p><?= Yii::t('app','Inicie su sesión de trabajo.'); ?></p>
         </div>
     </div>
 
@@ -68,7 +77,16 @@ $randomBg = rand(1,13);
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <p>Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :</p>
+            <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
+
+            <!-- 2018-04-08 : If there is an flash message, then display it.-->
+            <?php If (Yii::$app->session->hasFlash('error')): ?>
+                <div class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h4><strong><?= Yii::t('app','¡ Advertencia !'); ?></strong></h4>
+                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                </div>
+            <?php endif; ?>
 
             <div class="site-login">
                 <div class="row">
@@ -82,11 +100,11 @@ $randomBg = rand(1,13);
                         <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
                         <div style="color:#999;margin:1em 0">
-                            Para restablecer su contraseña en caso de olvido, <?= Html::a('haga clic en esta liga.', ['site/request-password-reset']) ?>.
+                            <?= Yii::t('app','Para restablecer su contraseña en caso de olvido, '); ?><?= Html::a(Yii::t('app','haga clic en esta liga.'), ['site/request-password-reset']) ?>
                         </div>
 
                         <div class="form-group">
-                            <?= Html::submitButton('Ingresar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                            <?= Html::submitButton(Yii::t('app','Ingresar'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                         </div>
 
                         <?php ActiveForm::end(); ?>
@@ -112,19 +130,24 @@ $randomBg = rand(1,13);
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
-                        <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
+                        <hr class="small">
+                        <p class="text-muted">Supported by</p>
+                        <p>
+                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="40"/></a>
+                        </p>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Blue ribbon decoration -->
-    <section class="ctt-section bg-primary">
+    <!-- Blue ribbon footer decoration -->
+    <section class="ctt-section-footer ctt-footer-container">
         <div class="col-lg-12">
-            <div class="row"></div>
+            <div class="row "></div>
         </div>
     </section>
 </footer>

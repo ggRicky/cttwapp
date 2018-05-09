@@ -87,15 +87,34 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            // Exito en el acceso
-            Yii::$app->session->setFlash('successLogin', Yii::t('app','<h4>Bienvenido <b>'.Yii::$app->user->identity->username).'</b></h4><p>Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.<br/></p>');
-            return $this->goBack();
-        } else {
+        if ($model->load(Yii::$app->request->post())) {
+
+            // 2018-05-06 : This method were refactoring for issue a warning message in an wrong access operation.
+
+            if ($model->login()){
+                // Access success
+
+                $str1 = Yii::t('app', 'Bienvenido');
+                $str2 = Yii::t('app', 'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.');
+                $str3 = '<h4>'.$str1.'&nbsp;&nbsp;<b>'.Yii::$app->user->identity->username.'</b></h4><p>'.$str2.'<br/></p>';
+
+                Yii::$app->session->setFlash('successLogin', $str3);
+                return $this->goBack();
+            }
+
+            // Access error
+            // 2018-05-06 : An error occurred in the login process. A flash message is issued.
+
+            Yii::$app->session->setFlash('error', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a su atentificación.'));
             return $this->render('login', [
                 'model' => $model,
             ]);
         }
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+
     }
 
     /**

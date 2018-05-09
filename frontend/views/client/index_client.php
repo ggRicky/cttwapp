@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-
 /* 2018-03-17 : Used to display Description Type for the actual client record */
 use yii\helpers\ArrayHelper;
 use app\models\ClientType;
@@ -15,8 +14,15 @@ $this->title = 'Clientes';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-04-11 : If there are a query or a sort criteria in process, then skip the header and go just to the work-area-index using javascript code.
-If (array_key_exists('ClientSearch',$qryParams) || array_key_exists('sort',$qryParams))
+// 2018-05-06 : If there are a query or sort criteria is in progress, then skip the header and go just to the work-area-index using javascript code.
+$search_param = \yii\helpers\ArrayHelper::keyExists('ClientSearch',$qryParams);
+$sort_param   = \yii\helpers\ArrayHelper::keyExists('sort',$qryParams);
+$skip_param   = (\yii\helpers\ArrayHelper::getValue($qryParams, '1.#')=='work-area-index'?true:false);
+
+// 2018-05-06 : If an url color param was send, then skip the header and go just to the work-area-index using javascript code.
+$color_param  = Yii::$app->getRequest()->getQueryParam('c', null);
+
+If ($search_param || $sort_param || $skip_param || $color_param)
 {
 $script = <<< JS
     location.hash = "#work-area-index";
@@ -59,21 +65,21 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a('R e g r e s a r', ['site/index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
         </div>
     </div>
 
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Html::encode($this->title) ?></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
         </div>
     </div>
 
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p>Listado Nominal</p>
+            <p><?= Yii::t('app','Listado Nominal');?></p>
         </div>
     </div>
 
@@ -82,8 +88,8 @@ $randomBg = rand(1,13);
         <div class="col-lg-12 text-justify yii2-content">
 
             <p>
-                <?= Html::a('Crear Cliente', ['create'], ['class' => 'btn btn-success']) ?>
-                <?= Html::a('Tipos de Clientes', ['client-type/index', '#' => 'work-area-index-cte'], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(Yii::t('app', 'Crear Cliente'), ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a(Yii::t('app', 'Tipos de Clientes'), ['client-type/index', ['#' => 'work-area-index']], ['class' => 'btn btn-primary']) ?>
             </p>
 
             <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
@@ -114,6 +120,7 @@ $randomBg = rand(1,13);
                            };
                            return [];
                         }
+                        return [];
                     },
 
                     'columns' => [
@@ -177,6 +184,7 @@ $randomBg = rand(1,13);
                         'phone_number_2',
                         'web_page',
                         'client_email',
+                        'considerations',
 
                         'created_at',
                         'updated_at',
@@ -198,9 +206,11 @@ $randomBg = rand(1,13);
 
             <p>
                 <br/>
-                <?= Html::a('Codificar con colores', ['client/index', 'c' => 1], ['class' => 'btn btn-ctt-warning']) ?>
+                <?= Html::a(Yii::t('app', 'Codificar con colores'), ['client/index', 'c' => 1], ['class' => 'btn btn-ctt-warning']) ?>
                 <?= Html::a('', ['client/index', 'c' => 0], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
             </p>
+
+            <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>
 
         </div>
     </div>
@@ -210,7 +220,7 @@ $randomBg = rand(1,13);
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
         <div class="tooltip-conf">
-            <span class="tooltip-text">Ir al inicio</span>
+            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
             <a href="#work-area-index">
                 <span class="glyphicon glyphicon-circle-arrow-up"></span>
             </a>
@@ -232,18 +242,24 @@ $randomBg = rand(1,13);
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
-                        <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
+                        <hr class="small">
+                        <p class="text-muted">Supported by</p>
+                        <p>
+                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="40"/></a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Blue ribbon decoration -->
-    <section class="ctt-section bg-primary">
+    <!-- Blue ribbon footer decoration -->
+    <section class="ctt-section-footer ctt-footer-container">
         <div class="col-lg-12">
-            <div class="row"></div>
+            <div class="row "></div>
         </div>
     </section>
 </footer>

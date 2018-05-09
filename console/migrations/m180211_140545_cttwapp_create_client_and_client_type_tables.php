@@ -12,7 +12,8 @@ class m180211_140545_cttwapp_create_client_and_client_type_tables extends Migrat
      */
     public function safeUp()
     {
-        // client
+        // tbl: client
+
         $this->createTable('{{%client}}', [
             'id' => $this->integer()->notNull(),
             'rfc' => $this->string(13)->notNull(),
@@ -29,15 +30,16 @@ class m180211_140545_cttwapp_create_client_and_client_type_tables extends Migrat
             'PRIMARY KEY (id)',
         ]);
 
-        // client_type
+        // tbl: client_type
+
         $this->createTable('{{%client_type}}', [
             'id' => $this->primaryKey(),
             'type_desc' => $this->string(50)->notNull(),
         ]);
 
         // fk: client
-        $this->addForeignKey('fk_client_id', '{{%client}}', 'id', '{{%client_type}}', 'id');
 
+        $this->addForeignKey('fk_client_id', '{{%client}}', 'id', '{{%client_type}}', 'id');
     }
 
     /**
@@ -47,10 +49,17 @@ class m180211_140545_cttwapp_create_client_and_client_type_tables extends Migrat
     {
         echo "m180211_140545_cttwapp_create_client_and_client_type_tables cannot be reverted.\n";
 
-        $this->dropTable('{{%client}}'); // fk: id
-        $this->dropTable('{{%client_type}}');
-        $this->dropTable('{{%user}}');
+        // tbl: client
 
+        $this->dropTable('{{%client}}'); // fk: id
+
+        // tbl: client_type
+
+        $this->dropTable('{{%client_type}}');
+
+        // tbl: user
+
+        $this->dropTable('{{%user}}');
     }
 
     /*

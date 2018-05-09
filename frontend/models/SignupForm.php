@@ -65,15 +65,15 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'Usuario',
-            'password' => 'Contraseña',
-            'email'    => 'Correo electrónico',
+            'username' => Yii::t('app','Usuario'),
+            'password' => Yii::t('app','Contraseña'),
+            'email'    => Yii::t('app','Correo Electrónico'),
 
             // 2018-04-05 : The labels for the user new fields
 
-            'first'    => 'Nombre',
-            'paternal' => 'Apellido Paterno',
-            'maternal' => 'Apellido Materno',
+            'first'    => Yii::t('app','Nombre'),
+            'paternal' => Yii::t('app','Apellido Paterno'),
+            'maternal' => Yii::t('app','Apellido Materno'),
             'curp'     => 'CURP',
         ];
     }
@@ -96,6 +96,7 @@ class SignupForm extends Model
         $user->generateAuthKey();
 
         // 2018-04-05 : The values for the user new fields
+        // 2018-05-06 : Convert to uppercase this values
 
         $user->first_name = mb_strtoupper($this->first, 'UTF-8');
         $user->paternal_name = mb_strtoupper($this->paternal, 'UTF-8');

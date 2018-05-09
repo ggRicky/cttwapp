@@ -45,14 +45,14 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a('R e g r e s a r', ['site/index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
         </div>
     </div>
 
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Html::encode($this->title) ?></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
         </div>
     </div>
 
@@ -111,9 +111,9 @@ $randomBg = rand(1,13);
 
                 <?php Modal::begin([
                     'id'      => 'modal-delete',
-                    'headerOptions' => ['class'=>'modal-header-water-mark modal-header modal-header-config ctt-modal-header-question'],
+                    'headerOptions' => ['class' => 'modal-header-water-mark modal-header modal-header-config ctt-modal-header-question'],
                     'header'  => '<div class="row"><div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div><div class="col-sm-7"><h4 class="modal-title">Pregunta</h4></div></div>',
-                    'footerOptions' => ['class'=>'modal-footer modal-footer-config'],
+                    'footerOptions' => ['class' => 'modal-footer modal-footer-config'],
                     'footer'  => '<div class="row"><div class="col-sm-6"><img align="left" src="'.$baseUrl.'/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div><div class="col-sm-6"><button id="delete-confirm" type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button></div></div>',
                 ]); ?>
 
@@ -194,7 +194,7 @@ $randomBg = rand(1,13);
     <!-- A button for go to the page's top -->
     <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
         <div class="tooltip-conf">
-            <span class="tooltip-text">Ir al inicio</span>
+            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
             <a href="#work-area-index">
                 <span class="glyphicon glyphicon-circle-arrow-up"></span>
             </a>
@@ -216,18 +216,24 @@ $randomBg = rand(1,13);
                 <div class="row">
                     <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
                         <hr class="small">
-                        <p class="text-muted"><img src="<?=$baseUrl?>/img/yii2_logo.png" height="37" width="120"/></p>
-                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>TSR Development Software</p>
+                        <p class="text-muted">Copyright &copy; 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
+                        <hr class="small">
+                        <p class="text-muted">Supported by</p>
+                        <p>
+                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="40"/></a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Blue ribbon decoration -->
-    <section class="ctt-section bg-primary">
+    <!-- Blue ribbon footer decoration -->
+    <section class="ctt-section-footer ctt-footer-container">
         <div class="col-lg-12">
-            <div class="row"></div>
+            <div class="row "></div>
         </div>
     </section>
 </footer>

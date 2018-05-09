@@ -2,7 +2,10 @@
 
 use yii\db\Migration;
 
-class m180410_024336_cttwapp_refactoring_client_table extends Migration
+/**
+ * Class m180410_145552_cttwapp_refactoring_client_table
+ */
+class m180410_145552_cttwapp_refactoring_client_table extends Migration
 {
     public function safeUp()
     {

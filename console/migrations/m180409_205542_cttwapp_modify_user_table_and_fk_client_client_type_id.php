@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m180409_004812_cttwapp_modify_user_table_and_fk_client_client_type_id extends Migration
+class m180409_205542_cttwapp_modify_user_table_and_fk_client_client_type_id extends Migration
 {
     public function safeUp()
     {

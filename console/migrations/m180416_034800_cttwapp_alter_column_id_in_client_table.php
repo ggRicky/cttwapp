@@ -2,7 +2,10 @@
 
 use yii\db\Migration;
 
-class m180410_221742_cttwapp_alter_column_moral_in_client_table extends Migration
+/**
+ * Class m180416_034800_cttwapp_alter_column_id_in_client_table
+ */
+class m180416_034800_cttwapp_alter_column_id_in_client_table extends Migration
 {
     public function safeUp()
     {

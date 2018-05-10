@@ -316,13 +316,13 @@ $randomBg = rand(1,13);
 
                 <ul class="list-inline">
                     <li>
-                        <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        <a href="http://www.facebook.com/CTTEXPRENTALS"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                        <a href="https://twitter.com/cttexp"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-instagram fa-fw fa-3x"></i></a>
+                        <a href="http://www.linkedin.com/company/ctt-exp-&-rentals"><i class="fa fa-linkedin fa-fw fa-3x"></i></a>
                     </li>
                 </ul>
 
@@ -352,7 +352,6 @@ $randomBg = rand(1,13);
     </section>
 
 </footer>
-
 
 <!-- Modal Warning ; Functionality not implemented yet  -->
 <div id="ctt-modal-in-construction" class="modal fade" role="dialog">
@@ -424,223 +423,6 @@ $randomBg = rand(1,13);
                 <!-- Modal Content -->
                 <div class="modal-body modal-body-config">
                     <p><?= Yii::$app->session->getFlash('successLogin'); ?></p>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer modal-footer-config">
-                    <div class="row">
-                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-<!--Modal Templates ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
-
-<!-- Modal Info -->
-<div id="ctt-modal-info" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content modal-backdrop">
-
-            <!-- Modal Header -->
-            <div class="modal-shadow-effect modal-header-water-mark">
-                <div class="modal-header modal-header-config ctt-modal-header-info">
-                    <div class="row">
-                        <!--
-                             ctt-modal-header-info        glyphicon-info-sign
-                             ctt-modal-header-success     glyphicon-ok-sign
-                             ctt-modal-header-question    glyphicon-question-sign
-                             ctt-modal-header-warning     glyphicon-warning-sign
-                             ctt-modal-header-error       glyphicon-exclamation-sign
-                        -->
-                        <div class="col-sm-1"><span class="glyphicon glyphicon-info-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Información') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-                    </div>
-                </div>
-
-                <!-- Modal Content -->
-                <div class="modal-body modal-body-config">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies id lorem in bibendum. Phasellus leo diam, posuere non dolor sed, cursus ultricies mi. Praesent malesuada a urna vitae suscipit. Vestibulum ullamcorper leo dolor, quis faucibus arcu euismod et. Curabitur sed diam interdum, cursus dui a, elementum dui. Curabitur eget eros arcu. Duis lobortis, neque ac maximus ornare, erat lectus consectetur neque, nec egestas lectus dui vel eros.</p>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer modal-footer-config">
-                    <div class="row">
-                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-<!-- Modal Warning -->
-<div id="ctt-modal-warning" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content modal-backdrop">
-
-            <!-- Modal Header -->
-            <div class="modal-shadow-effect modal-header-water-mark">
-                <div class="modal-header modal-header-config ctt-modal-header-warning">
-                    <div class="row">
-                        <!--
-                             ctt-modal-header-info        glyphicon-info-sign
-                             ctt-modal-header-success     glyphicon-ok-sign
-                             ctt-modal-header-question    glyphicon-question-sign
-                             ctt-modal-header-warning     glyphicon-warning-sign
-                             ctt-modal-header-error       glyphicon-exclamation-sign
-                        -->
-                        <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-                    </div>
-                </div>
-
-                <!-- Modal Content -->
-                <div class="modal-body modal-body-config">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies id lorem in bibendum. Phasellus leo diam, posuere non dolor sed, cursus ultricies mi. Praesent malesuada a urna vitae suscipit. Vestibulum ullamcorper leo dolor, quis faucibus arcu euismod et. Curabitur sed diam interdum, cursus dui a, elementum dui. Curabitur eget eros arcu. Duis lobortis, neque ac maximus ornare, erat lectus consectetur neque, nec egestas lectus dui vel eros.</p>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer modal-footer-config">
-                    <div class="row">
-                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-<!-- Modal Error -->
-<div id="ctt-modal-error" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content modal-backdrop">
-
-            <!-- Modal Header -->
-            <div class="modal-shadow-effect modal-header-water-mark">
-                <div class="modal-header modal-header-config ctt-modal-header-error">
-                    <div class="row">
-                        <!--
-                             ctt-modal-header-info        glyphicon-info-sign
-                             ctt-modal-header-success     glyphicon-ok-sign
-                             ctt-modal-header-question    glyphicon-question-sign
-                             ctt-modal-header-warning     glyphicon-warning-sign
-                             ctt-modal-header-error       glyphicon-exclamation-sign
-                        -->
-                        <div class="col-sm-1"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title">Error</h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-                    </div>
-                </div>
-
-                <!-- Modal Content -->
-                <div class="modal-body modal-body-config">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies id lorem in bibendum. Phasellus leo diam, posuere non dolor sed, cursus ultricies mi. Praesent malesuada a urna vitae suscipit. Vestibulum ullamcorper leo dolor, quis faucibus arcu euismod et. Curabitur sed diam interdum, cursus dui a, elementum dui. Curabitur eget eros arcu. Duis lobortis, neque ac maximus ornare, erat lectus consectetur neque, nec egestas lectus dui vel eros.</p>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer modal-footer-config">
-                    <div class="row">
-                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-<!-- Modal Success -->
-<div id="ctt-modal-success" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content modal-backdrop">
-
-            <!-- Modal Header -->
-            <div class="modal-shadow-effect modal-header-water-mark">
-                <div class="modal-header modal-header-config ctt-modal-header-success">
-                    <div class="row">
-                        <!--
-                             ctt-modal-header-info        glyphicon-info-sign
-                             ctt-modal-header-success     glyphicon-ok-sign
-                             ctt-modal-header-question    glyphicon-question-sign
-                             ctt-modal-header-warning     glyphicon-warning-sign
-                             ctt-modal-header-error       glyphicon-exclamation-sign
-                        -->
-                        <div class="col-sm-1"><span class="glyphicon glyphicon-ok-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Éxito') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-                    </div>
-                </div>
-
-                <!-- Modal Content -->
-                <div class="modal-body modal-body-config">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies id lorem in bibendum. Phasellus leo diam, posuere non dolor sed, cursus ultricies mi. Praesent malesuada a urna vitae suscipit. Vestibulum ullamcorper leo dolor, quis faucibus arcu euismod et. Curabitur sed diam interdum, cursus dui a, elementum dui. Curabitur eget eros arcu. Duis lobortis, neque ac maximus ornare, erat lectus consectetur neque, nec egestas lectus dui vel eros.</p>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer modal-footer-config">
-                    <div class="row">
-                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-
-<!-- Modal Question -->
-<div id="ctt-modal-question" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content modal-backdrop">
-
-            <!-- Modal Header -->
-            <div class="modal-shadow-effect modal-header-water-mark">
-                <div class="modal-header modal-header-config ctt-modal-header-question">
-                    <div class="row">
-                        <!--
-                             ctt-modal-header-info        glyphicon-info-sign
-                             ctt-modal-header-success     glyphicon-ok-sign
-                             ctt-modal-header-question    glyphicon-question-sign
-                             ctt-modal-header-warning     glyphicon-warning-sign
-                             ctt-modal-header-error       glyphicon-exclamation-sign
-                        -->
-                        <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Pregunta') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-                    </div>
-                </div>
-
-                <!-- Modal Content -->
-                <div class="modal-body modal-body-config">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies id lorem in bibendum. Phasellus leo diam, posuere non dolor sed, cursus ultricies mi. Praesent malesuada a urna vitae suscipit. Vestibulum ullamcorper leo dolor, quis faucibus arcu euismod et. Curabitur sed diam interdum, cursus dui a, elementum dui. Curabitur eget eros arcu. Duis lobortis, neque ac maximus ornare, erat lectus consectetur neque, nec egestas lectus dui vel eros.</p>
                 </div>
 
                 <!-- Modal Footer -->

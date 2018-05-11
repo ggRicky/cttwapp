@@ -69,31 +69,53 @@ $randomBg = rand(1,13);
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
-            <p><?= Yii::t('app','Si tiene desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.'); ?></p>
 
-            <div class="row">
-                <div class="col-lg-5">
-                    <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
 
-                    <?= $form->field($model, 'name')->textInput() ?>
+                <div class="alert alert-success">
+                    <p><?= Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'); ?></p>
+                </div>
 
-                    <?= $form->field($model, 'email') ?>
+            <?php else: ?>
 
-                    <?= $form->field($model, 'subject') ?>
+                <?php if (Yii::$app->session->hasFlash('error')): ?>
 
-                    <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-                    <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                    ]) ?>
-
-                    <div class="form-group">
-                        <?= Html::submitButton(Yii::t('app','Enviar'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                    <div class="alert alert-warning">
+                        <p><?= Yii::t('app','Se presentó un error al enviar su mensaje.'); ?></p>
                     </div>
 
-                    <?php ActiveForm::end(); ?>
-                </div>
-            </div>
+                <?php else: ?>
+
+                    <p><?= Yii::t('app','Si tiene desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.'); ?></p>
+
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+
+                            <?= $form->field($model, 'name')->textInput() ?>
+
+                            <?= $form->field($model, 'email') ?>
+
+                            <?= $form->field($model, 'subject') ?>
+
+                            <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
+
+                            <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                                'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
+                            ]) ?>
+
+                            <div class="form-group">
+                                <?= Html::submitButton(Yii::t('app','Enviar'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                            </div>
+
+                            <?php ActiveForm::end(); ?>
+                        </div>
+                    </div>
+
+                <?php endif; ?>
+
+            <?php endif; ?>
+
         </div>
     </div>
 </section>

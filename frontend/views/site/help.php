@@ -136,7 +136,7 @@ $randomBg = rand(1,13);
                 <br/>
 
                 En la tercera sección del selector se agrupa a los botones <b>Acerca</b> <b>Ayuda</b>, y <b>Contacto</b>. El botón <b>Acerca</b> muestra los datos de identificación del proyecto, el botón <b>Ayuda</b> muestra este página y los tópicos generales de información del sistema. El botón <b>Contacto</b> se usa para
-                informar de algún problema o bien de alguna sugerencia. Al ingresar los datos solicitados, se enviará un correo electrónico a la direción de <code>soporte.ctt@gmail.com</code> y una vez recibido se realizarán las acciones pertinentes.
+                informar de algún problema o bien de alguna sugerencia. Al ingresar los datos solicitados, se enviará un correo electrónico a la direción de <code>soporte.cttwapp@gmail.com</code> y una vez recibido se realizarán las acciones pertinentes.
                 <br/>
                 <br/>
                 <br/>

@@ -9,9 +9,10 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    // 2018-01-12 : Adding to implement the new CTTwapp image.
+    // 2018-01-12 : Implement the new CTTwapp image.
     // 2018-02-10 : Adjust for the right order in library references.
     // 2018-04-09 : Because a typo in protocol for the font Source+Sans+Pro ( http without an s at end ), the production version wasn't displayed as expected.
+    // 2018-05-12 : Add jquery-ui.css, and jquery-ui.js files for enable jQuery Accordion widget.
 
     public $sourcePath = '@bower/cttwapp/';
     public $css = [

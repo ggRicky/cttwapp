@@ -1,17 +1,13 @@
 <?php
-
 use yii\helpers\Html;
-
 /* @var $this yii\web\View */
-
 $this->title = 'Ayuda';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
-
 //2018-04-26 : Used to get a random int, and display a random parallax.
 $randomBg = rand(1,13);
-
 ?>
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
@@ -63,13 +59,118 @@ $randomBg = rand(1,13);
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
-            <h4><?= Yii::t('app','C o n t e n t e n i d o');?></h4>
+            <h4><?= Yii::t('app','Objetivos');?></h4>
             <br/>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultricies id lorem in bibendum. Phasellus leo diam, posuere non dolor sed, cursus ultricies mi. Praesent malesuada a urna vitae suscipit. Vestibulum ullamcorper leo dolor, quis faucibus arcu euismod et. Curabitur sed diam interdum, cursus dui a, elementum dui. Curabitur eget eros arcu. Duis lobortis, neque ac maximus ornare, erat lectus consectetur neque, nec egestas lectus dui vel eros. In orci lorem, ultricies faucibus lectus in, volutpat mattis libero. Ut sit amet ante at augue lobortis elementum. Cras turpis lacus, pellentesque vitae lacinia nec, tempus vel nisl. Nullam ornare luctus odio, dapibus convallis eros vestibulum in. Quisque id libero eleifend nibh suscipit convallis. Nam eu aliquam mauris, ut semper est. </p>
-            <p>Sed et eros luctus, convallis sem vitae, pharetra mi. Praesent gravida vehicula dolor non semper. Quisque et sagittis mauris. Quisque id nibh nec odio venenatis aliquam id vel neque. Etiam lacinia maximus nisi eu suscipit. Vestibulum eu suscipit arcu, et mollis enim. Vestibulum a odio ac ante hendrerit pharetra. Suspendisse sollicitudin at risus nec feugiat. Phasellus in lacus quis nulla feugiat scelerisque. Aliquam aliquet lacinia semper. Suspendisse at dui consectetur, elementum est cursus, tristique mauris. Aenean libero massa, pellentesque et mattis ac, pulvinar id magna. Donec ut dapibus velit, quis placerat tellus. Fusce velit felis, feugiat eget vestibulum nec, ornare sed purus. Nulla facilisi. </p>
-            <p>Quisque iaculis sapien eget massa fringilla, bibendum tristique justo tristique. Quisque congue sit amet nunc sed condimentum. Integer et enim eros. Duis sed quam in ipsum vestibulum gravida. Nulla ornare odio non egestas malesuada. Nunc quis urna id augue scelerisque vehicula. Etiam imperdiet porta finibus. Curabitur mollis blandit dui eu ullamcorper. Ut sed est ullamcorper, maximus erat sed, efficitur erat. Donec dolor augue, euismod vitae tristique sit amet, maximus sed mi. Pellentesque porttitor non lorem id malesuada. </p>
-            <p>Cras quis urna posuere, faucibus leo at, rhoncus mi. Duis a rhoncus nulla. Integer semper turpis dictum massa pulvinar placerat. In sit amet dictum elit. Proin lobortis diam id elit gravida egestas. Curabitur dapibus auctor lacus et gravida. Aliquam eleifend congue libero, at vulputate leo finibus non. Ut luctus lacus quis est luctus ultrices. </p>
-            <p>Pellentesque nec mauris nisl. Morbi auctor orci dignissim orci hendrerit pretium. Quisque mattis posuere orci, ut aliquam ante rhoncus id. Cras tincidunt vulputate nisl id eleifend. Fusce turpis tortor, pharetra ac turpis accumsan, sodales tempus mi. Curabitur vestibulum, neque et tristique finibus, felis lorem elementum risus, non rhoncus ipsum mi eget mauris. Suspendisse vel blandit lacus, a pellentesque turpis. Curabitur dapibus, nisi at eleifend feugiat, ipsum dui vehicula nisl, at vulputate velit massa quis orci. Phasellus eget finibus arcu. Etiam lorem sapien, dignissim ut ultrices id, pretium nec lorem. Quisque pretium laoreet rutrum. Ut et venenatis enim, non laoreet lacus. In eu consequat nibh. Aliquam sit amet efficitur augue. </p>
+            <div>
+                El sistema <b>CTTWapp v1.0 beta</b> [ <em>CTT Web Application</em> ] ha sido concebido por la Dirección de <b>CTT Exp. & Rentals S.A. de C.V.</b> , como un sistema que automatice procesos de administración de la empresa. Por ello, esta aplicación se ha implementado usando <b>TI [ Tecnologías de Información ]</b> en la nube.
+                <br/>
+                De esta manera se pretende que la aplicación sea operable desde cualquier dispositivo y desde
+                cualquier lugar.
+                <br/>
+                <br/>
+                Los <b>objetivos generales</b> que debe cumplir esta aplicación son los siguientes :<br/><br/>
+                <ul>
+                    <li> <b>Automatizar procesos sensibles dentro de la empresa usando tecnologías de información actuales.</b></li>
+                    <li> <b>Tener una aplicación segura y robusta que pueda ser operada en cualquier dispositivo con una conexión a Internet, y desde cualquier lugar.</b></li>
+                    <li> <b>Que la aplicación cuente con una curva de vida útil prologada y extendida tal como la versión del sistema anterior.</b></li>
+                </ul>
+                <br/>
+                Además, la aplicación contará con las siguientes <b>características</b> :
+                <br/>
+                <br/>
+                <ul>
+                    <li> <b>Registro y administración de usuarios.</b></li>
+                    <li> <b>Inicio y cierre de sesión de trabajo.</b></li>
+                    <li> <b>Acerca y versión del sistema.</b></li>
+                    <li> <b>Ayuda del sistema.</b></li>
+                    <li> <b>Contacto de soporte técnico para los usuarios.</b></li>
+                    <li> <b>Administrador de clientes y funcionalidades específicas.</b></li>
+                    <li> <b>Administrador de catálogos y marcas de productos.</b></li>
+                    <li> <b>Administrador de artículos y funcionalidades específicas.</b></li>
+                    <li> <b>Administrador de inventarios.</b></li>
+                    <li> <b>Administrador de proyectos y funcionalidades específicas.</b></li>
+                    <li> <b>Administrador de reservaciones de equipo.</b></li>
+                    <li> <b>Administrador de cotizaciones.</b></li>
+                </ul>
+            </div>
+
+            <br/>
+            <br/>
+
+            <h4><?= Yii::t('app','Selector');?></h4>
+
+            <br/>
+
+            <div>
+                Se puede acceder a las opciones del sistema usando el selector principal ubicado en la página de inicio. Un pequeño recuadro con líneas en la esquina superior derecha mostrará el selector principal al hacer clic en éste. También pueden ocultar el selector haciendo de nuevo clic en el botón antes mencionado.
+                La primera sección del selector es la siguiente y muestra la cabecera y el botón para mostrar y ocultar el mismo. Es importante mencionar que el selector aparecerá y se ocultará en el extremo derecho de la aplicación.
+
+                <br/>
+                <br/>
+                <br/>
+
+                <div class="well well-lg">
+                    <div class="polaroid">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_01.png"  alt="Cabecera" style="width:100%">
+                        <div class="container-polaroid">
+                            <p>Cebecera del Selector</p>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+                La segunda sección del selector muestra los botones <b>Registro</b> y <b>Sesión</b>. El botón <b>Registro</b> se usa para dar de alta a un nuevo usuario del sistema, del mismo modo el botón <b>Sesión</b> permite que un usuario ya registrado entre y use el sistema según los privilegios asignados.<br/><br/>
+
+                <br/>
+
+                <div class="well well-lg">
+                    <div class="polaroid">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_02.png"  alt="Acceso" style="width:100%">
+                        <div class="container-polaroid">
+                            <p>Sección Acceso</p>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+                En la tercera sección del selector se agrupa a los botones <b>Acerca</b> <b>Ayuda</b>, y <b>Contacto</b>. El botón <b>Acerca</b> muestra los datos de identificación del proyecto, el botón <b>Ayuda</b> muestra este página y los tópicos generales de información del sistema. El botón <b>Contacto</b> se usa para
+                informar de algún problema o bien de alguna sugerencia. Al ingresar los datos solicitados, se enviará un correo electrónico a la direción de <code>soporte.ctt@gmail.com</code> y una vez recibido se realizarán las acciones pertinentes.
+                <br/>
+                <br/>
+                <br/>
+
+                <div class="well well-lg">
+                    <div class="polaroid">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_03.png"  alt="Asistencia" style="width:100%">
+                        <div class="container-polaroid">
+                            <p>Sección Asistencia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+                Por último, en la cuarta sección del selector se muestran los botones <b>Clientes</b>, <b>Catálogos</b>, <b>Artículos</b>, <b>Inventarios</b>, <b>Proyectos</b>, <b>Reservaciones</b> y <b>Cotizaciones</b>. Estas son las operaciones disponibles a las que el usuario puede acceder con los privilegios asignados por el administrador del sistema.
+                En cada operación existen una serie de funcionalidades que permitiran la administración de datos y procesos, así como la generación de reportes.<br/><br/>
+                Al seleccionar alguna de las opciones disponibles se revisará si el usuario tiene los privilegios de acceso y en su caso le ingresará al administrador elegido.
+                <br/>
+                <br/>
+                <br/>
+
+                <div class="well well-lg">
+                    <div class="polaroid">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_04.png"  alt="Operaciones" style="width:100%">
+                        <div class="container-polaroid">
+                            <p>Sección Operaciones</p>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+            </div>
         </div>
     </div>
 

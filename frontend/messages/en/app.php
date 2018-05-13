@@ -33,6 +33,8 @@ return [
     'Seleccione una fecha por favor.' => 'Please select a date.',
     'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.' => 'Your access has been authenticated correctly. Please DO NOT forget to close your session when finished.',
     'Ubicación de' => 'Location of',
+    'Soportado por' => 'Supported by',
+    'Todos los derechos reservados &copy;' => 'Copyright &copy;',
 
     // Modals messages
 

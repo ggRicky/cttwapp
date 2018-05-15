@@ -56,7 +56,6 @@ return [
                  ],
             ],
         ],
-
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -65,12 +64,12 @@ return [
             ],
         ],
         */
+
     ],
 
-    // 2018-02-05 13:54 Hrs. : Register a class to change dynamically the language application .
-
+    // 2018-02-05 13:54 Hrs. : Register a new component ( class ). One method included in this component is for change dynamically the application's language.
     'as beforeRequest' => [
-        'class' => 'frontend\components\ChgeDynLangApp',
+        'class' => 'frontend\components\CTTGlobalMixin',
     ],
 
     'params' => $params,

@@ -100,7 +100,9 @@ $randomBg = rand(1,13);
                     'filterModel' => $searchModel,
                     'rowOptions' => function($model){
                         // 2018-04-23 : The next conditional statement enable colored rows based on specific database value
-                        if (Yii::$app->getRequest()->getQueryParam('c') == 1){
+                        // 2018-05-14 : Improvement. The color on/off status is stored in a cookie.
+                        if (Yii::$app->getRequest()->getCookies()->has('client-color') &&
+                            Yii::$app->getRequest()->getCookies()->getValue('client-color') == '1'){
                            // 2018-04-15 : Change the row background color based on the client_type_id value.
                            if ($model->client_type_id == 1)
                            {
@@ -206,8 +208,9 @@ $randomBg = rand(1,13);
 
             <p>
                 <br/>
-                <?= Html::a(Yii::t('app', 'Codificar con colores'), ['client/index', 'c' => 1], ['class' => 'btn btn-ctt-warning']) ?>
-                <?= Html::a('', ['client/index', 'c' => 0], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
+                <!-- 2018-05-14 : Improvement. The next two <a> tags call the color action from clientController and pass the color parameter to it. -->
+                <?= Html::a(Yii::t('app', 'Codificar con colores'), ['client/color', 'color' => '1'], ['class' => 'btn btn-ctt-warning']) ?>
+                <?= Html::a('', ['client/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
             </p>
 
             <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>

@@ -101,7 +101,9 @@ $randomBg = rand(1,13);
                     'filterModel' => $searchModel,
                     'rowOptions' => function($model){
                         // 2018-04-23 : The next conditional statement enable colored rows based on specific database value
-                        if (Yii::$app->getRequest()->getQueryParam('c') == 1){
+                        // 2018-05-14 : Improvement. The color on/off status is stored in a cookie.
+                        if (Yii::$app->getRequest()->getCookies()->has('article-color') &&
+                            Yii::$app->getRequest()->getCookies()->getValue('article-color') == '1'){
                            // 2018-05-06 : Change the row background color based on the type_art value.
                            if ($model->type_art == 'V')  // 'V'- Venta  'R' - Renta
                            {
@@ -191,8 +193,9 @@ $randomBg = rand(1,13);
 
             <p>
                 <br/>
-                <?= Html::a(Yii::t('app', 'Codificar con colores'), ['article/index', 'c' => 1], ['class' => 'btn btn-ctt-warning']) ?>
-                <?= Html::a('', ['article/index', 'c' => 0], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
+                <!-- 2018-05-14 : Improvement. The next two <a> tags call the color action from articleController and pass the color parameter to it. -->
+                <?= Html::a(Yii::t('app', 'Codificar con colores'), ['article/color', 'color' => '1'], ['class' => 'btn btn-ctt-warning']) ?>
+                <?= Html::a('', ['article/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
             </p>
 
             <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>

@@ -142,4 +142,21 @@ class ArticleController extends Controller
             throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe.'));
         }
     }
+
+    /**
+     * Stores the article colored status in a cookie.
+     *
+     * 2018-05-14 22:31 Hrs.
+     *
+     */
+
+    public function actionColor($color)
+    {
+        if (isset($color)){ // if color parameter is set.
+            // Create and store a new cookie
+            $cookie = new \yii\web\Cookie(['name' => 'article-color', 'value' => $color]);
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+        return $this->redirect(['article/index', '#' => 'work-area-index']);
+    }
 }

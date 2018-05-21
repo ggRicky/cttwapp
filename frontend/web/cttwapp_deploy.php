@@ -15,8 +15,8 @@
         '(cd /var/www/web/cttwapp && git submodule sync 2>&1)',
         '(cd /var/www/web/cttwapp && git submodule update 2>&1)',
         '(cd /var/www/web/cttwapp && git submodule status 2>&1)',
-        'sudo chown -R ricardo:www-data /var/www/web/cttwapp/*.*',
-        'sudo setfacl -R -m u:ricardo:rwX -m u:www-data:rwX -m u:git:rwX /var/www/web/cttwapp/*.*'
+        'sudo chown -R ricardo:www-data /var/www/web/cttwapp/ *.*',
+        'sudo setfacl -R -m u:ricardo:rwX -m u:www-data:rwX -m u:git:rwX /var/www/web/cttwapp/ *.*'
     );
 
     // exec commands

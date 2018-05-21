@@ -335,7 +335,10 @@ $randomBg = rand(1,13);
                         <p class="text-muted"><?= Yii::t('app','Soportado por') ?></p>
                         <hr class="small">
                         <p>
-                            <a href="#"><img src="<?=$baseUrl?>/img/comodo_secure_seal_100x85_transp.png" height="75"/></a>
+                            <script language="JavaScript" type="text/javascript">
+                                TrustLogo("https://www.ctt-app.com/assets/bf100e74/img/comodo_secure_seal_100x85_transp.png", "CL1", "none");
+                            </script>
+                            <a  href="https://www.positivessl.com/" id="comodoTL">Positive SSL</a>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

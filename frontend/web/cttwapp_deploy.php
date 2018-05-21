@@ -6,6 +6,9 @@
      *
      */
 
+    // 2018-05-21 : The Payload URL in Github hook configuration is https://www.ctt-app.com/cttwapp_deploy.php
+    //              due to the new redirect request config in nginx server.
+
     // array of commands
     $commands = array(
         'echo $PWD',
@@ -16,7 +19,7 @@
         '(cd /var/www/web/cttwapp && git submodule update 2>&1)',
         '(cd /var/www/web/cttwapp && git submodule status 2>&1)',
         // 2018-05-21 : Important. For success execution to the next two commands, in the sudoers file add the next line :
-        // www-data ALL=(ALL) NOPASSWD: ALL
+        //              www-data ALL=(ALL) NOPASSWD: ALL
         'sudo chown -R ricardo:www-data /var/www/web/cttwapp/ *.*',
         'sudo setfacl -R -m u:ricardo:rwX -m u:www-data:rwX -m u:git:rwX /var/www/web/cttwapp/ *.*'
     );

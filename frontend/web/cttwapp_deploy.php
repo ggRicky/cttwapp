@@ -1,8 +1,8 @@
 <?php
     /**
-     * GIT DEPLOYMENT SCRIPT
+     * Git deployment script for cttwapp project
      *
-     * Used for automatically deploying websites via GitHub
+     * Used for automatically deploying cttwapp project via GitHub
      *
      */
 
@@ -18,13 +18,13 @@
         '(cd /var/www/web/cttwapp && git submodule sync 2>&1)',
         '(cd /var/www/web/cttwapp && git submodule update 2>&1)',
         '(cd /var/www/web/cttwapp && git submodule status 2>&1)',
-        // 2018-05-21 : Important. For success execution to the next two commands, in the sudoers file add the next line :
+        // 2018-05-21 : Important. For a success execution to the next two commands, in the sudoers file add the next line :
         //              www-data ALL=(ALL) NOPASSWD: ALL
         'sudo chown -R ricardo:www-data /var/www/web/cttwapp/ *.*',
         'sudo setfacl -R -m u:ricardo:rwX -m u:www-data:rwX -m u:git:rwX /var/www/web/cttwapp/ *.*'
     );
 
-    // exec commands
+    // execute each command
     $output = '';
     foreach($commands AS $command){
         $tmp = shell_exec($command);
@@ -52,7 +52,7 @@
 <body>
 
 	<h1>CTTwapp Project - Git Deployment Script</h1>
-	<p>This page reports about git's commands status, for a production server updates based on GitHub's WebHooks.</p>
+	<p>This page executes the git commands and reports the status of the updates on the production server, executing the webhook defined in GitHub.</p>
 
     <p><?= date('Y-m-d G:i:s'); ?></p>
 

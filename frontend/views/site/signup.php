@@ -17,7 +17,7 @@ If (Yii::$app->session->hasFlash('error'))
 $script = <<< JS
     location.hash = "#error-area"; 
 JS;
-$this->registerJs($script);
+    $this->registerJs($script);
 }
 
 //2018-04-26 : Used to get a random int, and display a random parallax.
@@ -80,10 +80,10 @@ $randomBg = rand(1,13);
             <p><?= Yii::t('app','Para registrarse como usuario, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
             <!-- 2018-04-08 : If there is an flash message, then display it.-->
-            <?php If (Yii::$app->session->hasFlash('error')): ?>
+            <?php if (Yii::$app->session->hasFlash('error')): ?>
                <div class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <h4><strong><?= Yii::t('app','¡ Advertencia !'); ?></strong></h4>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                </div>
             <?php endif; ?>

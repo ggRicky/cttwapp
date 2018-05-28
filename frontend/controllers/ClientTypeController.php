@@ -52,9 +52,16 @@ class ClientTypeController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view_client_type', [
-            'model' => $this->findModel($id),
-        ]);
+        if (\Yii::$app->user->can('viewClientType')) {
+            return $this->render('view_client_type', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+
+        return $this->redirect(['client-type/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -64,14 +71,20 @@ class ClientTypeController extends Controller
      */
     public function actionCreate()
     {
-        $model = new ClientType();
+        if (\Yii::$app->user->can('createClientType')) {
+            $model = new ClientType();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create_client_type', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('create_client_type', [
+                    'model' => $model,
+                ]);
+            }
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['client-type/index', '#' => 'work-area-index']);
         }
     }
 
@@ -83,15 +96,22 @@ class ClientTypeController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('updateClientType')) {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update_client_type', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->render('update_client_type', [
+                    'model' => $model,
+                ]);
+            }
         }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+
+        return $this->redirect(['client-type/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -102,9 +122,15 @@ class ClientTypeController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['client_type/index', '#' => 'work-area-index-cte']);
+        if (\Yii::$app->user->can('deleteClient')) {
+            if ($this->findModel($id)->delete()){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
+            }
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['client-type/index', '#' => 'work-area-index']);
     }
 
     /**

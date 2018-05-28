@@ -53,9 +53,18 @@ class CatalogController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view_catalog', [
-            'model' => $this->findModel($id),
-        ]);
+        if (\Yii::$app->user->can('viewCatalog')) {
+
+            return $this->render('view_catalog', [
+                'model' => $this->findModel($id),
+            ]);
+
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+
+        return $this->redirect(['catalog/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -65,23 +74,30 @@ class CatalogController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Catalog();
+        if (\Yii::$app->user->can('createCatalog')) {
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model = new Catalog();
+
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('create_catalog', [
+                    'model' => $model,
+                ]);
             }
-            // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('create_catalog', [
                 'model' => $model,
             ]);
         }
-
-        return $this->render('create_catalog', [
-            'model' => $model,
-        ]);
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['catalog/index', '#' => 'work-area-index']);
+        }
     }
 
     /**
@@ -93,24 +109,33 @@ class CatalogController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('updateCatalog')) {
 
-        if ($model->load(Yii::$app->request->post())) {
+            $model = $this->findModel($id);
 
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post())) {
+
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('update_catalog', [
+                    'model' => $model,
+                ]);
             }
-            // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('update_catalog', [
                 'model' => $model,
             ]);
+
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
 
-        return $this->render('update_catalog', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['catalog/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -122,7 +147,15 @@ class CatalogController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (\Yii::$app->user->can('deleteCatalog')) {
+            if ($this->findModel($id)->delete()){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
+            }
+
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
 
         return $this->redirect(['catalog/index', '#' => 'work-area-index']);
     }

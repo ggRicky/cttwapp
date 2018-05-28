@@ -45,15 +45,15 @@ return [
         // 2018-02-05 13:52 Hrs. : Configuration for using Yii2 internationalization module.
         'i18n' => [
             'translations' => [
-                 'app' => [
-                     'class' => 'yii\i18n\PhpMessageSource',
-                     //'basePath' => '@app/messages',
-                     'sourceLanguage' => 'es',
-                     'fileMap' => [
-                         'app' => 'app.php',
-                         'app/error' => 'error.php',
-                     ],
-                 ],
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    'sourceLanguage' => 'es',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
             ],
         ],
         /*
@@ -64,7 +64,6 @@ return [
             ],
         ],
         */
-
     ],
 
     // 2018-02-05 13:54 Hrs. : Register a new component ( class ). One method included in this component is for change dynamically the application's language.

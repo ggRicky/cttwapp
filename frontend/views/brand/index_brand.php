@@ -31,7 +31,7 @@ Array
 */
 
 // getValue : Retrieves the value of an array element or object property with the given key or property name.
-$skip_param   = (\yii\helpers\ArrayHelper::getValue($qryParams, '1.#')=='work-area-index'?true:false);
+$skip_param   = (\yii\helpers\ArrayHelper::getValue($qryParams, '1.#') == 'work-area-index' ? true : false);
 
 If ($search_param || $sort_param || $skip_param)
 {
@@ -97,28 +97,59 @@ $randomBg = rand(1,13);
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <p>
-                <?= Html::a(Yii::t('app', 'Crear Marca'), ['create'], ['class' => 'btn btn-success']) ?>
-            </p>
+            <!-- 2018-05-24 : If there is an flash message, then display it.-->
+            <?php if (Yii::$app->session->hasFlash('error')): ?>
+                <div class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                </div>
+                <!-- 2018-05-25 : Flash success message. -->
+            <?php elseif (Yii::$app->session->hasFlash('success')): ?>
+                <div class="alert alert-success alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('success') ?></p>
+                </div>
+            <?php endif; ?>
 
-            <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
-            <div id="div-scroll" class="div-scroll-area">
+            <!-- 2018-05-23 : Yii2 Rbac - Validates the access. -->
+            <?php if (\Yii::$app->user->can('listBrand')): ?>
 
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'columns' => [
-                        ['class' => 'yii\grid\ActionColumn'],
-                        ['class' => 'yii\grid\SerialColumn'],
+                <p>
+                    <?= Html::a(Yii::t('app', 'Crear Marca'), ['create'], ['class' => 'btn btn-success']) ?>
+                </p>
 
-                        'id',
-                        'brand_desc',
-                    ],
-                ]); ?>
+                <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
+                <div id="div-scroll" class="div-scroll-area">
 
-            </div>
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\ActionColumn'],
+                            ['class' => 'yii\grid\SerialColumn'],
 
-            <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>
+                            'id',
+                            'brand_desc',
+                        ],
+                    ]); ?>
+
+                </div>
+
+                <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>
+
+            <?php else: ?>
+
+                <?php Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
+
+                <div class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                </div>
+
+            <?php endif; ?>
 
         </div>
     </div>

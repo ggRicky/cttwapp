@@ -5,10 +5,10 @@
  * Date: 4/02/18
  * Time: 04:11 PM
  *
- * Translator file spanish to english for cttwapp project
+ * Translator file spanish to english for cttwapp project [ frontend ]
  *
  */
-return [
+return ([
 
     // General application messages
 
@@ -35,6 +35,9 @@ return [
     'Ubicación de' => 'Location of',
     'Soportado por' => 'Supported by',
     'Todos los derechos reservados &copy;' => 'Copyright &copy;',
+    'El registro se ha eliminado del sistema exitosamente.' => 'The registry has been successfully removed from the system.',
+    'Administrador del Sistema' => 'System Administrator',
+    'Administrador RBAC' => 'RBAC Administrator',
 
     // Modals messages
 
@@ -87,6 +90,7 @@ return [
     'El error que se indica arriba, ocurrió mientras el servidor Web procesaba su solicitud.' => 'The above error occurred while the Web server was processing your request.',
     'Fallo en la operación' => 'Operation failure',
     'Por favor contáctenos si considera que se trata de un error del servidor. Gracias.' => 'Please contact us if you think this is a server error. Thank you.',
+    'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.' => 'Your access profile does not authorize you to use this action. Please contact the system administrator for more details.',
 
     // Contact messages
 
@@ -100,7 +104,6 @@ return [
 
     // Signup messages
 
-    '¡ Advertencia !' => 'Warning !',
     'Apellido Paterno' => 'Paternal Name',
     'Apellido Materno' => 'Maternal Name',
     'Contraseña' => 'Password',
@@ -108,6 +111,7 @@ return [
     'Registrar' => 'Register',
     'Registre sus datos como nuevo usuario del sistema.' => 'Register his information as new user of the system.',
     'Usuario' => 'User',
+    'Su registro ha sido procesado correctamente. Por favor NO olvide cerrar su sesión al terminar.' => 'Your registration has been processed correctly. Please DO NOT forget to close your session when finished.',
 
     // Login messages
 
@@ -191,6 +195,4 @@ return [
     'Vista del Artículo' => 'Article View',
     'Vista del Catálogo' => 'Catalog View',
     'Vista de la Marca' => 'Brand View',
-];
-
-?>
+]);

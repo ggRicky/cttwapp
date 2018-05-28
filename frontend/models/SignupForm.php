@@ -103,6 +103,15 @@ class SignupForm extends Model
         $user->maternal_name = mb_strtoupper($this->maternal, 'UTF-8');
         $user->curp = strtoupper($this->curp);
 
-        return $user->save() ? $user : null;
+        // Save the new user
+        $user->save(false);
+
+        // 2018-05-23 : Assigns a default userCTT role to the new user.
+
+        $auth = Yii::$app->authManager;
+        $userCTT = $auth->getRole('userCTT');
+        $auth->assign($userCTT, $user->getId());
+
+        return $user;
     }
 }

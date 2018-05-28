@@ -82,54 +82,85 @@ $randomBg = rand(1,13);
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <p>
-                <?= Html::a(Yii::t('app', 'Crear Catálogo'), ['create'], ['class' => 'btn btn-success']) ?>
-            </p>
+            <!-- 2018-05-24 : If there is an flash message, then display it.-->
+            <?php if (Yii::$app->session->hasFlash('error')): ?>
+                <div class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                </div>
+                <!-- 2018-05-25 : Flash success message. -->
+            <?php elseif (Yii::$app->session->hasFlash('success')): ?>
+                <div class="alert alert-success alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('success') ?></p>
+                </div>
+            <?php endif; ?>
 
-            <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
-            <div id="div-scroll" class="div-scroll-area">
+            <!-- 2018-05-23 : Yii2 Rbac - Validates the access. -->
+            <?php if (\Yii::$app->user->can('listCatalog')): ?>
 
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
+                <p>
+                    <?= Html::a(Yii::t('app', 'Crear Catálogo'), ['create'], ['class' => 'btn btn-success']) ?>
+                </p>
 
-                    'columns' => [
-                        [ 'class' => 'yii\grid\ActionColumn',
-                            'headerOptions' => ['style' => 'width:4%'],
+                <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
+                <div id="div-scroll" class="div-scroll-area">
+
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+
+                        'columns' => [
+                            [ 'class' => 'yii\grid\ActionColumn',
+                                'headerOptions' => ['style' => 'width:4%'],
+                            ],
+
+                            [ 'class' => 'yii\grid\SerialColumn',
+                                'headerOptions' => ['style' => 'width:3%'],
+                            ],
+
+                            [
+                                'attribute' => 'id',
+                                'headerOptions' => ['style' => 'width:3%'],
+                            ],
+
+                            'id',
+
+                            // 2018-05-07 : The name_cat field in red text color.
+
+                            [
+                                'attribute' => 'name_cat',
+                                'contentOptions' => ['style' => 'color:red'],
+                            ],
+
+                            'sp_desc',
+                            'en_desc',
+
+                            'created_at',
+                            'updated_at',
+                            'created_by',
+                            'updated_by',
+
                         ],
+                    ]);?>
 
-                        [ 'class' => 'yii\grid\SerialColumn',
-                            'headerOptions' => ['style' => 'width:3%'],
-                        ],
+                </div>
 
-                        [
-                            'attribute' => 'id',
-                            'headerOptions' => ['style' => 'width:3%'],
-                        ],
+                <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>
 
-                        'id',
+            <?php else: ?>
 
-                        // 2018-05-07 : The name_cat field in red text color.
+                <?php Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
 
-                        [
-                            'attribute' => 'name_cat',
-                            'contentOptions' => ['style' => 'color:red'],
-                        ],
+                <div class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                </div>
 
-                        'sp_desc',
-                        'en_desc',
-
-                        'created_at',
-                        'updated_at',
-                        'created_by',
-                        'updated_by',
-
-                    ],
-                ]);?>
-
-            </div>
-
-            <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>
+            <?php endif; ?>
 
         </div>
     </div>

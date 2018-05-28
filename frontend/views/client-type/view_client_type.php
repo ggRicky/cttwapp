@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Cliente';
+$this->title = 'Tipo de Cliente';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
@@ -27,7 +27,7 @@ $baseUrl = $asset->baseUrl;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', '#' => 'work-area-index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client-type/index', '#' => 'work-area-index'], ['class' => 'btn btn-dark']) ?>
         </div>
     </div>
 

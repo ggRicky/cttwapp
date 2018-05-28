@@ -52,9 +52,15 @@ class ClientController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view_client', [
-            'model' => $this->findModel($id),
-        ]);
+        if (\Yii::$app->user->can('viewClient')) {
+            return $this->render('view_client', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['client/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -64,23 +70,30 @@ class ClientController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Client();
+        if (\Yii::$app->user->can('createClient')) {
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model = new Client();
+
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('create_client', [
+                    'model' => $model,
+                ]);
             }
-            // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('create_client', [
                 'model' => $model,
             ]);
         }
-
-        return $this->render('create_client', [
-            'model' => $model,
-        ]);
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['client/index', '#' => 'work-area-index']);
+        }
     }
 
     /**
@@ -91,23 +104,31 @@ class ClientController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('updateClient')) {
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('update_client', [
+                    'model' => $model,
+                ]);
             }
-            // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('update_client', [
                 'model' => $model,
             ]);
         }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
 
-        return $this->render('update_client', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['client/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -115,10 +136,18 @@ class ClientController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (\Yii::$app->user->can('deleteClient')) {
+            if ($this->findModel($id)->delete()){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
+            }
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
         return $this->redirect(['client/index', '#' => 'work-area-index']);
     }
 

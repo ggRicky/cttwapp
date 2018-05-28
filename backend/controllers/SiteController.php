@@ -26,7 +26,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'language'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -94,5 +94,20 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+    /**
+     * Stores a language value user's preference to a cookie.
+     *
+     * 2018-02-05 13:34 Hrs.
+     *
+     * Source : Yii2 Lesson - 51 Internationalization | i18n File Based ( Nov 14 2015 )
+     * Resource : https://www.youtube.com/watch?v=_qNMcJKoEK0
+     */
+
+    public function actionLanguage()
+    {
+        Yii::$app->language = $_POST['lang'];
+        $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang']]);
+        Yii::$app->getResponse()->getCookies()->add($cookie);
     }
 }

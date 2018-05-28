@@ -18,6 +18,7 @@ $baseUrl = $asset->baseUrl;
 $randomBg = rand(1,13);
 
 ?>
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->

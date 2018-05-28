@@ -34,22 +34,13 @@ $randomBg = rand(1,13);
         <!-- CTT default actions ribbon -->
         <?php
             // 2018-04-08 : This code was refactored, using only Html helper
-            if (Yii::$app->user->isGuest){
-                echo Html::begintag('div', ['class' => 'ctt-mini-bar-top-center']);
-                echo Html::begintag('div', ['class' => 'btn-group']);
-                echo Html::a(Yii::t('app','Registro'), ['site/signup'], ['class' => 'btn btn-primary']);
-                echo Html::a(Yii::t('app','Sesión'), ['site/login', '#' => 'work-area-index'], ['class' => 'btn btn-primary']);
-                echo Html::endtag('div');
-                echo Html::endtag('div');
-            }
-            else{
-                echo Html::begintag('div', ['class' => 'ctt-mini-bar-top-right']);
-                echo Html::beginForm(['/site/logout'], 'post');
-                echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'large']]) . "&nbsp;&nbsp;&nbsp;";
-                echo Html::submitButton(Yii::t('app','Terminar'), ['class' => 'btn btn-primary']);
-                echo Html::endForm();
-                echo Html::endtag('div');
-            };
+            // 2018-05-24 : Remove guest entry for rbac security.
+            echo Html::begintag('div', ['class' => 'ctt-mini-bar-top']);
+            echo Html::beginForm(['/site/logout'], 'post');
+            echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]) . "&nbsp;&nbsp;&nbsp;";
+            echo Html::submitButton(Yii::t('app','Terminar'), ['class' => 'btn btn-primary']);
+            echo Html::endForm();
+            echo Html::endtag('div');
         ?>
 
         <!-- Content menu -->
@@ -68,6 +59,18 @@ $randomBg = rand(1,13);
                 <?= "<a href='".Url::to(['site/contact'])."'>".Yii::t('app','Contacto')."</a>" ?>
             </div>
         </li>
+
+        <!-- 2018-05-24 : Special Option - Only the admin user can create an new user. -->
+        <?php if (\Yii::$app->user->can('adminProcess')): ?>
+
+        <li>
+            <div class="ctt-mini-bar-spc-opts">
+                <?= "<a href='".Url::to(['site/signup'])."'>".Yii::t('app','Registro')."</a>" ?>
+            </div>
+        </li>
+
+        <?php endif; ?>
+
         <li>
             <?= "<a href='".Url::to(['client/index'])."'>".Yii::t('app','Clientes')."</a>" ?>
         </li>
@@ -121,10 +124,10 @@ $randomBg = rand(1,13);
                 <!-- Builds a language options ribbon -->
                 <div>
                     <?php
-                    echo "|&nbsp;";
-                    foreach(Yii::$app->params['languages'] as $key => $language){
-                        echo "<a href=\"#\" class=\"language\" id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
-                    }
+                        echo "|&nbsp;";
+                        foreach(Yii::$app->params['languages'] as $key => $language){
+                            echo "<a href=\"#lang-". $key ."\" class=\"language\" id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
+                        }
                     ?>
                 </div>
 
@@ -418,7 +421,7 @@ $randomBg = rand(1,13);
     </div>
 </div>
 
-<!-- 2018-02-09 : Modal Success : User Logged -->
+<!-- 2018-02-09 : Modal Success [ User Logged  ]-->
 <div id="ctt-modal-usr-logged" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -461,15 +464,67 @@ $randomBg = rand(1,13);
     </div>
 </div>
 
-<!-- 2018-02-09 : If the user was logged successfully, then display the modal window notification, using PHP & jQuery -->
+<!-- 2018-05-25 : Modal Warning [ Forbidden Access ]-->
+<div id="ctt-modal-forbidden-access" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-backdrop">
+
+            <!-- Modal Header -->
+            <div class="modal-shadow-effect modal-header-water-mark">
+                <div class="modal-header modal-header-config ctt-modal-header-warning">
+                    <div class="row">
+                        <!--
+                             ctt-modal-header-info        glyphicon-info-sign
+                             ctt-modal-header-success     glyphicon-ok-sign
+                             ctt-modal-header-question    glyphicon-question-sign
+                             ctt-modal-header-warning     glyphicon-warning-sign
+                             ctt-modal-header-error       glyphicon-exclamation-sign
+                        -->
+                        <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                    </div>
+                </div>
+
+                <!-- Modal Content -->
+                <div class="modal-body modal-body-config">
+                    <p><?= Yii::$app->session->getFlash('forbiddenAccess'); ?></p>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer modal-footer-config">
+                    <div class="row">
+                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
+                        <div class="col-sm-6"><button type="button" class="btn btn-default" data-dismiss="modal"><?= Yii::t('app','Cerrar') ?></button></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
 <?php
+
+// 2018-02-09 : If the user was logged successfully, then display the modal window notification, using PHP & jQuery
 
 $session = Yii::$app->session;
 
 if ($session->has('successLogin')) {
 
     $script = "jQuery(document).ready(function () { $(\"#ctt-modal-usr-logged\").modal({show: true, backdrop: \"static\"}); });";
+    $this->registerJs($script, View::POS_READY);
+
+}
+
+// 2018-05-25 : If the user haven't access to an site action, then display the modal window notification, using PHP & jQuery
+
+if (Yii::$app->session->hasFlash('forbiddenAccess')){
+
+    $script = "jQuery(document).ready(function () { $(\"#ctt-modal-forbidden-access\").modal({show: true, backdrop: \"static\"}); });";
     $this->registerJs($script, View::POS_READY);
 
 }

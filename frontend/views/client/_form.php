@@ -16,10 +16,10 @@ use app\models\ClientType;
 <div class="client-form">
 
     <!-- 2018-05-07 : If there is an flash message, then display it.-->
-    <?php If (Yii::$app->session->hasFlash('error')): ?>
+    <?php if (Yii::$app->session->hasFlash('error')): ?>
         <div class="alert alert-warning alert-dismissible fade in">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <h4><strong><?= Yii::t('app','¡ Advertencia !'); ?></strong></h4>
+            <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
             <p><?= Yii::$app->session->getFlash('error') ?></p>
         </div>
     <?php endif; ?>

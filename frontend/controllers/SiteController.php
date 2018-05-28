@@ -2,12 +2,12 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use yii\base\InvalidParamException;
+use yii\web\BadRequestHttpException;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -26,15 +26,11 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'language'],
                 'rules' => [
+                    // 2018-05-24 : Removes the rules for a guest user, due to the yii2 rbac security is on.
                     [
-                        'actions' => ['signup','language'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
+                        'actions' => ['signup', 'logout', 'language'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -72,7 +68,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        // 2018-05-25 : Yii2 Rbac - Validates the access.
+
+        if (\Yii::$app->user->can('adminSite') || \Yii::$app->user->can('userGuest')) {
+            return $this->render('index');
+        }
+
+        return $this->redirect(['site/login']);
     }
 
     /**
@@ -82,10 +84,6 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
 
@@ -114,7 +112,6 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
-
     }
 
     /**
@@ -136,19 +133,26 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'));
+        // 2018-05-25 : Yii2 Rbac - Validates the access.
+
+        if (\Yii::$app->user->can('adminSite')) {
+            $model = new ContactForm();
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+                    Yii::$app->session->setFlash('success', Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'));
+                } else {
+                    Yii::$app->session->setFlash('error', Yii::t('app','Se presentó un error al enviar su mensaje.'));
+                }
+                return $this->refresh();
             } else {
-                Yii::$app->session->setFlash('error', Yii::t('app','Se presentó un error al enviar su mensaje.'));
+                return $this->render('contact', [
+                    'model' => $model,
+                ]);
             }
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
         }
+
+        Yii::$app->session->setFlash('forbiddenAccess', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -158,7 +162,14 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        // 2018-05-25 : Yii2 Rbac - Validates the access.
+
+        if (\Yii::$app->user->can('adminSite')) {
+            return $this->render('about');
+        }
+
+        Yii::$app->session->setFlash('forbiddenAccess', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -168,25 +179,42 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+        // 2018-05-25 : Yii2 Rbac - Validates the access.
+
+        if (\Yii::$app->user->can('adminSite')) {
+            $model = new SignupForm();
+            if ($model->load(Yii::$app->request->post())) {
+                if ($user = $model->signup()) {
+                    if (Yii::$app->getUser()->login($user)) {
+
+                        // 2018-05-23 : Display an welcome message window to the new user.
+
+                        // Signup success
+
+                        $str1 = Yii::t('app', 'Bienvenido');
+                        $str2 = Yii::t('app', 'Su registro ha sido procesado correctamente. Por favor NO olvide cerrar su sesión al terminar.');
+                        $str3 = '<h4>'.$str1.'&nbsp;&nbsp;<b>'.Yii::$app->user->identity->username.'</b></h4><p>'.$str2.'<br/></p>';
+
+                        Yii::$app->session->setFlash('successLogin', $str3);
+
+                        return $this->goHome();
+                    }
                 }
+
+                // 2018-04-08 : An error occurred in the captured data. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('signup', [
+                    'model' => $model,
+                ]);
             }
 
-            // 2018-04-08 : An error occurred in the data capture. A flash message is issued.
-
-            Yii::$app->session->setFlash('error', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('signup', [
                 'model' => $model,
             ]);
         }
 
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['site/login', '#' => 'work-area-index']);
     }
 
     /**
@@ -237,7 +265,24 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    /**
+     * Display a window help for general topics about de application.
+     *
+     * 2018-02-07 14:23 Hrs.
+     *
+     */
 
+    public function actionHelp()
+    {
+        // 2018-05-25 : Yii2 Rbac - Validates the access.
+
+        if (\Yii::$app->user->can('adminSite')) {
+            return $this->render('help');
+        }
+
+        Yii::$app->session->setFlash('forbiddenAccess', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        return $this->redirect(['site/index']);
+    }
     /**
      * Stores a language value user's preference to a cookie.
      *
@@ -247,29 +292,10 @@ class SiteController extends Controller
      * Resource : https://www.youtube.com/watch?v=_qNMcJKoEK0
      */
 
-    public function actionLanguage(){
-
-        if (isset($_POST['lang'])){
-
-            Yii::$app->language = $_POST['lang'];
-            $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang']]);
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-
-        }
-
+    public function actionLanguage()
+    {
+        Yii::$app->language = $_POST['lang'];
+        $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang']]);
+        Yii::$app->getResponse()->getCookies()->add($cookie);
     }
-
-    /**
-     * Display a window help for general topics about de application.
-     *
-     * 2018-02-07 14:23 Hrs.
-     *
-     */
-
-    public function actionHelp(){
-
-        return $this->render('help');
-
-    }
-
 }

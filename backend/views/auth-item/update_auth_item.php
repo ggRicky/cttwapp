@@ -1,37 +1,27 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \common\models\LoginForm */
-
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
 
-$this->title = 'Autentificación';
+/* @var $this yii\web\View */
+/* @var $model backend\models\AuthItem */
+
+$this->title = Yii::t('app', 'Objeto de Autorización');
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-//2018-05-25 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+// 2018-05-27 : If there is an flash message, then skip the header and go to the error-area using javascript.
+If (Yii::$app->session->hasFlash('error'))
+{
+    $script = <<< JS
+    location.hash = "#work-area-view";
+JS;
+    $this->registerJs($script);
+}
 
 ?>
 
-<!-- Header -->
-<header id="top">
-    <div class="row"> <!-- Bootstrap's row -->
-        <div class="col-lg-12"> <!-- Bootstrap's col -->
-            <!-- CTT logo to display over the parallax efect with opacity level -->
-            <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <!-- Parallax Efect -->
-            <div id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">
-                <div class="row"></div>
-            </div>
-        </div>
-    </div>
-</header>
-
 <!-- Orange ribbon decoration -->
-<section id="error-area" class="ctt-section bg-secondary">
+<section id="work-area-view" class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
@@ -43,6 +33,13 @@ $randomBg = rand(1,13);
 <!-- Yii2 Content -->
 <section id="yii2" class="yii2-page">
 
+    <!-- Main menu return -->
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 text-center">
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['auth-item/index', 'page' => Yii::$app->getRequest()->getQueryParam('page'), '#' => 'work-area-index'], ['class' => 'btn btn-dark']) ?>
+        </div>
+    </div>
+
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
@@ -53,7 +50,7 @@ $randomBg = rand(1,13);
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app','Inicie su sesión de trabajo.'); ?></p>
+            <p><?= Yii::t('app','Modificar Objeto de Autorización');?></p>
         </div>
     </div>
 
@@ -61,43 +58,33 @@ $randomBg = rand(1,13);
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
+            <!-- Business logic for create an auth item -->
+            <div class="auth-item-update">
 
-            <!-- 2018-04-08 : If there is an flash message, then display it.-->
-            <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-                    <p><?= Yii::$app->session->getFlash('error') ?></p>
-                </div>
-            <?php endif; ?>
+                <?= $this->render('_form', [
+                    'model' => $model,
+                ]) ?>
 
-            <div class="site-login">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-
-                        <?= $form->field($model, 'username')->textInput() ?>
-
-                        <?= $form->field($model, 'password')->passwordInput() ?>
-
-                        <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-                        <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app','Ingresar'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                        </div>
-
-                        <?php ActiveForm::end(); ?>
-                    </div>
-                </div>
             </div>
+
         </div>
     </div>
+</section>
 
+<section>
+    <!-- A button for go to the page's top -->
+    <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
+        <div class="tooltip-conf">
+            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
+            <a href="#work-area-view">
+                <span class="glyphicon glyphicon-circle-arrow-up"></span>
+            </a>
+        </div>
+    </div>
 </section>
 
 <!-- Footer -->
-<footer>
+<footer >
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
@@ -134,9 +121,14 @@ $randomBg = rand(1,13);
     </div>
 
     <!-- Blue ribbon footer decoration -->
-    <section class="ctt-section-footer ctt-footer-container-bke">
+    <section class="ctt-section bg-secondary">
         <div class="col-lg-12">
-            <div class="row "></div>
+            <div class="row"></div>
         </div>
     </section>
 </footer>
+
+
+
+
+

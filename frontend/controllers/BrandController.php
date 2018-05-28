@@ -53,9 +53,18 @@ class BrandController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view_brand', [
-            'model' => $this->findModel($id),
-        ]);
+        if (\Yii::$app->user->can('viewBrand')) {
+
+            return $this->render('view_brand', [
+                'model' => $this->findModel($id),
+            ]);
+
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+
+        return $this->redirect(['brand/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -65,23 +74,30 @@ class BrandController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Brand();
+        if (\Yii::$app->user->can('createBrand')) {
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model = new Brand();
+
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                // 2018-05-08 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('create_brand', [
+                    'model' => $model,
+                ]);
             }
-            // 2018-05-08 : An error occurred in the data capture. A flash message is issued.
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('create_brand', [
                 'model' => $model,
             ]);
         }
-
-        return $this->render('create_brand', [
-            'model' => $model,
-        ]);
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['brand/index', '#' => 'work-area-index']);
+        }
     }
 
     /**
@@ -93,24 +109,33 @@ class BrandController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
+        if (\Yii::$app->user->can('updateBrand')) {
 
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post())) {
+
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                // 2018-05-08 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('update_brand', [
+                    'model' => $model,
+                ]);
             }
-            // 2018-05-08 : An error occurred in the data capture. A flash message is issued.
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('update_brand', [
                 'model' => $model,
             ]);
         }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
 
-        return $this->render('update_brand', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['brand/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -122,8 +147,14 @@ class BrandController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        if (\Yii::$app->user->can('deleteBrand')) {
+            if ($this->findModel($id)->delete()){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
+            }
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
         return $this->redirect(['brand/index', '#' => 'work-area-index']);
     }
 

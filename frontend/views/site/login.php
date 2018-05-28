@@ -52,13 +52,6 @@ $randomBg = rand(1,13);
 <!-- Yii2 Content -->
 <section id="yii2" class="yii2-page">
 
-    <!-- Main menu return -->
-    <div class="row">
-        <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
-        </div>
-    </div>
-
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
@@ -80,10 +73,10 @@ $randomBg = rand(1,13);
             <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
             <!-- 2018-04-08 : If there is an flash message, then display it.-->
-            <?php If (Yii::$app->session->hasFlash('error')): ?>
+            <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <h4><strong><?= Yii::t('app','¡ Advertencia !'); ?></strong></h4>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
             <?php endif; ?>

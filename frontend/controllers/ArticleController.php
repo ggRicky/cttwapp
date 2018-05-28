@@ -53,9 +53,15 @@ class ArticleController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view_article', [
-            'model' => $this->findModel($id),
-        ]);
+        if (\Yii::$app->user->can('viewArticle')) {
+            return $this->render('view_article', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['article/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -65,23 +71,29 @@ class ArticleController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Article();
+        if (\Yii::$app->user->can('createArticle')) {
+            $model = new Article();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('create_article', [
+                    'model' => $model,
+                ]);
             }
-            // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('create_article', [
                 'model' => $model,
             ]);
         }
-
-        return $this->render('create_article', [
-            'model' => $model,
-        ]);
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['article/index', '#' => 'work-area-index']);
+        }
     }
 
     /**
@@ -93,24 +105,31 @@ class ArticleController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('updateArticle')) {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
+            if ($model->load(Yii::$app->request->post())) {
 
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('update_article', [
+                    'model' => $model,
+                ]);
             }
-            // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
             return $this->render('update_article', [
                 'model' => $model,
             ]);
         }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
 
-        return $this->render('update_article', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['article/index', '#' => 'work-area-index']);
     }
 
     /**
@@ -122,8 +141,14 @@ class ArticleController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        if (\Yii::$app->user->can('deleteArticle')) {
+            if ($this->findModel($id)->delete()){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
+            }
+        }
+        else {
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
         return $this->redirect(['article/index', '#' => 'work-area-index']);
     }
 

@@ -4,17 +4,22 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
+/* @var $searchModel backend\models\AuthItemSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tipos de Clientes';
+$this->title = 'Objetos de Autorización';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-04-11 : If there are a query or sort criteria is in progress, then skip the header and go just to the work-area-index using javascript code.
-$search_param = \yii\helpers\ArrayHelper::keyExists('ClientTypeSearch',$qryParams);
+// 2018-05-06 : If there are a query or sort criteria is in progress, then skip the header and go just to the work-area-index using javascript code.
+$search_param = \yii\helpers\ArrayHelper::keyExists('AuthItemSearch',$qryParams);
 $sort_param   = \yii\helpers\ArrayHelper::keyExists('sort',$qryParams);
 $skip_param   = (\yii\helpers\ArrayHelper::getValue($qryParams, '1.#')=='work-area-index'?true:false);
 
-If ($search_param || $sort_param || $skip_param)
+// 2018-05-06 : If an url color param was send, then skip the header and go just to the work-area-index using javascript code.
+$color_param  = Yii::$app->getRequest()->getQueryParam('c', null);
+
+If ($search_param || $sort_param || $skip_param || $color_param || Yii::$app->session->hasFlash('error'))
 {
     $script = <<< JS
     location.hash = "#work-area-index";
@@ -26,6 +31,7 @@ JS;
 $randomBg = rand(1,13);
 
 ?>
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
@@ -41,7 +47,7 @@ $randomBg = rand(1,13);
 </header>
 
 <!-- Blue ribbon decoration -->
-<section id="work-area-index" class="ctt-section bg-primary">
+<section id="work-area-index" class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
@@ -56,14 +62,14 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', ['#' => 'work-area-index']], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
         </div>
     </div>
 
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
+            <p><?= Yii::t('app', $this->title); ?></p>
         </div>
     </div>
 
@@ -78,14 +84,14 @@ $randomBg = rand(1,13);
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <!-- 2018-05-24 : If there is an flash message, then display it.-->
+            <!-- 2018-05-26 : If there is an flash message, then display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
-            <!-- 2018-05-25 : Flash success message. -->
+                <!-- 2018-05-26 : Flash success message. -->
             <?php elseif (Yii::$app->session->hasFlash('success')): ?>
                 <div class="alert alert-success alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -94,55 +100,83 @@ $randomBg = rand(1,13);
                 </div>
             <?php endif; ?>
 
-            <!-- 2018-05-23 : Yii2 Rbac - Validates the access. -->
-            <?php if (\Yii::$app->user->can('listClientType')): ?>
-
                 <p>
-                    <?= Html::a(Yii::t('app','Crear Tipo de Cliente'), ['create'], ['class' => 'btn btn-success']) ?>
+                    <?= Html::a(Yii::t('app', 'Crear') ." ". Yii::t('app', 'Objeto de Autorización'), ['create'], ['class' => 'btn btn-success']) ?>
                 </p>
 
-                <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
-                <div id="div-scroll" class="div-scroll-area">
+                <div id="div-scroll" class="div-scroll-area-horizontal">
+
+                    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
+                        'rowOptions' => function($model){
+
+                            // 2018-05-27 : Change the row background color based on the type attribute value.
+
+                            if ($model->type == 1){
+                                return ['class' => 'teal-light'];
+                            }
+                            else{
+                                return ['class' => 'lime-light'];
+                            }
+                        },
+
                         'columns' => [
-                            [ 'class' => 'yii\grid\ActionColumn',
-                                'headerOptions' => ['style' => 'width:5%'],
-                            ],
 
-                            [ 'class' => 'yii\grid\SerialColumn',
-                              'headerOptions' => ['style' => 'width:5%'],
+                            // 2018-05-27 : This code adds the current page as an URL parameter to the update and view buttons in the column actions.
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'template' => '{view} {update} {delete}',
+                                'buttons' => [
+                                    'update' => function ($url) use ($dataProvider) {
+                                        $url .= '&page=' . ($dataProvider->pagination->page + 1);
+                                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url);
+                                    },
+                                    'view' => function ($url) use ($dataProvider) {
+                                        $url .= '&page=' . ($dataProvider->pagination->page + 1);
+                                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url);
+                                    },
+                                ],
                             ],
+                            ['class' => 'yii\grid\SerialColumn'],
+
+                            'name',
+
+                            // 2018-05-26 : For type attribute color.
 
                             [
-                              'attribute' => 'id',
-                              'headerOptions' => ['style' => 'width:5%'],
+                                'attribute' => 'type',
+                                'headerOptions' => ['style' => 'width:3%'],
+                                'value' => function($model){
+                                    return ($model->type=='1'?'Rol':Yii::t('app', 'Permiso'));
+                                },
+                                'contentOptions' => function ($model, $key, $index, $column) {
+                                    return ['style' => 'color:'. ($model->type=='1'?'#428bca':'red')];
+                                },
                             ],
 
+                            'description:ntext',
+                            'rule_name',
+
                             [
-                              'attribute' => 'type_desc',
-                              'headerOptions' => ['style' => 'width:85%'],
+                                'attribute' => 'created_at',
+                                'value' => function($model){
+                                    return (date('Y-m-d G:i:s', $model->created_at));
+                                },
                             ],
+                            [
+                                'attribute' => 'updated_at',
+                                'value' => function($model){
+                                    return (date('Y-m-d G:i:s', $model->updated_at));
+                                },
+                            ],
+
+                            'data',
                         ],
                     ]); ?>
-
-                    <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>
-
-                <?php else: ?>
-
-                    <?php Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
-
-                    <div class="alert alert-warning alert-dismissible fade in">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-                        <p><?= Yii::$app->session->getFlash('error') ?></p>
-                    </div>
-
-                <?php endif; ?>
-
-            </div>
+                </div>
         </div>
     </div>
 </section>
@@ -197,9 +231,11 @@ $randomBg = rand(1,13);
     </div>
 
     <!-- Blue ribbon footer decoration -->
-    <section class="ctt-section-footer ctt-footer-container">
+    <section class="ctt-section-footer ctt-footer-container-bke">
         <div class="col-lg-12">
             <div class="row "></div>
         </div>
     </section>
 </footer>
+
+

@@ -133,13 +133,12 @@ class ClientController extends Controller
 
     /**
      * Deletes an existing Client model.
-     * If deletion is successful, the browser will be redirected to the  'index' view and positioned at the current GridView page.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @param integer $page
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
-
-    public function actionDelete($id, $page)
+    public function actionDelete($id)
     {
         if (\Yii::$app->user->can('deleteClient')) {
             if ($this->findModel($id)->delete()){
@@ -150,9 +149,8 @@ class ClientController extends Controller
             Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
 
-        return $this->redirect(['client/index', 'page' => $page, '#' => 'work-area-index']);
+        return $this->redirect(['client/index', '#' => 'work-area-index']);
     }
-
 
     /**
      * Finds the Client model based on its primary key value.
@@ -184,6 +182,6 @@ class ClientController extends Controller
             $cookie = new \yii\web\Cookie(['name' => 'client-color', 'value' => $color]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
-        return $this->redirect(['client/index', '#' => 'panel-area']);
+        return $this->redirect(['client/index', '#' => 'work-area-index']);
     }
 }

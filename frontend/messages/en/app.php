@@ -15,6 +15,8 @@ return ([
     '¿ Está seguro de eliminar este elemento ?' => 'Are you sure you want to delete this item ?',
     'Bienvenido' => 'Welcome',
     'Campo Requerido' => 'Required Field',
+    'El registro se ha eliminado del sistema exitosamente.' => 'The registry has been successfully removed from the system.',
+    'Eliminar' => 'Delete',
     'Esta dirección de correo ya fue asignada.' => 'This email address has already been taken.',
     'Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.' => 'This functionality is under construction and is not yet fully implemented.',
     'Este nombre de usuario ya fue asignado.' => 'This username has already been taken.',
@@ -25,6 +27,7 @@ return ([
     'La página solicitada no existe.' => 'The requested page does not exist.',
     'Listado Nominal' => 'Nominal Listing',
     'Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.' => 'Sorry, we are unable to reset password for the provided email address.',
+    'Modificar' => 'Modify',
     'Nueva contraseña generada.' => 'New password saved.',
     'R e g r e s a r' => 'R e t u r n',
     'Revise su correo para obtener más instrucciones.' => 'Check your email for further instructions.',
@@ -35,9 +38,7 @@ return ([
     'Ubicación de' => 'Location of',
     'Soportado por' => 'Supported by',
     'Todos los derechos reservados &copy;' => 'Copyright &copy;',
-    'El registro se ha eliminado del sistema exitosamente.' => 'The registry has been successfully removed from the system.',
-    'Administrador del Sistema' => 'System Administrator',
-    'Administrador RBAC' => 'RBAC Administrator',
+    'Ver' => 'View',
 
     // Modals messages
 
@@ -147,7 +148,6 @@ return ([
     'Corporativo' => 'Corporate',
     'Delegación' => 'Delegation',
     'Descripción del Tipo de Cliente' => 'Type Client Description',
-    'Eliminar' => 'Delete',
     'Email del Cliente' => 'Client Email',
     'Email del Contacto' => 'Contact Email',
     'Estado' => 'State',

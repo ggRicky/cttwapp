@@ -298,4 +298,11 @@ class SiteController extends Controller
         $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang']]);
         Yii::$app->getResponse()->getCookies()->add($cookie);
     }
+
+
+    public function actionScrollpane()
+    {
+        return $this->render('scrollpane');
+    }
+
 }

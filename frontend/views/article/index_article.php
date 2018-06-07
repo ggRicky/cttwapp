@@ -5,10 +5,15 @@ use yii\grid\GridView;
 
 /* 2018-05-06 : Used to display the catalog name for the actual article record */
 use yii\helpers\ArrayHelper;
+use yii\widgets\Pjax;
+use yii\helpers\Url;
 use app\models\Catalog;
 use app\models\Brand;
 
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\ArticleSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $qryParams */
 
 $this->title = 'Artículos';
 $asset = \frontend\assets\AppAsset::register($this);
@@ -19,10 +24,8 @@ $search_param = \yii\helpers\ArrayHelper::keyExists('ArticleSearch',$qryParams);
 $sort_param   = \yii\helpers\ArrayHelper::keyExists('sort',$qryParams);
 $skip_param   = (\yii\helpers\ArrayHelper::getValue($qryParams, '1.#')=='work-area-index'?true:false);
 
-// 2018-05-06 : If an url color param was send, then skip the header and go just to the work-area-index using javascript code.
-$color_param  = Yii::$app->getRequest()->getQueryParam('c', null);
-
-If ($search_param || $sort_param || $skip_param || $color_param)
+// 2018-06-03 : if any of the following conditions are met, then jump to the work-area-index anchor.
+If ($search_param || $sort_param || $skip_param || Yii::$app->session->hasFlash('error'))
 {
 $script = <<< JS
     location.hash = "#work-area-index";
@@ -30,7 +33,7 @@ JS;
     $this->registerJs($script);
 }
 
-//2018-04-26 : Used to get a random int, and display a random parallax.
+// 2018-04-26 : Used to get a random int, and display a random parallax.
 $randomBg = rand(1,13);
 
 ?>
@@ -65,7 +68,7 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -87,6 +90,9 @@ $randomBg = rand(1,13);
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
+            <!-- 2018-06-03 : Begin the ajax functionality to refresh only the GridView widget contents. -->
+            <?php Pjax::begin(); ?>
+
             <!-- 2018-05-24 : If there is an flash message, then display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div class="alert alert-warning alert-dismissible fade in">
@@ -103,17 +109,20 @@ $randomBg = rand(1,13);
                 </div>
             <?php endif; ?>
 
+            <!-- Used to jump to the right position when 'Code with colors' option is enabled or disabled -->
+            <span id="panel-area"></span>
+
             <!-- 2018-05-23 : Yii2 Rbac - Validates the access. -->
             <?php if (\Yii::$app->user->can('listArticle')): ?>
 
                 <p>
-                    <?= Html::a(Yii::t('app', 'Crear Artículo'), ['create'], ['class' => 'btn btn-success']) ?>
-                    <?= Html::a(Yii::t('app', 'Catálogos'), ['catalog/index', ['#' => 'work-area-index']], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a(Yii::t('app', 'Marcas'), ['brand/index', ['#' => 'work-area-index']], ['class' => 'btn btn-warning']) ?>
+                    <?= Html::a(Yii::t('app', 'Crear Artículo'), ['create', 'page'=>Yii::$app->getRequest()->getQueryParam('page')], ['class' => 'btn btn-success', 'title' => Yii::t('app', 'Crear un nuevo artículo')]) ?>
+                    <?= Html::a(Yii::t('app', 'Catálogos'), ['catalog/index', 'page'=>Yii::$app->getRequest()->getQueryParam('page'), ['#' => 'work-area-index']], ['class' => 'btn btn-primary', 'title' => Yii::t('app', 'Administrar los catálogos')]) ?>
+                    <?= Html::a(Yii::t('app', 'Marcas'), ['brand/index', 'page'=>Yii::$app->getRequest()->getQueryParam('page'), ['#' => 'work-area-index']], ['class' => 'btn btn-warning', 'title' => Yii::t('app', 'Administrar las marcas')]) ?>
                 </p>
 
                 <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
-                <div id="div-scroll" class="div-scroll-area">
+                <div id="div-scroll" class="div-scroll-area-horizon">
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
@@ -134,26 +143,85 @@ $randomBg = rand(1,13);
                         },
 
                         'columns' => [
-                            [ 'class' => 'yii\grid\ActionColumn',
-                                'headerOptions' => ['style' => 'width:4%'],
-                            ],
+                            // 2018-06-03 : This code adds the current page as an URL parameter to the view, update and delete buttons in the column actions.
+                            // 2018-06-03 : A new action is implemented to pass the page number parameter and return to the current page in GridView widget.
 
-                            [ 'class' => 'yii\grid\SerialColumn',
-                              'headerOptions' => ['style' => 'width:3%'],
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'headerOptions' => ['style' => 'width:4%'],
+                                // 2018-06-03 : Redefines the default {delete} action from the template and adds the new behaviors like an customized modal window.
+                                'template' => '{view} {update} {delete}',
+                                'buttons' => [
+                                    // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
+                                    'view' => function ($url) {
+                                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                            'title' => Yii::t('app', 'Ver'),           // 2018-06-03 : Adds the tooltip View
+                                        ]);
+                                    },
+                                    // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
+                                    'update' => function ($url) {
+                                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                            'title' => Yii::t('app', 'Modificar') ,     // 2018-06-03 : Adds the tooltip Modify
+                                        ]);
+                                    },
+                                    // 2018-06-03 : Adds a new delete action to customize the window modal alert.
+                                    'delete' => function($url, $model) {
+                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,
+                                            [
+                                                'title'   => Yii::t('app', 'Eliminar'),      // 2018-06-03 : Adds the tooltip Delete
+                                                'style'   => 'color:red',   // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
+                                                // 2018-06-03 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
+                                                // and displayed in the modal window.
+                                                'data' => [
+                                                    // 2018-06-03 : Adds to the modal title the row id, like a warning information.
+                                                    'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),
+                                                ],
+                                                // 2018-06-03 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
+                                                // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
+                                                // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
+                                                // In this case the 'data-confirm' parameter must be empty.
+                                                'data-confirm' => '',
+                                                //  2018-06-03 : The next two parameters are needed to complete teh right call to the action delete, because it will be made using the post method.
+                                                'data-method' => 'post',
+                                                'data-pjax' => '0',
+                                            ]);
+                                    },
+                                ],
+                                // 2018-06-03 : Adds an url that include the current page in GridView widget.
+                                'urlCreator' => function ($action, $model)  use ($dataProvider) {
+                                    if ($action === 'delete') {
+                                        $url = Url::to(['article/delete', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    }
+                                    elseif ($action === 'view') {
+                                        $url = Url::to(['article/view', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    }
+                                    elseif ($action === 'update') {
+                                        $url = Url::to(['article/update', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    }
+                                    else $url = null;
+
+                                    // 2018-06-03 : If null value is returned, the url created have only home page address plus &page parameter. The right value is return $url.
+                                    return $url;
+                                }
                             ],
 
                             [
-                              'attribute' => 'id',
-                              'headerOptions' => ['style' => 'width:3%'],
+                                'class' => 'yii\grid\SerialColumn',
+                                'headerOptions' => ['style' => 'width:3%'],
+                            ],
+
+                            [
+                                'attribute' => 'id',
+                                'headerOptions' => ['style' => 'width:3%'],
                             ],
 
                             // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
                             [
-                                'attribute' => 'catalog_id',
-                                'headerOptions' => ['style' => 'width:12%'],
-                                'value' => function($model){
-                                    return implode(",",ArrayHelper::map(Catalog::find()->where(['id' =>  $model->catalog_id])->all(),'id','displayNameCat'));
-                                }
+                                 'attribute' => 'catalog_id',
+                                 'headerOptions' => ['style' => 'width:12%'],
+                                 'value' => function($model){
+                                     return implode(",",ArrayHelper::map(Catalog::find()->where(['id' =>  $model->catalog_id])->all(),'id','displayNameCat'));
+                                 }
                             ],
 
                             // 2018-05-06 : The name_art field in red text color.
@@ -180,7 +248,7 @@ $randomBg = rand(1,13);
 
                             'price_art',
 
-                            // 2018-04-23 : For provenance type, the right legend is displayed.
+                            // 2018-04-23 : To the provenance type, the right legend is displayed.
 
                             [
                                 'attribute' => 'currency_art',
@@ -206,18 +274,11 @@ $randomBg = rand(1,13);
                             'updated_by',
 
                         ],
+
+                        'layout' => '{summary}{items}{pager}',
                     ]);?>
 
                 </div>
-
-                <p>
-                    <br/>
-                    <!-- 2018-05-14 : Improvement. The next two <a> tags call the color action from articleController and pass the color parameter to it. -->
-                    <?= Html::a(Yii::t('app', 'Codificar con colores'), ['article/color', 'color' => '1'], ['class' => 'btn btn-ctt-warning']) ?>
-                    <?= Html::a('', ['article/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
-                </p>
-
-                <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>
 
             <?php else: ?>
 
@@ -230,6 +291,27 @@ $randomBg = rand(1,13);
                 </div>
 
             <?php endif; ?>
+
+            <!-- 2018-05-28 : Ends the ajax functionality to refresh only the GridView widget contents. -->
+            <?php Pjax::end(); ?>
+
+            <br/>
+            <!-- 2018-05-14 : Improvement. The next two <a> tags call the color action from articleController and pass the color parameter to it. -->
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="text-info"><?= Yii::t('app', 'Herramientas') ?></span></div>
+                <div class="panel-body">
+                   <span>
+                   <?php
+                       $color_expr = Yii::$app->getRequest()->getCookies()->has('article-color') && Yii::$app->getRequest()->getCookies()->getValue('article-color') == '0';
+                       if ($color_expr){ echo Html::a('', ['article/color', 'color' => '1'], ['class' => 'btn glyphicon glyphicon-tint', 'style' => 'color:#999', 'title' => Yii::t('app', 'Activar código de colores')]); }
+                       else{ echo Html::a('', ['article/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'style' => 'color:#ff0000', 'title' => Yii::t('app', 'Desactivar código de colores')]); }
+                       echo 'Color';
+                   ?>
+                   </span>
+                </div>
+            </div>
+
+            <div class="well well-sm text-info"><span><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></span></div>
 
         </div>
     </div>
@@ -291,4 +373,52 @@ $randomBg = rand(1,13);
             <div class="row "></div>
         </div>
     </section>
+
 </footer>
+
+<!-- Modal Question : Used to confirm or cancel the delete action -->
+<div id="confirm-delete" tabindex="-1" class="modal fade" role="dialog" data-backdrop="true">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-backdrop">
+
+            <!-- Modal Header -->
+            <div class="modal-shadow-effect modal-header-water-mark">
+                <div class="modal-header modal-header-config ctt-modal-header-question">
+                    <div class="row">
+                        <!--
+                             ctt-modal-header-info        glyphicon-info-sign
+                             ctt-modal-header-success     glyphicon-ok-sign
+                             ctt-modal-header-question    glyphicon-question-sign
+                             ctt-modal-header-warning     glyphicon-warning-sign
+                             ctt-modal-header-error       glyphicon-exclamation-sign
+                        -->
+                        <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Pregunta') ?></h4></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                    </div>
+                </div>
+
+                <!-- Modal Content -->
+                <div id="content-body" class="modal-body modal-body-config"></div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer modal-footer-config">
+                    <div class="row">
+                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" title="[ Esc ] - <?= Yii::t('app','Descarta la operación') ?>"><?= Yii::t('app','Cancelar') ?></button>
+                            <button id="delete-ok" type="button" class="btn btn-danger btn-ok" title="<?= Yii::t('app','Procede la operación') ?>"><?= Yii::t('app','Aceptar') ?></button>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Modal Header -->
+            </div>
+
+        <!-- Modal content-->
+        </div>
+
+    </div>
+</div>

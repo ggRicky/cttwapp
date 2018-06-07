@@ -1,19 +1,22 @@
 <?php
-
 use yii\helpers\Html;
-use yii\grid\GridView;
-use kartik\dialog\Dialog;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Clientes';
+$this->title = 'Ayuda';
+
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+// 2018-06-05 : If there is a return link parameter, then skips to it using javascript code.
+$url_param = Yii::$app->getRequest()->getQueryParam('url');
+$anchor_param = Yii::$app->getRequest()->getQueryParam('ret');
+
 //2018-04-26 : Used to get a random int, and display a random parallax.
 $randomBg = rand(1,13);
-
 ?>
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
@@ -44,7 +47,7 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), Url::to([$url_param]).'&ret='.$anchor_param, ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -58,120 +61,25 @@ $randomBg = rand(1,13);
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p>Listado Nominal</p>
+            <p><?= Yii::t('app','Módulo Administrador de Clientes');?></p>
         </div>
     </div>
 
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
-            <div class="client-index">
-
-<p>
-
-<?php
-
-// Widget with default options
-echo Dialog::widget();
-
-// Buttons for testing the krajee dialog boxes
-$btns = /** @lang text */
-    <<< HTML
-<button type="button" id="btn-alert" class="btn btn-info">Alert</button>
-<button type="button" id="btn-confirm" class="btn btn-warning">Confirm</button>
-<button type="button" id="btn-prompt-1" class="btn btn-primary">Prompt-1</button>
-<button type="button" id="btn-prompt-2" class="btn btn-primary">Prompt-2</button>
-<button type="button" id="btn-dialog" class="btn btn-default">Dialog</button>
-<hr>
-<label>Test Yii Confirm (Click Link): </label>
-<!-- Yii Links Confirmation Dialog Override Example Markup -->
-<a href="http://demos.krajee.com" id="btn-yii-link" data-confirm="Are you sure you want to navigate to Krajee Demos Home Page?">Krajee Demos Home</a>
-HTML;
-echo $btns;
-
-// Javascript for triggering the dialogs
-$js = <<< JS
-     $("#btn-alert").on("click", function() {
-           krajeeDialog.alert("This is a Krajee Dialog Alert!")
-    });
-    $("#btn-confirm").on("click", function() {
-           krajeeDialog.confirm("Are you sure you want to proceed?", function (result) {
-              if (result) {
-                 alert('Great! You accepted!');
-              } else {
-                   alert('Oops! You declined!');
-              }
-           });
-    });
-    $("#btn-prompt-1").on("click", function() {
-           krajeeDialog.prompt({label:'Provide reason', value: 'This is an initial reason.', placeholder:'Upto 30 characters...', maxlength: 30}, function (result) {
-              if (result) {
-                 if (result === 'This is an initial reason.') {
-                    alert('Ok! Accepting the initial reason');
-              } else {
-                   alert('Great! You provided a reason: \\n\\n' + result);
-              }
-            } else {
-                 alert('Oops! You declined!');
-            }
-       });
-    });
-    $("#btn-prompt-2").on("click", function() {
-           krajeeDialog.prompt({type: 'password', label:'Authenticate', placeholder:'Enter password to authenticate...'}, function (result) {
-           if (result) {
-              alert('Great! You provided a password: \\n\\n' + result);
-           } else {
-              alert('Oops! You declined to provide a password!');
-           }
-       });
-    });
-    $("#btn-dialog").on("click", function() {
-           krajeeDialog.dialog(
-               'This is a <b>custom dialog</b>. The dialog box is <em>draggable</em> by default and <em>closable</em> ' +
-               '(try it). Note that the Ok and Cancel buttons will do nothing here until you write the relevant JS code ' +
-               'for the buttons within "options". Exit the dialog by clicking the cross icon on the top right.',
-           function (result) {alert(result);}  );
-    });
-
-JS;
-// Register your Javascript
-$this->registerJs($js);
-
-?>
-
-</p>
-
-                <p>
-                    <?= Html::a('Crear Cliente', ['create'], ['class' => 'btn btn-success']) ?>
-                    <?= Html::a('Tipos de Clientes', ['client-type/index', '#' => 'work-area-index-cte'], ['class' => 'btn btn-primary']) ?>
-                </p>
-
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
-
-                        'id',
-                        'rfc',
-                        'curp',
-                        'taxpayer',
-                        'business_name',
-                        'contact_name',
-                        'corporate',
-                        'created_at',
-                        'updated_at',
-                        'created_by',
-                        'updated_by',
-                        'client_type_id',
-
-                        ['class' => 'yii\grid\ActionColumn'],
-                    ],
-                ]); ?>
-
+            <h4><?= Yii::t('app','Funciones');?></h4>
+            <br/>
+            <div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a ultricies nisi, non aliquam lacus. Fusce tristique tempor pharetra. Duis efficitur sit amet nisi nec bibendum. Sed pharetra malesuada leo. Donec lobortis, augue in condimentum scelerisque, nulla neque varius leo, in viverra velit sapien sodales enim. Aliquam pretium turpis ut felis tincidunt, id molestie felis luctus. Sed nunc quam, tincidunt sed porttitor ultrices, dictum et ex. Aenean quis dictum magna. Nulla aliquet vitae mauris at vulputate. Quisque risus diam, iaculis eget varius in, pulvinar sit amet lorem. Pellentesque faucibus nisi lectus, a ullamcorper elit commodo at.</p>
+                <p>Morbi commodo ante vel justo dignissim dapibus. Fusce vehicula tristique ipsum tempus rutrum. Nunc eget augue felis. Quisque eu egestas ex, sit amet sagittis leo. Sed sapien ipsum, porta a arcu in, pulvinar lacinia lorem. Integer pharetra pretium risus, sit amet ultricies elit molestie consectetur. Duis sagittis fermentum mauris quis tempus. Nam bibendum pulvinar feugiat. Etiam maximus tempus ligula, vitae tempor odio consequat at. Fusce quis lectus lobortis, blandit ipsum et, faucibus tortor. Suspendisse potenti. Donec a lectus consectetur, elementum ante eget, viverra sapien. Nulla maximus consequat elit in lobortis. Nunc aliquet dignissim nulla, ac porttitor ipsum ullamcorper et. Phasellus a mauris eu lectus venenatis mattis vitae id lorem. Curabitur ultrices risus vitae lacus vulputate, in finibus felis placerat.</p>
+                <p>Maecenas quis egestas felis, in molestie arcu. Praesent et fringilla nibh. Nunc elementum sagittis nisl, id posuere quam efficitur ut. Morbi gravida a ante vel volutpat. Nunc congue iaculis est nec elementum. Donec vitae dolor tincidunt, fermentum leo id, sagittis augue. Vivamus sollicitudin congue felis a sodales.</p>
+                <p>In placerat ultrices purus nec euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida ligula tempus ipsum consectetur bibendum. In placerat turpis sapien, vitae porttitor nisl vestibulum et. Suspendisse in metus sollicitudin, euismod dolor ornare, facilisis nulla. Pellentesque mi eros, aliquam non dui eget, sollicitudin fermentum risus. Praesent convallis quam nec urna dictum, sed suscipit ante semper. Nunc ligula metus, elementum a lobortis in, luctus sit amet erat.</p>
+                <p>Nulla molestie, ante ac suscipit posuere, est metus dignissim enim, at maximus ipsum ante eu elit. Vestibulum quis felis in justo commodo tempus id ac quam. Nunc vel ultricies nunc. Duis ligula sapien, pellentesque in dolor a, maximus mollis libero. Etiam fermentum, neque vitae sodales iaculis, nisl arcu finibus diam, quis cursus eros metus vitae turpis. In blandit id lectus non hendrerit. Fusce cursus, velit vitae tempor elementum, turpis urna pellentesque ante, et euismod lectus ante sit amet magna. Praesent dictum odio at cursus tristique.</p>
             </div>
         </div>
     </div>
+
 </section>
 
 <section>

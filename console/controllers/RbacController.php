@@ -59,6 +59,17 @@ class RbacController extends Controller
         $auth->add($accessMain);
 
 
+
+        // Defines the permissions to access the help module
+        // -------------------------------------------------
+
+        // Adds "viewHelp" permission
+        $viewHelp = $auth->createPermission('viewHelp');
+        $viewHelp->description = 'Permission : Allows to view the help in the cttwapp system.';
+        $auth->add($viewHelp);
+
+
+
         // Defines the permissions on the client types module
         // --------------------------------------------------
 
@@ -180,7 +191,7 @@ class RbacController extends Controller
 
 
         // Defines the permissions on the articles module
-        // ---------------------------------------------
+        // ----------------------------------------------
 
         // Adds "createArticle" permission
         $createArticle = $auth->createPermission('createArticle');
@@ -387,6 +398,7 @@ class RbacController extends Controller
 
         // Adds basic roles to list entities
         $auth->addChild($userCTT, $adminSite);             // Grant access to admin all site process.
+        $auth->addChild($userCTT, $viewHelp);              // Grant access to view the cttwapp help.
         $auth->addChild($userCTT, $userClient);            // Grant access to list client entities.
         $auth->addChild($userCTT, $userClientType);        // Grant access to list client type entities.
         $auth->addChild($userCTT, $userBrand);             // Grant access to list brand entities.
@@ -405,6 +417,7 @@ class RbacController extends Controller
 
         // Adds all the roles and permissions
         $auth->addChild($adminCTT, $adminSite);            // Grant access to admin all site process.
+        $auth->addChild($adminCTT, $viewHelp);             // Grant access to view the cttwapp help.
         $auth->addChild($adminCTT, $adminProcess);         // Grant access to special admin process.
         $auth->addChild($adminCTT, $adminClient);          // Grant access to admin all client process.
         $auth->addChild($adminCTT, $adminClientType);      // Grant access to admin all client type process.

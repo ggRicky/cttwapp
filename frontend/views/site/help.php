@@ -1,9 +1,12 @@
 <?php
 use yii\helpers\Html;
+
 /* @var $this yii\web\View */
+
 $this->title = 'Ayuda';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
+
 //2018-04-26 : Used to get a random int, and display a random parallax.
 $randomBg = rand(1,13);
 ?>
@@ -38,7 +41,7 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -62,22 +65,16 @@ $randomBg = rand(1,13);
             <h4><?= Yii::t('app','Objetivos');?></h4>
             <br/>
             <div>
-                El sistema <b>CTTWapp v1.0 beta</b> [ <em>CTT Web Application</em> ] ha sido concebido por la Dirección de <b>CTT Exp. & Rentals S.A. de C.V.</b> , como un sistema que automatice procesos de administración de la empresa. Por ello, esta aplicación se ha implementado usando <b>TI [ Tecnologías de Información ]</b> en la nube.
-                <br/>
-                De esta manera se pretende que la aplicación sea operable desde cualquier dispositivo y desde
-                cualquier lugar.
-                <br/>
-                <br/>
-                Los <b>objetivos generales</b> que debe cumplir esta aplicación son los siguientes :<br/><br/>
+                <p>El sistema <b>CTTWapp v1.0 beta</b> [ <em>CTT Web Application</em> ] ha sido concebido por la Dirección de <b>CTT Exp. & Rentals S.A. de C.V.</b> , como un sistema que automatice procesos de administración de la empresa.</p>
+                <p>Por ello, esta aplicación se ha implementado usando <b>TI's [ Tecnologías de Información ]</b> en la nube. De esta manera se pretende que la aplicación sea operable desde cualquier dispositivo y desde cualquier lugar con una conexión a Internet.</p>
+                <p>En resumen los <b>objetivos generales</b> que debe cumplir esta aplicación son los siguientes :</p>
                 <ul>
                     <li> <b>Automatizar procesos sensibles dentro de la empresa usando tecnologías de información actuales.</b></li>
                     <li> <b>Tener una aplicación segura y robusta que pueda ser operada en cualquier dispositivo con una conexión a Internet, y desde cualquier lugar.</b></li>
                     <li> <b>Que la aplicación cuente con una curva de vida útil prologada y extendida tal como la versión del sistema anterior.</b></li>
                 </ul>
-                <br/>
-                Además, la aplicación contará con las siguientes <b>características</b> :
-                <br/>
-                <br/>
+
+                <p>Además, la aplicación contará con las siguientes <b>características</b> :</p>
                 <ul>
                     <li> <b>Registro y administración de usuarios.</b></li>
                     <li> <b>Inicio y cierre de sesión de trabajo.</b></li>
@@ -102,11 +99,9 @@ $randomBg = rand(1,13);
             <br/>
 
             <div>
-                Se puede acceder a las opciones del sistema usando el selector principal ubicado en la página de inicio. Un pequeño recuadro con líneas en la esquina superior derecha mostrará el selector principal al hacer clic en éste. También pueden ocultar el selector haciendo de nuevo clic en el botón antes mencionado.
-                La primera sección del selector es la siguiente y muestra la cabecera y el botón para mostrar y ocultar el mismo. Es importante mencionar que el selector aparecerá y se ocultará en el extremo derecho de la aplicación.
+                <p>Se puede acceder a las opciones del sistema usando el selector principal ubicado en la página de inicio. Un pequeño recuadro con líneas en la esquina superior derecha mostrará el selector principal al hacer clic en éste. También pueden ocultar el selector haciendo de nuevo clic en el botón antes mencionado.
+                    La primera sección del selector es la siguiente y muestra la cabecera y el botón para mostrar y ocultar el mismo. Es importante mencionar que el selector aparecerá y se ocultará en el extremo derecho de la aplicación.</p>
 
-                <br/>
-                <br/>
                 <br/>
 
                 <div class="well well-lg">
@@ -120,7 +115,7 @@ $randomBg = rand(1,13);
 
                 <br/>
 
-                La segunda sección del selector muestra los botones <b>Registro</b> y <b>Sesión</b>. El botón <b>Registro</b> se usa para dar de alta a un nuevo usuario del sistema, del mismo modo el botón <b>Sesión</b> permite que un usuario ya registrado entre y use el sistema según los privilegios asignados.<br/><br/>
+                <p>La segunda sección del selector muestra los botones <b>Registro</b> y <b>Sesión</b>. El botón <b>Registro</b> se usa para dar de alta a un nuevo usuario del sistema, del mismo modo el botón <b>Sesión</b> permite que un usuario ya registrado entre y use el sistema según los privilegios asignados.</p>
 
                 <br/>
 
@@ -135,10 +130,9 @@ $randomBg = rand(1,13);
 
                 <br/>
 
-                En la tercera sección del selector se agrupa a los botones <b>Acerca</b> <b>Ayuda</b>, y <b>Contacto</b>. El botón <b>Acerca</b> muestra los datos de identificación del proyecto, el botón <b>Ayuda</b> muestra este página y los tópicos generales de información del sistema. El botón <b>Contacto</b> se usa para
-                informar de algún problema o bien de alguna sugerencia. Al ingresar los datos solicitados, se enviará un correo electrónico a la direción de <code>soporte.cttwapp@gmail.com</code> y una vez recibido se realizarán las acciones pertinentes.
-                <br/>
-                <br/>
+                <p>En la tercera sección del selector se agrupa a los botones <b>Acerca</b> <b>Ayuda</b>, y <b>Contacto</b>. El botón <b>Acerca</b> muestra los datos de identificación del proyecto, el botón <b>Ayuda</b> muestra este página y los tópicos generales de información del sistema. El botón <b>Contacto</b> se usa para
+                    informar de algún problema o bien de alguna sugerencia. Al ingresar los datos solicitados, se enviará un correo electrónico a la direción de <code>soporte.cttwapp@gmail.com</code> y una vez recibido se realizarán las acciones pertinentes.</p>
+
                 <br/>
 
                 <div class="well well-lg">
@@ -152,11 +146,8 @@ $randomBg = rand(1,13);
 
                 <br/>
 
-                Por último, en la cuarta sección del selector se muestran los botones <b>Clientes</b>, <b>Catálogos</b>, <b>Artículos</b>, <b>Inventarios</b>, <b>Proyectos</b>, <b>Reservaciones</b> y <b>Cotizaciones</b>. Estas son las operaciones disponibles a las que el usuario puede acceder con los privilegios asignados por el administrador del sistema.
-                En cada operación existen una serie de funcionalidades que permitiran la administración de datos y procesos, así como la generación de reportes.<br/><br/>
-                Al seleccionar alguna de las opciones disponibles se revisará si el usuario tiene los privilegios de acceso y en su caso le ingresará al administrador elegido.
-                <br/>
-                <br/>
+                <p>Por último, en la cuarta sección del selector se muestran los botones <b>Clientes</b>, <b>Catálogos</b>, <b>Artículos</b>, <b>Inventarios</b>, <b>Proyectos</b>, <b>Reservaciones</b> y <b>Cotizaciones</b>. Estas son las operaciones disponibles a las que el usuario puede acceder con los privilegios asignados por el administrador del sistema.
+                En cada operación existen una serie de funcionalidades que permitiran la administración de datos y procesos, así como la generación de reportes.<br/><br/>Al seleccionar alguna de las opciones disponibles se revisará si el usuario tiene los privilegios de acceso y en su caso le ingresará al administrador elegido.</p>
                 <br/>
 
                 <div class="well well-lg">

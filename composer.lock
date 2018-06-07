@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8c5568ef21ab0273dc11054a4177e5d",
+    "content-hash": "7ed06a3d635902a4692f15a8fd46e278",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -197,62 +197,6 @@
                 "jquery",
                 "library"
             ]
-        },
-        {
-            "name": "bower-asset/jquery-mousewheel",
-            "version": "3.1.13",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jquery/jquery-mousewheel.git",
-                "reference": "67289b6b2aa0066d7d78a5807f520387135ffb22"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery-mousewheel/zipball/67289b6b2aa0066d7d78a5807f520387135ffb22",
-                "reference": "67289b6b2aa0066d7d78a5807f520387135ffb22",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.2.2"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "./jquery.mousewheel.js",
-                "bower-asset-ignore": [
-                    "*.json",
-                    "*.markdown",
-                    "*.txt",
-                    ".*",
-                    "!LICENSE.txt",
-                    "Gruntfile.js",
-                    "test"
-                ]
-            }
-        },
-        {
-            "name": "bower-asset/jquery.jscrollpane",
-            "version": "v2.0.14",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/blittle/jscrollpane.git",
-                "reference": "89486c453e48f930d0e7cdee394e19718cc6baf9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blittle/jscrollpane/zipball/89486c453e48f930d0e7cdee394e19718cc6baf9",
-                "reference": "89486c453e48f930d0e7cdee394e19718cc6baf9",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.8.0"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "./jquery.jscrollpane.js",
-                    "./jquery.jscrollpane.css"
-                ]
-            }
         },
         {
             "name": "bower-asset/punycode",
@@ -579,94 +523,6 @@
                 "yii2"
             ],
             "time": "2017-09-06T06:18:08+00:00"
-        },
-        {
-            "name": "nsept/yii2-jscrollpane",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nsept/yii2-jsrollpane.git",
-                "reference": "88695b67cacc61562e1efd53a3447b6bf0ab4755"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nsept/yii2-jsrollpane/zipball/88695b67cacc61562e1efd53a3447b6bf0ab4755",
-                "reference": "88695b67cacc61562e1efd53a3447b6bf0ab4755",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery.jscrollpane": "@dev",
-                "nsept/yii2-mousewheel": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "nsept\\jscrollpane\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nsept",
-                    "email": "nsept@ya.ru"
-                }
-            ],
-            "description": "A jQuery plugin which allows you to replace a browser's default scrollbars.",
-            "keywords": [
-                "extension",
-                "jScrollPane",
-                "jquery",
-                "scroll",
-                "widget",
-                "yii2"
-            ],
-            "time": "2015-12-25T06:11:20+00:00"
-        },
-        {
-            "name": "nsept/yii2-mousewheel",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nsept/yii2-mousewheel.git",
-                "reference": "0adf67e5dc92446e1e76e23ec2315d73fcd5db34"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nsept/yii2-mousewheel/zipball/0adf67e5dc92446e1e76e23ec2315d73fcd5db34",
-                "reference": "0adf67e5dc92446e1e76e23ec2315d73fcd5db34",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery-mousewheel": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "nsept\\mousewheel\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nsept",
-                    "email": "nsept@ya.ru"
-                }
-            ],
-            "description": "A jQuery plugin that adds cross-browser mouse wheel support with delta normalization.",
-            "keywords": [
-                "asset",
-                "extension",
-                "jquery",
-                "mousewheel",
-                "yii2"
-            ],
-            "time": "2015-12-24T19:34:52+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3568,8 +3424,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kartik-v/yii2-widget-datepicker": 20,
-        "nsept/yii2-jscrollpane": 20
+        "kartik-v/yii2-widget-datepicker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

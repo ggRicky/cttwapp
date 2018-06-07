@@ -182,6 +182,6 @@ class ArticleController extends Controller
             $cookie = new \yii\web\Cookie(['name' => 'article-color', 'value' => $color]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
-        return $this->redirect(['article/index', '#' => 'work-area-index']);
+        return $this->redirect(['article/index', '#' => 'panel-area']);
     }
 }

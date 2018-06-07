@@ -14,6 +14,20 @@ $this->title = 'Cliente';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+// 2018-06-05 : If there is a page parameter, then stores and validate it.
+// Verifies and validate the current page value.
+$curr_page = Yii::$app->getRequest()->getQueryParam('page');
+$curr_page = (empty($curr_page)?'1':$curr_page);
+
+// 2018-05-07 : If there is an flash message, then skip the header and go to the error-area using javascript.
+If (Yii::$app->session->hasFlash('error'))
+{
+    $script = <<< JS
+    location.hash = "#work-area-view";
+JS;
+    $this->registerJs($script);
+}
+
 ?>
 
 <!-- Blue ribbon decoration -->
@@ -32,7 +46,7 @@ $baseUrl = $asset->baseUrl;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => Yii::$app->getRequest()->getQueryParam('page'), '#' => 'work-area-index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => $curr_page, 'ret' => '0'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -58,12 +72,20 @@ $baseUrl = $asset->baseUrl;
             <div class="client-update">
 
                 <p>
-                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id],   ['class' => 'btn btn-danger',
+                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $curr_page], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id, 'page' => $curr_page],   ['class' => 'btn btn-danger',
                         'data' => [
-                            'confirm' => Yii::t('app','¿ Está seguro de eliminar este elemento ?'),
-                            'method' => 'post',
+                            // 2018-05-28 : Adds to the modal title the row id, like a warning information.
+                            'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),
                         ],
+                        // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
+                        // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
+                        // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
+                        // In this case the 'data-confirm' parameter must be empty.
+                        'data-confirm' => '',
+                        //  2018-05-31 : The next two parameters are needed to complete teh right call to the action delete, because it will be made using the post method.
+                        'data-method' => 'post',
+                        'data-pjax' => '0',
                     ]) ?>
                 </p>
 
@@ -190,3 +212,50 @@ $baseUrl = $asset->baseUrl;
         </div>
     </section>
 </footer>
+
+<!-- Modal Question : Used to confirm or cancel the delete action -->
+<div id="confirm-delete" tabindex="-1" class="modal fade" role="dialog" data-backdrop="true">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-backdrop">
+
+            <!-- Modal Header -->
+            <div class="modal-shadow-effect modal-header-water-mark">
+                <div class="modal-header modal-header-config ctt-modal-header-question">
+                    <div class="row">
+                        <!--
+                             ctt-modal-header-info        glyphicon-info-sign
+                             ctt-modal-header-success     glyphicon-ok-sign
+                             ctt-modal-header-question    glyphicon-question-sign
+                             ctt-modal-header-warning     glyphicon-warning-sign
+                             ctt-modal-header-error       glyphicon-exclamation-sign
+                        -->
+                        <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
+                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Pregunta') ?></h4></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                    </div>
+                </div>
+
+                <!-- Modal Content -->
+                <div id="content-body" class="modal-body modal-body-config"></div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer modal-footer-config">
+                    <div class="row">
+                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" title="[ Esc ] - <?= Yii::t('app','Descarta la operación') ?>"><?= Yii::t('app','Cancelar') ?></button>
+                            <button id="delete-ok" type="button" class="btn btn-danger btn-ok" title="<?= Yii::t('app','Procede la operación') ?>"><?= Yii::t('app','Aceptar') ?></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Header -->
+            </div>
+
+            <!-- Modal content-->
+        </div>
+
+    </div>
+</div>

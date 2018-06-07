@@ -9,6 +9,11 @@ $this->title = 'Cliente';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+// 2018-06-05 : If there is a page parameter, then stores and validate it.
+// Verifies and validate the current page value.
+$curr_page = Yii::$app->getRequest()->getQueryParam('page');
+$curr_page = (empty($curr_page)?'1':$curr_page);
+
 // 2018-05-07 : If there is an flash message, then skip the header and go to the error-area using javascript.
 If (Yii::$app->session->hasFlash('error'))
 {
@@ -36,7 +41,7 @@ JS;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => Yii::$app->getRequest()->getQueryParam('page'), '#' => 'work-area-index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => $curr_page, 'ret' => '0'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -63,6 +68,7 @@ JS;
 
                 <?= $this->render('_form', [
                     'model' => $model,
+                    'page' => $curr_page,
                 ]) ?>
 
             </div>

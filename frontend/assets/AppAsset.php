@@ -15,9 +15,14 @@ class AppAsset extends AssetBundle
     // 2018-05-12 : Adds jquery-ui.css, and jquery-ui.js files for enable jQuery Accordion widget. [ 2018-05-12 : Deleted ]
     // 2018-06-02 : Removes nicescroll plugin due to conflict with bootstrap modals.
     // 2018-06-02 : Adds jsscrollpane plugin tp solve the conflict with bootstrap modals.
+    // 2018-06-03 : Removes jsscrollpane plugin due to conflict with bootstrap modals.
+    // 2018-06-04 : Adds Yii2 default site.css file. Adding this file, the sort glyphicons are showed.
 
     public $sourcePath = '@bower/cttwapp/';
+
     public $css = [
+        // 2018-06-04 : Yii2 default site.css file.
+        'css/site.css',
         // bootstrap styles
         'css/bootstrap.min.css',
         // the styles needed by cttwapp project

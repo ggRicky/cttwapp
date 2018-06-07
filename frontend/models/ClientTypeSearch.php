@@ -47,6 +47,15 @@ class ClientTypeSearch extends ClientType
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // 2018-06-05 : Set the records displayed in the GridView widget, defining the pageSize value.
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_ASC,
+                ],
+            ],
         ]);
 
         $this->load($params);

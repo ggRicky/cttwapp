@@ -48,6 +48,10 @@ class ArticleSearch extends Article
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // 2018-05-28 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
 
         $this->load($params);

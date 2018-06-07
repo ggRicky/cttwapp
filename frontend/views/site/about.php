@@ -8,18 +8,20 @@ $this->title = 'Acerca';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+//2018-04-26 : Used to get a random int, and display a random parallax.
+$randomBg = rand(1,13);
+
 ?>
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
         <div class="col-lg-12"> <!-- Bootstrap's col -->
-            <!-- CTT logo to display over the CTT's crane video with opacity level -->
+            <!-- CTT logo to display over the parallax efect with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <div class="ctt-mask-1">  <!-- Blue mask over CDMX video -->
-                <!-- Video settings to autoplay and infinite loop -->
-                <video class="crop-video-1" poster="<?=$baseUrl?>/img/poster_1.jpg" autoplay loop>
-                    <source src="<?=$baseUrl?>/mov/ctt-grua.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
-                </video>
+            <!-- Parallax Efect -->
+            <div id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">
+                <div class="row"></div>
             </div>
         </div>
     </div>
@@ -41,7 +43,7 @@ $baseUrl = $asset->baseUrl;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark']) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 

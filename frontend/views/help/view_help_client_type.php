@@ -5,7 +5,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = 'Ayuda';
-$description = 'Módulo Administrador de Clientes';
+$description = 'Módulo Administrador de Tipos de Clientes';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
@@ -39,7 +39,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Yii::t('app',Html::encode($this->title)); ?><span><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></span></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?><span><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></p>
         </div>
     </div>
 

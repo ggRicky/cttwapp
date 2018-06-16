@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* 2018-03-17 : Used to display Description Type for the actual client record */
@@ -10,23 +11,23 @@ use app\models\ClientType;
 /* @var $this yii\web\View */
 /* @var $model app\models\Client */
 
+// 2018-06-09 : If the user isn't authenticated, then redirect him to the login form.
+if (Yii::$app->user->getIsGuest()){
+    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+    Yii::$app->response->redirect(Url::to(['site/login'], true));
+    return;
+}
+
 $this->title = 'Cliente';
+$description = 'Vista del Cliente';
+
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
 // 2018-06-05 : If there is a page parameter, then stores and validate it.
 // Verifies and validate the current page value.
-$curr_page = Yii::$app->getRequest()->getQueryParam('page');
-$curr_page = (empty($curr_page)?'1':$curr_page);
-
-// 2018-05-07 : If there is an flash message, then skip the header and go to the error-area using javascript.
-If (Yii::$app->session->hasFlash('error'))
-{
-    $script = <<< JS
-    location.hash = "#work-area-view";
-JS;
-    $this->registerJs($script);
-}
+$ret_page = Yii::$app->getRequest()->getQueryParam('page');
+$ret_page = (empty($ret_page)?'1':$ret_page);
 
 ?>
 
@@ -46,7 +47,7 @@ JS;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => $curr_page, 'ret' => '0'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -60,7 +61,7 @@ JS;
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app','Vista del Cliente');?></p>
+            <p><?= Yii::t('app',Html::encode($description));?></p>
         </div>
     </div>
 
@@ -72,8 +73,8 @@ JS;
             <div class="client-update">
 
                 <p>
-                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $curr_page], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id, 'page' => $curr_page],   ['class' => 'btn btn-danger',
+                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id, 'page' => $ret_page],   ['class' => 'btn btn-danger',
                         'data' => [
                             // 2018-05-28 : Adds to the modal title the row id, like a warning information.
                             'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),
@@ -156,106 +157,8 @@ JS;
     </div>
 </section>
 
-<section>
-    <!-- A button for go to the page's top -->
-    <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <div class="tooltip-conf">
-            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
-            <a href="#work-area-view">
-                <span class="glyphicon glyphicon-circle-arrow-up"></span>
-            </a>
-        </div>
-    </div>
-</section>
+<!-- Includes the actions view's footer file -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer.inc'); ?>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <!-- CTT mini logo -->
-                <div class="col-lg-12">
-                    <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="center-block img-responsive" height="42" width="105"/>
-                </div>
-
-                <!-- Credits layer -->
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
-                        <hr class="small">
-                        <p class="text-muted"><?= Yii::t('app','Todos los derechos reservados &copy;') ?> 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
-                        <hr class="small">
-                        <p class="text-muted"><?= Yii::t('app','Soportado por') ?></p>
-                        <hr class="small">
-                        <p>
-                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="45"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.jetbrains.com/phpstorm/"><img src="<?=$baseUrl?>/img/phpstorm_logo.svg" height="45"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.github.com/"><img src="<?=$baseUrl?>/img/github_logo.svg" height="40"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://git-scm.com//"><img src="<?=$baseUrl?>/img/git_logo.svg" height="40"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://nginx.com//"><img src="<?=$baseUrl?>/img/nginx_logo.svg" height="17"/></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Blue ribbon footer decoration -->
-    <section class="ctt-section bg-primary">
-        <div class="col-lg-12">
-            <div class="row"></div>
-        </div>
-    </section>
-</footer>
-
-<!-- Modal Question : Used to confirm or cancel the delete action -->
-<div id="confirm-delete" tabindex="-1" class="modal fade" role="dialog" data-backdrop="true">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content modal-backdrop">
-
-            <!-- Modal Header -->
-            <div class="modal-shadow-effect modal-header-water-mark">
-                <div class="modal-header modal-header-config ctt-modal-header-question">
-                    <div class="row">
-                        <!--
-                             ctt-modal-header-info        glyphicon-info-sign
-                             ctt-modal-header-success     glyphicon-ok-sign
-                             ctt-modal-header-question    glyphicon-question-sign
-                             ctt-modal-header-warning     glyphicon-warning-sign
-                             ctt-modal-header-error       glyphicon-exclamation-sign
-                        -->
-                        <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Pregunta') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-                    </div>
-                </div>
-
-                <!-- Modal Content -->
-                <div id="content-body" class="modal-body modal-body-config"></div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer modal-footer-config">
-                    <div class="row">
-                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" title="[ Esc ] - <?= Yii::t('app','Descarta la operación') ?>"><?= Yii::t('app','Cancelar') ?></button>
-                            <button id="delete-ok" type="button" class="btn btn-danger btn-ok" title="<?= Yii::t('app','Procede la operación') ?>"><?= Yii::t('app','Aceptar') ?></button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal Header -->
-            </div>
-
-            <!-- Modal content-->
-        </div>
-
-    </div>
-</div>
+<!-- Includes the modal window to confirm the delete operation-->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_confirm_delete.inc'); ?>

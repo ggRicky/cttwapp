@@ -2,13 +2,17 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\web\View;
 
 /* @var $this yii\web\View */
 
 $this->title = 'CTTWApp - Backend';
+$description = 'Sistema Gestor de Operaciones';
+
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
+
+// 2018-06-16 : Used to get a random int, and display a random background image.
+$randomBg = rand(1,11);;
 
 ?>
 
@@ -30,14 +34,14 @@ $baseUrl = $asset->baseUrl;
 
         <!-- CTT default actions ribbon -->
         <?php
-        // 2018-04-08 : This code was refactored, using only Html helper
-        // 2018-05-24 : Remove guest entry for rbac security.
-        echo Html::begintag('div', ['class' => 'ctt-mini-bar-top']);
-        echo Html::beginForm(['/site/logout'], 'post');
-        echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]) . "&nbsp;&nbsp;&nbsp;";
-        echo Html::submitButton(Yii::t('app','Terminar'), ['class' => 'btn btn-primary']);
-        echo Html::endForm();
-        echo Html::endtag('div');
+            // 2018-04-08 : This code was refactored, using only Html helper
+            // 2018-05-24 : Remove guest entry for rbac security.
+            echo Html::begintag('div', ['class' => 'ctt-mini-bar-top']);
+            echo Html::beginForm(['/site/logout'], 'post');
+            echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
+            echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]);
+            echo Html::endForm();
+            echo Html::endtag('div');
         ?>
 
         <!-- Content menu -->
@@ -62,10 +66,10 @@ $baseUrl = $asset->baseUrl;
         <div class="col-lg-12"> <!-- Bootstrap's col -->
             <!-- CTT logo to display over the CTT's crane video with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <div class="ctt-mask-1">  <!-- Blue mask over CDMX video -->
+            <div class="ctt-mask">  <!-- Blue mask to cover the video -->
                 <!-- Video settings to autoplay and infinite loop -->
-                <video class="crop-video-1" poster="<?=$baseUrl?>/img/poster_1.jpg" autoplay loop>
-                    <source src="<?=$baseUrl?>/mov/ctt-grua.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
+                <video class="crop-video" poster="<?=$baseUrl?>/img/ctt-poster.jpg" autoplay loop>
+                    <source src="<?=$baseUrl?>/mov/ctt-grua-scorpio.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
                 </video>
             </div>
         </div>
@@ -73,95 +77,43 @@ $baseUrl = $asset->baseUrl;
 </header>
 
 <!-- Orange ribbon decoration -->
-<section id="error-area" class="ctt-section bg-secondary">
+<section class="ctt-section bg-secondary">
     <div class="col-lg-12">
-        <div class="row">
-            <!-- CTT water mark background logo decoration -->
-            <div class="ctt-water-mark"></div>
-        </div>
+        <!-- CTT water mark background logo decoration -->
+        <div class="row"><div class="ctt-water-mark"></div></div>
     </div>
 </section>
 
 <!-- Yii2 Content -->
 <section id="yii2" class="yii2-page">
-
     <!-- Yii2 Title layout -->
-    <div class="row">
-        <div class="col-lg-10 yii2-header">
-            <p>Backend</p>
-        </div>
-    </div>
+    <div class="row"><div class="col-lg-10 yii2-header"><?= Yii::t('app',Html::encode($this->title)) ?></div></div>
 
     <!-- Yii2 complementary description -->
     <div class="row">
-        <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app','Sistema Gestor de Operaciones') ?></p>
-        </div>
+        <div class="col-lg-10 text-info yii2-description"><p><?= Yii::t('app',Html::encode($description)) ?></p></div>
     </div>
 
-    <div class="row yii2-message-area">
-        <!-- Builds a language options ribbon -->
-        <?php
+    <div class="row">
+        <div class="yii2-message-area">
+            <!-- Builds a language options ribbon -->
+            <?php
             echo "|&nbsp;";
             foreach(Yii::$app->params['languages'] as $key => $language){
                 echo "<a href=\"#lang-". $key ."\" class=\"language\" id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
             }
-        ?>
-    </div>
-
-        <!-- Yii2 work area -->
-    <div class="row">
-        <div class="col-lg-12 text-justify yii2-content">
-
-
+            ?>
         </div>
+        <div class="col-lg-10 yii2-message-area"><h2 class="barcode-font">ISC-RGG</h2></div>
     </div>
 
+    <!-- Yii2 work area -->
+    <div class="row"><div class="col-lg-12 text-justify yii2-content"></div></div>
 </section>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <!-- CTT mini logo -->
-                <ul class="list-inline">
-                    <li>
-                        <img src="<?=$baseUrl?>/img/ctt-logo_2.png" height="128" width="90"/>
-                    </li>
-                </ul>
+<?php
 
-                <!-- Credits layer -->
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
-                        <hr class="small">
-                        <p class="text-muted"><?= Yii::t('app','Todos los derechos reservados &copy;') ?> 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
-                        <hr class="small">
-                        <p class="text-muted"><?= Yii::t('app','Soportado por') ?></p>
-                        <hr class="small">
-                        <p>
-                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="45"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.jetbrains.com/phpstorm/"><img src="<?=$baseUrl?>/img/phpstorm_logo.svg" height="45"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.github.com/"><img src="<?=$baseUrl?>/img/github_logo.svg" height="40"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://git-scm.com//"><img src="<?=$baseUrl?>/img/git_logo.svg" height="40"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://nginx.com//"><img src="<?=$baseUrl?>/img/nginx_logo.svg" height="17"/></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+// Includes the index's footer file
+include(Yii::getAlias('@app').'/views/layouts/cttwapp_index_footer_bke.inc');
 
-    <!-- Blue ribbon footer decoration -->
-    <section class="ctt-section-footer ctt-footer-container-bke">
-        <div class="col-lg-12">
-            <div class="row "></div>
-        </div>
-    </section>
-</footer>
+?>

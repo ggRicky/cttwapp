@@ -12,7 +12,7 @@ $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
 //2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 
 ?>
 <!-- Header -->
@@ -167,7 +167,7 @@ $randomBg = rand(1,13);
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title">Pregunta</h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 

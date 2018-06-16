@@ -48,31 +48,28 @@ class BrandController extends Controller
     /**
      * Displays a single Brand model.
      * @param string $id
+     * @param integer $page
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $page)
     {
         if (\Yii::$app->user->can('viewBrand')) {
-
-            return $this->render('view_brand', [
-                'model' => $this->findModel($id),
-            ]);
-
+            return $this->render('view_brand', ['model' => $this->findModel($id),]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-
-        return $this->redirect(['brand/index', '#' => 'work-area-index']);
+        return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
      * Creates a new Brand model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param integer $page
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($page)
     {
         if (\Yii::$app->user->can('createBrand')) {
 
@@ -80,23 +77,19 @@ class BrandController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
-                // 2018-05-08 : An error occurred in the data capture. A flash message is issued.
+                // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
 
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
-                return $this->render('create_brand', [
-                    'model' => $model,
-                ]);
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('create_brand', ['model' => $model, 'page' => $page]);
             }
 
-            return $this->render('create_brand', [
-                'model' => $model,
-            ]);
+            return $this->render('create_brand', ['model' => $model, 'page' => $page]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-            return $this->redirect(['brand/index', '#' => 'work-area-index']);
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
         }
     }
 
@@ -104,38 +97,33 @@ class BrandController extends Controller
      * Updates an existing Brand model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
+     * @param integer $page
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $page)
     {
-
         if (\Yii::$app->user->can('updateBrand')) {
 
             $model = $this->findModel($id);
 
             if ($model->load(Yii::$app->request->post())) {
-
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
-                // 2018-05-08 : An error occurred in the data capture. A flash message is issued.
+                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
-                return $this->render('update_brand', [
-                    'model' => $model,
-                ]);
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('update_brand', ['model' => $model, 'page' => $page]);
             }
 
-            return $this->render('update_brand', [
-                'model' => $model,
-            ]);
+            return $this->render('update_brand', ['model' => $model, 'page' => $page]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
 
-        return $this->redirect(['brand/index', '#' => 'work-area-index']);
+        return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
@@ -145,7 +133,7 @@ class BrandController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $page)
     {
         if (\Yii::$app->user->can('deleteBrand')) {
             if ($this->findModel($id)->delete()){
@@ -153,9 +141,11 @@ class BrandController extends Controller
             }
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-        return $this->redirect(['brand/index', '#' => 'work-area-index']);
+
+        return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
+
     }
 
     /**

@@ -41,7 +41,7 @@ class CatalogController extends Controller
         return $this->render('index_catalog', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_article.php view for test if 'CatalogSearch'
+            'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_catalog.php view for test if 'CatalogSearch'
         ]);
     }
 
@@ -54,25 +54,21 @@ class CatalogController extends Controller
     public function actionView($id)
     {
         if (\Yii::$app->user->can('viewCatalog')) {
-
-            return $this->render('view_catalog', [
-                'model' => $this->findModel($id),
-            ]);
-
+            return $this->render('view_catalog', ['model' => $this->findModel($id),]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-
-        return $this->redirect(['catalog/index', '#' => 'work-area-index']);
+        return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
      * Creates a new Catalog model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param integer $page
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($page)
     {
         if (\Yii::$app->user->can('createCatalog')) {
 
@@ -80,23 +76,19 @@ class CatalogController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
-                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+                // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
 
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
-                return $this->render('create_catalog', [
-                    'model' => $model,
-                ]);
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('create_catalog', ['model' => $model, 'page' => $page]);
             }
 
-            return $this->render('create_catalog', [
-                'model' => $model,
-            ]);
+            return $this->render('create_catalog', ['model' => $model, 'page' => $page]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-            return $this->redirect(['catalog/index', '#' => 'work-area-index']);
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
         }
     }
 
@@ -104,38 +96,34 @@ class CatalogController extends Controller
      * Updates an existing Catalog model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
+     * @param integer $page
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $page)
     {
+
         if (\Yii::$app->user->can('updateCatalog')) {
 
             $model = $this->findModel($id);
 
             if ($model->load(Yii::$app->request->post())) {
-
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
-                return $this->render('update_catalog', [
-                    'model' => $model,
-                ]);
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('update_catalog', ['model' => $model, 'page' => $page]);
             }
 
-            return $this->render('update_catalog', [
-                'model' => $model,
-            ]);
-
+            return $this->render('update_catalog', ['model' => $model, 'page' => $page]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
 
-        return $this->redirect(['catalog/index', '#' => 'work-area-index']);
+        return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
@@ -145,19 +133,18 @@ class CatalogController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $page)
     {
         if (\Yii::$app->user->can('deleteCatalog')) {
             if ($this->findModel($id)->delete()){
                 Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
             }
-
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
 
-        return $this->redirect(['catalog/index', '#' => 'work-area-index']);
+        return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**

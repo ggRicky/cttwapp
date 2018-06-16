@@ -8,7 +8,7 @@ $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
 //2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 ?>
 
 <!-- Header -->
@@ -48,7 +48,7 @@ $randomBg = rand(1,13);
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?><span><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></p>
         </div>
     </div>
 

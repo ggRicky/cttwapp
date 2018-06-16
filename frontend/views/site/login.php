@@ -11,11 +11,14 @@ $this->title = 'Autentificación';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-05-06 : If there is an flash message, then skip the header and go to the error-area using javascript.
-If (Yii::$app->session->hasFlash('error'))
+// 2018-04-26 : Used to get a random int, and display a random parallax.
+$randomBg = rand(1,11);;
+
+// 2018-05-06 : If there is an flash message, then jump directly towards the header and go to the work-area-index using javascript.
+If (Yii::$app->session->hasFlash('error') || Yii::$app->session->hasFlash('warning'))
 {
     $script = <<< JS
-    location.hash = "#error-area"; 
+    location.hash = "#work-area-index"; 
 JS;
     $this->registerJs($script);
 }
@@ -28,10 +31,10 @@ JS;
         <div class="col-lg-12"> <!-- Bootstrap's col -->
             <!-- CTT logo to display over the CTT's crane video with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <div class="ctt-mask-1">  <!-- Blue mask over CDMX video -->
+            <div class="ctt-mask">  <!-- Blue mask to cover the video -->
                 <!-- Video settings to autoplay and infinite loop -->
-                <video class="crop-video-1" poster="<?=$baseUrl?>/img/poster_1.jpg" autoplay loop>
-                    <source src="<?=$baseUrl?>/mov/ctt-grua.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
+                <video class="crop-video" poster="<?=$baseUrl?>/img/ctt-poster.jpg" autoplay loop>
+                    <source src="<?=$baseUrl?>/mov/ctt-grua-scorpio.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
                 </video>
             </div>
         </div>
@@ -39,7 +42,7 @@ JS;
 </header>
 
 <!-- Blue ribbon decoration -->
-<section id="error-area" class="ctt-section bg-primary">
+<section id="work-area-index" class="ctt-section bg-primary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
@@ -71,12 +74,19 @@ JS;
 
             <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
-            <!-- 2018-04-08 : If there is an flash message, then display it.-->
+            <!-- 2018-04-08 : If there is an flash error message, then display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                <div id="auto-close" class="alert alert-error alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
+                </div>
+            <!-- 2018-05-25 : Flash warning message. -->
+            <?php elseif (Yii::$app->session->hasFlash('warning')): ?>
+                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
             <?php endif; ?>
 

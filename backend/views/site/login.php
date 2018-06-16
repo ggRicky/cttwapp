@@ -12,7 +12,7 @@ $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
 //2018-05-25 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 
 ?>
 
@@ -31,7 +31,7 @@ $randomBg = rand(1,13);
 </header>
 
 <!-- Orange ribbon decoration -->
-<section id="error-area" class="ctt-section bg-secondary">
+<section class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
@@ -64,11 +64,11 @@ $randomBg = rand(1,13);
             <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
             <!-- 2018-04-08 : If there is an flash message, then display it.-->
-            <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?php if (Yii::$app->session->hasFlash('warning')): ?>
+                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                    <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
             <?php endif; ?>
 

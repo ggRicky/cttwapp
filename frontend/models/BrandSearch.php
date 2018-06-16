@@ -46,6 +46,15 @@ class BrandSearch extends Brand
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // 2018-05-28 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_ASC,
+                ],
+            ],
         ]);
 
         $this->load($params);

@@ -13,19 +13,19 @@ use app\models\ClientType;
 
 // 2018-06-05 : If there is a page parameter, then stores and validate it.
 // Verifies and validate the current page value.
-$curr_page = Yii::$app->getRequest()->getQueryParam('page');
-$curr_page = (empty($curr_page)?'1':$curr_page);
+$ret_page = Yii::$app->getRequest()->getQueryParam('page');
+$ret_page = (empty($ret_page)?'1':$ret_page);
 
 ?>
 
 <div class="client-form">
 
     <!-- 2018-05-07 : If there is an flash message, then display it.-->
-    <?php if (Yii::$app->session->hasFlash('error')): ?>
-        <div class="alert alert-warning alert-dismissible fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <?php if (Yii::$app->session->hasFlash('warning')): ?>
+        <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
             <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-            <p><?= Yii::$app->session->getFlash('error') ?></p>
+            <p><?= Yii::$app->session->getFlash('warning') ?></p>
         </div>
     <?php endif; ?>
 
@@ -120,8 +120,8 @@ $curr_page = (empty($curr_page)?'1':$curr_page);
 
         echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Seleccione...')]);
 
-        // 2018-06-05 : Sends the current page value like a hidden input.
-        echo Html::hiddenInput('page', $curr_page);
+        // 2018-06-05 : Sends the current page value through a hidden input.
+        echo Html::hiddenInput('page', $ret_page);
 
         ?>
 

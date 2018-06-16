@@ -9,7 +9,7 @@ $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
 //2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 
 ?>
 

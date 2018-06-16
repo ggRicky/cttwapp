@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* 2018-06-05 : Used to display Catalog Name for the actual article record */
@@ -12,9 +13,23 @@ use app\models\Brand;
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
 
+// 2018-06-09 : If the user isn't authenticated, then redirect him to the login form.
+if (Yii::$app->user->getIsGuest()){
+    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+    Yii::$app->response->redirect(Url::to(['site/login'], true));
+    return;
+}
+
 $this->title = 'Artículo';
+$description = 'Vista del Artículo';
+
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
+
+// 2018-06-11 : If there is a page parameter, then stores and validate it.
+// Verifies and validate the current page value.
+$ret_page = Yii::$app->getRequest()->getQueryParam('page');
+$ret_page = (empty($ret_page)?'1':$ret_page);
 
 ?>
 
@@ -34,7 +49,7 @@ $baseUrl = $asset->baseUrl;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', '#' => 'work-area-index'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -48,7 +63,7 @@ $baseUrl = $asset->baseUrl;
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app','Vista del Artículo');?></p>
+            <p><?= Yii::t('app',Html::encode($description));?></p>
         </div>
     </div>
 
@@ -60,12 +75,20 @@ $baseUrl = $asset->baseUrl;
             <div class="article-update">
 
                 <p>
-                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id],   ['class' => 'btn btn-danger',
+                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id, 'page' => $ret_page],   ['class' => 'btn btn-danger',
                         'data' => [
-                            'confirm' => Yii::t('app','¿ Está seguro de eliminar este elemento ?'),
-                            'method' => 'post',
+                            // 2018-05-28 : Adds to the modal title the row id, like a warning information.
+                            'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),
                         ],
+                        // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
+                        // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
+                        // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
+                        // In this case the 'data-confirm' parameter must be empty.
+                        'data-confirm' => '',
+                        //  2018-05-31 : The next two parameters are needed to complete teh right call to the action delete, because it will be made using the post method.
+                        'data-method' => 'post',
+                        'data-pjax' => '0',
                     ]) ?>
                 </p>
 
@@ -91,7 +114,7 @@ $baseUrl = $asset->baseUrl;
                                 return ($model->type_art=='R'?'RENTA':'VENTA');
                             },
                             'contentOptions' => function ($model, $key, $index, $column) {
-                                return ['style' => 'color:'. ($model->type_art=='R'?'grey':'#337AB7')];
+                                return ['style' => 'color:'. ($model->type_art=='R'?'grey':'#337ab7')];
                             },
                         ],
 
@@ -104,7 +127,7 @@ $baseUrl = $asset->baseUrl;
                                 return ($model->currency_art=='P'?'PESOS':'DÓLARES');
                             },
                             'contentOptions' => function ($model, $key, $index, $column) {
-                                return ['style' => 'color:'. ($model->currency_art=='P'?'grey':'#337AB7')];
+                                return ['style' => 'color:'. ($model->currency_art=='P'?'grey':'#337ab7')];
                             },
                         ],
 
@@ -128,59 +151,8 @@ $baseUrl = $asset->baseUrl;
     </div>
 </section>
 
-<section>
-    <!-- A button for go to the page's top -->
-    <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <div class="tooltip-conf">
-            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
-            <a href="#work-area-view">
-                <span class="glyphicon glyphicon-circle-arrow-up"></span>
-            </a>
-        </div>
-    </div>
-</section>
+<!-- Includes the actions view's footer file -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer.inc'); ?>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <!-- CTT mini logo -->
-                <div class="col-lg-12">
-                    <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="center-block img-responsive" height="42" width="105"/>
-                </div>
-
-                <!-- Credits layer -->
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
-                        <hr class="small">
-                        <p class="text-muted"><?= Yii::t('app','Todos los derechos reservados &copy;') ?> 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
-                        <hr class="small">
-                        <p class="text-muted"><?= Yii::t('app','Soportado por') ?></p>
-                        <hr class="small">
-                        <p>
-                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="45"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.jetbrains.com/phpstorm/"><img src="<?=$baseUrl?>/img/phpstorm_logo.svg" height="45"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.github.com/"><img src="<?=$baseUrl?>/img/github_logo.svg" height="40"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://git-scm.com//"><img src="<?=$baseUrl?>/img/git_logo.svg" height="40"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://nginx.com//"><img src="<?=$baseUrl?>/img/nginx_logo.svg" height="17"/></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Blue ribbon footer decoration -->
-    <section class="ctt-section bg-primary">
-        <div class="col-lg-12">
-            <div class="row"></div>
-        </div>
-    </section>
-</footer>
+<!-- Includes the modal window to confirm the delete operation-->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_confirm_delete.inc'); ?>

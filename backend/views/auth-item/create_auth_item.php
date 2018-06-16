@@ -9,8 +9,8 @@ $this->title = Yii::t('app', 'Objeto de Autorización');
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-05-27 : If there is an flash message, then skip the header and go to the error-area using javascript.
-If (Yii::$app->session->hasFlash('error'))
+// 2018-05-27 : If there is an flash message, then skip the header and go to the work-area-view using javascript.
+If (Yii::$app->session->hasFlash('warning'))
 {
     $script = <<< JS
     location.hash = "#work-area-view";

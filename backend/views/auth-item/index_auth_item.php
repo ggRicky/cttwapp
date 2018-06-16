@@ -16,7 +16,7 @@ $search_param = \yii\helpers\ArrayHelper::keyExists('AuthItemSearch',$qryParams)
 $sort_param   = \yii\helpers\ArrayHelper::keyExists('sort',$qryParams);
 $skip_param   = (\yii\helpers\ArrayHelper::getValue($qryParams, '1.#')=='work-area-index'?true:false);
 
-If ($search_param || $sort_param || $skip_param || Yii::$app->session->hasFlash('error'))
+If ($search_param || $sort_param || $skip_param || Yii::$app->session->hasFlash('warning'))
 {
     $script = <<< JS
     location.hash = "#work-area-index";
@@ -25,7 +25,7 @@ JS;
 }
 
 //2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 
 ?>
 
@@ -47,6 +47,17 @@ $randomBg = rand(1,13);
 <section id="work-area-index" class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <div class="row">
+            <!-- 2018-06-09: Includes the logout button and display the user name -->
+            <?php
+                // 2018-04-08 : This code was refactored, using only Html helper
+                // 2018-05-24 : Remove guest entry for rbac security.
+                echo Html::begintag('div', ['class' => 'ctt-user-logout-ribbon']);
+                echo Html::beginForm(['/site/logout'], 'post');
+                echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
+                echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]);
+                echo Html::endForm();
+                echo Html::endtag('div');
+            ?>
             <!-- CTT water mark background logo decoration -->
             <div class="ctt-water-mark"></div>
         </div>
@@ -82,16 +93,16 @@ $randomBg = rand(1,13);
         <div class="col-lg-12 text-justify yii2-content">
 
             <!-- 2018-05-26 : If there is an flash message, then display it.-->
-            <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?php if (Yii::$app->session->hasFlash('warning')): ?>
+                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                    <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
                 <!-- 2018-05-26 : Flash success message. -->
             <?php elseif (Yii::$app->session->hasFlash('success')): ?>
-                <div class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>

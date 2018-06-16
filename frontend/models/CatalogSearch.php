@@ -47,6 +47,15 @@ class CatalogSearch extends Catalog
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            // 2018-06-13 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_ASC,
+                ],
+            ],
         ]);
 
         $this->load($params);

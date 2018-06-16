@@ -1,23 +1,26 @@
 <?php
 
 use yii\helpers\Html;
-
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Catalog */
+
+// 2018-06-09 : If the user isn't authenticated, then redirect him to the login form.
+if (Yii::$app->user->getIsGuest()){
+    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+    Yii::$app->response->redirect(Url::to(['site/login'], true));
+    return;
+}
 
 $this->title = 'Catálogo';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-05-07 : If there is an flash message, then skip the header and go to the error-area using javascript.
-If (Yii::$app->session->hasFlash('error'))
-{
-    $script = <<< JS
-    location.hash = "#work-area-view";
-JS;
-    $this->registerJs($script);
-}
+// 2018-06-05 : If there is a page parameter, then stores and validate it.
+// Verifies and validate the current page value.
+$ret_page = Yii::$app->getRequest()->getQueryParam('page');
+$ret_page = (empty($ret_page)?'1':$ret_page);
 
 ?>
 
@@ -37,7 +40,7 @@ JS;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['catalog/index', ['#' => 'work-area-index']], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['catalog/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 

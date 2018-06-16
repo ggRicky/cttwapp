@@ -11,16 +11,22 @@ use app\models\Brand;
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+
+// 2018-06-05 : If there is a page parameter, then stores and validate it.
+// Verifies and validate the current page value.
+$ret_page = Yii::$app->getRequest()->getQueryParam('page');
+$ret_page = (empty($ret_page)?'1':$ret_page);
+
 ?>
 
 <div class="article-form">
 
     <!-- 2018-05-07 : If there is an flash message, then display it.-->
-    <?php if (Yii::$app->session->hasFlash('error')): ?>
-        <div class="alert alert-warning alert-dismissible fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <?php if (Yii::$app->session->hasFlash('warning')): ?>
+        <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
             <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-            <p><?= Yii::$app->session->getFlash('error') ?></p>
+            <p><?= Yii::$app->session->getFlash('warning') ?></p>
         </div>
     <?php endif; ?>
 
@@ -91,6 +97,11 @@ use app\models\Brand;
     <?= $form->field($model, 'updated_at')->textInput(['readonly' => true]) ?>
     <?= $form->field($model, 'created_by')->textInput(['readonly' => true]) ?>
     <?= $form->field($model, 'updated_by')->textInput(['readonly' => true]) ?>
+
+    <?php
+        // 2018-06-05 : Sends the current page value through a hidden input.
+        echo Html::hiddenInput('page', $ret_page);
+    ?>
 
     <div>
         <p class="required-field">* <?= Yii::t('app','Campo Requerido') ?></p><br><br>

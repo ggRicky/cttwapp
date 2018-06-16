@@ -15,7 +15,7 @@ $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
 //2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 
 ?>
 
@@ -73,15 +73,15 @@ $randomBg = rand(1,13);
 
             <?php if (Yii::$app->session->hasFlash('success')): ?>
 
-                <div class="alert alert-success">
+                <div id="auto-close" class="alert alert-success">
                     <p><?= Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'); ?></p>
                 </div>
 
             <?php else: ?>
 
-                <?php if (Yii::$app->session->hasFlash('error')): ?>
+                <?php if (Yii::$app->session->hasFlash('warning')): ?>
 
-                    <div class="alert alert-warning">
+                    <div id="auto-close" class="alert alert-warning">
                         <p><?= Yii::t('app','Se presentó un error al enviar su mensaje.'); ?></p>
                     </div>
 

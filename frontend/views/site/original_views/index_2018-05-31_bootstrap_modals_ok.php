@@ -11,7 +11,7 @@ $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
 //2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 
 ?>
 
@@ -101,7 +101,7 @@ $randomBg = rand(1,13);
         <div class="col-lg-12"> <!-- Bootstrap's col -->
             <!-- CTT logo to display over the CDMX video with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <div class="ctt-mask">  <!-- Blue mask over CDMX video -->
+            <div class="ctt-mask">  <!-- Blue mask to cover the video -->
                 <!-- Video settings to autoplay and infinite loop -->
                 <video class="crop-video" poster="<?=$baseUrl?>/img/poster_0.jpg" autoplay loop>
                     <source src="<?=$baseUrl?>/mov/ctt-cdmx.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
@@ -398,7 +398,7 @@ $randomBg = rand(1,13);
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -441,7 +441,7 @@ $randomBg = rand(1,13);
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-ok-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Éxito') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -484,7 +484,7 @@ $randomBg = rand(1,13);
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -553,7 +553,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-info-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Información') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -596,7 +596,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-ok-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Éxito') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -639,7 +639,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Pregunta') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -682,7 +682,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -725,7 +725,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title">Error</h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 

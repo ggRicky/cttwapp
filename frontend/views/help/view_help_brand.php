@@ -5,7 +5,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = 'Ayuda';
-$description = 'Módulo Administrador de Clientes';
+$description = 'Módulo Administrador de Marcas';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
@@ -14,7 +14,25 @@ $baseUrl = $asset->baseUrl;
 $ret_url_param = Yii::$app->getRequest()->getQueryParam('ret_url');
 // 2018-06-07 : Stores a return hash parameter.
 $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
+
+// 2018-04-26 : Used to get a random int, and display a random parallax.
+$randomBg = rand(1,11);;
+
 ?>
+
+<!-- Header -->
+<header id="top">
+    <div class="row"> <!-- Bootstrap's row -->
+        <div class="col-lg-12"> <!-- Bootstrap's col -->
+            <!-- CTT logo to display over the parallax efect with opacity level -->
+            <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
+            <!-- Parallax Efect -->
+            <div id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">
+                <div class="row"></div>
+            </div>
+        </div>
+    </div>
+</header>
 
 <!-- Blue ribbon decoration -->
 <section id="work-area-index" class="ctt-section bg-primary">
@@ -39,7 +57,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">
-            <p><?= Yii::t('app',Html::encode($this->title)); ?><span><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></span></p>
+            <p><?= Yii::t('app',Html::encode($this->title)); ?><span><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></p>
         </div>
     </div>
 

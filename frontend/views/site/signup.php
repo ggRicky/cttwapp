@@ -11,17 +11,17 @@ $this->title = 'Registro';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-04-08 : If there is an flash message, then skip the header and go to the error-area using javascript.
-If (Yii::$app->session->hasFlash('error'))
+// 2018-04-08 : If there is an flash message, then skip the header and go to the index-work-area using javascript.
+If (Yii::$app->session->hasFlash('warning'))
 {
 $script = <<< JS
-    location.hash = "#error-area"; 
+    location.hash = "#index-work-area"; 
 JS;
     $this->registerJs($script);
 }
 
 //2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 
 ?>
 
@@ -40,7 +40,7 @@ $randomBg = rand(1,13);
 </header>
 
 <!-- Blue ribbon decoration -->
-<section id="error-area" class="ctt-section bg-primary">
+<section id="index-work-area" class="ctt-section bg-primary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
@@ -80,11 +80,11 @@ $randomBg = rand(1,13);
             <p><?= Yii::t('app','Para registrarse como usuario, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
             <!-- 2018-04-08 : If there is an flash message, then display it.-->
-            <?php if (Yii::$app->session->hasFlash('error')): ?>
-               <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?php if (Yii::$app->session->hasFlash('warning')): ?>
+               <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                    <p><?= Yii::$app->session->getFlash('warning') ?></p>
                </div>
             <?php endif; ?>
 

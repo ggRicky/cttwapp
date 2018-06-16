@@ -14,18 +14,35 @@ use app\models\ClientType;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $qryParams */
 
+// 2018-06-09 : If the user isn't authenticated, then redirect him to the login form.
+if (Yii::$app->user->getIsGuest()){
+    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+    Yii::$app->response->redirect(Url::to(['site/login'], true));
+    return;
+}
+
 $this->title = 'Clientes';
+$description = 'Listado Nominal';
 
 // Register the cttwapp project asset bundle
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-06-05 : If there is a return link parameter, then skips to it using javascript code.
-$skip_param = Yii::$app->getRequest()->getQueryParam('ret');
+// 2018-06-07 : Stores a return url parameter.
+$ret_url_param = Yii::$app->getRequest()->getQueryParam('ret_url');
+// 2018-06-07 : Stores a return hash parameter.
+$ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
+// 2018-06-07 : Stores a page parameter to return to it.
+$ret_page = Yii::$app->getRequest()->getQueryParam('ret_page');
+// 2018-06-07 : If there is a page parameter, then stores and validate it.
+// Verifies and validate the current page value.
+$ret_page = (empty($ret_page)?'1':$ret_page);
 
-// 2018-06-05 : Translates the $skip_param value to the corresponding anchor.
-// $skip_param [ 0 - Jumps to the work area index  1 - Jumps to the panel area ]
-$skip_param = ($skip_param=='0'?'work-area-index':($skip_param=='1'?'panel-area':null));
+// 2018-06-07 : Stores a hash parameter to jump to the requested area.
+$hash_param = Yii::$app->getRequest()->getQueryParam('hash');
+// 2018-06-07 : Translates the $hash_param value to the corresponding anchor to jump.
+// $hash_param [ 0 - Jumps to the work area index  1 - Jumps to the panel area ]
+$hash_param = ($hash_param=='0'?'work-area-index':($hash_param=='1'?'panel-area':null));
 
 // 2018-06-05 : If there is a page parameter, then stores and validate it.
 // Verifies and validate the current page value.
@@ -33,15 +50,15 @@ $curr_page = Yii::$app->getRequest()->getQueryParam('page');
 $curr_page = (empty($curr_page)?'1':$curr_page);
 
 // 2018-06-05 : if an anchor parameter was send, then jumps to it using javascript.
-if  ($skip_param) {
+if ($hash_param) {
     $script = <<< JS
-    location.hash = "#$skip_param";
+    location.hash = "#$hash_param";
 JS;
     $this->registerJs($script);
 }
 
 // 2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,13);
+$randomBg = rand(1,11);;
 
 ?>
 
@@ -60,9 +77,20 @@ $randomBg = rand(1,13);
 </header>
 
 <!-- Blue ribbon decoration -->
-<section class="ctt-section bg-primary">
+<section id="work-area-index" class="ctt-section bg-primary">
     <div class="col-lg-12">
         <div class="row">
+            <!-- 2018-06-09: Includes the logout button and display the user name -->
+            <?php
+                // 2018-04-08 : This code was refactored, using only Html helper
+                // 2018-05-24 : Remove guest entry for rbac security.
+                echo Html::begintag('div', ['class' => 'ctt-user-logout-ribbon']);
+                echo Html::beginForm(['/site/logout'], 'post');
+                echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
+                echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]);
+                echo Html::endForm();
+                echo Html::endtag('div');
+            ?>
             <!-- CTT water mark background logo decoration -->
             <div class="ctt-water-mark"></div>
         </div>
@@ -75,12 +103,12 @@ $randomBg = rand(1,13);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['target' => '_self', 'class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
     <!-- Yii2 Title layout -->
-    <div id="work-area-index" class="row">
+    <div class="row">
         <div class="col-lg-10 yii2-header">
             <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
         </div>
@@ -89,7 +117,7 @@ $randomBg = rand(1,13);
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app','Listado Nominal');?></p>
+            <p><?= Yii::t('app',Html::encode($description));?></p>
         </div>
     </div>
 
@@ -98,33 +126,35 @@ $randomBg = rand(1,13);
         <div class="col-lg-12 text-justify yii2-content">
 
             <!-- 2018-05-23 : If there is an flash message, then display it.-->
-            <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?php if (Yii::$app->session->hasFlash('warning')): ?>
+                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                    <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
-                <!-- 2018-05-25 : Flash success message. -->
+            <!-- 2018-05-25 : Flash success message. -->
             <?php elseif (Yii::$app->session->hasFlash('success')): ?>
-                <div class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>
             <?php endif; ?>
 
-            <!-- Used to jump to the right position when 'Code with colors' option is enabled or disabled -->
+            <!-- Used to jump to the right position when 'Code with colors' option is turned -->
             <span id="panel-area"></span>
 
             <!-- 2018-05-23 : Yii2 Rbac - Validates the access. -->
             <?php if (\Yii::$app->user->can('listClient')): ?>
 
                 <!-- 2018-05-28 : Begin the ajax functionality to refresh only the GridView widget contents. -->
+
                 <?php Pjax::begin(); ?>
 
                     <p>
-                        <?= Html::a(Yii::t('app', 'Crear Cliente'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success', 'title' => Yii::t('app', 'Crear un nuevo cliente')]) ?>
-                        <?= Html::a(Yii::t('app', 'Tipos de Clientes'), ['client-type/index'], ['class' => 'btn btn-primary', 'title' => Yii::t('app', 'Administrar los tipos de clientes')]) ?>
+                        <?= Html::a(Yii::t('app', str_repeat('&nbsp;',4).'Crear Cliente'.str_repeat('&nbsp;',4)), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success', 'title' => Yii::t('app', 'Crear un nuevo registro de cliente')]) ?>
+                        <!-- 2018-06-07 : To disable pjax for a specific link inside the container adding data-pjax="0" attribute to this link.-->
+                        <?= Html::a(Yii::t('app', str_repeat('&nbsp;',0).'Tipos de Clientes'.str_repeat('&nbsp;',0)), ['client-type/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary', 'title' => Yii::t('app', 'Administrar los tipos de clientes')]) ?>
                     </p>
 
                     <!-- 2018-04-13 : The next div including the id and class elements, enable the vertical and horizontal scrollbars. -->
@@ -308,27 +338,27 @@ $randomBg = rand(1,13);
 
             <?php else: ?>
 
-                <?php Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
+                <?php Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
 
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                    <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
 
             <?php endif; ?>
 
             <br/>
-            <!-- 2018-06-03 : Toolbox -->
 
+            <!-- 2018-06-03 : Toolbox -->
             <div class="panel panel-default">
-                <div class="panel-heading"><button class="btn btn-light" data-toggle="collapse" data-target="#tools" title="<?=  Yii::t('app', 'Panel de Herramientas') ?>"><span class="text-info"><?= Yii::t('app', 'Herramientas') ?></span></button></div>
+                <div class="panel-heading"><button class="btn btn-light" data-toggle="collapse" data-target="#tools" title="<?=  Yii::t('app', 'Panel de Herramientas') ?>"><span class="text-info"><?= Yii::t('app', 'Herramientas') ?></span>&nbsp;&nbsp;<span><i class="fa fa-refresh fa-spin fa-1x fa-fw text-info"></i></span></button></div>
                 <div id="tools" class="panel-collapse collapse">
                     <div class="panel-body">
                        <!-- Help Tool -->
                        <span>
                            <?php
-                               echo Html::a('', ['help/view', 'theme' => '_client', 'url' => 'client/index', 'ret' => '0'], ['class' => 'btn glyphicon glyphicon-question-sign', 'title' => Yii::t('app', 'Ayuda')]);
+                               echo Html::a('', ['help/view', 'theme' => '_client', 'ret_url' => 'client/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'title' => Yii::t('app', 'Ayuda')]);
                                echo '<span>'.Yii::t('app', 'Ayuda').'</span>';
                            ?>
                        </span>
@@ -336,15 +366,15 @@ $randomBg = rand(1,13);
                        <span>
                            <!-- 2018-05-14 : Improvement. The next two <a> tags call the color action from clientController and pass the color parameter to it. -->
                            <?php
-                                $color_expr = Yii::$app->getRequest()->getCookies()->has('client-color') && Yii::$app->getRequest()->getCookies()->getValue('client-color') == '0';
-                                if ($color_expr){
-                                    echo Html::a('', ['client/color', 'color' => '1'], ['class' => 'btn glyphicon glyphicon-tint', 'title' => Yii::t('app', 'Activar código de colores')]);
-                                    echo '<span>'.Yii::t('app', 'Interruptor de Color').'</span>';
-                                }
-                                else{
-                                    echo Html::a('', ['client/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'title' => Yii::t('app', 'Desactivar código de colores')]);
-                                    echo '<span>'.Yii::t('app', 'Interruptor de Color').'</span>';
-                                }
+                               $color_expr = Yii::$app->getRequest()->getCookies()->has('client-color') && Yii::$app->getRequest()->getCookies()->getValue('client-color') == '0';
+                               if ($color_expr){
+                                   echo Html::a('', ['client/color', 'color' => '1'], ['class' => 'btn glyphicon glyphicon-tint', 'title' => Yii::t('app', 'Activar código de colores')]);
+                                   echo '<span>'.Yii::t('app', 'Interruptor de Color').'</span>';
+                               }
+                               else{
+                                   echo Html::a('', ['client/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'title' => Yii::t('app', 'Desactivar código de colores')]);
+                                   echo '<span>'.Yii::t('app', 'Interruptor de Color').'</span>';
+                               }
                            ?>
                        </span>
                     </div>
@@ -357,107 +387,8 @@ $randomBg = rand(1,13);
     </div>
 </section>
 
-<section>
-    <!-- A button for go to the page's top -->
-    <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <div class="tooltip-conf">
-            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
-            <a href="#work-area-index">
-                <span class="glyphicon glyphicon-circle-arrow-up"></span>
-            </a>
-        </div>
-    </div>
-</section>
+<!-- Includes the view's footer file -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_footer.inc'); ?>
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <!-- CTT mini logo -->
-                <div class="col-lg-12">
-                    <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="center-block img-responsive" height="42" width="105"/>
-                </div>
-
-                <!-- Credits layer -->
-                <div class="row">
-                    <div class="col-lg-10 col-lg-offset-1 text-center tsr-content">
-                        <hr class="small">
-                        <p class="text-muted"><?= Yii::t('app','Todos los derechos reservados &copy;') ?> 2017-<?= date("Y"); ?><br/>T S R&nbsp;&nbsp;&nbsp;&nbsp;D e v e l o p m e n t&nbsp;&nbsp;&nbsp;&nbsp;S o f t w a r e</p>
-                        <hr class="small">
-                        <p class="text-muted"><?= Yii::t('app','Soportado por') ?></p>
-                        <hr class="small">
-                        <p>
-                            <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="45"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.jetbrains.com/phpstorm/"><img src="<?=$baseUrl?>/img/phpstorm_logo.svg" height="45"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://www.github.com/"><img src="<?=$baseUrl?>/img/github_logo.svg" height="40"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://git-scm.com//"><img src="<?=$baseUrl?>/img/git_logo.svg" height="40"/></a>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <a href="https://nginx.com//"><img src="<?=$baseUrl?>/img/nginx_logo.svg" height="17"/></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Blue ribbon footer decoration -->
-    <section class="ctt-section-footer ctt-footer-container">
-        <div class="col-lg-12">
-            <div class="row "></div>
-        </div>
-    </section>
-
-</footer>
-
-<!-- Modal Question : Used to confirm or cancel the delete action -->
-<div id="confirm-delete" tabindex="-1" class="modal fade" role="dialog" data-backdrop="true">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content modal-backdrop">
-
-            <!-- Modal Header -->
-            <div class="modal-shadow-effect modal-header-water-mark">
-                <div class="modal-header modal-header-config ctt-modal-header-question">
-                    <div class="row">
-                        <!--
-                             ctt-modal-header-info        glyphicon-info-sign
-                             ctt-modal-header-success     glyphicon-ok-sign
-                             ctt-modal-header-question    glyphicon-question-sign
-                             ctt-modal-header-warning     glyphicon-warning-sign
-                             ctt-modal-header-error       glyphicon-exclamation-sign
-                        -->
-                        <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
-                        <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Pregunta') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-                    </div>
-                </div>
-
-                <!-- Modal Content -->
-                <div id="content-body" class="modal-body modal-body-config"></div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer modal-footer-config">
-                    <div class="row">
-                        <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
-                        <div class="col-sm-6">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" title="[ Esc ] - <?= Yii::t('app','Descarta la operación') ?>"><?= Yii::t('app','Cancelar') ?></button>
-                            <button id="delete-ok" type="button" class="btn btn-danger btn-ok" title="<?= Yii::t('app','Procede la operación') ?>"><?= Yii::t('app','Aceptar') ?></button>
-                        </div>
-                    </div>
-                </div>
-
-            <!-- Modal Header -->
-            </div>
-
-        <!-- Modal content-->
-        </div>
-
-    </div>
-</div>
+<!-- Includes the modal window to confirm the delete operation-->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_confirm_delete.inc'); ?>

@@ -48,51 +48,48 @@ class ArticleController extends Controller
     /**
      * Displays a single Article model.
      * @param string $id
+     * @param string $page
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $page)
     {
         if (\Yii::$app->user->can('viewArticle')) {
-            return $this->render('view_article', [
-                'model' => $this->findModel($id),
-            ]);
+            return $this->render('view_article', ['model' => $this->findModel($id),]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-        return $this->redirect(['article/index', '#' => 'work-area-index']);
+        return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
      * Creates a new Article model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param integer $page
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($page)
     {
         if (\Yii::$app->user->can('createArticle')) {
+
             $model = new Article();
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
-                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+                // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
 
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
-                return $this->render('create_article', [
-                    'model' => $model,
-                ]);
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('create_article', ['model' => $model, 'page' => $page]);
             }
 
-            return $this->render('create_article', [
-                'model' => $model,
-            ]);
+            return $this->render('create_article', ['model' => $model, 'page' => $page]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-            return $this->redirect(['article/index', '#' => 'work-area-index']);
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         }
     }
 
@@ -100,36 +97,33 @@ class ArticleController extends Controller
      * Updates an existing Article model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
+     * @param integer $page
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $page)
     {
         if (\Yii::$app->user->can('updateArticle')) {
+
             $model = $this->findModel($id);
 
             if ($model->load(Yii::$app->request->post())) {
-
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
-                return $this->render('update_article', [
-                    'model' => $model,
-                ]);
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('update_article', ['model' => $model, 'page' => $page]);
             }
 
-            return $this->render('update_article', [
-                'model' => $model,
-            ]);
+            return $this->render('update_article', ['model' => $model, 'page' => $page]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
 
-        return $this->redirect(['article/index', '#' => 'work-area-index']);
+        return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
@@ -139,7 +133,7 @@ class ArticleController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $page)
     {
         if (\Yii::$app->user->can('deleteArticle')) {
             if ($this->findModel($id)->delete()){
@@ -147,9 +141,10 @@ class ArticleController extends Controller
             }
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-        return $this->redirect(['article/index', '#' => 'work-area-index']);
+
+        return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
@@ -182,6 +177,6 @@ class ArticleController extends Controller
             $cookie = new \yii\web\Cookie(['name' => 'article-color', 'value' => $color]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
-        return $this->redirect(['article/index', '#' => 'panel-area']);
+        return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
     }
 }

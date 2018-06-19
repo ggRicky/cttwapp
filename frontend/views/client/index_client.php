@@ -76,26 +76,31 @@ $randomBg = rand(1,11);;
     </div>
 </header>
 
-<!-- Blue ribbon decoration -->
-<section id="work-area-index" class="ctt-section bg-primary">
-    <div class="col-lg-12">
-        <div class="row">
+    <!-- Blue ribbon decoration -->
+    <section id="work-area-index" class="ctt-section bg-primary">
+        <div class="col-lg-12">
             <!-- 2018-06-09: Includes the logout button and display the user name -->
-            <?php
-                // 2018-04-08 : This code was refactored, using only Html helper
-                // 2018-05-24 : Remove guest entry for rbac security.
-                echo Html::begintag('div', ['class' => 'ctt-user-logout-ribbon']);
-                echo Html::beginForm(['/site/logout'], 'post');
-                echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
-                echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]);
-                echo Html::endForm();
-                echo Html::endtag('div');
-            ?>
-            <!-- CTT water mark background logo decoration -->
-            <div class="ctt-water-mark"></div>
+            <div class="row">
+                <div class="parent">
+                    <?php
+                    // 2018-04-08 : This code was refactored, using only Html helper
+                    // 2018-05-24 : Remove guest entry for rbac security.
+                    echo Html::begintag('div', ['class' => 'child2', 'align' => 'center']);
+                    echo Html::beginForm(['/site/logout'], 'post');
+                    echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
+                    echo Html::endForm();
+                    echo Html::endtag('div');
+
+                    echo Html::begintag('div', ['class' => 'child', 'align' => 'center']);
+                    echo Html::tag('p', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]);
+                    echo Html::endtag('div');
+                    ?>
+                </div>
+                <!-- CTT water mark background logo decoration -->
+                <div class="ctt-water-mark"></div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 <!-- Yii2 Content -->
 <section id="yii2" class="yii2-page">

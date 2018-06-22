@@ -133,7 +133,7 @@ return ([
     'Restablecer Contraseña' => 'Reset Password',
     'Petición para la recuperación de contraseña' => 'Request password reset',
     'Su nueva contraseña fue generada y almacenada correctamente.' => 'Your new password was generated and stored correctly.',
-    'Token de restablecimiento de contraseña incorrecta.' => 'Wrong password reset token.',
+    'Token incorrecto para el restablecimiento de la contraseña.' => 'Wrong password reset token.',
 
     // Login messages
 

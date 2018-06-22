@@ -26,7 +26,6 @@ return ([
     'Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.' => 'This functionality is under construction and is not yet fully implemented.',
     'Este nombre de usuario ya fue asignado.' => 'This username has already been taken.',
     'Funcionalidades' => 'Functionalities',
-    'Gracias por contactarnos. Responderemos tan pronto como nos sea posible.' => 'Thank you for contacting us. We will respond to you as soon as possible.',
     'Herramientas' => 'Tools',
     'I n g r e s a r' => 'E n t e r',
     'Interruptor de Color' => 'Color Switch',
@@ -36,7 +35,6 @@ return ([
     'Listado Nominal' => 'Nominal Listing',
     'Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.' => 'Sorry, we are unable to reset password for the provided email address.',
     'Modificar' => 'Modify',
-    'Nueva contraseña generada.' => 'New password saved.',
     'Procede la operación' => 'The operation proceeds',
     'R e g r e s a r' => 'R e t u r n',
     'Regresar al nivel anterior' => 'Return to the previous level',
@@ -44,7 +42,6 @@ return ([
     'Se presentó un error al enviar su mensaje.' => 'There was an error sending your message.',
     'Seleccione...' => 'Select...',
     'Seleccione una fecha por favor.' => 'Please select a date.',
-    'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.' => 'Your access has been authenticated correctly. Please DO NOT forget to close your session when finished.',
     'Soportado por' => 'Supported by',
     'Todos los derechos reservados &copy;' => 'Copyright &copy;',
     'Ubicación de' => 'Location of',
@@ -99,9 +96,9 @@ return ([
 
     // Error messages
 
-    'El error que se indica arriba, ocurrió mientras el servidor Web procesaba su solicitud.' => 'The above error occurred while the Web server was processing your request.',
+    'El error que se indica arriba, ocurrió mientras el servidor web procesaba su solicitud.' => 'The above error occurred while the web server was processing your request.',
     'Fallo en la operación' => 'Operation failure',
-    'Por favor contáctenos si considera que se trata de un error del servidor. Gracias.' => 'Please contact us if you think this is a server error. Thank you.',
+    'Por favor contáctenos si considera que se trata de un error en el servidor. Gracias.' => 'Please contact us if you think this is a server error. Thank you.',
     'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.' => 'Your access profile does not authorize you to use this action. Please contact the system administrator for more details.',
 
     // Contact messages
@@ -111,8 +108,9 @@ return ([
     'Código de Verificación' => 'Verification code',
     'Enviar' => 'Send',
     'Equipo de Desarrollo' => 'Development Team',
+    'Gracias por contactarnos. Responderemos tan pronto como nos sea posible.' => 'Thank you for contacting us. We will respond to you as soon as possible.',
     'Nombre' => 'Name',
-    'Si tiene desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.' => 'If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.',
+    'Si desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.' => 'If you wish to communicate any details about the operation of this application or report a fault, please fill out the following form to contact the development team. Thank you.',
 
     // Signup messages
 
@@ -127,12 +125,15 @@ return ([
 
     // Password messages
 
+    'Guardar' => 'Save',
     'Inicie el proceso para recuperación de su contraseña.' => 'Start the process to recover your password.',
     'Inicie el proceso para restablecer su contraseña.' => 'Start the process to reset your password.',
     'Por favor complete su correo electrónico. Se enviará un enlace para restablecer su contraseña a esa dirección.' => 'Please fill out your email. A link to reset password will be sent there.',
     'Por favor elija su nueva contraseña :' => 'Please choose your new password :',
     'Restablecer Contraseña' => 'Reset Password',
     'Petición para la recuperación de contraseña' => 'Request password reset',
+    'Su nueva contraseña fue generada y almacenada correctamente.' => 'Your new password was generated and stored correctly.',
+    'Token de restablecimiento de contraseña incorrecta.' => 'Wrong password reset token.',
 
     // Login messages
 
@@ -146,6 +147,7 @@ return ([
     'Por favor atienda las siguientes consideraciones antes de proceder a su atentificación.' => 'Please pay attention to the following considerations before proceeding to its authentication.',
     'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.' => 'Please pay attention to the following considerations before proceeding to register the information.',
     'Recordar contraseña' => 'To remember password',
+    'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.' => 'Your access has been authenticated correctly. Please DO NOT forget to close your session when finished.',
 
     // Client, Client Type tables
 

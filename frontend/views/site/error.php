@@ -55,8 +55,8 @@ $baseUrl = $asset->baseUrl;
                     <p><?= nl2br(Html::encode($exception)) ?></p>
                 </div>
 
-                <p><?= Yii::t('app','El error que se indica arriba, ocurrió mientras el servidor Web procesaba su solicitud.'); ?></p>
-                <p><?= Yii::t('app','Por favor contáctenos si considera que se trata de un error del servidor. Gracias.'); ?></p>
+                <p><?= Yii::t('app','El error que se indica arriba, ocurrió mientras el servidor web procesaba su solicitud.'); ?></p>
+                <p><?= Yii::t('app','Por favor contáctenos si considera que se trata de un error en el servidor. Gracias.'); ?></p>
 
             </div>
 

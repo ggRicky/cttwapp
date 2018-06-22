@@ -85,7 +85,20 @@ $randomBg = rand(1,11);;
     </div>
 
     <!-- Yii2 work area -->
-    <div class="row"><div class="col-lg-12 text-justify yii2-content" style="height: 300px"></div></div>
+    <div class="row">
+        <div class="col-lg-12 text-justify yii2-content" style="height: 300px">
+
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
+            <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
+                <p><?= Yii::$app->session->getFlash('success') ?></p>
+            </div>
+            <?php endif; ?>
+
+        </div>
+    </div>
+
 </section>
 
 <?php

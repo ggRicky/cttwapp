@@ -95,35 +95,3 @@ $randomBg = rand(1,11);;
 
 <!-- Includes the view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_footer.inc'); ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-

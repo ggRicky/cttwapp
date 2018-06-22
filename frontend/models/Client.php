@@ -74,7 +74,7 @@ class Client extends \yii\db\ActiveRecord
             [['phone_number_1', 'phone_number_2'], 'string', 'max' => 15],
             [['client_email', 'contact_email', 'considerations'], 'string', 'max' => 255],
 
-            [['client_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ClientType::className(), 'targetAttribute' => ['client_type_id' => 'id']],
+            [['client_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ClientType::class, 'targetAttribute' => ['client_type_id' => 'id']],
         ];
     }
 
@@ -119,7 +119,7 @@ class Client extends \yii\db\ActiveRecord
      */
     public function getId0()
     {
-        return $this->hasOne(ClientType::className(), ['id' => 'id']);
+        return $this->hasOne(ClientType::class, ['id' => 'id']);
     }
 
 }

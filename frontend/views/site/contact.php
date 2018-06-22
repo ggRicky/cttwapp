@@ -103,7 +103,7 @@ $randomBg = rand(1,11);;
 
                             <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
 
-                            <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                            <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
                                 'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
                             ]) ?>
 

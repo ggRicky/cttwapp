@@ -52,7 +52,7 @@ class Brand extends \yii\db\ActiveRecord
      */
     public function getArticles()
     {
-        return $this->hasMany(Article::className(), ['brand_id' => 'id']);
+        return $this->hasMany(Article::class, ['brand_id' => 'id']);
     }
 
     /** 2018-05-06 : Get the string data ['id']-['brand_desc']

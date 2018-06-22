@@ -49,7 +49,7 @@ class ClientType extends \yii\db\ActiveRecord
      */
     public function getClient()
     {
-        return $this->hasOne(Client::className(), ['id' => 'id']);
+        return $this->hasOne(Client::class, ['id' => 'id']);
     }
 
     /** 2018-03-16 : Get the string data ['id']-['type_desc']

@@ -68,7 +68,7 @@ class Catalog extends \yii\db\ActiveRecord
      */
     public function getArticles()
     {
-        return $this->hasMany(Article::className(), ['id' => 'id']);
+        return $this->hasMany(Article::class, ['id' => 'id']);
     }
 
     /** 2018-05-06 : Get the string data ['id']-['name_cat']

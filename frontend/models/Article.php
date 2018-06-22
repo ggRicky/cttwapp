@@ -54,8 +54,8 @@ class Article extends \yii\db\ActiveRecord
             [['type_art', 'currency_art'], 'string', 'max' => 1],
             [['price_art'], 'number'],
 
-            [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::className(), 'targetAttribute' => ['brand_id' => 'id']],
-            [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::className(), 'targetAttribute' => ['catalog_id' => 'id']],
+            [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['brand_id' => 'id']],
+            [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::class, 'targetAttribute' => ['catalog_id' => 'id']],
         ];
     }
 
@@ -87,7 +87,7 @@ class Article extends \yii\db\ActiveRecord
      */
     public function getBrand()
     {
-        return $this->hasOne(Brand::className(), ['id' => 'brand_id']);
+        return $this->hasOne(Brand::class, ['id' => 'brand_id']);
     }
 
     /**
@@ -95,6 +95,6 @@ class Article extends \yii\db\ActiveRecord
      */
     public function getCatalog()
     {
-        return $this->hasOne(Catalog::className(), ['id' => 'catalog_id']);
+        return $this->hasOne(Catalog::class, ['id' => 'catalog_id']);
     }
 }

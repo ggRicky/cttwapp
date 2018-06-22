@@ -36,7 +36,7 @@
     </div>
 
     <!-- Blue ribbon footer decoration -->
-    <section class="ctt-section-footer ctt-footer-container">
+    <section class="ctt-section-footer ctt-footer-container-bke">
         <div class="col-lg-12">
             <div class="row "></div>
         </div>

@@ -7,21 +7,63 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+/* @var $this yii\web\View */
+
+$this->title = 'Error';
+$description = 'Fallo en la operación';
+
+$asset = \frontend\assets\AppAsset::register($this);
+$baseUrl = $asset->baseUrl;
+
 ?>
-<div class="site-error">
 
-    <h1><?= Html::encode($this->title); ?></h1>
+<!-- Orange ribbon decoration -->
+<section id="work-view-area" class="ctt-section bg-secondary">
+    <div class="col-lg-12">
+        <div class="row">
+            <!-- CTT water mark background logo decoration -->
+            <div class="ctt-water-mark"></div>
+        </div>
+    </div>
+</section>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+<!-- Yii2 Content -->
+<section id="yii2" class="yii2-page">
+
+    <!-- Yii2 Title layout -->
+    <div class="row">
+        <div class="col-lg-10 yii2-header">
+            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
+        </div>
     </div>
 
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
+    <!-- Yii2 complementary description -->
+    <div class="row">
+        <div class="col-lg-10 text-info yii2-description">
+            <p><?= Yii::t('app',Html::encode($description)); ?></p>
+        </div>
+    </div>
 
-</div>
+    <!-- Yii2 work area -->
+    <div class="row">
+        <div class="col-lg-12 text-justify yii2-content">
+
+            <div class="site-error">
+
+                <div class="alert alert-danger">
+                    <p><h4><?= nl2br(Html::encode($name)) ?></h4></p>
+                    <p><?= nl2br(Html::encode($message)) ?></p>
+                    <p><?= nl2br(Html::encode($exception)) ?></p>
+                </div>
+
+                <p><?= Yii::t('app','El error que se indica arriba, ocurrió mientras el servidor Web procesaba su solicitud.'); ?></p>
+                <p><?= Yii::t('app','Por favor contáctenos si considera que se trata de un error del servidor. Gracias.'); ?></p>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Includes the view's footer file -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer_bke.inc'); ?>

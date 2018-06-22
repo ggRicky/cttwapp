@@ -36,7 +36,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 
         ?>
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-ctt-fixed-width']) ?>
         </div>
 
     <?php ActiveForm::end(); ?>

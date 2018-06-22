@@ -17,6 +17,8 @@ if (Yii::$app->user->getIsGuest()){
 }
 
 $this->title = 'Catálogos';
+$description = 'Listado Nominal';
+
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
@@ -54,6 +56,27 @@ $randomBg = rand(1,11);;
 
 ?>
 
+<!-- Navigation -->
+<!-- Open menu button -->
+<a id="menu-toggle" href="#" class="btn btn-dark btn-lg btn-toggle"><i class="fa fa-bars"></i></a>
+
+<nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <!-- Close menu button -->
+        <div class="sidebar-top">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right btn-toggle"><i class="fa fa-times"></i></a>
+        </div>
+
+        <!-- CTT mini-logo ribbon -->
+        <div class="container-fluid ctt-mini-logo-top">
+            <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="pull-left img-responsive" height="42" width="105"/>
+        </div>
+
+        <!-- Includes the menu options file -->
+        <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_menu_options.inc'); ?>
+    </ul>
+</nav>
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
@@ -72,17 +95,6 @@ $randomBg = rand(1,11);;
 <section id="work-area-index" class="ctt-section bg-primary">
     <div class="col-lg-12">
         <div class="row">
-            <!-- 2018-06-09: Includes the logout button and display the user name -->
-            <?php
-                // 2018-04-08 : This code was refactored, using only Html helper
-                // 2018-05-24 : Remove guest entry for rbac security.
-                echo Html::begintag('div', ['class' => 'ctt-user-logout-ribbon']);
-                echo Html::beginForm(['/site/logout'], 'post');
-                echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
-                echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]);
-                echo Html::endForm();
-                echo Html::endtag('div');
-            ?>
             <!-- CTT water mark background logo decoration -->
             <div class="ctt-water-mark"></div>
         </div>
@@ -95,7 +107,7 @@ $randomBg = rand(1,11);;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', 'page' => '1', 'hash' => '0'], ['target' => '_self', 'class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', 'page' => '1', 'hash' => '0'], ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -109,7 +121,7 @@ $randomBg = rand(1,11);;
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app','Listado Nominal');?></p>
+            <p><?= Yii::t('app',Html::encode($description));?></p>
         </div>
     </div>
 
@@ -137,11 +149,10 @@ $randomBg = rand(1,11);;
             <?php if (\Yii::$app->user->can('listCatalog')): ?>
 
                 <!-- 2018-06-13 : Begin the ajax functionality to refresh only the GridView widget contents. -->
-
                 <?php Pjax::begin(); ?>
 
                     <p>
-                        <?= Html::a(Yii::t('app', 'Crear Catálogo'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a(Yii::t('app', 'Crear Catálogo'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success btn-ctt-fixed-width']) ?>
                     </p>
 
                     <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->

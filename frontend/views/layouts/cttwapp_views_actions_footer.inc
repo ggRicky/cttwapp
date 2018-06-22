@@ -1,15 +1,3 @@
-<section>
-    <!-- A button for go to the page's top -->
-    <div class="col-lg-10 col-lg-offset-1 text-center up-btn-area">
-        <div class="tooltip-conf">
-            <span class="tooltip-text"><?=Yii::t('app', 'Ir al inicio');?></span>
-            <a href="#work-area-view">
-                <span class="glyphicon glyphicon-circle-arrow-up"></span>
-            </a>
-        </div>
-    </div>
-</section>
-
 <!-- Footer -->
 <footer >
     <div class="container">
@@ -54,3 +42,13 @@
         </div>
     </section>
 </footer>
+
+<!-- A button for go to the page's top -->
+<a id="arrow-up-fixed-button" href="#work-view-area" class="btn btn-lg" title="Ir al inicio"><i class="fa fa-3x fa-arrow-circle-up"  style="font-size:42px"></i></a>
+
+<?php
+// Used to disable temporary the debugger toolbar
+if (class_exists('yii\debug\Module')) {
+    $this->off(\yii\web\View::EVENT_END_BODY, [\yii\debug\Module::getInstance(), 'renderToolbar']);
+}
+?>

@@ -2,16 +2,16 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\base\InvalidArgumentException;
 use yii\web\Controller;
+use yii\web\BadRequestHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\LoginForm;
 
 /**
  * Site controller
@@ -25,10 +25,15 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => ['logout', 'signup', 'language'],
                 'rules' => [
-                    // 2018-05-24 : Removes the rules for a guest user, due to the yii2 rbac security is on.
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        // 2018-05-24 : Removes the roles ['?'] for a guest user, due to the yii2 Rbac security is on.
+                        // 'roles' => ['?'],
+                    ],
                     [
                         'actions' => ['signup', 'logout', 'language'],
                         'allow' => true,
@@ -37,7 +42,7 @@ class SiteController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -131,7 +136,8 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        // 2018-06-21 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
+        return $this->redirect(['site/login', 'hash' => '0']);
     }
 
     /**
@@ -188,7 +194,6 @@ class SiteController extends Controller
     public function actionSignup()
     {
         // 2018-05-25 : Yii2 Rbac - Validates the access.
-
         if (\Yii::$app->user->can('adminSite')) {
             $model = new SignupForm();
             if ($model->load(Yii::$app->request->post())) {
@@ -222,7 +227,8 @@ class SiteController extends Controller
             ]);
         }
 
-        return $this->redirect(['site/login', '#' => 'work-area-index']);
+        Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+        return $this->redirect(['site/login', 'hash' => '0']);
     }
 
     /**
@@ -259,7 +265,7 @@ class SiteController extends Controller
     {
         try {
             $model = new ResetPasswordForm($token);
-        } catch (InvalidParamException $e) {
+        } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
 
@@ -273,6 +279,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
     /**
      * Display a window help for general topics about de application.
      *
@@ -291,6 +298,7 @@ class SiteController extends Controller
         Yii::$app->session->setFlash('forbiddenAccess', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         return $this->redirect(['site/index']);
     }
+
     /**
      * Stores a language value user's preference to a cookie.
      *
@@ -307,6 +315,7 @@ class SiteController extends Controller
         $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang']]);
         Yii::$app->getResponse()->getCookies()->add($cookie);
     }
+
     /**
      * Displays a debug view for general purpose.
      *

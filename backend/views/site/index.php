@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 
@@ -32,31 +32,8 @@ $randomBg = rand(1,11);;
             <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="pull-left img-responsive" height="42" width="105"/>
         </div>
 
-        <!-- CTT default actions ribbon -->
-        <?php
-            // 2018-04-08 : This code was refactored, using only Html helper
-            // 2018-05-24 : Remove guest entry for rbac security.
-            echo Html::begintag('div', ['class' => 'ctt-mini-bar-top']);
-            echo Html::beginForm(['/site/logout'], 'post');
-            echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
-            echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]);
-            echo Html::endForm();
-            echo Html::endtag('div');
-        ?>
-
-        <!-- Content menu -->
-
-        <!-- 2018-05-24 : Special Option - Only the admin user can create an new user. -->
-        <?php if (\Yii::$app->user->can('adminSite')): ?>
-
-            <li>
-                <div class="ctt-mini-bar-spc-opts">
-                    <?= "<a href='".Url::to(['auth-item/index'])."'>".Yii::t('app','Objetos de Autorización')."</a>" ?>
-                </div>
-            </li>
-
-        <?php endif; ?>
-
+        <!-- Includes the menu options file -->
+        <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_menu_options_bke.inc'); ?>
     </ul>
 </nav>
 
@@ -66,7 +43,7 @@ $randomBg = rand(1,11);;
         <div class="col-lg-12"> <!-- Bootstrap's col -->
             <!-- CTT logo to display over the CTT's crane video with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <div class="ctt-mask">  <!-- Blue mask to cover the video -->
+            <div class="ctt-mask">  <!-- Defines an optionally mask to cover and color the video -->
                 <!-- Video settings to autoplay and infinite loop -->
                 <video class="crop-video" poster="<?=$baseUrl?>/img/ctt-poster.jpg" autoplay loop>
                     <source src="<?=$baseUrl?>/mov/ctt-grua-scorpio.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
@@ -77,7 +54,7 @@ $randomBg = rand(1,11);;
 </header>
 
 <!-- Orange ribbon decoration -->
-<section class="ctt-section bg-secondary">
+<section id="work-area-index" class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <!-- CTT water mark background logo decoration -->
         <div class="row"><div class="ctt-water-mark"></div></div>
@@ -108,7 +85,7 @@ $randomBg = rand(1,11);;
     </div>
 
     <!-- Yii2 work area -->
-    <div class="row"><div class="col-lg-12 text-justify yii2-content"></div></div>
+    <div class="row"><div class="col-lg-12 text-justify yii2-content" style="height: 300px"></div></div>
 </section>
 
 <?php
@@ -116,4 +93,24 @@ $randomBg = rand(1,11);;
 // Includes the index's footer file
 include(Yii::getAlias('@app').'/views/layouts/cttwapp_index_footer_bke.inc');
 
+// Include the index's modals file
+include(Yii::getAlias('@app').'/views/layouts/cttwapp_index_modals_bke.inc');
+
+// 2018-02-09 : If the user was logged successfully, then display the modal window notification, using PHP & jQuery
+$session = Yii::$app->session;
+
+if ($session->has('successLogin')) {
+
+    $script = "jQuery(document).ready(function () { $(\"#ctt-modal-usr-logged\").modal({show: true, backdrop: \"static\"}); });";
+    $this->registerJs($script, View::POS_READY);
+
+}
+
+// 2018-05-25 : If the user haven't access to an site action, then display the modal window notification, using PHP & jQuery
+if (Yii::$app->session->hasFlash('forbiddenAccess')){
+
+    $script = "jQuery(document).ready(function () { $(\"#ctt-modal-forbidden-access\").modal({show: true, backdrop: \"static\"}); });";
+    $this->registerJs($script, View::POS_READY);
+
+}
 ?>

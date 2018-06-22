@@ -50,7 +50,7 @@ class RbacController extends Controller
         $auth->add($adminProcess);
 
 
-        // Defines the permissions to access the main index
+        // Defines the permissions to access the Main index
         // ------------------------------------------------
 
         // Adds "accessMain" permission
@@ -60,7 +60,7 @@ class RbacController extends Controller
 
 
 
-        // Defines the permissions to access the help module
+        // Defines the permissions to access the Help module
         // -------------------------------------------------
 
         // Adds "viewHelp" permission
@@ -70,7 +70,7 @@ class RbacController extends Controller
 
 
 
-        // Defines the permissions on the client types module
+        // Defines the permissions on the Client Types module
         // --------------------------------------------------
 
         // Adds "createClientType" permission
@@ -100,8 +100,8 @@ class RbacController extends Controller
 
 
 
-        // Defines the permissions on the clients module
-        // --------------------------------------------
+        // Defines the permissions on the Clients module
+        // ---------------------------------------------
 
         // Adds "createClient" permission
         $createClient = $auth->createPermission('createClient');
@@ -130,8 +130,8 @@ class RbacController extends Controller
 
 
 
-        // Defines the permissions on the catalogs module
-        // ---------------------------------------------
+        // Defines the permissions on the Catalogs module
+        // ----------------------------------------------
 
         // Adds "createCatalog" permission
         $createCatalog = $auth->createPermission('createCatalog');
@@ -160,8 +160,8 @@ class RbacController extends Controller
 
 
 
-        // Defines the permissions on the brands module
-        // -------------------------------------------
+        // Defines the permissions on the Brands module
+        // --------------------------------------------
 
         // Adds "createBrand" permission
         $createBrand = $auth->createPermission('createBrand');
@@ -190,7 +190,7 @@ class RbacController extends Controller
 
 
 
-        // Defines the permissions on the articles module
+        // Defines the permissions on the Articles module
         // ----------------------------------------------
 
         // Adds "createArticle" permission
@@ -217,6 +217,126 @@ class RbacController extends Controller
         $listArticle = $auth->createPermission('listArticle');
         $listArticle->description = 'Permission : Allows to list the Articles in the cttwapp system.';
         $auth->add($listArticle);
+
+
+
+        // Defines the permissions on the Inventory module
+        // -----------------------------------------------
+
+        // Adds "createInventory" permission
+        $createInventory = $auth->createPermission('createInventory');
+        $createInventory->description = 'Permission : Allows to create the Inventory entries in the cttwapp system.';
+        $auth->add($createInventory);
+
+        // Adds "updateInventory" permission
+        $updateInventory = $auth->createPermission('updateInventory');
+        $updateInventory->description = 'Permission : Allows to update the Inventory entries in the cttwapp system.';
+        $auth->add($updateInventory);
+
+        // Adds "viewInventory" permission
+        $viewInventory = $auth->createPermission('viewInventory');
+        $viewInventory->description = 'Permission : Allows to view the Inventory entries in the cttwapp system.';
+        $auth->add($viewInventory);
+
+        // Adds "deleteInventory" permission
+        $deleteInventory = $auth->createPermission('deleteInventory');
+        $deleteInventory->description = 'Permission : Allows to delete the Inventory entries in the cttwapp system.';
+        $auth->add($deleteInventory);
+
+        // Adds "listInventory" permission
+        $listInventory = $auth->createPermission('listInventory');
+        $listInventory->description = 'Permission : Allows to list the Inventory entries in the cttwapp system.';
+        $auth->add($listInventory);
+
+
+
+        // Defines the permissions on the Project module
+        // ---------------------------------------------
+
+        // Adds "createProject" permission
+        $createProject = $auth->createPermission('createProject');
+        $createProject->description = 'Permission : Allows to create the Project records in the cttwapp system.';
+        $auth->add($createProject);
+
+        // Adds "updateProject" permission
+        $updateProject = $auth->createPermission('updateProject');
+        $updateProject->description = 'Permission : Allows to update the Project records in the cttwapp system.';
+        $auth->add($updateProject);
+
+        // Adds "viewProject" permission
+        $viewProject = $auth->createPermission('viewProject');
+        $viewProject->description = 'Permission : Allows to view the Project records in the cttwapp system.';
+        $auth->add($viewProject);
+
+        // Adds "deleteProject" permission
+        $deleteProject = $auth->createPermission('deleteProject');
+        $deleteProject->description = 'Permission : Allows to delete the Project records in the cttwapp system.';
+        $auth->add($deleteProject);
+
+        // Adds "listProject" permission
+        $listProject = $auth->createPermission('listProject');
+        $listProject->description = 'Permission : Allows to list the Project records in the cttwapp system.';
+        $auth->add($listProject);
+
+
+
+        // Defines the permissions on the Reservations module
+        // --------------------------------------------------
+
+        // Adds "createReservations" permission
+        $createReservation = $auth->createPermission('createReservation');
+        $createReservation->description = 'Permission : Allows to create the Reservation records in the cttwapp system.';
+        $auth->add($createReservation);
+
+        // Adds "updateReservation" permission
+        $updateReservation = $auth->createPermission('updateReservation');
+        $updateReservation->description = 'Permission : Allows to update the Reservation records in the cttwapp system.';
+        $auth->add($updateReservation);
+
+        // Adds "viewReservation" permission
+        $viewReservation = $auth->createPermission('viewReservation');
+        $viewReservation->description = 'Permission : Allows to view the Reservation records in the cttwapp system.';
+        $auth->add($viewReservation);
+
+        // Adds "deleteReservation" permission
+        $deleteReservation = $auth->createPermission('deleteReservation');
+        $deleteReservation->description = 'Permission : Allows to delete the Reservation records in the cttwapp system.';
+        $auth->add($deleteReservation);
+
+        // Adds "listReservation" permission
+        $listReservation = $auth->createPermission('listReservation');
+        $listReservation->description = 'Permission : Allows to list the Reservation records in the cttwapp system.';
+        $auth->add($listReservation);
+
+
+
+        // Defines the permissions on the MarketRate module
+        // -----------------------------------------------
+
+        // Adds "createMarketRate" permission
+        $createMarketRate = $auth->createPermission('createMarketRate');
+        $createMarketRate->description = 'Permission : Allows to create the MarketRate records in the cttwapp system.';
+        $auth->add($createMarketRate);
+
+        // Adds "updateMarketRate" permission
+        $updateMarketRate = $auth->createPermission('updateMarketRate');
+        $updateMarketRate->description = 'Permission : Allows to update the MarketRate records in the cttwapp system.';
+        $auth->add($updateMarketRate);
+
+        // Adds "viewMarketRate" permission
+        $viewMarketRate = $auth->createPermission('viewMarketRate');
+        $viewMarketRate->description = 'Permission : Allows to view the MarketRate records in the cttwapp system.';
+        $auth->add($viewMarketRate);
+
+        // Adds "deleteMarketRate" permission
+        $deleteMarketRate = $auth->createPermission('deleteMarketRate');
+        $deleteMarketRate->description = 'Permission : Allows to delete the MarketRate records in the cttwapp system.';
+        $auth->add($deleteMarketRate);
+
+        // Adds "listMarketRate" permission
+        $listMarketRate = $auth->createPermission('listMarketRate');
+        $listMarketRate->description = 'Permission : Allows to list the MarketRate records in the cttwapp system.';
+        $auth->add($listMarketRate);
 
 
 
@@ -375,6 +495,126 @@ class RbacController extends Controller
 
 
 
+        // Role : userInventory
+        // --------------------
+
+        // Adds the role 'userInventory' for a user of the Inventory module.
+        $userInventory = $auth->createRole('userInventory');
+        $userInventory->description = 'Role : Defines a user with the only permission to list inventories.';
+        $auth->add($userInventory);
+
+        // Adds permissions
+        $auth->addChild($userInventory, $listInventory);                   // Adds this permission to role userInventory, to allows the access to the list Inventories.
+
+
+
+        // Role : adminInventory
+        // ---------------------
+
+        // Adds the role 'adminInventory' for an admin of the Inventory module.
+        $adminInventory = $auth->createRole('adminInventory');
+        $adminInventory->description = 'Role : Defines an admin user with all permissions to process Inventories.';
+        $auth->add($adminInventory);
+
+        // Adds roles and permissions
+        $auth->addChild($adminInventory, $userInventory);                  // Adds the role userInventory to the role adminInventory.
+        $auth->addChild($adminInventory, $createInventory);                // Adds these permissions to role adminInventory, to allows create, update, view, and delete Inventories.
+        $auth->addChild($adminInventory, $updateInventory);
+        $auth->addChild($adminInventory, $viewInventory);
+        $auth->addChild($adminInventory, $deleteInventory);
+
+
+
+        // Role : userProject
+        // ------------------
+
+        // Adds the role 'userProject' for a user of the Project module.
+        $userProject = $auth->createRole('userProject');
+        $userProject->description = 'Role : Defines a user with the only permission to list Projects.';
+        $auth->add($userProject);
+
+        // Adds permissions
+        $auth->addChild($userProject, $listProject);                   // Adds this permission to role userProject, to allows the access to the list Projects.
+
+
+
+        // Role : adminProject
+        // -------------------
+
+        // Adds the role 'adminProject' for an admin of the Project module.
+        $adminProject = $auth->createRole('adminProject');
+        $adminProject->description = 'Role : Defines an admin user with all permissions to process Projects.';
+        $auth->add($adminProject);
+
+        // Adds roles and permissions
+        $auth->addChild($adminProject, $userProject);                  // Adds the role userProject to the role adminProject.
+        $auth->addChild($adminProject, $createProject);                // Adds these permissions to role adminProject, to allows create, update, view, and delete Projects.
+        $auth->addChild($adminProject, $updateProject);
+        $auth->addChild($adminProject, $viewProject);
+        $auth->addChild($adminProject, $deleteProject);
+
+
+
+        // Role : userReservation
+        // -----------------------
+
+        // Adds the role 'userReservation' for a user of the Reservation module.
+        $userReservation = $auth->createRole('userReservation');
+        $userReservation->description = 'Role : Defines a user with the only permission to list Reservation.';
+        $auth->add($userReservation);
+
+        // Adds permissions
+        $auth->addChild($userReservation, $listReservation);                   // Adds this permission to role userReservation, to allows the access to the list Reservation.
+
+
+
+        // Role : adminReservation
+        // -------------------
+
+        // Adds the role 'adminReservation' for an admin of the Reservation module.
+        $adminReservation = $auth->createRole('adminReservation');
+        $adminReservation->description = 'Role : Defines an admin user with all permissions to process Reservation.';
+        $auth->add($adminReservation);
+
+        // Adds roles and permissions
+        $auth->addChild($adminReservation, $userReservation);                  // Adds the role userReservation to the role adminReservation.
+        $auth->addChild($adminReservation, $createReservation);                // Adds these permissions to role adminReservation, to allows create, update, view, and delete Reservation.
+        $auth->addChild($adminReservation, $updateReservation);
+        $auth->addChild($adminReservation, $viewReservation);
+        $auth->addChild($adminReservation, $deleteReservation);
+
+
+
+        // Role : userMarketRate
+        // ---------------------
+
+        // Adds the role 'userMarketRate' for a user of the MarketRate module.
+        $userMarketRate = $auth->createRole('userMarketRate');
+        $userMarketRate->description = 'Role : Defines a user with the only permission to list MarketRates.';
+        $auth->add($userMarketRate);
+
+        // Adds permissions
+        $auth->addChild($userMarketRate, $listMarketRate);                   // Adds this permission to role userMarketRate, to allows the access to the list MarketRates.
+
+
+
+        // Role : adminMarketRate
+        // ----------------------
+
+        // Adds the role 'adminMarketRate' for an admin of the MarketRate module.
+        $adminMarketRate = $auth->createRole('adminMarketRate');
+        $adminMarketRate->description = 'Role : Defines an admin user with all permissions to process MarketRates.';
+        $auth->add($adminMarketRate);
+
+        // Adds roles and permissions
+        $auth->addChild($adminMarketRate, $userMarketRate);                  // Adds the role userMarketRate to the role adminMarketRate.
+        $auth->addChild($adminMarketRate, $createMarketRate);                // Adds these permissions to role adminMarketRate, to allows create, update, view, and delete MarketRates.
+        $auth->addChild($adminMarketRate, $updateMarketRate);
+        $auth->addChild($adminMarketRate, $viewMarketRate);
+        $auth->addChild($adminMarketRate, $deleteMarketRate);
+
+
+
         // Role : $userGuest
         // -----------------
 
@@ -404,15 +644,19 @@ class RbacController extends Controller
         $auth->addChild($userCTT, $userBrand);             // Grant access to list brand entities.
         $auth->addChild($userCTT, $userCatalog);           // Grant access to list catalog entities.
         $auth->addChild($userCTT, $userArticle);           // Grant access to list article entities.
+        $auth->addChild($userCTT, $userInventory);         // Grant access to list inventory entities.
+        $auth->addChild($userCTT, $userProject);           // Grant access to list project entities.
+        $auth->addChild($userCTT, $userReservation);       // Grant access to list reservation entities.
+        $auth->addChild($userCTT, $userMarketRate);        // Grant access to list market rate entities.
 
 
 
         // Role : adminCTT
         // ---------------
 
-        // Creates the role 'adminCTT' and grant ALL the available permissions in the rbac system.
+        // Creates the role 'adminCTT' and grant ALL the available permissions in the Rbac system.
         $adminCTT = $auth->createRole('adminCTT');
-        $adminCTT->description = 'Role : Defines an adminCTT user with all available permissions in the rbac system.';
+        $adminCTT->description = 'Role : Defines an adminCTT user with all available permissions in the Rbac system.';
         $auth->add($adminCTT);
 
         // Adds all the roles and permissions
@@ -424,6 +668,10 @@ class RbacController extends Controller
         $auth->addChild($adminCTT, $adminBrand);           // Grant access to admin all brand process.
         $auth->addChild($adminCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($adminCTT, $adminArticle);         // Grant access to admin all article process.
+        $auth->addChild($adminCTT, $adminInventory);       // Grant access to admin all inventory entities.
+        $auth->addChild($adminCTT, $adminProject);         // Grant access to admin all project entities.
+        $auth->addChild($adminCTT, $adminReservation);     // Grant access to admin all reservation entities.
+        $auth->addChild($adminCTT, $adminMarketRate);      // Grant access to admin all market rate entities.
 
 
 

@@ -34,7 +34,7 @@ $randomBg = rand(1,11);;
         <!-- CTT default actions ribbon -->
         <?php
             // 2018-04-08 : This code was refactored, using only Html helper
-            // 2018-05-24 : Remove guest entry for rbac security.
+            // 2018-05-24 : Remove guest entry for Rbac security.
             echo Html::begintag('div', ['class' => 'ctt-mini-bar-top']);
             echo Html::beginForm(['/site/logout'], 'post');
             echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]) . "&nbsp;&nbsp;&nbsp;";
@@ -101,7 +101,7 @@ $randomBg = rand(1,11);;
         <div class="col-lg-12"> <!-- Bootstrap's col -->
             <!-- CTT logo to display over the CDMX video with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <div class="ctt-mask">  <!-- Blue mask to cover the video -->
+            <div class="ctt-mask">  <!-- Defines an optionally mask to cover and color the video -->
                 <!-- Video settings to autoplay and infinite loop -->
                 <video class="crop-video" poster="<?=$baseUrl?>/img/poster_0.jpg" autoplay loop>
                     <source src="<?=$baseUrl?>/mov/ctt-cdmx.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->

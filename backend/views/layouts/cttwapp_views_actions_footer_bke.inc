@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer>
+<footer >
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
@@ -36,20 +36,19 @@
     </div>
 
     <!-- Blue ribbon footer decoration -->
-    <section class="ctt-section-footer ctt-footer-container">
+    <section class="ctt-section bg-secondary">
         <div class="col-lg-12">
-            <div class="row "></div>
+            <div class="row"></div>
         </div>
     </section>
-
 </footer>
 
 <!-- A button for go to the page's top -->
-<a id="arrow-up-fixed-button" href="#work-area-index" class="btn btn-lg" title="Ir al inicio"><i class="fa fa-3x fa-arrow-circle-up"  style="font-size:42px"></i></a>
+<a id="arrow-up-fixed-button" href="#work-view-area" class="btn btn-lg" title="Ir al inicio"><i class="fa fa-3x fa-arrow-circle-up"  style="font-size:42px"></i></a>
 
 <?php
-    // Used to disable temporary the debugger toolbar
-    if (class_exists('yii\debug\Module')) {
-        $this->off(\yii\web\View::EVENT_END_BODY, [\yii\debug\Module::getInstance(), 'renderToolbar']);
-    }
+// Used to disable temporary the debugger toolbar
+if (class_exists('yii\debug\Module')) {
+    $this->off(\yii\web\View::EVENT_END_BODY, [\yii\debug\Module::getInstance(), 'renderToolbar']);
+}
 ?>

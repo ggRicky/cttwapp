@@ -21,7 +21,7 @@ class AuthItemController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -53,9 +53,13 @@ class AuthItemController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view_auth_item', [
-            'model' => $this->findModel($id),
-        ]);
+        if (\Yii::$app->user->can('adminProcess')) {
+            return $this->render('view_auth_item', ['model' => $this->findModel($id)]);
+        }
+        else {
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['auth-item/index']);
     }
 
     /**
@@ -65,15 +69,25 @@ class AuthItemController extends Controller
      */
     public function actionCreate()
     {
-        $model = new AuthItem();
+        if (\Yii::$app->user->can('adminProcess')) {
+            $model = new AuthItem();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->name]);
+                }
+                // 2018-06-21 : An error occurred in the data capture process. A flash message is issued.
+
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('create_auth_item', ['model' => $model]);
+            }
+
+            return $this->render('create_auth_item', ['model' => $model]);
         }
-
-        return $this->render('create_auth_item', [
-            'model' => $model,
-        ]);
+        else {
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['auth-item/index']);
+        }
     }
 
     /**
@@ -85,15 +99,26 @@ class AuthItemController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('adminProcess')) {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->name]);
+                }
+                // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                return $this->render('update_auth_item', ['model' => $model]);
+            }
+
+            return $this->render('update_auth_item', ['model' => $model]);
+        }
+        else {
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
 
-        return $this->render('update_auth_item', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['auth-item/index']);
     }
 
     /**
@@ -105,9 +130,16 @@ class AuthItemController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (\Yii::$app->user->can('adminProcess')) {
+            if ($this->findModel($id)->delete()){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
+            }
+        }
+        else {
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['auth-item/index']);
     }
 
     /**
@@ -123,6 +155,6 @@ class AuthItemController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe.'));
     }
 }

@@ -7,7 +7,8 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-frontend',
+    'id' => 'cttwapp-frontend-v1',
+    'name' => 'CTT Web Application v1.0',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     // 2018-02-05 13:52 Hrs. : Configuration for language and sourceLanguage default settings

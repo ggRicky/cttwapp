@@ -28,7 +28,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 ?>
 
 <!-- Blue ribbon decoration -->
-<section id="work-area-view" class="ctt-section bg-primary">
+<section id="work-view-area" class="ctt-section bg-primary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
@@ -43,7 +43,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['brand/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['brand/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -69,8 +69,8 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
             <div class="brand-update">
 
                 <p>
-                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id, 'page' => $ret_page],   ['class' => 'btn btn-danger',
+                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-primary btn-ctt-fixed-width']) ?>
+                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id, 'page' => $ret_page],   ['class' => 'btn btn-danger btn-ctt-fixed-width',
                         'data' => [
                             // 2018-05-28 : Adds to the modal title the row id, like a warning information.
                             'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),

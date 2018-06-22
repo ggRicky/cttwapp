@@ -106,10 +106,10 @@ class SignupForm extends Model
         // Save the new user
         $user->save(false);
 
-        // 2018-05-23 : Assigns a default userCTT role to the new user.
+        // 2018-05-23 : Assigns a default userGuest role to the new user.
 
         $auth = Yii::$app->authManager;
-        $userCTT = $auth->getRole('userCTT');
+        $userCTT = $auth->getRole('userGuest');
         $auth->assign($userCTT, $user->getId());
 
         return $user;

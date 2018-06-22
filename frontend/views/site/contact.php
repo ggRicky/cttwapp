@@ -11,6 +11,8 @@ use yii\captcha\Captcha;
 /* @var $this yii\web\View */
 
 $this->title = 'Contacto';
+$description = 'Equipo de Desarrollo';
+
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
@@ -63,7 +65,7 @@ $randomBg = rand(1,11);;
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app','Equipo de Desarrollo'); ?></p>
+            <p><?= Yii::t('app',Html::encode($description));?></p>
         </div>
     </div>
 

@@ -94,7 +94,7 @@ return ([
 
     // Help messages
 
-    'C o n t e n t e n i d o' => 'C o n t e n t',
+    'Objetivos' => 'Goals',
     'Tópicos Generales' => 'General Topics',
 
     // Error messages
@@ -124,6 +124,15 @@ return ([
     'Registre sus datos como nuevo usuario del sistema.' => 'Register his information as new user of the system.',
     'Usuario' => 'User',
     'Su registro ha sido procesado correctamente. Por favor NO olvide cerrar su sesión al terminar.' => 'Your registration has been processed correctly. Please DO NOT forget to close your session when finished.',
+
+    // Password messages
+
+    'Inicie el proceso para recuperación de su contraseña.' => 'Start the process to recover your password.',
+    'Inicie el proceso para restablecer su contraseña.' => 'Start the process to reset your password.',
+    'Por favor complete su correo electrónico. Se enviará un enlace para restablecer su contraseña a esa dirección.' => 'Please fill out your email. A link to reset password will be sent there.',
+    'Por favor elija su nueva contraseña :' => 'Please choose your new password :',
+    'Restablecer Contraseña' => 'Reset Password',
+    'Petición para la recuperación de contraseña' => 'Request password reset',
 
     // Login messages
 

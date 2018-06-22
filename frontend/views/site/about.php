@@ -5,6 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 
 $this->title = 'Acerca';
+$description = 'CTT Web Application v-1.001 Beta';
+
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
@@ -57,7 +59,7 @@ $randomBg = rand(1,11);;
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p>CTT Web Application v-1.001 Beta</p>
+            <p><?= Yii::t('app',Html::encode($description));?></p>
         </div>
     </div>
 

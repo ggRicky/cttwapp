@@ -266,7 +266,9 @@ class SiteController extends Controller
         try {
             $model = new ResetPasswordForm($token);
         } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
+            // Original code : throw new BadRequestHttpException($e->getMessage());
+            // 2018-06-22 : To customize the error message when user try the link to password reset token by a second time.
+            throw new BadRequestHttpException(Yii::t('app','Token de restablecimiento de contraseña incorrecta.'));
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {

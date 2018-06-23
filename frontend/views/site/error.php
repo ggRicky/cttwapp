@@ -54,9 +54,9 @@ $baseUrl = $asset->baseUrl;
                     <p><?= nl2br(Html::encode($message)) ?></p>
 
                     <!-- If in development environment mode, then shows the exception details. -->
-<!--                    --><?php //if(YII_ENV_DEV) :?>
+                    <?php if(YII_ENV_DEV) :?>
                         <p><?= nl2br(Html::encode($exception)) ?></p>
-<!--                    --><?php //endif;?>
+                    <?php endif;?>
                 </div>
 
                 <p><?= Yii::t('app','El error que se indica arriba, ocurrió mientras el servidor web procesaba su solicitud.'); ?></p>

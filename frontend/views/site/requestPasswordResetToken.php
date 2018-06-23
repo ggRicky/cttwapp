@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Petición para la recuperación de contraseña';
+$this->title = 'Solicitud de recuperación de contraseña';
 $description = 'Inicie el proceso para recuperación de su contraseña.';
 
 $asset = \frontend\assets\AppAsset::register($this);
@@ -70,7 +70,7 @@ $randomBg = rand(1,11);;
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <p><?= Yii::t('app','Por favor complete su correo electrónico. Se enviará un enlace para restablecer su contraseña a esa dirección.');?></p>
+            <p><?= Yii::t('app','Por favor escriba y envíe su correo electrónico. Recibirá en esta dirección un enlace para restablecer su contraseña.');?></p>
 
             <div class="site-request-password-reset">
                 <div class="row">

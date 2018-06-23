@@ -128,10 +128,10 @@ return ([
     'Guardar' => 'Save',
     'Inicie el proceso para recuperación de su contraseña.' => 'Start the process to recover your password.',
     'Inicie el proceso para restablecer su contraseña.' => 'Start the process to reset your password.',
-    'Por favor complete su correo electrónico. Se enviará un enlace para restablecer su contraseña a esa dirección.' => 'Please fill out your email. A link to reset password will be sent there.',
-    'Por favor elija su nueva contraseña :' => 'Please choose your new password :',
+    'Por favor escriba y envíe su correo electrónico. Recibirá en esta dirección un enlace para restablecer su contraseña.' => 'Please fill out your email. A link to reset password will be sent there.',
+    'Por favor escriba su nueva contraseña :' => 'Please choose your new password :',
     'Restablecer Contraseña' => 'Reset Password',
-    'Petición para la recuperación de contraseña' => 'Request password reset',
+    'Solicitud de recuperación de contraseña' => 'Request password reset',
     'Su nueva contraseña fue generada y almacenada correctamente.' => 'Your new password was generated and stored correctly.',
     'Token incorrecto para el restablecimiento de la contraseña.' => 'Wrong password reset token.',
 

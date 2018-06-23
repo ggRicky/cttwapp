@@ -63,14 +63,14 @@ $randomBg = rand(1,11);;
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <p><?= Yii::t('app','Por favor elija su nueva contraseña :');?></p>
+            <p><?= Yii::t('app','Por favor escriba su nueva contraseña :');?></p>
 
             <div class="site-reset-password">
                 <div class="row">
                     <div class="col-lg-5">
                         <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-                        <?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
+                        <?= $form->field($model, 'password')->passwordInput() ?>
 
                         <div class="form-group">
                             <?= Html::submitButton(Yii::t('app','Guardar'), ['class' => 'btn btn-primary btn-ctt-fixed-width', 'name' => 'login-button']) ?>

@@ -29,6 +29,7 @@ $baseUrl = $asset->baseUrl;
 </head>
 
 <body>
+<div class="se-pre-con"></div>
 <?php $this->beginBody() ?>
 
 <?= $content ?>

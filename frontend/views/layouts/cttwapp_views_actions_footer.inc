@@ -5,7 +5,7 @@
             <div class="col-lg-10 col-lg-offset-1 text-center">
                 <!-- CTT mini logo -->
                 <div class="col-lg-12">
-                    <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="center-block img-responsive" height="42" width="105"/>
+                    <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="center-block img-responsive" height="42" width="105" style="border-radius:4px;"/>
                 </div>
 
                 <!-- Credits layer -->

@@ -83,7 +83,7 @@ return ([
     // About messages
 
     'Clave' => 'Key',
-    'Descripción' => 'Descrption',
+    'Descripción' => 'Description',
     'Nombre Clave' => 'Key Name',
     'Plataforma' => 'Platform',
     'Última Actualización' => 'Last Update',

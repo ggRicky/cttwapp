@@ -5,7 +5,8 @@ use yii\web\View;
 
 /* @var $this yii\web\View */
 
-$this->title = 'CTTWApp - Backend';
+$this->title = 'CTTWApp';
+$subtitle    = 'B a c k e n d';
 $description = 'Sistema Gestor de Operaciones';
 
 $asset = \frontend\assets\AppAsset::register($this);
@@ -65,6 +66,7 @@ $randomBg = rand(1,11);;
 <section id="yii2" class="yii2-page">
     <!-- Yii2 Title layout -->
     <div class="row"><div class="col-lg-10 yii2-header"><?= Yii::t('app',Html::encode($this->title)) ?></div></div>
+    <div class="row"><div class="yii2-message-area"><p><?= Yii::t('app',Html::encode($subtitle)) ?></p></div></div>
 
     <!-- Yii2 complementary description -->
     <div class="row">

@@ -29,6 +29,8 @@ $baseUrl = $asset->baseUrl;
 </head>
 
 <body>
+<!-- 2018-06-26 : CTT Pre-loader -->
+<div class="se-pre-con"></div>
 <?php $this->beginBody() ?>
 
 <?= $content ?>

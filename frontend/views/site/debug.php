@@ -10,8 +10,9 @@
     echo '<div style="padding: 20px 20px 20px 20px;">';
     echo '<h3>CTTwapp Project</h3>';
     echo '<h4>Yii2 Predefined Aliases</h4>';
-    echo '<h5>2018-06-15</h5><br/>';
+    echo '<h5>'.date('Y-m-d G:i:s').'</h5><br/>';
     echo '<table>';
+    echo '<th>Yii version :</th> <tr><td>', Yii::getVersion(), '</td></tr>';
     echo '<th>@yii :</th> <tr><td>', Yii::getAlias('@yii'), '</td></tr>';
     echo '<th>@app :</th> <tr><td>', Yii::getAlias('@app'), '</td></tr>';
     echo '<th>@runtime :</th> <tr><td>', Yii::getAlias('@runtime'), '</td></tr>';

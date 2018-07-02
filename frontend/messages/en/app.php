@@ -131,6 +131,7 @@ return ([
     'Por favor escriba y envíe su correo electrónico. Recibirá en esta dirección un enlace para restablecer su contraseña.' => 'Please fill out your email. A link to reset password will be sent there.',
     'Por favor escriba su nueva contraseña :' => 'Please choose your new password :',
     'Restablecer Contraseña' => 'Reset Password',
+    'Por favor use el siguiente enlace para restablecer su contraseña' => 'Follow the link below to reset your password',
     'Solicitud de recuperación de contraseña' => 'Request password reset',
     'Su nueva contraseña fue generada y almacenada correctamente.' => 'Your new password was generated and stored correctly.',
     'Token incorrecto para el restablecimiento de la contraseña.' => 'Wrong password reset token.',
@@ -139,14 +140,17 @@ return ([
 
     'Autentificación' => 'Login',
     'haga clic en esta liga.' => 'click in this link.',
+    'Hola' => 'Hello',
     'Inicie su sesión de trabajo.' => 'Start your work session.',
     'Ingresar' => 'Enter',
+    'No hay ningún usuario con esta dirección de correo electrónico.' => 'There is no user with this email address.',
     'Nombre de usuario o contraseña incorrecta.' => 'Incorrect username or password.',
     'Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :' => 'To start your work session, please enter your authentication data in the following fields :',
     'Para restablecer su contraseña en caso de olvido, ' => 'To restore his password in case of negligence, ',
     'Por favor atienda las siguientes consideraciones antes de proceder a su atentificación.' => 'Please pay attention to the following considerations before proceeding to its authentication.',
     'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.' => 'Please pay attention to the following considerations before proceeding to register the information.',
     'Recordar contraseña' => 'To remember password',
+    'Restablecimiento de contraseña para' => 'Password reset for',
     'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.' => 'Your access has been authenticated correctly. Please DO NOT forget to close your session when finished.',
 
     // Client, Client Type tables

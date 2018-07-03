@@ -85,7 +85,7 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-04-08 : If there is a flash error message display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div id="auto-close" class="alert alert-error alert-dismissible fade in">
+                <div class="alert alert-error alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
@@ -94,7 +94,7 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-05-25 : If there is a flash warning message displays it. -->
             <?php if (Yii::$app->session->hasFlash('warning')): ?>
-                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                <div class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
@@ -103,7 +103,7 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-07-02 : If there is a flash success message displays it. -->
             <?php if (Yii::$app->session->hasFlash('success')): ?>
-                <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                <div class="alert alert-success alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>

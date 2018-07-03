@@ -241,11 +241,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', Yii::t('app','Revise su correo para obtener más instrucciones.'));
+                Yii::$app->session->setFlash('success-req-passw-reset', Yii::t('app','Revise su correo para obtener más instrucciones.'));
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('warning', Yii::t('app','Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.'));
+                Yii::$app->session->setFlash('warning-req-passw-reset', Yii::t('app','Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.'));
             }
         }
 

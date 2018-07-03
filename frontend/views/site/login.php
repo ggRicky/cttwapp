@@ -82,7 +82,7 @@ $randomBg = rand(1,11);;
 
             <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
-            <!-- 2018-04-08 : If there is an flash error message, then display it.-->
+            <!-- 2018-04-08 : If there is a flash error message display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div id="auto-close" class="alert alert-error alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
@@ -91,7 +91,7 @@ $randomBg = rand(1,11);;
                 </div>
             <?php endif; ?>
 
-            <!-- 2018-05-25 : Flash warning message. -->
+            <!-- 2018-05-25 : If there is a flash warning message displays it. -->
             <?php if (Yii::$app->session->hasFlash('warning')): ?>
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
@@ -100,7 +100,7 @@ $randomBg = rand(1,11);;
                 </div>
             <?php endif; ?>
 
-            <!-- 2018-07-02 : Flash success message. -->
+            <!-- 2018-07-02 : If there is a flash success message displays it. -->
             <?php if (Yii::$app->session->hasFlash('success')): ?>
                 <div id="auto-close" class="alert alert-success alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
@@ -109,29 +109,47 @@ $randomBg = rand(1,11);;
                 </div>
             <?php endif; ?>
 
-            <div class="site-login">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <!-- 2018-07-03 : If there is a flash message in a successful password reset operation, only the password is displayed and the entry form is not displayed. -->
+            <?php if (Yii::$app->session->hasFlash('success-req-passw-reset')): ?>
+                <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('success-req-passw-reset') ?></p>
+                </div>
+            <!-- 2018-07-03 : If there is a flash message in a warning password reset operation, only the password is displayed and the entry form is not displayed. -->
+            <?php elseif (Yii::$app->session->hasFlash('warning-req-passw-reset')): ?>
+                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('warning-req-passw-reset') ?></p>
+                </div>
+            <?php else: ?>
+            <!-- 2018-07-03 : Otherwise the entry form is displayed... -->
+                <div class="site-login">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
-                        <?= $form->field($model, 'username')->textInput() ?>
+                            <?= $form->field($model, 'username')->textInput() ?>
 
-                        <?= $form->field($model, 'password')->passwordInput() ?>
+                            <?= $form->field($model, 'password')->passwordInput() ?>
 
-                        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+                            <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
-                        <div style="color:#999;margin:1em 0">
-                            <?= Yii::t('app','Para restablecer su contraseña en caso de olvido, '); ?><?= Html::a(Yii::t('app','haga clic en esta liga.'), ['site/request-password-reset']) ?>
+                            <div style="color:#999;margin:1em 0">
+                                <?= Yii::t('app','Para restablecer su contraseña en caso de olvido, '); ?><?= Html::a(Yii::t('app','haga clic en esta liga.'), ['site/request-password-reset']) ?>
+                            </div>
+
+                            <div class="form-group">
+                                <?= Html::submitButton(Yii::t('app','Ingresar'), ['class' => 'btn btn-primary btn-ctt-fixed-width', 'name' => 'login-button']) ?>
+                            </div>
+
+                            <?php ActiveForm::end(); ?>
                         </div>
-
-                        <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app','Ingresar'), ['class' => 'btn btn-primary btn-ctt-fixed-width', 'name' => 'login-button']) ?>
-                        </div>
-
-                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
+
         </div>
     </div>
 

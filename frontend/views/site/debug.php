@@ -8,8 +8,8 @@
  */
 
     echo '<div style="padding: 20px 20px 20px 20px;">';
-    echo '<p><img src="https://ctt-app.com/ctt-logo.png" class="ctt-logo"></p>';
-    echo '<h3>CTTWapp V1.0</h3>';
+    echo '<div style="position: relative;"><img src="https://ctt-app.com/ctt-logo.png"></div>';
+    echo '<h3><b>CTTWapp V1.0</b></h3>';
     echo '<h4>Servicio de Soporte al Cliente</h4>';
     echo '<h5><em>TSR Development Software</em></h5><br/><br/>';
     echo '<h3>CTTwapp Project</h3>';

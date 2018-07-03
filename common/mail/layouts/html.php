@@ -10,6 +10,7 @@ use yii\helpers\Html;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet">
     <title><?= Yii::t('app',Html::encode($this->title)); ?></title>
     <?php $this->head() ?>
 </head>

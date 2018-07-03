@@ -16,7 +16,7 @@ $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 't
     <br/>
 
     <div style="position: relative;"><img src="https://ctt-app.com/ctt-logo.png"></div>
-    <h3><b>CTTWapp V1.0</b></h3>
+    <h3><b>CTTwapp V1.0</b></h3>
     <h4>Servicio de Soporte al Cliente</h4>
     <h5><em>TSR Development Software</em></h5>
 

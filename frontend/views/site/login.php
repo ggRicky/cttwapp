@@ -69,18 +69,19 @@ $randomBg = rand(1,11);;
         </div>
     </div>
 
-    <!-- Yii2 complementary description -->
-    <div class="row">
-        <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app',Html::encode($description));?></p>
+    <!-- 2018-07-03 : If there is a success or warning flash message on password reset operation, the description text is not displayed. -->
+    <?php if (!(Yii::$app->session->hasFlash('success-req-passw-reset') || Yii::$app->session->hasFlash('warning-req-passw-reset'))): ?>
+        <!-- Yii2 complementary description -->
+        <div class="row">
+            <div class="col-lg-10 text-info yii2-description">
+                <p><?= Yii::t('app',Html::encode($description));?></p>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 
     <!-- Yii2 work area -->
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
-
-            <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
             <!-- 2018-04-08 : If there is a flash error message display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
@@ -111,20 +112,22 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-07-03 : If there is a flash message in a successful password reset operation, only the password is displayed and the entry form is not displayed. -->
             <?php if (Yii::$app->session->hasFlash('success-req-passw-reset')): ?>
-                <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                <div class="alert alert-success alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success-req-passw-reset') ?></p>
                 </div>
             <!-- 2018-07-03 : If there is a flash message in a warning password reset operation, only the password is displayed and the entry form is not displayed. -->
             <?php elseif (Yii::$app->session->hasFlash('warning-req-passw-reset')): ?>
-                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                <div class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning-req-passw-reset') ?></p>
                 </div>
-            <?php else: ?>
             <!-- 2018-07-03 : Otherwise the entry form is displayed... -->
+            <?php else: ?>
+                <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
+
                 <div class="site-login">
                     <div class="row">
                         <div class="col-lg-5">

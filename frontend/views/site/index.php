@@ -34,7 +34,7 @@ $randomBg = rand(1,11);;
         </div>
 
         <!-- Includes the menu options file -->
-        <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_menu_options.inc'); ?>
+        <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_menu_options.inc'); ?>
     </ul>
 </nav>
 
@@ -127,10 +127,10 @@ $randomBg = rand(1,11);;
 <?php
 
 // Include the index's footer file
-include(Yii::getAlias('@app').'/views/layouts/cttwapp_index_footer.inc');
+include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_footer.inc');
 
 // Include the index's modals file
-include(Yii::getAlias('@app').'/views/layouts/cttwapp_index_modals.inc');
+include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_modals.inc');
 
 // 2018-02-09 : If the user was logged successfully, then display the modal window notification, using PHP & jQuery
 $session = Yii::$app->session;

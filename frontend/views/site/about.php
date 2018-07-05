@@ -70,7 +70,7 @@ $randomBg = rand(1,11);;
                 <table class="table-bordered table-striped table-hover">
                     <tbody>
                     <tr>
-                        <th><?= Yii::t('app','Clave') ?></th><td>CTTWapp</td>
+                        <th><?= Yii::t('app','Clave') ?></th><td>CTTwapp</td>
                     </tr>
                     <tr>
                         <th><?= Yii::t('app','Nombre Clave') ?></th><td>CTT Web Application</td>
@@ -85,7 +85,7 @@ $randomBg = rand(1,11);;
                         <th><?= Yii::t('app','Plataforma') ?></th><td><?= Yii::t('app','Yii versión 2.0') ?></td>
                     </tr>
                     <tr>
-                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2018-05-12 &nbsp;&nbsp;&nbsp; 21:05 Hrs.</td>
+                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2018-07-04 &nbsp;&nbsp;&nbsp; 22:19 Hrs.</td>
                     </tr>
                     </tbody>
                 </table>

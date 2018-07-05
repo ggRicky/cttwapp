@@ -67,7 +67,7 @@ $randomBg = rand(1,11);;
             <h4><?= Yii::t('app','Objetivos');?></h4>
             <br/>
             <div>
-                <p>El sistema <b>CTTWapp v1.0 beta</b> [ <em>CTT Web Application</em> ] ha sido concebido por la Dirección de <b>CTT Exp. & Rentals S.A. de C.V.</b> , como un sistema que automatice procesos de administración de la empresa.</p>
+                <p>El sistema <b>CTTwapp v1.0 beta</b> [ <em>CTT Web Application</em> ] ha sido concebido por la Dirección de <b>CTT Exp. & Rentals S.A. de C.V.</b> , como un sistema que automatice procesos de administración de la empresa.</p>
                 <p>Por ello, esta aplicación se ha implementado usando <b>TI's [ Tecnologías de Información ]</b> en la nube. De esta manera se pretende que la aplicación sea operable desde cualquier dispositivo y desde cualquier lugar con una conexión a Internet.</p>
                 <p>En resumen los <b>objetivos generales</b> que debe cumplir esta aplicación son los siguientes :</p>
                 <ul>

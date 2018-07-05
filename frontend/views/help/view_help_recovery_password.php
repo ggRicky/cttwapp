@@ -49,9 +49,14 @@ $baseUrl = $asset->baseUrl;
             <br/>
 
             <!-- Help Description-->
-            <div><p>En este documento se describe paso a paso el proceso de recuperación de una contraseña, para el caso en que un usuario lo haya olvidado. En la siguiente ilustración se muestra la pantalla de control de acceso al sistema <b>CTTwapp v1.0</b>.<br/><br/>
-                    En la ilustración se puede observar un formulario de captura para ingresar el <b>Usuario</b> y la <b>Contraseña</b>. También se observa un texto informativo y una <b>liga para iniciar el proceso de restablecimiento</b> de una contraseña.<br/><br/>
-                    Esta página por lo regular se utiliza como acceso principal al sistema, pero también sirve para iniciar el proceso de recuperación de contraseña, mismo que se detalla a continuación.</p></div><br/><br/>
+            <div>
+                <p>En este documento se describe paso a paso el proceso de recuperación de una contraseña, para el caso en que un usuario lo haya olvidado o bien lo desee cambiar. En la siguiente ilustración se muestra la pantalla de control de acceso al sistema <b>CTTwapp v1.0</b>.<br/><br/>
+                   En la ilustración se puede observar un formulario de captura para ingresar el <b>Usuario</b> y la <b>Contraseña</b>. También se aprecia un texto informativo y una <b>liga para iniciar el proceso de restablecimiento</b> de una contraseña.<br/><br/>
+                   Esta página por lo regular se utiliza como acceso principal al sistema, pero también sirve para iniciar el proceso de recuperación de contraseña, mismo que se detalla a continuación.
+                </p>
+            </div>
+
+            <br/><br/>
 
             <!-- Help Map-->
             <div align="center">
@@ -82,7 +87,7 @@ $baseUrl = $asset->baseUrl;
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/2.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Paso : Ingreso del correo electrónico.</h4></span></div>
                 </div>
 
-                <p>En la ventana que se muestra el usuario <b>DEBERÁ</b> ingresar el correo electrónico <b>CON EL QUE FUE REGISTRADO</b> en el sistema <b>CTTwapp v1.0</b>. Una vez hecho esto presione el botón <b>Guardar</b>.</p>
+                <p>En la página que se muestra el usuario <b>DEBERÁ</b> ingresar el correo electrónico <b>CON EL QUE FUE REGISTRADO</b> en el sistema <b>CTTwapp v1.0</b>. Una vez hecho esto se debe presionar el botón <b>Enviar</b>.</p>
 
                 <blockquote class="ctt-blockquote"><b>MUY IMPORTANTE</b> : Ningún otro correo electrónico, diferente al registrado en el sistema será válido para este proceso.</blockquote>
                 <br/>
@@ -103,8 +108,10 @@ $baseUrl = $asset->baseUrl;
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/3.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Paso : Confirmación</h4></span></div>
                 </div>
 
-                <p>Si en el paso anterior se ingresó una cuenta de correo que se encuentra registrada y relacionada con el usuario que intenta recuperar su contraseña, entonces se emitirá un mensaje con breves instrucciones a seguir.
-                   De lo contrario se emitirá el mensaje de error correspondiente.</p>
+                <p>
+                   Si en el paso anterior se ingresó una dirección de correo que se encuentra registrada y relacionada con el usuario que intenta recuperar su contraseña, entonces se emitirá un mensaje con breves instrucciones a seguir.
+                   De lo contrario se emitirá el mensaje de error correspondiente.
+                </p>
                 <br/>
 
                 <div align="center">
@@ -124,7 +131,7 @@ $baseUrl = $asset->baseUrl;
                 </div>
 
                 <p>El usuario <b>DEBERÁ</b> abrir su cuenta de correo y revisar la existencia de un mensaje enviado automáticamente por el sistema <b>CTTwapp v1.0</b>.</p>
-                <p>Dicho correo contendrá una liga para la <b>confirmación de la identidad del usuario</b>, misma que al hacer clic en esta, el usuario dará por confirmado su deseo expreso de recuperar su contraseña.</p>
+                <p>Dicho correo contendrá una liga para la <b>confirmación de la identidad del usuario</b>, misma que al hacer clic en esta, el usuario dará por confirmado su deseo expreso de recuperar o cambiar su contraseña.</p>
                 <br/>
 
                 <div align="center">
@@ -139,8 +146,8 @@ $baseUrl = $asset->baseUrl;
                 <br/><br/><br/>
 
                 <blockquote class="ctt-blockquote">
-                    <b>MUY IMPORTANTE</b> : Si la liga para restablecer la contraseña se usa en más de una ocasión, se generará un error como el que se muestra a continuación debido a que tal liga tiene una caducidad como
-                       parte de la seguridad del sistema.
+                    <b>MUY IMPORTANTE</b> : Si la liga para restablecer la contraseña se usa en más de una ocasión, se generará un error como el que se muestra a continuación debido a que tal liga tiene una caducidad que forma
+                       parte de la propia seguridad del sistema.
                 </blockquote>
 
                 <br/><br/>
@@ -161,9 +168,9 @@ $baseUrl = $asset->baseUrl;
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/5.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Paso : Restablecimiento de la contraseña</h4></span></div>
                 </div>
 
-                <p>Una vez que el usuario haga clic en la liga del correo que recibió, se redireccionará hacia una página en la cual podrá <b>INGRESAR SU NUEVA CONTRASEÑA</b>.</p>
+                <p>Una vez que el usuario haga clic en la liga del correo que recibió, se redireccionará hacia una página en la cuál podrá <b>INGRESAR SU NUEVA CONTRASEÑA</b>.</p>
 
-                <blockquote class="ctt-blockquote"><b>IMPORTANTE</b> : El usuario <b>DEBE RECORDAR</b> su nueva contraseña, pues será su nueva clave de acceso en su próximo ingreso.</blockquote>
+                <blockquote class="ctt-blockquote"><b>IMPORTANTE</b> : El usuario <b>DEBE RECORDAR</b> su nueva contraseña, pues será su nueva clave de acceso en su próximo ingreso al sistema.</blockquote>
                 <br/>
 
                 <div align="center">
@@ -179,11 +186,13 @@ $baseUrl = $asset->baseUrl;
 
                 <!--  Badge 6  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
                 <div class="row">
-                    <div class="well well-sm"><img src="<?=$baseUrl?>/img/6.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Paso : Ingreso del usuario con su nueva contraseña.</h4></span></div>
+                    <div class="well well-sm"><img src="<?=$baseUrl?>/img/6.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Paso : Ingreso del usuario al sistema con su nueva contraseña.</h4></span></div>
                 </div>
 
-                <p>Después de ingresar su nueva contraseña y si no se presentan problemas, <b>SE NOTIFICARÁ AL USUARIO</b> de que su contraseña fue generada y almacenada correctamente. <br/>
-                   En esta misma ventana el usuario podrá ingresar sus datos para probar su acceso al sistema.</p>
+                <p>
+                   Después de ingresar su nueva contraseña y si no se presentan problemas, <b>SE NOTIFICARÁ AL USUARIO</b> de que su contraseña fue generada y almacenada correctamente. <br/>
+                   En esta misma ventana el usuario podrá ingresar sus datos para probar su ingreso al sistema.
+                </p>
                 <br/>
 
                 <div align="center">
@@ -202,8 +211,11 @@ $baseUrl = $asset->baseUrl;
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/7.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">PASO : Ingreso al sistema.</h4></span></div>
                 </div>
 
-                <p>Una vez ingresado el usuario y la nueva contraseña generada, el sistema consultará el perfil que ha de aplicar al usuario a fin de activar las opciones que el administrador del sistema le haya designado.<br/><br/>
-                   Una ventana de autentificación le dará la bienvenida y en el menú principal podrá consultar las opciones que su perfil le otorga.</p>
+                <p>
+                   Una vez ingresado el valor del usuario y de la nueva contraseña generada, el sistema recuperará el perfil que aplicará al usuario a fin de activar las opciones que el administrador del sistema le haya designado.<br/><br/>
+                   Una ventana de autentificación le dará la bienvenida y en el menú principal, el usuario podrá consultar las opciones que su perfil le otorga.
+                </p>
+
                 <br/>
 
                 <div align="center">
@@ -233,9 +245,11 @@ $baseUrl = $asset->baseUrl;
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/8.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Soporte.</h4></span></div>
                 </div>
 
-                <p>Las operaciones de restablecimiento de contraseñas o bien registro de contactos para reportar incidencias o preguntas, el sistema <b>CTTwapp v1.0</b> las realiza mediante una cuenta
+                <p>
+                   Las operaciones de restablecimiento de contraseñas o bien registro de contactos para reportar incidencias o preguntas, el sistema <b>CTTwapp v1.0</b> las realiza mediante una cuenta
                    de correo electrónico especializada y manejada por un administrador. La dirección para cualquier situación relacionada con el sistema es : <b>soporte.cttwapp@gmail.com</b>
                 </p>
+
                 <br/>
 
                 <div align="center">

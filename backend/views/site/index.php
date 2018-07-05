@@ -5,7 +5,7 @@ use yii\web\View;
 
 /* @var $this yii\web\View */
 
-$this->title = 'CTTWApp';
+$this->title = 'CTTwapp';
 $subtitle    = 'B a c k e n d';
 $description = 'Sistema Gestor de Operaciones';
 

@@ -140,7 +140,9 @@ $randomBg = rand(1,11);;
                             <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
                             <div style="color:#999;margin:1em 0">
-                                <?= Yii::t('app','Para restablecer su contraseña en caso de olvido, '); ?><?= Html::a(Yii::t('app','haga clic en esta liga.'), ['site/request-password-reset']) ?>
+                                <?= Yii::t('app','Para restablecer su contraseña en caso de olvido, '); ?>
+                                <?= Html::a(Yii::t('app','haga clic en esta liga.'), ['site/request-password-reset']) ?>
+                                <?= Html::a('', ['help/info', 'topic' => '_recovery_password'], ['class' => 'btn glyphicon glyphicon-question-sign', 'title' => Yii::t('app', 'Ayuda')]); ?>
                             </div>
 
                             <div class="form-group">

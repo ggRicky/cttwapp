@@ -27,4 +27,12 @@ class HelpController extends Controller
         return $this->redirect([$ret_url, 'hash' => $ret_hash]);
     }
 
+    /**
+     * Displays the requested info in a help page.
+     * @param string $topic
+     */
+    public function actionInfo($topic)
+    {
+       return $this->render('view_help'.$topic);
+    }
 }

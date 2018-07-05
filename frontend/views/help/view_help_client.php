@@ -69,7 +69,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <div class="ctt-image-help">
                     <img src="<?=$baseUrl?>/img/ctt-help-mod-client.jpg" class="ctt-image-help" style="width:100%">
                     <div class="container-ctt-image-help">
-                        <h4>Módulo Clientes</h4>
+                        <h5>Módulo Clientes</h5>
                     </div>
                 </div>
             </div>

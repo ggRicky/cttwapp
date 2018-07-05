@@ -132,6 +132,7 @@ return ([
     'Por favor escriba su nueva contraseña :' => 'Please choose your new password :',
     'Restablecer Contraseña' => 'Reset Password',
     'Por favor use el siguiente enlace para restablecer su contraseña' => 'Follow the link below to reset your password',
+    'Proceso de recuperación de contraseña' => 'Password recovery process',
     'Solicitud de recuperación de contraseña' => 'Request password reset',
     'Su nueva contraseña fue generada y almacenada correctamente.' => 'Your new password was generated and stored correctly.',
     'Token incorrecto para el restablecimiento de la contraseña.' => 'Wrong password reset token.',

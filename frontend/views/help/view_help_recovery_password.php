@@ -25,6 +25,13 @@ $baseUrl = $asset->baseUrl;
 <!-- Yii2 Content -->
 <section id="yii2" class="yii2-page">
 
+    <!-- Login return -->
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 text-center">
+            <?= Html::a(Yii::t('app','R e g r e s a r'), Url::to(['site/login']), ['class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+        </div>
+    </div>
+
     <!-- Yii2 Title layout -->
     <div class="row">
         <div class="col-lg-10 yii2-header">

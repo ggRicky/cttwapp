@@ -66,9 +66,9 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
 
             <!-- Help Map-->
             <div align="center">
-                <div class="ctt-image-help">
-                    <img src="<?=$baseUrl?>/img/ctt-help-mod-client.jpg" class="ctt-image-help" style="width:100%">
-                    <div class="container-ctt-image-help">
+                <div class="ctt-image-help-frame">
+                    <img src="<?=$baseUrl?>/img/ctt-help-mod-client.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-container">
                         <h5>Módulo Clientes</h5>
                     </div>
                 </div>

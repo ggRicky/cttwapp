@@ -164,6 +164,87 @@ $randomBg = rand(1,11);;
                 <br/>
 
             </div>
+
+            <br/>
+            <br/>
+
+            <h4><?= Yii::t('app','Contacto');?></h4>
+
+            <br/>
+
+            <div>
+                <p>
+                   En el sistema CTTwapp v1.0 existe una opción destinada a que el usuario pueda solicitar apoyo de soporte técnico, reportar incidencias o bien tramitar algún proceso inherente al trabajo en el sistema.
+                   Esta sección de la ayuda describe el proceso a través del cual un usuario puede contactar al administrador del sistema. <br/><br/>
+                </p>
+
+                <br/>
+
+                <div class="row">
+                    <div class="well well-sm"><img src="<?=$baseUrl?>/img/1.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Formulario de Contacto.</h4></span></div>
+                </div>
+
+                <p>
+                    <b>MUY IMPORTANTE</b> :  En este formulario todos los campos son obligatorios ( <span style="color: red;">*</span> ) pues se utilizarán para redactar y enviar un correo electrónico a la cuenta de administración del sistema : <b>soporte.cttwapp@gmail.com</b>.
+                </p>
+
+                <br/><br/>
+
+                <div align="center">
+                    <div class="ctt-image-help-mini-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-contact_01.jpg" class="ctt-image-help-frame" style="width:100%">
+                        <div class="ctt-image-help-container">
+                            <h5>Formulario de Contacto</b></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <br/><br/>
+
+                <div class="row">
+                    <div class="well well-sm"><img src="<?=$baseUrl?>/img/2.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">LLenado del formulario de contacto.</h4></span></div>
+                </div>
+
+                <p>
+                    Una vez que los datos de la solicitud de contacto se han ingresado, es <b>MUY IMPORTANTE</b> ingresar <b>CORRECTAMENTE</b> el <b>código de verificación</b>, pues es una medida de seguridad para validar el ingreso de datos por parte de un usuario real.
+                </p>
+
+                <br/><br/>
+
+                <div align="center">
+                    <div class="ctt-image-help-mini-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-contact_02.jpg" class="ctt-image-help-frame" style="width:100%">
+                        <div class="ctt-image-help-container">
+                            <h5>Ejemplo de un Formulario de Contacto con datos</b></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <br/><br/>
+
+                <div class="row">
+                    <div class="well well-sm"><img src="<?=$baseUrl?>/img/3.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Recepción del formulario de contacto.</h4></span></div>
+                </div>
+
+                <p>
+                    Al completar el envío del correo de contacto, en la cuenta de soporte del sistema aparecerá la solicitud para que sea tramitada a la brevedad por el administrador o proveedor de soporte técnico.
+                </p>
+
+                <br/><br/>
+
+                <div align="center">
+                    <div class="ctt-image-help-mini-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-contact_03.jpg" class="ctt-image-help-frame" style="width:100%">
+                        <div class="ctt-image-help-container">
+                            <h5>Mensaje de Contacto Recibido</b></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <br/><br/>
+
+            </div>
+
         </div>
     </div>
 

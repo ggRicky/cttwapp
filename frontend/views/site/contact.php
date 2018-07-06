@@ -75,7 +75,7 @@ $randomBg = rand(1,11);;
 
             <?php if (Yii::$app->session->hasFlash('success')): ?>
 
-                <div id="auto-close" class="alert alert-success">
+                <div class="alert alert-success">
                     <p><?= Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'); ?></p>
                 </div>
 
@@ -83,7 +83,7 @@ $randomBg = rand(1,11);;
 
                 <?php if (Yii::$app->session->hasFlash('warning')): ?>
 
-                    <div id="auto-close" class="alert alert-warning">
+                    <div class="alert alert-warning">
                         <p><?= Yii::t('app','Se presentó un error al enviar su mensaje.'); ?></p>
                     </div>
 

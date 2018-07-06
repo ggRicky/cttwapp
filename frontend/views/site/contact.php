@@ -89,7 +89,7 @@ $randomBg = rand(1,11);;
 
                 <?php else: ?>
 
-                    <p><?= Yii::t('app','Si tiene desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.'); ?></p>
+                    <p><?= Yii::t('app','Si desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.'); ?></p>
 
                     <div class="row">
                         <div class="col-lg-5">

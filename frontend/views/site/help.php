@@ -188,9 +188,18 @@ $randomBg = rand(1,11);;
                     <b>MUY IMPORTANTE</b> :  En este formulario todos los campos son obligatorios ( <span style="color: red;">*</span> ) pues se utilizarán para redactar y enviar un correo electrónico a la cuenta de administración del sistema : <b>soporte.cttwapp@gmail.com</b>.
                 </p>
 
+                <p>Los datos solicitados y de carácter obligatorio en un formulario de Contacto son</b> :</p>
+                <ul>
+                    <li> <b>Nombre.</b></li>
+                    <li> <b>Correo Electrónico.</b></li>
+                    <li> <b>Asunto.</b></li>
+                    <li> <b>Descripción.</b></li>
+                    <li> <b>Código de Verificación.</b></li>
+                </ul>
+
                 <br/><br/>
 
-                <div align="center">
+                <div class="well well-lg">
                     <div class="ctt-image-help-mini-frame">
                         <img src="<?=$baseUrl?>/img/ctt-contact_01.jpg" class="ctt-image-help-frame" style="width:100%">
                         <div class="ctt-image-help-container">
@@ -211,7 +220,7 @@ $randomBg = rand(1,11);;
 
                 <br/><br/>
 
-                <div align="center">
+                <div class="well well-lg">
                     <div class="ctt-image-help-mini-frame">
                         <img src="<?=$baseUrl?>/img/ctt-contact_02.jpg" class="ctt-image-help-frame" style="width:100%">
                         <div class="ctt-image-help-container">
@@ -227,12 +236,12 @@ $randomBg = rand(1,11);;
                 </div>
 
                 <p>
-                    Al completar el envío del correo de contacto, en la cuenta de soporte del sistema aparecerá la solicitud para que sea tramitada a la brevedad por el administrador o proveedor de soporte técnico.
+                    Al completar el envío del correo de contacto, en la cuenta de soporte del sistema aparecerá la solicitud para que sea procesada a la brevedad por el administrador del sistema o bien por el proveedor de soporte técnico.
                 </p>
 
                 <br/><br/>
 
-                <div align="center">
+                <div class="well well-lg">
                     <div class="ctt-image-help-mini-frame">
                         <img src="<?=$baseUrl?>/img/ctt-contact_03.jpg" class="ctt-image-help-frame" style="width:100%">
                         <div class="ctt-image-help-container">

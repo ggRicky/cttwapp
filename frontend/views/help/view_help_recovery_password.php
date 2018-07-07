@@ -102,8 +102,8 @@ $baseUrl = $asset->baseUrl;
                 <br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_02.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_02.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Ingreso del correo electrónico registrado en el sistema CTTwapp v1.0 para el usuario</h5>
                         </div>
@@ -124,8 +124,8 @@ $baseUrl = $asset->baseUrl;
                 <br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_03.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_03.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Mensaje con instrucciones para el usuario.</h5>
                         </div>
@@ -144,8 +144,8 @@ $baseUrl = $asset->baseUrl;
                 <br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame" style="width:50%">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_04.jpg" class="ctt-image-help-frame" style="width:80%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_04.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Liga para confirmación de la identidad del usuario.</h5>
                         </div>
@@ -162,8 +162,8 @@ $baseUrl = $asset->baseUrl;
                 <br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_07.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_07.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Liga para confirmación de la identidad en estado de caducidad.</h5>
                         </div>
@@ -185,8 +185,8 @@ $baseUrl = $asset->baseUrl;
                 <br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_05.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_05.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Registro de la nueva contraseña del usuario.</h5>
                         </div>
@@ -208,8 +208,8 @@ $baseUrl = $asset->baseUrl;
                 <br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_06.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_06.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Confirmación de generación y registro exitoso de la nueva contraseña del usuario.</h5>
                         </div>
@@ -231,8 +231,8 @@ $baseUrl = $asset->baseUrl;
                 <br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_08.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_08.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Ingreso al sistema con la nueva contraseña restablecida.</h5>
                         </div>
@@ -240,8 +240,8 @@ $baseUrl = $asset->baseUrl;
 
                     <br/><br/>
 
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_09.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_09.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Opciones propias del perfil del usuario.</h5>
                         </div>
@@ -263,8 +263,8 @@ $baseUrl = $asset->baseUrl;
                 <br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_10.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-recover-pswd_10.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Cuenta de correo de soporte del sistema : <b>soporte.cttwapp@gmail.com</b></h5>
                         </div>

@@ -108,8 +108,8 @@ $randomBg = rand(1,11);;
 
                 <div class="well well-lg">
                     <div class="polaroid">
-                        <img src="<?=$baseUrl?>/img/ctt-sec_01.png"  alt="Cabecera" style="width:100%">
-                        <div class="container-polaroid">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_01.png" alt="Cabecera" class="polaroid-img">
+                        <div class="polaroid-container">
                             <p>Cebecera del Selector</p>
                         </div>
                     </div>
@@ -123,8 +123,8 @@ $randomBg = rand(1,11);;
 
                 <div class="well well-lg">
                     <div class="polaroid">
-                        <img src="<?=$baseUrl?>/img/ctt-sec_02.png"  alt="Acceso" style="width:100%">
-                        <div class="container-polaroid">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_02.png" alt="Acceso" class="polaroid-img">
+                        <div class="polaroid-container">
                             <p>Sección Acceso</p>
                         </div>
                     </div>
@@ -139,8 +139,8 @@ $randomBg = rand(1,11);;
 
                 <div class="well well-lg">
                     <div class="polaroid">
-                        <img src="<?=$baseUrl?>/img/ctt-sec_03.png"  alt="Asistencia" style="width:100%">
-                        <div class="container-polaroid">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_03.png" alt="Asistencia" class="polaroid-img">
+                        <div class="polaroid-container">
                             <p>Sección Asistencia</p>
                         </div>
                     </div>
@@ -154,8 +154,8 @@ $randomBg = rand(1,11);;
 
                 <div class="well well-lg">
                     <div class="polaroid">
-                        <img src="<?=$baseUrl?>/img/ctt-sec_04.png"  alt="Operaciones" style="width:100%">
-                        <div class="container-polaroid">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_04.png"  alt="Operaciones" class="polaroid-img">
+                        <div class="polaroid-container">
                             <p>Sección Operaciones</p>
                         </div>
                     </div>
@@ -200,8 +200,8 @@ $randomBg = rand(1,11);;
                 <br/><br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-contact_01.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-contact_01.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Formulario de Contacto</b></h5>
                         </div>
@@ -221,8 +221,8 @@ $randomBg = rand(1,11);;
                 <br/><br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-contact_02.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-contact_02.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Ejemplo de un Formulario de Contacto con datos</b></h5>
                         </div>
@@ -242,8 +242,8 @@ $randomBg = rand(1,11);;
                 <br/><br/>
 
                 <div class="well well-lg">
-                    <div class="ctt-image-help-mini-frame">
-                        <img src="<?=$baseUrl?>/img/ctt-contact_03.jpg" class="ctt-image-help-frame" style="width:100%">
+                    <div class="ctt-image-help-frame">
+                        <img src="<?=$baseUrl?>/img/ctt-contact_03.jpg" class="ctt-img-help">
                         <div class="ctt-image-help-container">
                             <h5>Mensaje de Contacto Recibido</b></h5>
                         </div>

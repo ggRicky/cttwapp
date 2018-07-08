@@ -180,7 +180,7 @@ $randomBg = rand(1,11);;
 
                 <br/>
 
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/1.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Formulario de Contacto.</h4></span></div>
                 </div>
 
@@ -210,7 +210,7 @@ $randomBg = rand(1,11);;
 
                 <br/><br/>
 
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/2.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">LLenado del formulario de contacto.</h4></span></div>
                 </div>
 
@@ -231,7 +231,7 @@ $randomBg = rand(1,11);;
 
                 <br/><br/>
 
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/3.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Recepción del formulario de contacto.</h4></span></div>
                 </div>
 

@@ -81,7 +81,7 @@ $baseUrl = $asset->baseUrl;
             <div>
 
                 <!--  Badge 1  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/1.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Paso : Inicar el proceso de recuperación de contraseña.</h4></span></div>
                 </div>
 
@@ -90,7 +90,7 @@ $baseUrl = $asset->baseUrl;
                 <br/><br/>
 
                 <!--  Badge 2  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/2.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Paso : Ingreso del correo electrónico.</h4></span></div>
                 </div>
 
@@ -113,7 +113,7 @@ $baseUrl = $asset->baseUrl;
                 <br/><br/>
 
                 <!--  Badge 3  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/3.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Paso : Confirmación</h4></span></div>
                 </div>
 
@@ -135,7 +135,7 @@ $baseUrl = $asset->baseUrl;
                 <br/><br/>
 
                 <!--  Badge 4  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/4.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Paso : Verificación de identidad.</h4></span></div>
                 </div>
 
@@ -173,7 +173,7 @@ $baseUrl = $asset->baseUrl;
                 <br/><br/>
 
                 <!--  Badge 5  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/5.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Paso : Restablecimiento de la contraseña</h4></span></div>
                 </div>
 
@@ -196,7 +196,7 @@ $baseUrl = $asset->baseUrl;
                 <br/><br/>
 
                 <!--  Badge 6  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/6.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Paso : Ingreso del usuario al sistema con su nueva contraseña.</h4></span></div>
                 </div>
 
@@ -219,7 +219,7 @@ $baseUrl = $asset->baseUrl;
                 <br/><br/>
 
                 <!--  Badge 7  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/7.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">PASO : Ingreso al sistema.</h4></span></div>
                 </div>
 
@@ -251,7 +251,7 @@ $baseUrl = $asset->baseUrl;
                 <br/><br/>
 
                 <!--  Badge 8  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/8.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4 style="padding-left: 60px; text-align: left">Soporte.</h4></span></div>
                 </div>
 

@@ -65,7 +65,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                     conforme a la numeración.</p></div><br/><br/>
 
             <!-- Help Map-->
-            <div align="center">
+            <div class="well well-lg">
                 <div class="ctt-image-help-frame">
                     <img src="<?=$baseUrl?>/img/ctt-help-mod-client.jpg" class="ctt-image-help-frame" style="width:100%">
                     <div class="ctt-image-help-container">
@@ -80,7 +80,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
             <div>
 
                 <!--  Badge 1  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/1.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Encabezado de Imagen Corporativa.</h4></span></div>
                 </div>
 
@@ -89,7 +89,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 2  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/2.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Barra de Navegación</h4></span></div>
                 </div>
 
@@ -102,7 +102,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 3  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/3.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Cierre de Sesión</h4></span></div>
                 </div>
 
@@ -112,7 +112,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 4  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/4.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Opciones Disponibles</h4></span></div>
                 </div>
 
@@ -121,7 +121,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 5  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/5.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Botón de Regreso</h4></span></div>
                 </div>
 
@@ -131,7 +131,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 6  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/6.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Identificación, Operaciones y Sub-módulos.</h4></span></div>
                 </div>
 
@@ -144,7 +144,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 7  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/7.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Datos Almacenados.</h4></span></div>
                 </div>
 
@@ -168,7 +168,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 8  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/8.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Acciones.</h4></span></div>
                 </div>
 
@@ -184,7 +184,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 9  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/9.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Control Paginador.</h4></span></div>
                 </div>
 
@@ -193,7 +193,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <br/>
 
                 <!--  Badge 10  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/10.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Panel de Herramientas.</h4></span></div>
                 </div>
 
@@ -209,8 +209,8 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 </p>
                 <br/>
 
-                <!--  Badge 10  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-                <div class="row">
+                <!--  Badge 11  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+                <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/11.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Pie de Imagen Informativa.</h4></span></div>
                 </div>
 

@@ -7,7 +7,6 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
-use yii\bootstrap\Modal;
 use app\models\Catalog;
 use app\models\Brand;
 

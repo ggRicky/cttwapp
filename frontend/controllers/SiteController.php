@@ -5,13 +5,16 @@ use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\Controller;
 use yii\web\BadRequestHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\UploadForm;
 use common\models\LoginForm;
+
 
 /**
  * Site controller
@@ -316,6 +319,34 @@ class SiteController extends Controller
         Yii::$app->language = $_POST['lang'];
         $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang']]);
         Yii::$app->getResponse()->getCookies()->add($cookie);
+    }
+
+    /**
+     * Implements the upload file action.
+     *
+     * 2018-07-08 11:23 Hrs.
+     *
+     * Source :  yii2/docs/guide/input-file-upload.md
+     * Resource : https://github.com/yiisoft/yii2/blob/master/docs/guide/input-file-upload.md
+     *
+     */
+
+    public function actionUpload($id=null)
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload($id)) {
+                // file is uploaded successfully
+                Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue cargado, validado y almacenado exitosamente.'));
+            }
+            else
+                // file wasn't uploaded correctly
+                Yii::$app->session->setFlash('error', Yii::t('app','El archivo no fue cargado correctamente, por favor intente de nuevo.'));
+        }
+
+        return $this->render('upload_file', ['model' => $model, 'id' => $id]);
     }
 
     /**

@@ -7,6 +7,7 @@ use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
 use app\models\Catalog;
 use app\models\Brand;
 
@@ -129,6 +130,7 @@ $randomBg = rand(1,11);;
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
             <p><?= Yii::t('app',Html::encode($description));?></p>
+            <a id="popupModal" href="#" >Haz click</a>
         </div>
     </div>
 
@@ -198,7 +200,7 @@ $randomBg = rand(1,11);;
                                 'class' => 'yii\grid\ActionColumn',
                                 'headerOptions' => ['style' => 'width:4%'],
                                 // 2018-06-03 : Redefines the default {delete} action from the template and adds the new behaviors like an customized modal window.
-                                'template' => '{view} {update} {delete}',
+                                'template' => '{show} {view} {update} {delete}',
                                 'buttons' => [
                                     // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
                                     'view' => function ($url) {
@@ -216,7 +218,7 @@ $randomBg = rand(1,11);;
                                     'delete' => function($url, $model) {
                                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,
                                             [
-                                                'title'   => Yii::t('app', 'Eliminar'),      // 2018-06-03 : Adds the tooltip Delete
+                                                'title'   => Yii::t('app', 'Eliminar'),       // 2018-06-03 : Adds the tooltip Delete
                                                 'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
                                                 'onMouseOver' => 'this.style.color=\'#f00\'',                  // 2018-06-06 : When mouse is hover on the link, the color changes
                                                 'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to red advising danger in delete operation.
@@ -231,10 +233,37 @@ $randomBg = rand(1,11);;
                                                 // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
                                                 // In this case the 'data-confirm' parameter must be empty.
                                                 'data-confirm' => '',
-                                                //  2018-06-03 : The next two parameters are needed to complete teh right call to the action delete, because it will be made using the post method.
+                                                // 2018-06-03 : The next two parameters are needed to complete the right call to the action delete, because it will be made using the post method.
                                                 'data-method' => 'post',
                                                 'data-pjax' => '0',
                                             ]);
+                                    },
+                                    // 2018-07-11 : Adds a new show action to display the related image in a bootstrap modal window.
+                                    'show' => function ($url, $model, $key) {
+                                        // 2018-07-10 : To get the image path and filename.
+                                        $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+                                        // 2018-07-10 : Check the existence of a correct file type and determine its extension if there is one.
+                                        $file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
+
+                                        if (!is_null($file_ext)) {
+                                            return Html::a('<span class="glyphicon glyphicon-camera"></span>', '#', [
+                                                'class'       => 'detail-view-link',
+                                                'title'       => Yii::t('app', 'Mostrar'),    // 2018-07-11 : Adds the tooltip Delete
+                                                'style'       => 'color:#337ab7, ',                            // 2018-07-11 : Display the glyphicon-camera in default color.
+                                                'onMouseOver' => 'this.style.color=\'#ff8e00\'',               // 2018-07-11 : When mouse is hover on the link, the color changes
+                                                'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to orange advising an available operation.
+                                                'data-toggle' => 'modal',
+                                                'data-target' => '#ctt-modal-show-art',
+                                                'data' => [
+                                                    'title' => Yii::t('app', 'Vista Detallada') . ' : ' . ($model->id),
+                                                    'url'   => Url::to(UPLOAD_DIR . UPLOAD_INV_PICS_DIR) . PREFIX_IMG . $model->id . '.jpg',
+                                                ],
+                                                'data-id'     => $key,
+                                                'data-pjax'   => '0',
+                                            ]);
+                                        }
+
+                                        return null;
                                     },
                                 ],
                                 // 2018-06-03 : Adds an url that include the current page in GridView widget.
@@ -258,6 +287,28 @@ $randomBg = rand(1,11);;
                             [
                                 'class' => 'yii\grid\SerialColumn',
                                 'headerOptions' => ['style' => 'width:3%'],
+                            ],
+
+                            [
+                                // 2018-07-10 : Include a new column with an article's thumbnail image.
+                                'attribute' => Yii::t('app','Imágen'),
+                                'contentOptions' => ['class' => 'text-center'],
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    // 2018-07-10 : To get the image path and filename.
+                                    $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+                                    // 2018-07-10 : To get the image url.
+                                    $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id;
+                                    // 2018-07-11 : To get the no image url.
+                                    $url_no_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).'ctt_no_image.jpg';
+                                    // 2018-07-10 : Test for the right file type
+                                    if (file_exists($file_name.'.jpg'))
+                                       return '<img src="'.$url_image.'.jpg" width="auto" height="50px">';
+                                    else if (file_exists($file_name.'.png'))
+                                       return '<img src="'.$url_image.'.png" width="auto" height="50px">';
+                                    else
+                                       return '<img src="'.$url_no_image.'" width="auto" height="50px">';
+                                },
                             ],
 
                             [
@@ -330,6 +381,27 @@ $randomBg = rand(1,11);;
 
                 </div>
 
+                <!-- 2018-07-13 : This jQuery's piece of code implements the modal window for show the article image.-->
+                <?php $this->registerJs(
+                    /** @lang jQuery */
+                    "$('.detail-view-link').click(function(e) {
+                            e.preventDefault();
+                            
+                            var p_title = $(this).data(\"title\");
+                            var p_url_image = $(this).data(\"url\");
+                            var modal = $('#ctt-modal-show-art').modal('show');
+
+                            modal.find('#content-title').html('<h4 class=\"modal-title\">' + p_title + '</h4>');
+                            modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div>');
+
+                            $('#close-ok').click(function(e) {
+                            });
+
+                            return false;            
+                        });"
+                );
+                ?>
+
                 <!-- 2018-05-28 : Ends the ajax functionality to refresh only the GridView widget contents. -->
                 <?php Pjax::end(); ?>
 
@@ -388,5 +460,9 @@ $randomBg = rand(1,11);;
 <!-- Includes the view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_footer.inc'); ?>
 
-<!-- Includes the modal window to confirm the delete operation-->
+<!-- Includes the modal window to confirm the delete operation -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete.inc'); ?>
+
+<!-- Includes the modal window to show an article image -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
+

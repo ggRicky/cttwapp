@@ -84,7 +84,6 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <?= $form->field($model, 'part_num')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
 
     <!-- Catalog Selector  -->
-
     <?php
 
     echo $form->field($model, 'catalog_id')->dropDownList(ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccione...')]);
@@ -99,7 +98,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <?= $form->field($model, 'updated_by')->textInput(['readonly' => true]) ?>
 
     <?php
-        // 2018-06-05 : Sends the current page value through a hidden input.
+        // 2018-06-05 : Sends the current page value through an hidden input.
         echo Html::hiddenInput('page', $ret_page);
     ?>
 
@@ -113,4 +112,16 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 
     <?php ActiveForm::end(); ?>
 
+    <?php
+        // 2018-07-08 : Uploads the inventory's picture if the user is in modify mode.
+        if (!$model->isNewRecord) {
+            echo Html::a(Yii::t('app','Asignar Imagen'), ['site/upload', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-ctt-warning btn-ctt-fixed-width', 'title' => Yii::t('app', 'Cargar la imagen para este artículo.')]);
+
+            // 2018-07-10 : To get the image path and filename.
+            $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+            // 2018-07-10 : Test for the right file type
+            if (file_exists($file_name.'.jpg') || file_exists($file_name.'.png'))
+                echo Html::tag('span', '', ['class' => 'btn glyphicon glyphicon-camera', 'title' => Yii::t('app', 'Artículo con imagen asignada.')]);
+        }
+    ?>
 </div>

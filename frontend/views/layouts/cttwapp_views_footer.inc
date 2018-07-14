@@ -1,3 +1,6 @@
+<!-- End anchor -->
+<section id="work-area-index-end"></section>
+
 <!-- Footer -->
 <footer>
     <div class="container">
@@ -45,7 +48,9 @@
 </footer>
 
 <!-- A button for go to the page's top -->
-<a id="arrow-up-fixed-button" href="#work-area-index" class="btn btn-lg" title="Ir al inicio"><i class="fa fa-3x fa-arrow-circle-up"  style="font-size:42px"></i></a>
+<a id="arrow-up-fixed-button" href="#work-area-index" class="btn btn-lg" title="<?= Yii::t('app', 'Ir al inicio') ?>"><i class="fa fa-3x fa-arrow-circle-up"  style="font-size:42px"></i></a>
+<!-- A button for go to the page's bottom -->
+<a id="arrow-down-fixed-button" href="#work-area-index-end" class="btn btn-lg" title="<?= Yii::t('app', 'Ir al fin') ?>"><i class="fa fa-3x fa-arrow-circle-down"  style="font-size:42px"></i></a>
 
 <?php
     // Used to disable temporary the debugger toolbar

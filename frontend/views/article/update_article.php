@@ -24,6 +24,20 @@ $baseUrl = $asset->baseUrl;
 $ret_page = Yii::$app->getRequest()->getQueryParam('page');
 $ret_page = (empty($ret_page)?'1':$ret_page);
 
+// 2018-07-08 : Stores a hash parameter to jump to the requested area.
+$hash_param = Yii::$app->getRequest()->getQueryParam('hash');
+// 2018-07-08 : Translates the $hash_param value to the corresponding anchor to jump.
+// $hash_param [ 0 - Jumps to the work area index  1 - Jumps to the upload button ]
+$hash_param = ($hash_param=='0'?'work-area-index':($hash_param=='1'?'upload-area':null));
+
+// 2018-07-08 : if an anchor parameter was send, then jumps to it using javascript.
+if ($hash_param) {
+    $script = <<< JS
+    location.hash = "#$hash_param";
+JS;
+    $this->registerJs($script);
+}
+
 ?>
 
 <!-- Blue ribbon decoration -->
@@ -77,6 +91,9 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         </div>
     </div>
 </section>
+
+<!-- The anchor to show the Upload button -->
+<section id="upload-area"></section>
 
 <!-- Includes the actions view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer.inc'); ?>

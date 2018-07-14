@@ -122,4 +122,4 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer_bke.inc'); ?>
 
 <!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_confirm_delete_bke.inc'); ?>
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete_bke.inc'); ?>

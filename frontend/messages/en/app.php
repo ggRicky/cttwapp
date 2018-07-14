@@ -31,6 +31,7 @@ return ([
     'Interruptor de Color' => 'Color Switch',
     'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.' => 'IMPORTANT: The information shown in the relationship corresponds to experimental test data.',
     'Ir al inicio' => 'Go to start',
+    'Ir al fin' => 'Go to the end',
     'La página solicitada no existe.' => 'The requested page does not exist.',
     'Listado Nominal' => 'Nominal Listing',
     'Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.' => 'Sorry, we are unable to reset password for the provided email address.',
@@ -154,6 +155,15 @@ return ([
     'Restablecimiento de contraseña para' => 'Password reset for',
     'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.' => 'Your access has been authenticated correctly. Please DO NOT forget to close your session when finished.',
 
+    // Upload files
+
+    'Asignar Imagen' => 'Assign Image',
+    'Cargar la imagen para este artículo.' => 'Load the image for this article.',
+    'Cargar una fotografía para el artículo' => 'Upload a photo for the article',
+    'El archivo fue cargado, validado y almacenado exitosamente.' => 'The file was loaded, validated and stored successfully.',
+    'El archivo no fue cargado correctamente, por favor intente de nuevo.' => 'The file was not loaded correctly, please try again.',
+    'Selector de Archivos' => 'File Selector',
+
     // Client, Client Type tables
 
     'Actualizado en' => 'Updated at',
@@ -204,7 +214,9 @@ return ([
     'Administrar las marcas' => 'Manage brands',
     'Administrar los catálogos' => 'Manage catalogs',
     'Artículo' => 'Article',
+    'Artículo con imagen asignada.' => 'Article with assigned image.',
     'Catálogo' => 'Catalog',
+    'Cerrar la vista detallada' => 'Close detailed view',
     'Crear Artículo' => 'New Article',
     'Crear Catálogo' => 'New Catalog',
     'Crear Marca' => 'New Brand',
@@ -216,6 +228,7 @@ return ([
     'Descripción de la Marca' => 'Brand Description',
     'Descripción en Español' => 'Spanish Description',
     'Descripción en Inglés' => 'English Description',
+    'Imágen' => 'Image',
     'Marca' => 'Brand',
     'Marcas' => 'Brands',
     'Modificar Artículo' => 'Update Article',
@@ -223,11 +236,14 @@ return ([
     'Modificar Marca' => 'Update Brand',
     'Módulo Administrador de Artículos' => 'Articles Administrator Module',
     'Moneda' => 'Currency',
+    'Mostrar' => 'Show',
     'Nombre del Artículo' => 'Article Name',
     'Nombre del Catálogo' => 'Catalog Name',
     'Número de Parte' => 'Part Number',
     'Precio' => 'Price',
+    'N/D' => 'N/A',
     'Tipo de Artículo' => 'Article Type',
+    'Vista Detallada' => 'Detailed View',
     'Vista del Artículo' => 'Article View',
     'Vista del Catálogo' => 'Catalog View',
     'Vista de la Marca' => 'Brand View',

@@ -73,7 +73,7 @@ $randomBg = rand(1,11);
         </div>
 
         <!-- Includes the menu options file -->
-        <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_menu_options_bke.inc'); ?>
+        <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_view_menu_options_bke.inc'); ?>
     </ul>
 </nav>
 
@@ -279,4 +279,4 @@ $randomBg = rand(1,11);
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_footer_bke.inc'); ?>
 
 <!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_confirm_delete_bke.inc'); ?>
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete_bke.inc'); ?>

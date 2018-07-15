@@ -129,7 +129,6 @@ $randomBg = rand(1,11);;
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
             <p><?= Yii::t('app',Html::encode($description));?></p>
-            <a id="popupModal" href="#" >Haz click</a>
         </div>
     </div>
 
@@ -384,15 +383,22 @@ $randomBg = rand(1,11);;
                 <?php $this->registerJs(
                     /** @lang jQuery */
                     "$('.detail-view-link').click(function(e) {
+                            // To prevent the defaults event behavior. 
                             e.preventDefault();
                             
+                            // Gets the modal window title. 
                             var p_title = $(this).data(\"title\");
+                            // Gets the image url to display. 
                             var p_url_image = $(this).data(\"url\");
+                            // Shows the modal window.
                             var modal = $('#ctt-modal-show-art').modal('show');
 
+                            // Inserts the title message in the html content-title area. 
                             modal.find('#content-title').html('<h4 class=\"modal-title\">' + p_title + '</h4>');
+                            // Inserts the image url in the html content-body area.
                             modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div>');
 
+                            // Includes an close button.
                             $('#close-ok').click(function(e) {
                             });
 

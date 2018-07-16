@@ -154,7 +154,7 @@ $randomBg = rand(1,11);;
 
                 <div class="well well-lg">
                     <div class="polaroid">
-                        <img src="<?=$baseUrl?>/img/ctt-sec_04.png"  alt="Operaciones" class="polaroid-img">
+                        <img src="<?=$baseUrl?>/img/ctt-sec_04.png" alt="Operaciones" class="polaroid-img">
                         <div class="polaroid-container">
                             <p>Sección Operaciones</p>
                         </div>

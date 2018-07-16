@@ -383,7 +383,7 @@ $randomBg = rand(1,11);;
                 <?php $this->registerJs(
                     /** @lang jQuery */
                     "$('.detail-view-link').click(function(e) {
-                            // To prevent the defaults event behavior. 
+                            // For prevent default behavior of <a> tag.
                             e.preventDefault();
                             
                             // Gets the modal window title. 

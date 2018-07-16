@@ -228,6 +228,7 @@ return ([
     'Descripción de la Marca' => 'Brand Description',
     'Descripción en Español' => 'Spanish Description',
     'Descripción en Inglés' => 'English Description',
+    'Fotografía del Artículo' => 'Article Photography',
     'Imágen' => 'Image',
     'Marca' => 'Brand',
     'Marcas' => 'Brands',

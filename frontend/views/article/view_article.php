@@ -31,6 +31,13 @@ $baseUrl = $asset->baseUrl;
 $ret_page = Yii::$app->getRequest()->getQueryParam('page');
 $ret_page = (empty($ret_page)?'1':$ret_page);
 
+// 2018-07-16 : To get the image path and filename.
+$file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+// 2018-07-16 : Check the existence of a correct file type and determine its extension if there is one.
+$file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
+// 2018-07-16 : Check the existence of a correct file type and determine its extension if there is one.
+$url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_ext;
+
 ?>
 
 <!-- Blue ribbon decoration -->
@@ -145,6 +152,16 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                         'updated_by',
                     ],
                 ]) ?>
+
+                <!-- 2018-07-16 : Show the image article -->
+                <div class="well well-lg">
+                    <div class="polaroid" style="max-width: 450px;">
+                        <img src="<?= $url_image ?>" class="polaroid-img">
+                        <div class="polaroid-container">
+                            <p><b><?= Yii::t('app','Fotografía del Artículo') ?></b></p>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>

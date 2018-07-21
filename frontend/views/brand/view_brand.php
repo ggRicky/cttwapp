@@ -28,9 +28,9 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 ?>
 
 <!-- Blue ribbon decoration -->
-<section id="work-view-area" class="ctt-section bg-primary">
+<section class="ctt-section bg-primary">
     <div class="col-lg-12">
-        <div class="row">
+        <div id="work-view-area" class="row">
             <!-- CTT water mark background logo decoration -->
             <div class="ctt-water-mark"></div>
         </div>

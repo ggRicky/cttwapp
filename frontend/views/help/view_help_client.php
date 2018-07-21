@@ -17,9 +17,9 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
 ?>
 
 <!-- Blue ribbon decoration -->
-<section id="work-area-index" class="ctt-section bg-primary">
+<section class="ctt-section bg-primary">
     <div class="col-lg-12">
-        <div class="row">
+        <div id="work-area-index" class="row">
             <!-- CTT water mark background logo decoration -->
             <div class="ctt-water-mark"></div>
         </div>

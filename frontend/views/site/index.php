@@ -79,7 +79,7 @@ $randomBg = rand(1,11);;
             <?php
                 echo "|&nbsp;";
                 foreach(Yii::$app->params['languages'] as $key => $language){
-                    echo "<a href=\"#lang-".$key."\" class=\"language\"  title=\"".Yii::t('app','Cambiar Idioma')."\"   id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
+                    echo "<a href=\"#lang-".$key."\" class=\"language\" data-toggle=\"tooltip\" title=\"".Yii::t('app','Cambiar Idioma')."\" id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
                 }
             ?>
         </div>
@@ -149,4 +149,8 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
     $this->registerJs($script, View::POS_READY);
 
 }
+
+$script = "jQuery(document).ready(function () { $(\"[data-toggle=\"tooltip\"]\").tooltip(); });";
+$this->registerJs($script, View::POS_READY);
+
 ?>

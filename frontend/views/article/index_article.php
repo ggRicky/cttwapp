@@ -387,7 +387,8 @@ $randomBg = rand(1,11);;
                             e.preventDefault();
                             
                             // Gets the modal window title. 
-                            var p_title = $(this).data(\"title\");
+                            // var p_title = $(this).data(\"title\");
+                            var p_title = 'Hola Probando ....';
                             // Gets the image url to display. 
                             var p_url_image = $(this).data(\"url\");
                             // Shows the modal window.

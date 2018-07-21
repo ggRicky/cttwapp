@@ -114,7 +114,7 @@ $randomBg = rand(1,11);;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -162,11 +162,11 @@ $randomBg = rand(1,11);;
                 <?php Pjax::begin(); ?>
 
                 <p>
-                    <?= Html::a(Yii::t('app', 'Crear Artículo'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success btn-ctt-fixed-width', 'title' => Yii::t('app', 'Crear un nuevo registro de artículo')]) ?>
+                    <?= Html::a(Yii::t('app', 'Crear Artículo'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de artículo')]) ?>
                     <!-- 2018-06-07 : To disable pjax for a specific link inside the container adding data-pjax="0" attribute to this link.-->
-                    <?= Html::a(Yii::t('app', 'Catálogos'), ['catalog/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'title' => Yii::t('app', 'Administrar los catálogos')]) ?>
+                    <?= Html::a(Yii::t('app', 'Catálogos'), ['catalog/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Administrar los catálogos')]) ?>
                     <!-- 2018-06-07 : To disable pjax for a specific link inside the container adding data-pjax="0" attribute to this link.-->
-                    <?= Html::a(Yii::t('app', 'Marcas'), ['brand/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'title' => Yii::t('app', 'Administrar las marcas')]) ?>
+                    <?= Html::a(Yii::t('app', 'Marcas'), ['brand/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Administrar las marcas')]) ?>
                 </p>
 
                 <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
@@ -203,12 +203,14 @@ $randomBg = rand(1,11);;
                                     // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
                                     'view' => function ($url) {
                                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                            'data-toggle' => 'tooltip',
                                             'title' => Yii::t('app', 'Ver'),           // 2018-06-03 : Adds the tooltip View
                                         ]);
                                     },
                                     // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
                                     'update' => function ($url) {
                                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                            'data-toggle' => 'tooltip',
                                             'title' => Yii::t('app', 'Modificar') ,     // 2018-06-03 : Adds the tooltip Modify
                                         ]);
                                     },
@@ -216,6 +218,7 @@ $randomBg = rand(1,11);;
                                     'delete' => function($url, $model) {
                                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,
                                             [
+                                                'data-toggle' => 'tooltip',
                                                 'title'   => Yii::t('app', 'Eliminar'),       // 2018-06-03 : Adds the tooltip Delete
                                                 'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
                                                 'onMouseOver' => 'this.style.color=\'#f00\'',                  // 2018-06-06 : When mouse is hover on the link, the color changes
@@ -244,17 +247,16 @@ $randomBg = rand(1,11);;
                                         $file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
 
                                         if (!is_null($file_ext)) {
-                                            return Html::a('<span class="glyphicon glyphicon-camera"></span>', '#', [
+                                            return Html::a('<span class="glyphicon glyphicon-camera" data-toggle="tooltip" title="'.Yii::t('app', 'Mostrar').'"></span>', '#', [
                                                 'class'       => 'detail-view-link',
-                                                'title'       => Yii::t('app', 'Mostrar'),    // 2018-07-11 : Adds the tooltip Delete
                                                 'style'       => 'color:#337ab7, ',                            // 2018-07-11 : Display the glyphicon-camera in default color.
-                                                'onMouseOver' => 'this.style.color=\'#ff8e00\'',               // 2018-07-11 : When mouse is hover on the link, the color changes
-                                                'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to orange advising an available operation.
+                                                'onMouseOver' => 'this.style.color=\'#ff8e00\'',               // 2018-07-11 : When mouse is hover on the link, the color changes to orange advising an available operation.
+                                                'onMouseOut'  => 'this.style.color=\'#337ab7\'',
                                                 'data-toggle' => 'modal',
                                                 'data-target' => '#ctt-modal-show-art',
                                                 'data' => [
-                                                    'title' => Yii::t('app', 'Vista Detallada') . ' : ' . ($model->id),
-                                                    'url'   => Url::to(UPLOAD_DIR . UPLOAD_INV_PICS_DIR) . PREFIX_IMG . $model->id . '.jpg',
+                                                    'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),
+                                                    'url'   => Url::to(UPLOAD_DIR.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.'.jpg',
                                                 ],
                                                 'data-id'     => $key,
                                                 'data-pjax'   => '0',
@@ -415,7 +417,7 @@ $randomBg = rand(1,11);;
                 <?php Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
 
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
@@ -423,16 +425,15 @@ $randomBg = rand(1,11);;
             <?php endif; ?>
 
             <br/>
-
             <!-- 2018-06-03 : Toolbox -->
             <div class="panel panel-default">
-                <div class="panel-heading"><button class="btn btn-light" data-toggle="collapse" data-target="#tools" title="<?=  Yii::t('app', 'Panel de Herramientas') ?>"><span class="text-info"><?= Yii::t('app', 'Herramientas') ?></span>&nbsp;&nbsp;<span><i class="fa fa-refresh fa-spin fa-1x fa-fw text-info"></i></span></button></div>
+                <div class="panel-heading"><span data-toggle="tooltip" title="<?=  Yii::t('app', 'Panel de Herramientas') ?>"><button class="btn btn-light" data-toggle="collapse" data-target="#tools"><span class="text-info"><?= Yii::t('app', 'Herramientas') ?></span>&nbsp;&nbsp;<span><i class="fa fa-refresh fa-spin fa-1x fa-fw text-info"></i></span></button></span></div>
                 <div id="tools" class="panel-collapse collapse">
                     <div class="panel-body">
                         <!-- Help Tool -->
                         <span>
                            <?php
-                               echo Html::a('', ['help/view', 'theme' => '_article', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'title' => Yii::t('app', 'Ayuda')]);
+                               echo Html::a('', ['help/view', 'theme' => '_article', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ayuda')]);
                                echo '<span>'.Yii::t('app', 'Ayuda').'</span>';
                            ?>
                        </span>
@@ -442,11 +443,11 @@ $randomBg = rand(1,11);;
                             <?php
                             $color_expr = Yii::$app->getRequest()->getCookies()->has('article-color') && Yii::$app->getRequest()->getCookies()->getValue('article-color') == '0';
                             if ($color_expr){
-                                echo Html::a('', ['article/color', 'color' => '1'], ['class' => 'btn glyphicon glyphicon-tint', 'title' => Yii::t('app', 'Activar código de colores')]);
+                                echo Html::a('', ['article/color', 'color' => '1'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Activar código de colores')]);
                                 echo '<span>'.Yii::t('app', 'Interruptor de Color').'</span>';
                             }
                             else{
-                                echo Html::a('', ['article/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'title' => Yii::t('app', 'Desactivar código de colores')]);
+                                echo Html::a('', ['article/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Desactivar código de colores')]);
                                 echo '<span>'.Yii::t('app', 'Interruptor de Color').'</span>';
                             }
                             ?>
@@ -470,4 +471,3 @@ $randomBg = rand(1,11);;
 
 <!-- Includes the modal window to show an article image -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
-

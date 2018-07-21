@@ -150,7 +150,4 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
 
 }
 
-$script = "jQuery(document).ready(function () { $(\"[data-toggle=\"tooltip\"]\").tooltip(); });";
-$this->registerJs($script, View::POS_READY);
-
 ?>

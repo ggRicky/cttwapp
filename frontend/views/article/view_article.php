@@ -153,15 +153,25 @@ $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_
                     ],
                 ]) ?>
 
-                <!-- 2018-07-16 : Show the image article -->
-                <div class="well well-lg">
-                    <div class="polaroid" style="max-width: 450px;">
-                        <img src="<?= $url_image ?>" class="polaroid-img">
-                        <div class="polaroid-container">
-                            <p><b><?= Yii::t('app','Fotografía del Artículo') ?></b></p>
+                <?php
+
+                // 2018-07-20 : To get the image path and filename.
+                $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+
+                // 2018-07-20 : Test for the right file type
+                if (file_exists($file_name.'.jpg') || file_exists($file_name.'.png')): ?>
+
+                    <!-- 2018-07-16 : Show the image article -->
+                    <div class="well well-lg">
+                        <div class="polaroid" style="max-width: 450px;">
+                            <img src="<?= $url_image ?>" class="polaroid-img">
+                            <div class="polaroid-container">
+                                <p><b><?= Yii::t('app','Fotografía del Artículo') ?></b></p>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                <?php endif ?>
 
             </div>
         </div>

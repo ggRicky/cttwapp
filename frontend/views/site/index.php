@@ -79,7 +79,7 @@ $randomBg = rand(1,11);;
             <?php
                 echo "|&nbsp;";
                 foreach(Yii::$app->params['languages'] as $key => $language){
-                    echo "<a href=\"#lang-". $key ."\" class=\"language\" id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
+                    echo "<a href=\"#lang-".$key."\" class=\"language\"  title=\"".Yii::t('app','Cambiar Idioma')."\"   id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
                 }
             ?>
         </div>

@@ -16,6 +16,7 @@ return ([
     'Aceptar' => 'Ok',
     'Activar código de colores' => 'Activate color code',
     'Bienvenido' => 'Welcome',
+    'Cambiar Idioma' => 'Change language',
     'Campo Requerido' => 'Required Field',
     'Cancelar' => 'Cancel',
     'Desactivar código de colores' => 'Disable color code',

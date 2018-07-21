@@ -253,8 +253,8 @@ $randomBg = rand(1,11);;
                                                 'data-toggle' => 'modal',
                                                 'data-target' => '#ctt-modal-show-art',
                                                 'data' => [
-                                                    'title'   => Yii::t('app', 'Vista Detallada') . ' : ' . ($model->id),
-                                                    'url'     => Url::to(UPLOAD_DIR . UPLOAD_INV_PICS_DIR) . PREFIX_IMG . $model->id . '.jpg',
+                                                    'title' => Yii::t('app', 'Vista Detallada') . ' : ' . ($model->id),
+                                                    'url'   => Url::to(UPLOAD_DIR . UPLOAD_INV_PICS_DIR) . PREFIX_IMG . $model->id . '.jpg',
                                                 ],
                                                 'data-id'     => $key,
                                                 'data-pjax'   => '0',
@@ -387,8 +387,7 @@ $randomBg = rand(1,11);;
                             e.preventDefault();
                             
                             // Gets the modal window title. 
-                            // var p_title = $(this).data(\"title\");
-                            var p_title = 'Hola Probando ....';
+                            var p_title = $(this).data(\"title\");
                             // Gets the image url to display. 
                             var p_url_image = $(this).data(\"url\");
                             // Shows the modal window.

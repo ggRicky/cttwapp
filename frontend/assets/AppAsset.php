@@ -31,6 +31,7 @@ class AppAsset extends AssetBundle
         'font/css/font-awesome.min.css',
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic',
         'https://fonts.googleapis.com/css?family=Libre+Barcode+39+Extended',
+        'https://fonts.googleapis.com/css?family=Raleway',
     ];
     public $js = array(
         // the jquery version for parallax effect

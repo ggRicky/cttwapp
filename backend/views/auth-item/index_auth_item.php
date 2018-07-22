@@ -92,11 +92,11 @@ $randomBg = rand(1,11);
 </header>
 
 <!-- Orange ribbon decoration -->
-<section id="work-area-index" class="ctt-section bg-secondary">
+<section class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
-            <div class="ctt-water-mark"></div>
+            <div id="work-area-index" class="ctt-water-mark"></div>
         </div>
     </div>
 </section>
@@ -107,7 +107,7 @@ $randomBg = rand(1,11);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -132,14 +132,14 @@ $randomBg = rand(1,11);
             <!-- 2018-05-26 : If there is an flash message, then display it.-->
             <?php if (Yii::$app->session->hasFlash('warning')): ?>
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
                 <!-- 2018-05-26 : Flash success message. -->
             <?php elseif (Yii::$app->session->hasFlash('success')): ?>
                 <div id="auto-close" class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>
@@ -183,16 +183,23 @@ $randomBg = rand(1,11);
                                     'buttons' => [
                                         'update' => function ($url) use ($dataProvider) {
                                             $url .= '&page=' . ($dataProvider->pagination->page + 1);
-                                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url);
+                                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                'data-toggle' => 'tooltip',
+                                                'title' => Yii::t('app', 'Actualizar'),    // 2018-07-21 : Adds the tooltip Update
+                                            ]);
                                         },
                                         'view' => function ($url) use ($dataProvider) {
                                             $url .= '&page=' . ($dataProvider->pagination->page + 1);
-                                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url);
+                                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                'data-toggle' => 'tooltip',
+                                                'title' => Yii::t('app', 'Ver'),           // 2018-07-21 : Adds the tooltip View
+                                            ]);
                                         },
                                         // 2018-05-29 : Adds a new delete action to customize the window modal alert.
                                         'delete' => function($url, $model) {
                                             return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,
                                                 [
+                                                    'data-toggle' => 'tooltip',
                                                     'title'       => Yii::t('app', 'Eliminar'),   // 2018-05-28 : Adds the tooltip Delete
                                                     'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
                                                     'onMouseOver' => 'this.style.color=\'#f00\'',                  // 2018-06-06 : When mouse is hover on the link, the color changes
@@ -264,7 +271,7 @@ $randomBg = rand(1,11);
                 <?php Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
 
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>

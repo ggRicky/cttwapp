@@ -18,11 +18,11 @@ $baseUrl = $asset->baseUrl;
 ?>
 
 <!-- Orange ribbon decoration -->
-<section id="work-view-area" class="ctt-section bg-secondary">
+<section class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
-            <div class="ctt-water-mark"></div>
+            <div id="work-view-area" class="ctt-water-mark"></div>
         </div>
     </div>
 </section>

@@ -7,7 +7,7 @@
     // 2018-05-24 : Remove guest entry for Rbac security.
     echo Html::begintag('div', ['class' => 'ctt-mini-bar-top']);
     echo Html::beginForm(['/site/logout'], 'post');
-    echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
+    echo Html::submitButton(Yii::t('app','<span><i class="fa fa-power-off fa-lg"></i></span>'), ['class' => 'btn btn-dark', 'data-toggle' => 'tooltip', 'title' => Yii::t('app','Cerrar Sesión')]) . "&nbsp;&nbsp;&nbsp;";
     echo Html::tag('label', Yii::$app->user->identity->username, ['style' => ['color' => 'white', 'font-size' => 'medium', 'font-weight' => 'normal']]);
     echo Html::endForm();
     echo Html::endtag('div');

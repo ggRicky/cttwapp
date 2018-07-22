@@ -47,9 +47,9 @@
 </footer>
 
 <!-- A button for go to the page's top -->
-<a id="arrow-up-fixed-button" href="#work-view-area" class="btn btn-lg" title="<?= Yii::t('app', 'Ir al inicio') ?>"><i class="fa fa-3x fa-arrow-circle-up"  style="font-size:42px"></i></a>
+<a id="arrow-up-fixed-button" href="#work-view-area" class="btn btn-lg" data-toggle="tooltip" title="<?= Yii::t('app', 'Ir al inicio') ?>"><i class="fa fa-3x fa-arrow-circle-up"  style="font-size:42px"></i></a>
 <!-- A button for go to the page's bottom -->
-<a id="arrow-down-fixed-button" href="#work-view-area-end" class="btn btn-lg" title="<?= Yii::t('app', 'Ir al fin') ?>"><i class="fa fa-3x fa-arrow-circle-down"  style="font-size:42px"></i></a>
+<a id="arrow-down-fixed-button" href="#work-view-area-end" class="btn btn-lg" data-toggle="tooltip" title="<?= Yii::t('app', 'Ir al fin') ?>"><i class="fa fa-3x fa-arrow-circle-down"  style="font-size:42px"></i></a>
 
 <?php
 // Used to disable temporary the debugger toolbar

@@ -398,7 +398,7 @@ $randomBg = rand(1,11);;
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -441,7 +441,7 @@ $randomBg = rand(1,11);;
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-ok-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Éxito') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -484,7 +484,7 @@ $randomBg = rand(1,11);;
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -553,7 +553,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-info-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Información') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -596,7 +596,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-ok-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Éxito') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -639,7 +639,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Pregunta') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -682,7 +682,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-warning-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title"><?= Yii::t('app','Advertencia') ?></h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 
@@ -725,7 +725,7 @@ if (Yii::$app->session->hasFlash('forbiddenAccess')){
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title">Error</h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 

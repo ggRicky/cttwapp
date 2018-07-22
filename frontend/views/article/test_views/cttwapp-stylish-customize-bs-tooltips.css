@@ -1,0 +1,906 @@
+/*
+CTTwapp v1.0
+Default CSS for application frontend
+
+Supported by ISC. Ricardo González González
+Last update : 2017-12-07
+*/
+
+/* Global Styles   |||||||||||||||||||||||||||||||||*/
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+/* Body   ||||||||||||||||||||||||||||||||||||||||||*/
+
+body {
+    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/* Footer   ||||||||||||||||||||||||||||||||||||||||*/
+
+footer {
+    padding: 50px 0 0 0;            /* top, right, bottom, left   */
+}
+
+/* Custom text styles   ||||||||||||||||||||||||||||*/
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.text-vertical-center h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 4.5em;
+    font-weight: 700;
+}
+
+.barcode-font {                     /*  Used to define a font-family needed to code the author´s signature */
+    font-family: "Libre Barcode 39 Extended","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 4.0em;
+}
+
+/* Custom Button Styles   ||||||||||||||||||||||||||*/
+
+.btn-dark {
+    color: #fff;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.btn-dark:hover,
+.btn-dark:focus,
+.btn-dark:active {
+    color: #fff;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.btn-light {
+    border-radius: 0;
+    color: #333;
+    background-color: rgb(255,255,255);
+}
+
+.btn-light:hover,
+.btn-light:focus,
+.btn-light:active {
+    color: #333;
+    background-color: rgba(255,255,255,0.8);
+}
+
+/* Custom Horizontal Rule   ||||||||||||||||||||||||*/
+
+hr.small {
+    max-width: 100px;
+}
+
+/* Side Menu   |||||||||||||||||||||||||||||||||||||*/
+
+#sidebar-wrapper {
+    z-index: 1000;
+    opacity: .8;                /*  This property set the opacity level for the sidebar navigation  */
+    position: fixed;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    margin-right: -250px;
+    overflow-y: auto;
+    background: #373535;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-top {                  /* Used to define the attributes for a little black ribbon at top of sidebar navigation */
+    background: #000000;
+    position:relative;
+    z-index: 1;
+    height: 73px;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration:  none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 70px;
+    font-size: 22px;
+    line-height: 55px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+.btn-toggle {                   /* Used to define Close/Open button margins over the sidebar navigation */
+    margin: 15px 15px 0 0;      /* top, right, bottom, left   */
+    border-radius: 3px;         /* Used to define rounded corners in Close/Open button */
+}
+
+.btn-ctt-fixed-width{           /* Used to define a standard buttons width for ctt project  */
+    width: 180px;
+}
+
+.btn-ctt-warning {              /* Used to define a custom button warning for ctt project  */
+    color:#337ab7;
+    background-color: rgba(255,201,68,1);
+}
+
+.btn-ctt-info {                 /* Used to define a custom button warning for ctt project  */
+    color:#ffffff;
+    background-color: rgb(51, 122, 183);
+}
+
+.ctt-mini-logo-top {            /* Used to define class selector and needed properties for the decorative black ribbon, including ctt-mini-logo in the right sidebar navigation */
+    background-color: #000000;
+    padding: 0px 0 13px 11px;   /* top, right, bottom, left   */
+}
+
+.ctt-mini-bar-top {             /* Used to define class selector and needed properties to include user info, and logout link into orange ribbon  --Right Aligment-- */
+    background-color: #ff8e00;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 18px 12px 18px 18px;  /* top, right, bottom, left   */
+}
+
+.ctt-mini-bar-opts {            /* Used to define class selector and needed properties to includes normal options like about, help, signup, and login links into blue ribbon */
+    background-color: #15598c;
+}
+
+.ctt-mini-bar-spc-opts {        /* Used to define class selector and needed properties to include special options like signup link into navy blue ribbon */
+    background-color: #002240;
+}
+
+.bg-secondary {                 /* Used to define class selector and needed properties to include orange ribbon  --Backend-- */
+    background-color: #ff8e00;
+}
+
+#menu-toggle {                  /* Used to define the attributes to the toggle button, pinned in the page right upper corner */
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+#sidebar-wrapper.active {       /* Used to define Open/Close transition effect over sidebar navigation */
+    right: 250px;
+    width: 250px;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+/* Fixed Buttons Up and Down Arrows   ||||||||||||||*/
+
+#arrow-up-fixed-button {        /* Used to adds a fixed button to the bottom right of page. */
+    margin: 15px 5px 0 0;       /* top, right, bottom, left   */
+    z-index: 1;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+
+#arrow-down-fixed-button {      /* Used to adds a fixed button to the bottom right of page. */
+    margin: 15px 44px 0 0;      /* top, right, bottom, left   */
+    z-index: 1;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+
+.fa-arrow-circle-up, .fa-arrow-circle-down  {   /* Used to define the buttons up and down arrows fore color */
+    color: #333;
+}
+
+ .fa-arrow-circle-up:hover, .fa-arrow-circle-down:hover {   /* Used to define the buttons up and down arrows hover color */
+    color: #999;
+}
+
+/* Header   ||||||||||||||||||||||||||||||||||||||||*/
+
+.header {                       /* Used to define Header section settings in the host page */
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url(../img/poster_0.jpg) no-repeat center center scroll;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+/* CTT  ||||||||||||||||||||||||||||||||||||||||||||*/
+
+.crop-video {                   /* Used to define a class and properties for crop the video output. */
+    width: 100vw;
+    height: 60vh;
+    object-fit: cover;
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.ctt-logo {                     /* Used to define class selector and needed properties to position-size the ctt logo */
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 100.0%;
+    height: auto;
+    width: auto;
+    opacity: .8;                /* This property set the opacity level for the main CTT logo  */
+}
+
+.ctt-mask {                     /* Used to define class selector and needed properties to cover the video with a soften blue mask if needed */
+    /* Default blue cttwapp :  0.0 opacity = disabled, opacity 1.0 = enabled */
+    background-color: rgba(51, 122, 183, 0.0);
+    /* If uncommented, apply an animation for change the mask colors */
+    /* animation: 20s colorize infinite both; */
+    width: 100vw;
+    height: 60vh;
+    overflow: hidden;           /* Chrome :  This attribute must be there to properly display the video into the div ( ctt-mask ), without altering the next elements */
+}
+
+@keyframes colorize {           /* Used to define the animation keyframes for color transitions in .ctt-mask class */
+    0% {
+        background: rgba(51, 122, 183, 0.45);   /*  cttwapp default blue */
+    }
+    25% {
+        background: rgba(95, 217, 249, 0.45);   /*  Official blue 1 CTT logo */
+    }
+    50% {
+        background: rgba(0, 193, 246, 0.45);    /*  Official blue 2 CTT logo */
+    }
+    75% {
+        background: rgba(0, 176, 243, 0.45);    /*  Official blue 3 CTT logo */
+    }
+    100% {
+        background: rgba(51, 122, 183, 0.45);   /*  cttwapp default blue */
+    }
+}
+
+video {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.ctt-section {                  /* Used to define class selector and needed properties for the decorative ribbon */
+    width: 100vw;
+    height: 15vh;
+}
+
+.ctt-section-footer {           /* Used to define class selector and needed properties for the decorative special ribbon for the main footer */
+    width: 100vw;
+    height: 50vh;
+}
+
+.ctt-footer-container {         /* Used to define class selector for the decorative special background image in the ribbon main footer --Frontend-- */
+    position: relative;
+    background: #337ab7;        /* bg-primary color --Frontend-- */
+    overflow: hidden;
+}
+
+.ctt-footer-container:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.21;
+    background-image: url(../img/ctt-footer.jpg);
+    background-repeat: no-repeat;
+    background-position: 50% 20%;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+.ctt-footer-container-bke {     /* Used to define class selector for the decorative special background image in the ribbon main footer --Backend-- */
+    position: relative;
+    background: #ff8e00;        /* bg-secondary color --Backend-- */
+    overflow: hidden;
+}
+
+.ctt-footer-container-bke:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.21;
+    background-image: url(../img/ctt-footer.jpg);
+    background-repeat: no-repeat;
+    background-position: 50% 20%;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+/* Map   ||||||||||||||||||||||||||||||||||||||||||||*/
+
+.ctt-map-ribbon {               /* Used to define class selector and needed properties, for the decorative ribbon at Google Maps section */
+    width: 100vw;
+    padding: 50px;              /* top, right, bottom, left   */
+}
+
+.ctt-map {                      /* Used to define a container for store the CTT location in Google Maps */
+    width: 100vw;
+    height: 500px;
+}
+
+.ctt-title-spacing {            /*  Used to define letter spacing used in the Google Maps ribbon */
+    letter-spacing: 0.4em
+}
+
+/* Parallax    |||||||||||||||||||||||||||||||||||||*/
+
+.parallax-section {             /* Used to define a container for show parallax effect applied to an CTT image */
+    width: 100vw;
+    height: 50vh;
+    object-fit: cover;
+    color: #fff;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+#parallax1 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_1.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax2 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_2.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax3 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_3.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax4 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_4.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax5 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_5.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax6 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_6.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax7 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_7.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax8 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_8.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax9 {                    /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_9.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax10 {                   /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_10.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+#parallax11 {                   /* Used to define an image and the properties needed for parallax effect */
+    background-image: url(../img/bkg_11.jpg);
+    position:relative;
+    z-index:-1;
+}
+
+/* Yii2   |||||||||||||||||||||||||||||||||||||||||||*/
+
+.yii2-page {
+    padding: 50px 0;            /* top, right, bottom, left   */
+}
+
+.yii2-header {                  /* Used to define the properties needed to display page's title */
+    font-size: 2.5em;
+    font-weight: 700;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-bottom: 0;
+    color: #3c3f41;
+}
+
+.yii2-description {             /* Used to define the properties needed to display page's subtitle */
+    font-size: 1.5em;
+    font-weight: 700;
+    padding-top: 0;
+    padding-left: 50px;
+    padding-bottom: 0;
+    color: #428bca;
+}
+
+.yii2-content {                 /* Used to define the properties needed to display page's content */
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 0;
+}
+
+.yii2-message-area {            /* Used to define the properties needed to display page's messages e.g. success, warnings, errors */
+    padding-top: 0;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 0;
+}
+
+.tsr-content {                  /* Used to define the properties needed to display the development's credits */
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+}
+
+/* Glyphicons  ||||||||||||||||||||||||||||||||||||||*/
+
+/* Used to setup default glypicon font-size */
+
+.glyphicon                      /* Used to setup the default font-size for all glypicons */
+{
+    font-size: 20px;
+}
+
+/* Used to setup specifically glypicon font-size */
+
+.glyphicon-pencil,              /* The GridView widget modify column */
+.glyphicon-eye-open,            /* The GridView widget view column */
+.glyphicon-trash,               /* The GridView widget delete column */
+.glyphicon-camera,              /* The GridView widget show column and the article image status */
+.glyphicon-calendar,            /* The DatePicker widget */
+.glyphicon-upload,              /* The File Input widget */
+.glyphicon-folder-open,         /* The File Input widget */
+.glyphicon-fullscreen,          /* The File Input widget */
+.glyphicon-resize-vertical,     /* The File Input widget */
+.glyphicon-resize-full,         /* The File Input widget */
+.glyphicon-remove               /* The File Input widget */
+{
+    font-size: 18px;
+}
+
+.glyphicon-tint,                /* Used to define font-size for these glyphicons */
+.glyphicon-question-sign,       /* Modal Windows / The File Input widget */
+.glyphicon-zoom-in,             /* The File Input widget */
+.glyphicon-zoom-out,            /* The File Input widget */
+.glyphicon-plus-sign,           /* The File Input widget */
+.glyphicon-minus-sign,          /* The File Input widget */
+.glyphicon-info-sign,           /* Modal Windows */
+.glyphicon-ok-sign,             /* Modal Windows */
+.glyphicon-warning-sign,        /* Modal Windows */
+.glyphicon-exclamation-sign     /* Modal Windows */
+{
+    font-size: 25px;
+}
+
+.glyphicon-file                 /* The File Input widget */
+{
+    font-size: 15px;
+}
+
+.glyphicon-folder-open          /* The File Input widget */
+{
+    font-size: 14px;
+}
+
+/* Modals   |||||||||||||||||||||||||||||||||||||||||*/
+
+.modal-header-config {
+    /* Header text color */
+    color:#fff;
+    /* Settings for header rounded corners in modal window. CSS used here will be applied after bootstrap.css */
+    padding:15px 20px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-body-config {           /* Used to define body's color in a modal window */
+    /*background-color: rgb(255,255,255);*/
+    background: linear-gradient(to right, rgba(255, 255, 255,1) 0%, rgba( 255, 255, 255 ,1) 100%);
+}
+
+.modal-footer-config {
+    /* Footer text color */
+    color: #fff;
+
+    /* Settings for footer linear gradient in modal window. */
+    background: linear-gradient(to right, rgba(0,0,0,1) 30%, rgba(0,0,0,.3) 70%);
+
+    /* Settings for footer rounded corners in modal window. CSS used here will be applied after bootstrap.css */
+    padding:15px 20px;
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.modal-shadow-effect {          /* Add a shadow effect in the modal window */
+    /* Apply shadow style around the modal window */
+    box-shadow: 13px 10px 18px #1d1d1d;
+
+    /* The same corners setting must be applied to div shadow */
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    -moz-border-radius-bottomright: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.modal-header-water-mark:before {   /* Used to define header's water mark in all modal windows */
+    content:'';
+    background: url(../img/ctt-header-alpha.jpg);
+    position:absolute;
+    width:148px;
+    height:74px;
+    top:0;
+    left:0;
+    opacity:0.3;
+}
+
+.modal-title {                  /* Used to setup text attributes for title in modal windows */
+    font-weight: bold;          /* Used to put in boldface the header's title */
+    letter-spacing: 0.3em;      /* Letter spacing for modal title */
+    padding-top: 9px;           /* Top and left position for modal title */
+    padding-left: 10px;
+}
+
+.modal-backdrop {
+    /* background-color: rgb(01,60,98);   Used to control background opacity and color when bootstrap modal is showed : [ Disabled since 2018-06-02 ] */
+}
+
+.modal-backdrop.in {
+    /* opacity: 0.8;                Controls background's opacity for modal windows when these are showed. : [ Disabled since 2018-06-02 ] */
+}
+
+.close {                        /* This class is used to config the modal window close button  */
+    color: #fff;                /* Set the color value for X sign in the close button */
+    opacity: 1;                 /* Controls opacity for close button in a modal window */
+}
+
+.ctt-modal-header-info {        /* Used to define header's color in an INFO modal window */
+    /* Settings for header linear gradient in info modal window. */
+    /* Original config : background-color: rgb(0,109,148); */
+    background: rgba(4,118,217,1);
+    background: -moz-linear-gradient(left, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    background: -o-linear-gradient(left, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    background: linear-gradient(to right, rgba(4,118,217,1) 30%, rgba(4,118,217,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0476d9', endColorstr='#e1f5fe', GradientType=1 );
+}
+
+.ctt-modal-header-success {     /* Used to define header's color in a SUCCESS modal window */
+    /* Settings for header linear gradient in success modal window. */
+    /* Original config : background-color: rgb(104,159,56); */
+    background: rgba(91,153,0,1);
+    background: -moz-linear-gradient(left, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    background: -o-linear-gradient(left, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    background: linear-gradient(to right, rgba(91,153,0,1) 30%, rgba(91,153,0,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b9900', endColorstr='#f0f1ef', GradientType=1 );
+}
+
+.ctt-modal-header-question {    /* Used to define header's color in a QUESTION modal window */
+    /* Settings for header linear gradient in question modal window. */
+    /* Original config : background-color: rgb(30,136,229); */
+    background: rgba(16,166,130,1);
+    background: -moz-linear-gradient(left, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    background: -o-linear-gradient(left, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    background: linear-gradient(to right, rgba(16,166,130,1) 30%, rgba(16,166,130,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#10a682', endColorstr='#f2f4f4', GradientType=1 );
+}
+
+.ctt-modal-header-warning {     /* Used to define header's color in a WARNING modal window */
+    /* Settings for header linear gradient in warning modal window. */
+    /* Original config : background-color: rgb(240,184,35);  -- Caterpillar Yellow   Hex : F0B823   RGB : 240,184,35 */
+    background: rgba(255,142,0,1);
+    background: -moz-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    background: -o-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    background: linear-gradient(to right, rgba(255,142,0,1) 30%, rgba(255,142,0,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8e00', endColorstr='#fff8e1', GradientType=1 );
+}
+
+.ctt-modal-header-error {       /* Used to define header's color in an ERROR modal window */
+    /* Settings for header linear gradient in error modal window. */
+    /* Original config : background-color: rgb(255,0,0); */
+    background: rgba(239,27,36,1);
+    background: -moz-linear-gradient(left, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    background: -webkit-linear-gradient(left, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    background: -o-linear-gradient(left, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    background: -ms-linear-gradient(left, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    background: linear-gradient(to right, rgba(239,27,36,1) 30%, rgba(239,27,36,.3) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ef1b24', endColorstr='#ffebee', GradientType=1 );
+}
+
+.ctt-water-mark {                  /* Used to setup a page water-mark */
+
+    background-image: url('../img/ctt-logo_3.png');   /* Define the image file and effects for display it */;
+    background-position-x: left;   /* Used to define fixed left and top position */
+    background-position-y: top;
+    background-repeat: no-repeat;  /* Only one intance for the page water-mark */
+    background-size: contain;      /* The 'cover' option it's well suitable too */
+                                   /* Define opacity level */
+    opacity: 0.15;
+    filter: alpha(opacity=15);     /* For IE8 and earlier */
+                                   /* Define image attributes for position and dimensions */
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+/* Special Rules ||||||||||||||||||||||||||||||||||||*/
+
+.render-area {                  /* Used to define a work area for data in the views */
+    overflow-x: scroll;
+    overflow-Y: scroll;
+    width: available;
+}
+
+.up-btn-area {                  /* Used to define spacing values around glyphicon-circle-arrow-up */
+    padding: 0 0 60px 0;        /* top, right, bottom, left   */
+}
+
+div.required label.control-label:after {  /* This CSS rule is used to style Yii2 required fields with asterisks */
+    content: " *";
+    color: red;
+}
+
+.required-field {               /* This CSS rule is used to emphasize Yii2 required error messages */
+    font-weight: bold;
+    color: red;
+}
+
+.alert-success {                /* Used to redefine Bootstrap alert-success color and backgound color default */
+    color: #2b542c;             /* The next color configuration produce an alternative gradient rgba(223,240,216,1) 30%, rgba(223,240,216,.3) 70% */
+    background: rgba(223,240,216,1);
+    background: -moz-linear-gradient(left, rgba(223,240,216,1) 30%, rgba(223,240,216,1) 70%);
+    background: -webkit-linear-gradient(left, rgba(223,240,216,1) 30%, rgba(223,240,216,1) 70%);
+    background: -o-linear-gradient(left, rgba(223,240,216,1) 30%, rgba(223,240,216,1) 70%);
+    background: -ms-linear-gradient(left, rgba(223,240,216,1) 30%, rgba(223,240,216,1) 70%);
+    background: linear-gradient(to right, rgb(223,240,216) 30%, rgba(223,240,216,1) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8e00', endColorstr='#fff8e1', GradientType=1 );
+}
+
+.alert-warning {                /* Used to redefine Bootstrap alert-warning color and backgound color default */
+    color: #337ab7;             /* The next color configuration produce an alternative gradient rgba(255,201,68,1) 30%, rgba(255,201,68,.3) 70% */
+    background: rgba(255,201,68,1);
+    background: -moz-linear-gradient(left, rgba(255,201,68,1) 30%, rgba(255,201,68,1) 70%);
+    background: -webkit-linear-gradient(left, rgba(255,201,68,1) 30%, rgba(255,201,68,1) 70%);
+    background: -o-linear-gradient(left, rgba(255,201,68,1) 30%, rgba(255,201,68,1) 70%);
+    background: -ms-linear-gradient(left, rgba(255,201,68,1) 30%, rgba(255,201,68,1) 70%);
+    background: linear-gradient(to right, rgb(255,201,68) 30%, rgba(255,201,68,1) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8e00', endColorstr='#fff8e1', GradientType=1 );
+}
+
+.alert-error {                /* Used to redefine Bootstrap alert-error color and backgound color default */
+    color: #ffff;             /* The next color configuration produce an alternative gradient rgba(255,201,68,1) 30%, rgba(255,201,68,.3) 70% */
+    background: rgba(255,0,0,1);
+    background: -moz-linear-gradient(left, rgba(255,0,0,1) 30%, rgba(255,0,0,1) 70%);
+    background: -webkit-linear-gradient(left, rgba(255,0,0,1) 30%, rgba(255,0,0,1) 70%);
+    background: -o-linear-gradient(left, rgba(255,0,0,1) 30%, rgba(255,0,0,1) 70%);
+    background: -ms-linear-gradient(left,rgba(255,0,0,1) 30%, rgba(255,0,0,1) 70%);
+    background: linear-gradient(to right, rgb(255,0,0) 30%, rgba(255,0,0,1) 70%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8e00', endColorstr='#fff8e1', GradientType=1 );
+}
+
+.div-scroll-area{               /* Used to define an div scroll area and show here the GridView widget content */
+    overflow-x: scroll;
+    overflow-Y: scroll;
+    height: 500px;
+    width: available;
+}
+
+.div-scroll-area-horizon{       /* Used to define an div horizon scroll area and show here the GridView widget content */
+    overflow-x: scroll;
+    width: available;
+}
+
+*:focus {                       /* To remove border (outline) focus around text/input boxes, divs etc */
+    outline: none;
+}
+
+/* Used to define custom padding in Bootstrap table-bordered */
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    padding: 10px;
+}
+
+/* Used to redefine the width proportion in the Yii2 DetailView widget */
+
+table.detail-view th {
+    width: 15%;
+}
+
+table.detail-view td {
+    width: 85%;
+}
+
+/* Polaroid Image Card */
+
+div.polaroid {
+    max-width: 250px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+
+div.polaroid-container {
+    padding: 10px;
+}
+
+img.polaroid-img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* CTT Image Card */
+
+div.ctt-image-help-frame {      /* Used to define class selector and needed properties to re-size the ctt help images */
+    max-width: auto;
+    overflow: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+div.ctt-image-help-container {  /* Used to define class selector and needed properties to the page footer in ctt help images */
+    padding: 10px;
+    background-color: #337ab7;
+    color: #fff;
+}
+
+img.ctt-img-help {              /* Used to define class selector and needed properties to the ctt help images */
+    max-width: 100%;
+    height: auto;
+}
+
+/* CTT Help Badges */
+
+.ctt-image-help-badge{          /* Used to define class selector and needed properties to style the ctt help badges */
+    width: 40px;
+    height: auto;
+}
+
+.ctt-bagde-padding{
+    padding: 0 0 0 13px;        /* top, right, bottom, left   */
+}
+
+/* CTT Help Blockquotes */
+
+.ctt-blockquote{
+    border-left-color: #337ab7;
+    background-color: #e2e2e2;
+    font-size: unset;
+}
+
+/* CTT Pre-loader */
+
+.no-js #loader { display: none; }                                         /* Used if no JavaScript is actived */
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }  /* Used if JavaScript is actived */
+.se-pre-con {                                                             /* Used to define the gif animation and screen preperties */
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(../img/ctt-preloader.gif) center repeat #000;         /* Preloader animation */
+}
+
+/* 2018-07-21 : Bootstrap Tooltips */
+
+.ctt-tooltip + .tooltip > .tooltip-inner {                               /* Used to customizing the ToolTip properties */
+    text-align: center;
+    background-color: rgba(255,142,0,1);
+    color: #fff;
+    border: 0px solid rgba(255,142,0,1);
+    border-radius: 3px;
+    padding: 5px 10px 5px 10px;  /* top, right, bottom, left   */
+    font-size: 12px;
+}
+
+/* Tooltip on top */
+.ctt-tooltip + .tooltip.top > .tooltip-arrow {
+    border-top: 5px solid rgba(255,142,0,1);
+}
+/* Tooltip on bottom */
+.ctt-tooltip + .tooltip.bottom > .tooltip-arrow {
+    border-bottom: 5px solid rgba(255,142,0,1);
+}
+/* Tooltip on left */
+.ctt-tooltip + .tooltip.left > .tooltip-arrow {
+    border-left: 5px solid rgba(255,142,0,1);
+}
+/* Tooltip on right */
+.ctt-tooltip + .tooltip.right > .tooltip-arrow {
+    border-right: 5px solid rgba(255,142,0,1);
+}

@@ -55,10 +55,10 @@ $randomBg = rand(1,11);;
 </header>
 
 <!-- Orange ribbon decoration -->
-<section id="work-area-index" class="ctt-section bg-secondary">
+<section class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <!-- CTT water mark background logo decoration -->
-        <div class="row"><div class="ctt-water-mark"></div></div>
+        <div id="work-area-index" class="row"><div class="ctt-water-mark"></div></div>
     </div>
 </section>
 
@@ -79,7 +79,7 @@ $randomBg = rand(1,11);;
             <?php
             echo "|&nbsp;";
             foreach(Yii::$app->params['languages'] as $key => $language){
-                echo "<a href=\"#lang-". $key ."\" class=\"language\" id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
+                echo "<a href=\"#lang-".$key."\" class=\"language\" data-toggle=\"tooltip\" title=\"".Yii::t('app','Cambiar Idioma')."\" id='".$key."'>".trim($language)."</a>" . "&nbsp;|&nbsp;" ;
             }
             ?>
         </div>

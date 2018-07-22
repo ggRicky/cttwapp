@@ -45,7 +45,7 @@ $randomBg = rand(1,11);;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -167,7 +167,7 @@ $randomBg = rand(1,11);;
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-question-sign"></span></div>
                         <div class="col-sm-7"><h4 class="modal-title">Pregunta</h4></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 

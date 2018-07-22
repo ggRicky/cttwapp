@@ -16,7 +16,7 @@ use kartik\file\FileInput;
     <?= $form->field($model, 'imageFile')->widget(FileInput::class, ['options' => ['accept' => 'image/*'],]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app','Enviar'), ['class' => 'btn btn-success btn-ctt-fixed-width', 'title' => Yii::t('app', 'Cargar la imagen de este inventario.')]) ?>
+        <?= Html::submitButton(Yii::t('app','Enviar'), ['class' => 'btn btn-success btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Cargar la imagen de este inventario.')]) ?>
     </div>
 
 <?php ActiveForm::end() ?>

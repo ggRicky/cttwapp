@@ -69,7 +69,7 @@ $randomBg = rand(1,11);;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -94,14 +94,14 @@ $randomBg = rand(1,11);;
             <!-- 2018-05-23 : If there is an flash message, then display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
             <!-- 2018-05-25 : Flash success message. -->
             <?php elseif (Yii::$app->session->hasFlash('success')): ?>
                 <div id="auto-close" class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>
@@ -160,11 +160,17 @@ $randomBg = rand(1,11);;
                                 'buttons' => [
                                     'update' => function ($url) use ($dataProvider) {
                                         $url .= '&page=' . ($dataProvider->pagination->page + 1);
-                                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url);
+                                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                            'data-toggle' => 'tooltip',
+                                            'title' => Yii::t('app', 'Actualizar'),    // 2018-07-21 : Adds the tooltip Update
+                                        ]);
                                     },
                                     'view' => function ($url) use ($dataProvider) {
                                         $url .= '&page=' . ($dataProvider->pagination->page + 1);
-                                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url);
+                                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                            'data-toggle' => 'tooltip',
+                                            'title' => Yii::t('app', 'Ver'),           // 2018-07-21 : Adds the tooltip View
+                                        ]);
                                     },
                                 ],
                             ],
@@ -263,7 +269,7 @@ $randomBg = rand(1,11);;
                 <?php Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
 
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>

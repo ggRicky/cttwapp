@@ -24,7 +24,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <!-- 2018-05-07 : If there is an flash message, then display it.-->
     <?php if (Yii::$app->session->hasFlash('warning')): ?>
         <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+            <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
             <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
             <p><?= Yii::$app->session->getFlash('warning') ?></p>
         </div>
@@ -115,13 +115,13 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <?php
         // 2018-07-08 : Uploads the inventory's picture if the user is in modify mode.
         if (!$model->isNewRecord) {
-            echo Html::a(Yii::t('app','Asignar Imagen'), ['site/upload', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-ctt-warning btn-ctt-fixed-width', 'title' => Yii::t('app', 'Cargar la imagen para este artículo.')]);
+            echo Html::a(Yii::t('app','Asignar Imagen'), ['site/upload', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-ctt-warning btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Cargar la imagen para este artículo.')]);
 
             // 2018-07-10 : To get the image path and filename.
             $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
             // 2018-07-10 : Test for the right file type
             if (file_exists($file_name.'.jpg') || file_exists($file_name.'.png'))
-                echo Html::tag('span', '', ['class' => 'btn glyphicon glyphicon-camera', 'title' => Yii::t('app', 'Artículo con imagen asignada.')]);
+                echo Html::tag('span', '', ['class' => 'btn glyphicon glyphicon-camera', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Artículo con imagen asignada.')]);
         }
     ?>
 </div>

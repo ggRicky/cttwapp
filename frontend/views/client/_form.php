@@ -23,7 +23,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <!-- 2018-05-07 : If there is an flash message, then display it.-->
     <?php if (Yii::$app->session->hasFlash('warning')): ?>
         <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+            <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
             <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
             <p><?= Yii::$app->session->getFlash('warning') ?></p>
         </div>

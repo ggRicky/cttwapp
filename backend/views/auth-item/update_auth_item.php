@@ -27,11 +27,11 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 ?>
 
 <!-- Orange ribbon decoration -->
-<section id="work-view-area" class="ctt-section bg-secondary">
+<section class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
-            <div class="ctt-water-mark"></div>
+            <div id="work-view-area" class="ctt-water-mark"></div>
         </div>
     </div>
 </section>
@@ -42,7 +42,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['auth-item/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['auth-item/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 

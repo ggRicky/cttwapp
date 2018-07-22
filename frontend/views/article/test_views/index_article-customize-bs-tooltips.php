@@ -114,7 +114,7 @@ $randomBg = rand(1,11);;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width ctt-tooltip', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -219,7 +219,7 @@ $randomBg = rand(1,11);;
                                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,
                                             [
                                                 'data-toggle' => 'tooltip',
-                                                'title'       => Yii::t('app', 'Eliminar'),   // 2018-06-03 : Adds the tooltip Delete
+                                                'title'   => Yii::t('app', 'Eliminar'),       // 2018-06-03 : Adds the tooltip Delete
                                                 'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
                                                 'onMouseOver' => 'this.style.color=\'#f00\'',                  // 2018-06-06 : When mouse is hover on the link, the color changes
                                                 'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to red advising danger in delete operation.

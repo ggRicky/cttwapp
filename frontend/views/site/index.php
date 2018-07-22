@@ -95,7 +95,7 @@ $randomBg = rand(1,11);;
             <!-- 2018-06-23 : Flash error message no auto-closable. -->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div class="alert alert-error alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
@@ -104,7 +104,7 @@ $randomBg = rand(1,11);;
             <!-- 2018-06-23 : Flash warning message no auto-closable. -->
             <?php if (Yii::$app->session->hasFlash('warning')): ?>
                 <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
@@ -113,7 +113,7 @@ $randomBg = rand(1,11);;
             <!-- 2018-06-23 : Flash success message no auto-closable. -->
             <?php if (Yii::$app->session->hasFlash('success')): ?>
                 <div class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>

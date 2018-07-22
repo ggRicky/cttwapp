@@ -45,7 +45,7 @@ $randomBg = rand(1,11);;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -85,7 +85,7 @@ $randomBg = rand(1,11);;
                         <th><?= Yii::t('app','Plataforma') ?></th><td><?= Yii::t('app','Yii versión 2.0') ?></td>
                     </tr>
                     <tr>
-                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2018-07-16 &nbsp;&nbsp;&nbsp; 13:05 Hrs.</td>
+                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2018-07-21 &nbsp;&nbsp;&nbsp; 22:01 Hrs.</td>
                     </tr>
                     </tbody>
                 </table>

@@ -50,11 +50,11 @@ $randomBg = rand(1,11);;
 </header>
 
 <!-- Orange ribbon decoration -->
-<section id="work-area-index" class="ctt-section bg-secondary">
+<section class="ctt-section bg-secondary">
     <div class="col-lg-12">
         <div class="row">
             <!-- CTT water mark background logo decoration -->
-            <div class="ctt-water-mark"></div>
+            <div id="work-area-index" class="ctt-water-mark"></div>
         </div>
     </div>
 </section>
@@ -85,14 +85,14 @@ $randomBg = rand(1,11);;
             <!-- 2018-04-08 : If there is an flash error message, then display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div id="auto-close" class="alert alert-error alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
             <!-- 2018-05-25 : Flash warning message. -->
             <?php elseif (Yii::$app->session->hasFlash('warning')): ?>
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>

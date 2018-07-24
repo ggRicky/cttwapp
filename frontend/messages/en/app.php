@@ -13,12 +13,14 @@ return ([
     // General application messages
 
     '¿ Está seguro de eliminar este elemento ?' => 'Are you sure you want to delete this item ?',
+    'Abrir Panel de Navegación' => 'Open Navigation Panel',
     'Aceptar' => 'Ok',
     'Activar código de colores' => 'Activate color code',
     'Bienvenido' => 'Welcome',
     'Cambiar Idioma' => 'Change language',
     'Campo Requerido' => 'Required Field',
     'Cancelar' => 'Cancel',
+    'Cerrar Panel de Navegación' => 'Close Navigation Panel',
     'Desactivar código de colores' => 'Disable color code',
     'Descarta la operación' => 'Discard the operation',
     'El registro se ha eliminado del sistema exitosamente.' => 'The registry has been successfully removed from the system.',

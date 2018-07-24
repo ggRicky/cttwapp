@@ -56,26 +56,8 @@ $randomBg = rand(1,11);
 
 ?>
 
-<!-- Navigation -->
-<!-- Open menu button -->
-<a id="menu-toggle" href="#" class="btn btn-dark btn-lg btn-toggle"><i class="fa fa-bars"></i></a>
-
-<nav id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-        <!-- Close menu button -->
-        <div class="sidebar-top">
-            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right btn-toggle"><i class="fa fa-times"></i></a>
-        </div>
-
-        <!-- CTT mini-logo ribbon -->
-        <div class="container-fluid ctt-mini-logo-top">
-            <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="pull-left img-responsive" height="42" width="105"/>
-        </div>
-
-        <!-- Includes the menu options file -->
-        <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_view_menu_options_bke.inc'); ?>
-    </ul>
-</nav>
+<!-- Includes Navigation Bar -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_menu_navbar_bke.inc'); ?>
 
 <!-- Header -->
 <header id="top">
@@ -152,7 +134,7 @@ $randomBg = rand(1,11);
                 <?php Pjax::begin(); ?>
 
                     <p>
-                        <?= Html::a(Yii::t('app', 'Crear') ." ". Yii::t('app', 'Objeto de Autorización'), ['create', 'page'=>Yii::$app->getRequest()->getQueryParam('page')], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a(Yii::t('app', 'Crear') ." ". Yii::t('app', 'Objeto de Autorización'), ['create', 'page'=>Yii::$app->getRequest()->getQueryParam('page')], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de autorización')]) ?>
                     </p>
 
                     <div id="div-scroll" class="div-scroll-area-horizon">

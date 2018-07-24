@@ -333,7 +333,7 @@ $randomBg = rand(1,11);;
                 <div class="row">
                      <span>
                         <script language="JavaScript" type="text/javascript">
-                            TrustLogo("https://www.ctt-app.com/assets/bf100e74/img/comodo_secure_seal_100x85_transp.png", "CL1", "none");
+                            TrustLogo("<?=$baseUrl."/img/comodo_secure_seal_100x85_transp.png"?>", "CL1", "none");
                         </script>
                         <a href="https://www.positivessl.com/" id="comodoTL" >Positive SSL</a>
                      </span>

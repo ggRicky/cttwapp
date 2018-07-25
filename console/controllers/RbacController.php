@@ -637,7 +637,8 @@ class RbacController extends Controller
         $auth->add($userCTT);
 
         // Adds basic roles to list entities
-        $auth->addChild($userCTT, $adminSite);             // Grant access to admin all site process.
+        $auth->addChild($userCTT, $accessMain);            // Grant access only to the site main index.
+        $auth->addChild($userCTT, $adminSite);             // Grant access to admin site process.
         $auth->addChild($userCTT, $viewHelp);              // Grant access to view the cttwapp help.
         $auth->addChild($userCTT, $userClient);            // Grant access to list client entities.
         $auth->addChild($userCTT, $userClientType);        // Grant access to list client type entities.
@@ -660,6 +661,8 @@ class RbacController extends Controller
         $auth->add($inventoryCTT);
 
         // Adds all roles to list entities
+        $auth->addChild($inventoryCTT, $accessMain);           // Grant access only to the site main index.
+        $auth->addChild($inventoryCTT, $adminSite);            // Grant access to admin site process.
         $auth->addChild($inventoryCTT, $viewHelp);             // Grant access to view the cttwapp help.
         $auth->addChild($inventoryCTT, $adminBrand);           // Grant access to admin all brand process.
         $auth->addChild($inventoryCTT, $adminCatalog);         // Grant access to admin all catalog process.
@@ -676,6 +679,8 @@ class RbacController extends Controller
         $auth->add($marketingCTT);
 
         // Adds all roles to list entities
+        $auth->addChild($marketingCTT, $accessMain);           // Grant access only to the site main index.
+        $auth->addChild($marketingCTT, $adminSite);            // Grant access to admin site process.
         $auth->addChild($marketingCTT, $viewHelp);             // Grant access to view the cttwapp help.
         $auth->addChild($marketingCTT, $adminClient);          // Grant access to admin all client process.
         $auth->addChild($marketingCTT, $adminClientType);      // Grant access to admin all client type process.
@@ -694,6 +699,8 @@ class RbacController extends Controller
         $auth->add($superCTT);
 
         // Adds all roles to list entities
+        $auth->addChild($superCTT, $accessMain);           // Grant access only to the site main index.
+        $auth->addChild($superCTT, $adminSite);            // Grant access to admin site process.
         $auth->addChild($superCTT, $viewHelp);             // Grant access to view the cttwapp help.
         $auth->addChild($superCTT, $adminClient);          // Grant access to admin all client process.
         $auth->addChild($superCTT, $adminClientType);      // Grant access to admin all client type process.
@@ -716,7 +723,8 @@ class RbacController extends Controller
         $auth->add($adminCTT);
 
         // Adds all the roles and permissions
-        $auth->addChild($adminCTT, $adminSite);            // Grant access to admin all site process.
+        $auth->addChild($adminCTT, $accessMain);           // Grant access only to the site main index.
+        $auth->addChild($adminCTT, $adminSite);            // Grant access to admin site process.
         $auth->addChild($adminCTT, $viewHelp);             // Grant access to view the cttwapp help.
         $auth->addChild($adminCTT, $adminProcess);         // Grant access to special admin process.
         $auth->addChild($adminCTT, $adminClient);          // Grant access to admin all client process.

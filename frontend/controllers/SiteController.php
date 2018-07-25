@@ -78,7 +78,7 @@ class SiteController extends Controller
     {
         // 2018-05-25 : Yii2 Rbac - Validates the access.
 
-        if (\Yii::$app->user->can('adminSite') || \Yii::$app->user->can('userGuest')) {
+        if (\Yii::$app->user->can('accessMain')) {
             return $this->render('index');
         }
 
@@ -296,7 +296,7 @@ class SiteController extends Controller
     {
         // 2018-05-25 : Yii2 Rbac - Validates the access.
 
-        if (\Yii::$app->user->can('adminSite')) {
+        if (\Yii::$app->user->can('viewHelp')) {
             return $this->render('help');
         }
 

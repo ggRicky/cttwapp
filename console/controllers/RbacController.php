@@ -615,16 +615,16 @@ class RbacController extends Controller
 
 
 
-        // Role : $userGuest
-        // -----------------
+        // Role : guestCTT
+        // ----------------
 
-        // Creates the role 'userGuest' and give only the permissions to access the site main index.
-        $userGuest = $auth->createRole('userGuest');
-        $userGuest->description = 'Role : Defines a guest user with only permission to access the main index.';
-        $auth->add($userGuest);
+        // Creates the role 'guestCTT' and give only the permissions to access the site main index.
+        $guestCTT = $auth->createRole('guestCTT');
+        $guestCTT->description = 'Role : Defines a guest user with only permission to access the main index.';
+        $auth->add($guestCTT);
 
         // Adds basic permission
-        $auth->addChild($userGuest, $accessMain);          // Grant access only to the site main index.
+        $auth->addChild($guestCTT, $accessMain);          // Grant access only to the site main index.
 
 
 
@@ -648,6 +648,62 @@ class RbacController extends Controller
         $auth->addChild($userCTT, $userProject);           // Grant access to list project entities.
         $auth->addChild($userCTT, $userReservation);       // Grant access to list reservation entities.
         $auth->addChild($userCTT, $userMarketRate);        // Grant access to list market rate entities.
+
+
+
+        // Role : inventoryCTT
+        // -------------------
+
+        // Creates the role 'inventoryCTT' and grants to it all the available permissions for the Articles, Catalogs and Brands entities.
+        $inventoryCTT = $auth->createRole('inventoryCTT');
+        $inventoryCTT->description = 'Role : Defines a default CTT inventory user and grants all the available permissions.';
+        $auth->add($inventoryCTT);
+
+        // Adds all roles to list entities
+        $auth->addChild($inventoryCTT, $viewHelp);             // Grant access to view the cttwapp help.
+        $auth->addChild($inventoryCTT, $adminBrand);           // Grant access to admin all brand process.
+        $auth->addChild($inventoryCTT, $adminCatalog);         // Grant access to admin all catalog process.
+        $auth->addChild($inventoryCTT, $adminArticle);         // Grant access to admin all article process.
+
+
+
+        // Role : marketingCTT
+        // -------------------
+
+        // Creates the role 'marketingCTT' and grants to it all the available permissions for the Clients and Articles entities.
+        $marketingCTT = $auth->createRole('marketingCTT');
+        $marketingCTT->description = 'Role : Defines a default CTT marketing user and grants all the available permissions.';
+        $auth->add($marketingCTT);
+
+        // Adds all roles to list entities
+        $auth->addChild($marketingCTT, $viewHelp);             // Grant access to view the cttwapp help.
+        $auth->addChild($marketingCTT, $adminClient);          // Grant access to admin all client process.
+        $auth->addChild($marketingCTT, $adminClientType);      // Grant access to admin all client type process.
+        $auth->addChild($marketingCTT, $adminBrand);           // Grant access to admin all brand process.
+        $auth->addChild($marketingCTT, $adminCatalog);         // Grant access to admin all catalog process.
+        $auth->addChild($marketingCTT, $adminArticle);         // Grant access to admin all article process.
+
+
+
+        // Role : superCTT
+        // ---------------
+
+        // Creates the role 'superCTT' and grants to it all the available permissions in the CTTwapp application.
+        $superCTT = $auth->createRole('superCTT');
+        $superCTT->description = 'Role : Defines a default CTT super user and grants all the available permissions.';
+        $auth->add($superCTT);
+
+        // Adds all roles to list entities
+        $auth->addChild($superCTT, $viewHelp);             // Grant access to view the cttwapp help.
+        $auth->addChild($superCTT, $adminClient);          // Grant access to admin all client process.
+        $auth->addChild($superCTT, $adminClientType);      // Grant access to admin all client type process.
+        $auth->addChild($superCTT, $adminBrand);           // Grant access to admin all brand process.
+        $auth->addChild($superCTT, $adminCatalog);         // Grant access to admin all catalog process.
+        $auth->addChild($superCTT, $adminArticle);         // Grant access to admin all article process.
+        $auth->addChild($superCTT, $adminInventory);       // Grant access to admin all inventory entities.
+        $auth->addChild($superCTT, $adminProject);         // Grant access to admin all project entities.
+        $auth->addChild($superCTT, $adminReservation);     // Grant access to admin all reservation entities.
+        $auth->addChild($superCTT, $adminMarketRate);      // Grant access to admin all market rate entities.
 
 
 
@@ -681,8 +737,10 @@ class RbacController extends Controller
         // Assigns the role adminCTT to the admin user.
 
         $auth->assign($adminCTT, 1);                 // Assign the adminCTT role to the UserId = 1
-        $auth->assign($userCTT, 2);                  // Assign the userCTT role to the UserId = 2
-        $auth->assign($userGuest, 3);                // Assign the userTest role to the UserId = 3
+        $auth->assign($superCTT, 2);                 // Assign the superCTT role to the UserId = 2
+        $auth->assign($marketingCTT, 3);             // Assign the marketingCTT role to the UserId = 3
+        $auth->assign($inventoryCTT, 4);             // Assign the inventoryCTT role to the UserId = 4
+        $auth->assign($guestCTT, 5);                 // Assign the guestCTT role to the UserId = 5
     }
 
     public function actionDown()

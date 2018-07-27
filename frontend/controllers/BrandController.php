@@ -35,14 +35,24 @@ class BrandController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new BrandSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (\Yii::$app->user->can('listBrand')) {
+            $searchModel = new BrandSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index_brand', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'qryParams' => Yii::$app->request->queryParams,   // 2018-05-08 : This parameter is send to index_brand.php view for test if 'BrandSearch'
-        ]);
+            return $this->render('index_brand', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'qryParams' => Yii::$app->request->queryParams,   // 2018-05-08 : This parameter is send to index_brand.php view for test if 'BrandSearch'
+            ]);
+        }
+        else {
+            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest())
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+            else
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['site/index', 'hash' => '0']);
     }
 
     /**
@@ -58,6 +68,11 @@ class BrandController extends Controller
             return $this->render('view_brand', ['model' => $this->findModel($id),]);
         }
         else {
+            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
         return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
@@ -88,6 +103,11 @@ class BrandController extends Controller
             return $this->render('create_brand', ['model' => $model, 'page' => $page]);
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
             return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
         }
@@ -120,10 +140,14 @@ class BrandController extends Controller
             return $this->render('update_brand', ['model' => $model, 'page' => $page]);
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
         }
-
-        return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
@@ -141,11 +165,14 @@ class BrandController extends Controller
             }
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-
         return $this->redirect(['brand/index', 'page' => $page, 'hash' => '0']);
-
     }
 
     /**

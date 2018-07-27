@@ -35,14 +35,24 @@ class CatalogController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CatalogSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (\Yii::$app->user->can('listCatalog')) {
+            $searchModel = new CatalogSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index_catalog', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_catalog.php view for test if 'CatalogSearch'
-        ]);
+            return $this->render('index_catalog', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_catalog.php view for test if 'CatalogSearch'
+            ]);
+        }
+        else {
+            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest())
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+            else
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['site/index', 'hash' => '0']);
     }
 
     /**
@@ -51,12 +61,17 @@ class CatalogController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $page)
     {
         if (\Yii::$app->user->can('viewCatalog')) {
             return $this->render('view_catalog', ['model' => $this->findModel($id),]);
         }
         else {
+            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
         return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
@@ -87,6 +102,11 @@ class CatalogController extends Controller
             return $this->render('create_catalog', ['model' => $model, 'page' => $page]);
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
             return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
         }
@@ -120,10 +140,14 @@ class CatalogController extends Controller
             return $this->render('update_catalog', ['model' => $model, 'page' => $page]);
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
         }
-
-        return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
@@ -141,9 +165,13 @@ class CatalogController extends Controller
             }
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-
         return $this->redirect(['catalog/index', 'page' => $page, 'hash' => '0']);
     }
 

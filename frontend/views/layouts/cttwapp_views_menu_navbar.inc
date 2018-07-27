@@ -18,3 +18,5 @@
         <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_menu_options.inc'); ?>
     </ul>
 </nav>
+
+<!-- Ends the include file -->

@@ -76,8 +76,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        // 2018-05-25 : Yii2 Rbac - Validates the access.
-
+        // 2018-05-25 : Yii2 Rbac - Validates the access to the main page.
         if (\Yii::$app->user->can('accessMain')) {
             return $this->render('index');
         }
@@ -96,7 +95,6 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             // 2018-05-06 : This method were refactoring for issue a warning message in an wrong access operation.
-
             if ($model->login()){
                 // Access success
 
@@ -118,7 +116,6 @@ class SiteController extends Controller
 
             // Access error
             // 2018-05-06 : An error occurred in the login process. A flash message is issued.
-
             Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a su atentificación.'));
             return $this->render('login', [
                 'model' => $model,
@@ -151,7 +148,6 @@ class SiteController extends Controller
     public function actionContact()
     {
         // 2018-05-25 : Yii2 Rbac - Validates the access.
-
         if (\Yii::$app->user->can('adminSite')) {
             $model = new ContactForm();
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -167,9 +163,10 @@ class SiteController extends Controller
                 ]);
             }
         }
+        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        // 2018-07-27 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
+        return $this->redirect(['site/index', 'hash' => '0']);
 
-        Yii::$app->session->setFlash('forbiddenAccess', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-        return $this->redirect(['site/index']);
     }
 
     /**
@@ -180,13 +177,13 @@ class SiteController extends Controller
     public function actionAbout()
     {
         // 2018-05-25 : Yii2 Rbac - Validates the access.
-
         if (\Yii::$app->user->can('adminSite')) {
             return $this->render('about');
         }
 
-        Yii::$app->session->setFlash('forbiddenAccess', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-        return $this->redirect(['site/index']);
+        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        // 2018-07-27 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
+        return $this->redirect(['site/index', 'hash' => '0']);
     }
 
     /**
@@ -204,7 +201,6 @@ class SiteController extends Controller
                     if (Yii::$app->getUser()->login($user)) {
 
                         // 2018-05-23 : Display an welcome message window to the new user.
-
                         // Signup success
 
                         $str1 = Yii::t('app', 'Bienvenido');
@@ -218,7 +214,6 @@ class SiteController extends Controller
                 }
 
                 // 2018-04-08 : An error occurred in the captured data. A flash message is issued.
-
                 Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
                 return $this->render('signup', [
                     'model' => $model,
@@ -295,13 +290,13 @@ class SiteController extends Controller
     public function actionHelp()
     {
         // 2018-05-25 : Yii2 Rbac - Validates the access.
-
         if (\Yii::$app->user->can('viewHelp')) {
             return $this->render('help');
         }
 
-        Yii::$app->session->setFlash('forbiddenAccess', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-        return $this->redirect(['site/index']);
+        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        // 2018-07-27 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
+        return $this->redirect(['site/index', 'hash' => '0']);
     }
 
     /**
@@ -335,16 +330,21 @@ class SiteController extends Controller
     {
         $model = new UploadForm();
 
-        if (Yii::$app->request->isPost) {
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-            if ($model->upload($id)) {
-                // file is uploaded successfully
-                Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue cargado, validado y almacenado exitosamente.'));
+        // 2018-07-27 : Yii2 Rbac - Validates the access to uploads files.
+        if (\Yii::$app->user->can('uploadFile')) {
+            if (Yii::$app->request->isPost) {
+                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                if ($model->upload($id)) {
+                    // file is uploaded successfully
+                    Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue cargado, validado y almacenado exitosamente.'));
+                }
+                else
+                    // file wasn't uploaded correctly
+                    Yii::$app->session->setFlash('error', Yii::t('app','El archivo no fue cargado correctamente, por favor intente de nuevo.'));
             }
-            else
-                // file wasn't uploaded correctly
-                Yii::$app->session->setFlash('error', Yii::t('app','El archivo no fue cargado correctamente, por favor intente de nuevo.'));
         }
+        else
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
 
         return $this->render('upload_file', ['model' => $model, 'id' => $id]);
     }

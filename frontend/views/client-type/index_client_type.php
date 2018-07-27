@@ -10,13 +10,6 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $qryParams */
 
-// 2018-06-09 : If the user isn't authenticated, then redirect him to the login form.
-if (Yii::$app->user->getIsGuest()){
-    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
-    Yii::$app->response->redirect(Url::to(['site/login'], true));
-    return;
-}
-
 $this->title = 'Tipos de Clientes';
 $description = 'Listado Nominal';
 
@@ -128,121 +121,106 @@ $randomBg = rand(1,11);;
                 </div>
             <?php endif; ?>
 
-            <!-- 2018-05-23 : Yii2 Rbac - Validates the access. -->
-            <?php if (\Yii::$app->user->can('listClientType')): ?>
+            <!-- 2018-05-28 : Begin the ajax functionality to refresh only the GridView widget contents. -->
+            <?php Pjax::begin(); ?>
 
-                <!-- 2018-05-28 : Begin the ajax functionality to refresh only the GridView widget contents. -->
-                <?php Pjax::begin(); ?>
+                <p>
+                    <?= Html::a(Yii::t('app', 'Crear Nuevo Tipo de Cliente'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de tipo de cliente')]) ?>
+                </p>
 
-                    <p>
-                        <?= Html::a(Yii::t('app', 'Crear Nuevo Tipo de Cliente'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de tipo de cliente')]) ?>
-                    </p>
+                <!-- 2018-04-13 : The next div including the id and class elements, enable the vertical and horizontal scrollbars. -->
+                <div id="div-scroll" class="div-scroll-area-horizon">
 
-                    <!-- 2018-04-13 : The next div including the id and class elements, enable the vertical and horizontal scrollbars. -->
-                    <div id="div-scroll" class="div-scroll-area-horizon">
-
-                        <?= GridView::widget([
-                            'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'columns' => [
-                                [
-                                    'class' => 'yii\grid\ActionColumn',
-                                    'headerOptions' => ['style' => 'width:5%'],
-                                    'template' => '{view} {update} {delete}',
-                                    'buttons' => [
-                                        // 2018-05-27 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
-                                        'view' => function ($url) {
-                                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'headerOptions' => ['style' => 'width:5%'],
+                                'template' => '{view} {update} {delete}',
+                                'buttons' => [
+                                    // 2018-05-27 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
+                                    'view' => function ($url) {
+                                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                            'data-toggle' => 'tooltip',
+                                            'title' => Yii::t('app', 'Ver'),           // 2018-05-28 : Adds the tooltip View
+                                        ]);
+                                    },
+                                    // 2018-05-27 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
+                                    'update' => function ($url) {
+                                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                            'data-toggle' => 'tooltip',
+                                            'title' => Yii::t('app', 'Modificar') ,     // 2018-05-28 : Adds the tooltip Modify
+                                        ]);
+                                    },
+                                    // 2018-05-29 : Adds a new delete action to customize the window modal alert.
+                                    'delete' => function($url, $model) {
+                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,
+                                            [
                                                 'data-toggle' => 'tooltip',
-                                                'title' => Yii::t('app', 'Ver'),           // 2018-05-28 : Adds the tooltip View
+                                                'title'       => Yii::t('app', 'Eliminar'),   // 2018-05-28 : Adds the tooltip Delete
+                                                'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
+                                                'onMouseOver' => 'this.style.color=\'#f00\'',                  // 2018-06-06 : When mouse is hover on the link, the color changes
+                                                'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to red advising danger in delete operation.
+                                                // 2018-05-31 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
+                                                // and displayed in the modal window.
+                                                'data' => [
+                                                    // 2018-05-28 : Adds to the modal title the row id, like a warning information.
+                                                    'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),
+                                                ],
+                                                // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
+                                                // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
+                                                // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
+                                                // In this case the 'data-confirm' parameter must be empty.
+                                                'data-confirm' => '',
+                                                //  2018-05-31 : The next two parameters are needed to complete teh right call to the action delete, because it will be made using the post method.
+                                                'data-method' => 'post',
+                                                'data-pjax' => '0',
                                             ]);
-                                        },
-                                        // 2018-05-27 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
-                                        'update' => function ($url) {
-                                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                                                'data-toggle' => 'tooltip',
-                                                'title' => Yii::t('app', 'Modificar') ,     // 2018-05-28 : Adds the tooltip Modify
-                                            ]);
-                                        },
-                                        // 2018-05-29 : Adds a new delete action to customize the window modal alert.
-                                        'delete' => function($url, $model) {
-                                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,
-                                                [
-                                                    'data-toggle' => 'tooltip',
-                                                    'title'       => Yii::t('app', 'Eliminar'),   // 2018-05-28 : Adds the tooltip Delete
-                                                    'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
-                                                    'onMouseOver' => 'this.style.color=\'#f00\'',                  // 2018-06-06 : When mouse is hover on the link, the color changes
-                                                    'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to red advising danger in delete operation.
-                                                    // 2018-05-31 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
-                                                    // and displayed in the modal window.
-                                                    'data' => [
-                                                        // 2018-05-28 : Adds to the modal title the row id, like a warning information.
-                                                        'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),
-                                                    ],
-                                                    // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
-                                                    // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
-                                                    // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
-                                                    // In this case the 'data-confirm' parameter must be empty.
-                                                    'data-confirm' => '',
-                                                    //  2018-05-31 : The next two parameters are needed to complete teh right call to the action delete, because it will be made using the post method.
-                                                    'data-method' => 'post',
-                                                    'data-pjax' => '0',
-                                                ]);
-                                        },
-                                    ],
-                                    // 2018-05-28 : Adds an url that include the current page in GridView widget.
-                                    'urlCreator' => function ($action, $model)  use ($dataProvider) {
-                                        if ($action === 'delete') {
-                                            $url = Url::to(['client-type/delete', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
-                                        }
-                                        elseif ($action === 'view') {
-                                            $url = Url::to(['client-type/view', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
-                                        }
-                                        elseif ($action === 'update') {
-                                            $url = Url::to(['client-type/update', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
-                                        }
-                                        else $url = null;
-
-                                        // 2018-05-29 : If null value is returned, the url created have only home page address plus &page parameter. The right value is return $url.
-                                        return $url;
+                                    },
+                                ],
+                                // 2018-05-28 : Adds an url that include the current page in GridView widget.
+                                'urlCreator' => function ($action, $model)  use ($dataProvider) {
+                                    if ($action === 'delete') {
+                                        $url = Url::to(['client-type/delete', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                     }
-                                ],
+                                    elseif ($action === 'view') {
+                                        $url = Url::to(['client-type/view', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    }
+                                    elseif ($action === 'update') {
+                                        $url = Url::to(['client-type/update', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    }
+                                    else $url = null;
 
-                                [
-                                    'class' => 'yii\grid\SerialColumn',
-                                    'headerOptions' => ['style' => 'width:5%'],
-                                ],
-
-                                [
-                                    'attribute' => 'id',
-                                    'headerOptions' => ['style' => 'width:5%'],
-                                ],
-
-                                [
-                                    'attribute' => 'type_desc',
-                                    'headerOptions' => ['style' => 'width:85%'],
-                                ],
+                                    // 2018-05-29 : If null value is returned, the url created have only home page address plus &page parameter. The right value is return $url.
+                                    return $url;
+                                }
                             ],
 
-                            'layout' => '{summary}{items}{pager}',
-                        ]);?>
+                            [
+                                'class' => 'yii\grid\SerialColumn',
+                                'headerOptions' => ['style' => 'width:5%'],
+                            ],
 
-                    </div>
+                            [
+                                'attribute' => 'id',
+                                'headerOptions' => ['style' => 'width:5%'],
+                            ],
 
-                <!-- 2018-05-28 : Ends the ajax functionality to refresh only the GridView widget contents. -->
-                <?php Pjax::end(); ?>
+                            [
+                                'attribute' => 'type_desc',
+                                'headerOptions' => ['style' => 'width:85%'],
+                            ],
+                        ],
 
-            <?php else: ?>
+                        'layout' => '{summary}{items}{pager}',
+                    ]);?>
 
-                <?php Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
-
-                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
-                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
-                    <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
 
-            <?php endif; ?>
+            <!-- 2018-05-28 : Ends the ajax functionality to refresh only the GridView widget contents. -->
+            <?php Pjax::end(); ?>
 
             <br/>
 

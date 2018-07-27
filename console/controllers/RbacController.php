@@ -28,7 +28,7 @@ class RbacController extends Controller
         $auth->removeAll();
 
 
-        // Defines all the permissions for cttwapp system
+        // Defines all the permissions for CTTwapp system
         // -----------------------------------------------
 
 
@@ -37,7 +37,7 @@ class RbacController extends Controller
 
         // Adds "adminSite" permission
         $adminSite = $auth->createPermission('adminSite');
-        $adminSite->description = 'Permission : Allows to admin site actions in the cttwapp system.';
+        $adminSite->description = 'Permission : Allows to admin site actions in the CTTwapp system.';
         $auth->add($adminSite);
 
 
@@ -46,7 +46,7 @@ class RbacController extends Controller
 
         // Adds "adminProcess" permission
         $adminProcess = $auth->createPermission('adminProcess');
-        $adminProcess->description = 'Permission : Allows access to the admin process in the cttwapp system.';
+        $adminProcess->description = 'Permission : Allows access to the admin process in the CTTwapp system.';
         $auth->add($adminProcess);
 
 
@@ -55,9 +55,17 @@ class RbacController extends Controller
 
         // Adds "accessMain" permission
         $accessMain = $auth->createPermission('accessMain');
-        $accessMain->description = 'Permission : Allows to access the cttwapp system site main index.';
+        $accessMain->description = 'Permission : Allows to access the CTTwapp system site main index.';
         $auth->add($accessMain);
 
+
+        // Defines the permissions to uploads files
+        // ----------------------------------------
+
+        // Adds "uploadFile" permission
+        $uploadFile = $auth->createPermission('uploadFile');
+        $uploadFile->description = 'Permission : Allows access to load files in to CTTwapp server.';
+        $auth->add($uploadFile);
 
 
         // Defines the permissions to access the Help module
@@ -65,7 +73,7 @@ class RbacController extends Controller
 
         // Adds "viewHelp" permission
         $viewHelp = $auth->createPermission('viewHelp');
-        $viewHelp->description = 'Permission : Allows to view the help in the cttwapp system.';
+        $viewHelp->description = 'Permission : Allows to view the help in the CTTwapp system.';
         $auth->add($viewHelp);
 
 
@@ -75,27 +83,27 @@ class RbacController extends Controller
 
         // Adds "createClientType" permission
         $createClientType = $auth->createPermission('createClientType');
-        $createClientType->description = 'Permission : Allows to create a client type in the cttwapp system.';
+        $createClientType->description = 'Permission : Allows to create a client type in the CTTwapp system.';
         $auth->add($createClientType);
 
         // Adds "updateClientType" permission
         $updateClientType = $auth->createPermission('updateClientType');
-        $updateClientType->description = 'Permission : Allows to update a client type in the cttwapp system.';
+        $updateClientType->description = 'Permission : Allows to update a client type in the CTTwapp system.';
         $auth->add($updateClientType);
 
         // Adds "viewClientType" permission
         $viewClientType = $auth->createPermission('viewClientType');
-        $viewClientType->description = 'Permission : Allows to view a client type in the cttwapp system.';
+        $viewClientType->description = 'Permission : Allows to view a client type in the CTTwapp system.';
         $auth->add($viewClientType);
 
         // Adds "deleteClientType" permission
         $deleteClientType = $auth->createPermission('deleteClientType');
-        $deleteClientType->description = 'Permission : Allows to delete a client type in the cttwapp system.';
+        $deleteClientType->description = 'Permission : Allows to delete a client type in the CTTwapp system.';
         $auth->add($deleteClientType);
 
         // Adds "listClientType" permission
         $listClientType = $auth->createPermission('listClientType');
-        $listClientType->description = 'Permission : Allows to list the client types in the cttwapp system.';
+        $listClientType->description = 'Permission : Allows to list the client types in the CTTwapp system.';
         $auth->add($listClientType);
 
 
@@ -105,27 +113,27 @@ class RbacController extends Controller
 
         // Adds "createClient" permission
         $createClient = $auth->createPermission('createClient');
-        $createClient->description = 'Permission : Allows to create a client in the cttwapp system.';
+        $createClient->description = 'Permission : Allows to create a client in the CTTwapp system.';
         $auth->add($createClient);
 
         // Adds "updateClient" permission
         $updateClient = $auth->createPermission('updateClient');
-        $updateClient->description = 'Permission : Allows to update a client in the cttwapp system.';
+        $updateClient->description = 'Permission : Allows to update a client in the CTTwapp system.';
         $auth->add($updateClient);
 
         // Adds "viewClient" permission
         $viewClient = $auth->createPermission('viewClient');
-        $viewClient->description = 'Permission : Allows to view a client in the cttwapp system.';
+        $viewClient->description = 'Permission : Allows to view a client in the CTTwapp system.';
         $auth->add($viewClient);
 
         // Adds "deleteClient" permission
         $deleteClient = $auth->createPermission('deleteClient');
-        $deleteClient->description = 'Permission : Allows to delete a client in the cttwapp system.';
+        $deleteClient->description = 'Permission : Allows to delete a client in the CTTwapp system.';
         $auth->add($deleteClient);
 
         // Adds "listClient" permission
         $listClient = $auth->createPermission('listClient');
-        $listClient->description = 'Permission : Allows to list the clients in the cttwapp system.';
+        $listClient->description = 'Permission : Allows to list the clients in the CTTwapp system.';
         $auth->add($listClient);
 
 
@@ -135,27 +143,27 @@ class RbacController extends Controller
 
         // Adds "createCatalog" permission
         $createCatalog = $auth->createPermission('createCatalog');
-        $createCatalog->description = 'Permission : Allows to create a Catalog in the cttwapp system.';
+        $createCatalog->description = 'Permission : Allows to create a Catalog in the CTTwapp system.';
         $auth->add($createCatalog);
 
         // Adds "updateCatalog" permission
         $updateCatalog = $auth->createPermission('updateCatalog');
-        $updateCatalog->description = 'Permission : Allows to update a Catalog in the cttwapp system.';
+        $updateCatalog->description = 'Permission : Allows to update a Catalog in the CTTwapp system.';
         $auth->add($updateCatalog);
 
         // Adds "viewCatalog" permission
         $viewCatalog = $auth->createPermission('viewCatalog');
-        $viewCatalog->description = 'Permission : Allows to view a Catalog in the cttwapp system.';
+        $viewCatalog->description = 'Permission : Allows to view a Catalog in the CTTwapp system.';
         $auth->add($viewCatalog);
 
         // Adds "deleteCatalog" permission
         $deleteCatalog = $auth->createPermission('deleteCatalog');
-        $deleteCatalog->description = 'Permission : Allows to delete a Catalog in the cttwapp system.';
+        $deleteCatalog->description = 'Permission : Allows to delete a Catalog in the CTTwapp system.';
         $auth->add($deleteCatalog);
 
         // Adds "listCatalog" permission
         $listCatalog = $auth->createPermission('listCatalog');
-        $listCatalog->description = 'Permission : Allows to list the Catalogs in the cttwapp system.';
+        $listCatalog->description = 'Permission : Allows to list the Catalogs in the CTTwapp system.';
         $auth->add($listCatalog);
 
 
@@ -165,27 +173,27 @@ class RbacController extends Controller
 
         // Adds "createBrand" permission
         $createBrand = $auth->createPermission('createBrand');
-        $createBrand->description = 'Permission : Allows to create a Brand in the cttwapp system.';
+        $createBrand->description = 'Permission : Allows to create a Brand in the CTTwapp system.';
         $auth->add($createBrand);
 
         // Adds "updateBrand" permission
         $updateBrand = $auth->createPermission('updateBrand');
-        $updateBrand->description = 'Permission : Allows to update a Brand in the cttwapp system.';
+        $updateBrand->description = 'Permission : Allows to update a Brand in the CTTwapp system.';
         $auth->add($updateBrand);
 
         // Adds "viewBrand" permission
         $viewBrand = $auth->createPermission('viewBrand');
-        $viewBrand->description = 'Permission : Allows to view a Brand in the cttwapp system.';
+        $viewBrand->description = 'Permission : Allows to view a Brand in the CTTwapp system.';
         $auth->add($viewBrand);
 
         // Adds "deleteBrand" permission
         $deleteBrand = $auth->createPermission('deleteBrand');
-        $deleteBrand->description = 'Permission : Allows to delete a Brand in the cttwapp system.';
+        $deleteBrand->description = 'Permission : Allows to delete a Brand in the CTTwapp system.';
         $auth->add($deleteBrand);
 
         // Adds "listBrand" permission
         $listBrand = $auth->createPermission('listBrand');
-        $listBrand->description = 'Permission : Allows to list the Brands in the cttwapp system.';
+        $listBrand->description = 'Permission : Allows to list the Brands in the CTTwapp system.';
         $auth->add($listBrand);
 
 
@@ -195,27 +203,27 @@ class RbacController extends Controller
 
         // Adds "createArticle" permission
         $createArticle = $auth->createPermission('createArticle');
-        $createArticle->description = 'Permission : Allows to create an Article in the cttwapp system.';
+        $createArticle->description = 'Permission : Allows to create an Article in the CTTwapp system.';
         $auth->add($createArticle);
 
         // Adds "updateArticle" permission
         $updateArticle = $auth->createPermission('updateArticle');
-        $updateArticle->description = 'Permission : Allows to update an Article in the cttwapp system.';
+        $updateArticle->description = 'Permission : Allows to update an Article in the CTTwapp system.';
         $auth->add($updateArticle);
 
         // Adds "viewArticle" permission
         $viewArticle = $auth->createPermission('viewArticle');
-        $viewArticle->description = 'Permission : Allows to view an Article in the cttwapp system.';
+        $viewArticle->description = 'Permission : Allows to view an Article in the CTTwapp system.';
         $auth->add($viewArticle);
 
         // Adds "deleteArticle" permission
         $deleteArticle = $auth->createPermission('deleteArticle');
-        $deleteArticle->description = 'Permission : Allows to delete an Article in the cttwapp system.';
+        $deleteArticle->description = 'Permission : Allows to delete an Article in the CTTwapp system.';
         $auth->add($deleteArticle);
 
         // Adds "listArticle" permission
         $listArticle = $auth->createPermission('listArticle');
-        $listArticle->description = 'Permission : Allows to list the Articles in the cttwapp system.';
+        $listArticle->description = 'Permission : Allows to list the Articles in the CTTwapp system.';
         $auth->add($listArticle);
 
 
@@ -225,27 +233,27 @@ class RbacController extends Controller
 
         // Adds "createInventory" permission
         $createInventory = $auth->createPermission('createInventory');
-        $createInventory->description = 'Permission : Allows to create the Inventory entries in the cttwapp system.';
+        $createInventory->description = 'Permission : Allows to create the Inventory entries in the CTTwapp system.';
         $auth->add($createInventory);
 
         // Adds "updateInventory" permission
         $updateInventory = $auth->createPermission('updateInventory');
-        $updateInventory->description = 'Permission : Allows to update the Inventory entries in the cttwapp system.';
+        $updateInventory->description = 'Permission : Allows to update the Inventory entries in the CTTwapp system.';
         $auth->add($updateInventory);
 
         // Adds "viewInventory" permission
         $viewInventory = $auth->createPermission('viewInventory');
-        $viewInventory->description = 'Permission : Allows to view the Inventory entries in the cttwapp system.';
+        $viewInventory->description = 'Permission : Allows to view the Inventory entries in the CTTwapp system.';
         $auth->add($viewInventory);
 
         // Adds "deleteInventory" permission
         $deleteInventory = $auth->createPermission('deleteInventory');
-        $deleteInventory->description = 'Permission : Allows to delete the Inventory entries in the cttwapp system.';
+        $deleteInventory->description = 'Permission : Allows to delete the Inventory entries in the CTTwapp system.';
         $auth->add($deleteInventory);
 
         // Adds "listInventory" permission
         $listInventory = $auth->createPermission('listInventory');
-        $listInventory->description = 'Permission : Allows to list the Inventory entries in the cttwapp system.';
+        $listInventory->description = 'Permission : Allows to list the Inventory entries in the CTTwapp system.';
         $auth->add($listInventory);
 
 
@@ -255,27 +263,27 @@ class RbacController extends Controller
 
         // Adds "createProject" permission
         $createProject = $auth->createPermission('createProject');
-        $createProject->description = 'Permission : Allows to create the Project records in the cttwapp system.';
+        $createProject->description = 'Permission : Allows to create the Project records in the CTTwapp system.';
         $auth->add($createProject);
 
         // Adds "updateProject" permission
         $updateProject = $auth->createPermission('updateProject');
-        $updateProject->description = 'Permission : Allows to update the Project records in the cttwapp system.';
+        $updateProject->description = 'Permission : Allows to update the Project records in the CTTwapp system.';
         $auth->add($updateProject);
 
         // Adds "viewProject" permission
         $viewProject = $auth->createPermission('viewProject');
-        $viewProject->description = 'Permission : Allows to view the Project records in the cttwapp system.';
+        $viewProject->description = 'Permission : Allows to view the Project records in the CTTwapp system.';
         $auth->add($viewProject);
 
         // Adds "deleteProject" permission
         $deleteProject = $auth->createPermission('deleteProject');
-        $deleteProject->description = 'Permission : Allows to delete the Project records in the cttwapp system.';
+        $deleteProject->description = 'Permission : Allows to delete the Project records in the CTTwapp system.';
         $auth->add($deleteProject);
 
         // Adds "listProject" permission
         $listProject = $auth->createPermission('listProject');
-        $listProject->description = 'Permission : Allows to list the Project records in the cttwapp system.';
+        $listProject->description = 'Permission : Allows to list the Project records in the CTTwapp system.';
         $auth->add($listProject);
 
 
@@ -285,27 +293,27 @@ class RbacController extends Controller
 
         // Adds "createReservations" permission
         $createReservation = $auth->createPermission('createReservation');
-        $createReservation->description = 'Permission : Allows to create the Reservation records in the cttwapp system.';
+        $createReservation->description = 'Permission : Allows to create the Reservation records in the CTTwapp system.';
         $auth->add($createReservation);
 
         // Adds "updateReservation" permission
         $updateReservation = $auth->createPermission('updateReservation');
-        $updateReservation->description = 'Permission : Allows to update the Reservation records in the cttwapp system.';
+        $updateReservation->description = 'Permission : Allows to update the Reservation records in the CTTwapp system.';
         $auth->add($updateReservation);
 
         // Adds "viewReservation" permission
         $viewReservation = $auth->createPermission('viewReservation');
-        $viewReservation->description = 'Permission : Allows to view the Reservation records in the cttwapp system.';
+        $viewReservation->description = 'Permission : Allows to view the Reservation records in the CTTwapp system.';
         $auth->add($viewReservation);
 
         // Adds "deleteReservation" permission
         $deleteReservation = $auth->createPermission('deleteReservation');
-        $deleteReservation->description = 'Permission : Allows to delete the Reservation records in the cttwapp system.';
+        $deleteReservation->description = 'Permission : Allows to delete the Reservation records in the CTTwapp system.';
         $auth->add($deleteReservation);
 
         // Adds "listReservation" permission
         $listReservation = $auth->createPermission('listReservation');
-        $listReservation->description = 'Permission : Allows to list the Reservation records in the cttwapp system.';
+        $listReservation->description = 'Permission : Allows to list the Reservation records in the CTTwapp system.';
         $auth->add($listReservation);
 
 
@@ -315,32 +323,32 @@ class RbacController extends Controller
 
         // Adds "createMarketRate" permission
         $createMarketRate = $auth->createPermission('createMarketRate');
-        $createMarketRate->description = 'Permission : Allows to create the MarketRate records in the cttwapp system.';
+        $createMarketRate->description = 'Permission : Allows to create the MarketRate records in the CTTwapp system.';
         $auth->add($createMarketRate);
 
         // Adds "updateMarketRate" permission
         $updateMarketRate = $auth->createPermission('updateMarketRate');
-        $updateMarketRate->description = 'Permission : Allows to update the MarketRate records in the cttwapp system.';
+        $updateMarketRate->description = 'Permission : Allows to update the MarketRate records in the CTTwapp system.';
         $auth->add($updateMarketRate);
 
         // Adds "viewMarketRate" permission
         $viewMarketRate = $auth->createPermission('viewMarketRate');
-        $viewMarketRate->description = 'Permission : Allows to view the MarketRate records in the cttwapp system.';
+        $viewMarketRate->description = 'Permission : Allows to view the MarketRate records in the CTTwapp system.';
         $auth->add($viewMarketRate);
 
         // Adds "deleteMarketRate" permission
         $deleteMarketRate = $auth->createPermission('deleteMarketRate');
-        $deleteMarketRate->description = 'Permission : Allows to delete the MarketRate records in the cttwapp system.';
+        $deleteMarketRate->description = 'Permission : Allows to delete the MarketRate records in the CTTwapp system.';
         $auth->add($deleteMarketRate);
 
         // Adds "listMarketRate" permission
         $listMarketRate = $auth->createPermission('listMarketRate');
-        $listMarketRate->description = 'Permission : Allows to list the MarketRate records in the cttwapp system.';
+        $listMarketRate->description = 'Permission : Allows to list the MarketRate records in the CTTwapp system.';
         $auth->add($listMarketRate);
 
 
 
-        // Defines all the roles for cttwapp system
+        // Defines all the roles for CTTwapp system
         // ----------------------------------------
 
 
@@ -639,7 +647,7 @@ class RbacController extends Controller
         // Adds basic roles to list entities
         $auth->addChild($userCTT, $accessMain);            // Grant access only to the site main index.
         $auth->addChild($userCTT, $adminSite);             // Grant access to admin site process.
-        $auth->addChild($userCTT, $viewHelp);              // Grant access to view the cttwapp help.
+        //$auth->addChild($userCTT, $viewHelp);              // Grant access to view the CTTwapp help.
         $auth->addChild($userCTT, $userClient);            // Grant access to list client entities.
         $auth->addChild($userCTT, $userClientType);        // Grant access to list client type entities.
         $auth->addChild($userCTT, $userBrand);             // Grant access to list brand entities.
@@ -663,7 +671,8 @@ class RbacController extends Controller
         // Adds all roles to list entities
         $auth->addChild($inventoryCTT, $accessMain);           // Grant access only to the site main index.
         $auth->addChild($inventoryCTT, $adminSite);            // Grant access to admin site process.
-        $auth->addChild($inventoryCTT, $viewHelp);             // Grant access to view the cttwapp help.
+        $auth->addChild($inventoryCTT, $uploadFile);           // Grant access to uploads files.
+        $auth->addChild($inventoryCTT, $viewHelp);             // Grant access to view the CTTwapp help.
         $auth->addChild($inventoryCTT, $adminBrand);           // Grant access to admin all brand process.
         $auth->addChild($inventoryCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($inventoryCTT, $adminArticle);         // Grant access to admin all article process.
@@ -681,7 +690,7 @@ class RbacController extends Controller
         // Adds all roles to list entities
         $auth->addChild($marketingCTT, $accessMain);           // Grant access only to the site main index.
         $auth->addChild($marketingCTT, $adminSite);            // Grant access to admin site process.
-        $auth->addChild($marketingCTT, $viewHelp);             // Grant access to view the cttwapp help.
+        $auth->addChild($marketingCTT, $viewHelp);             // Grant access to view the CTTwapp help.
         $auth->addChild($marketingCTT, $adminClient);          // Grant access to admin all client process.
         $auth->addChild($marketingCTT, $adminClientType);      // Grant access to admin all client type process.
         $auth->addChild($marketingCTT, $adminBrand);           // Grant access to admin all brand process.
@@ -701,7 +710,8 @@ class RbacController extends Controller
         // Adds all roles to list entities
         $auth->addChild($superCTT, $accessMain);           // Grant access only to the site main index.
         $auth->addChild($superCTT, $adminSite);            // Grant access to admin site process.
-        $auth->addChild($superCTT, $viewHelp);             // Grant access to view the cttwapp help.
+        $auth->addChild($superCTT, $uploadFile);           // Grant access to uploads files.
+        $auth->addChild($superCTT, $viewHelp);             // Grant access to view the CTTwapp help.
         $auth->addChild($superCTT, $adminClient);          // Grant access to admin all client process.
         $auth->addChild($superCTT, $adminClientType);      // Grant access to admin all client type process.
         $auth->addChild($superCTT, $adminBrand);           // Grant access to admin all brand process.
@@ -725,7 +735,8 @@ class RbacController extends Controller
         // Adds all the roles and permissions
         $auth->addChild($adminCTT, $accessMain);           // Grant access only to the site main index.
         $auth->addChild($adminCTT, $adminSite);            // Grant access to admin site process.
-        $auth->addChild($adminCTT, $viewHelp);             // Grant access to view the cttwapp help.
+        $auth->addChild($adminCTT, $uploadFile);           // Grant access to uploads files.
+        $auth->addChild($adminCTT, $viewHelp);             // Grant access to view the CTTwapp help.
         $auth->addChild($adminCTT, $adminProcess);         // Grant access to special admin process.
         $auth->addChild($adminCTT, $adminClient);          // Grant access to admin all client process.
         $auth->addChild($adminCTT, $adminClientType);      // Grant access to admin all client type process.
@@ -749,6 +760,7 @@ class RbacController extends Controller
         $auth->assign($marketingCTT, 3);             // Assign the marketingCTT role to the UserId = 3
         $auth->assign($inventoryCTT, 4);             // Assign the inventoryCTT role to the UserId = 4
         $auth->assign($guestCTT, 5);                 // Assign the guestCTT role to the UserId = 5
+        $auth->assign($userCTT, 6);                  // Assign the guestCTT role to the UserId = 5
     }
 
     public function actionDown()

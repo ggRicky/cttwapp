@@ -12,28 +12,13 @@ $description = 'Sistema Gestor de Operaciones';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-07-27 : Stores a hash parameter to jump to the requested area.
-$hash_param = Yii::$app->getRequest()->getQueryParam('hash');
-// 2018-07-27 : Translates the $hash_param value to the corresponding anchor to jump.
-// $hash_param [ 0 - Jumps to the work area index  1 - Jumps to the panel area ]
-// 2018-07-27 : Or if there is an flash message, then jump directly towards the header and go to the work-area-index using javascript.
-$hash_param = (($hash_param=='0' || Yii::$app->session->hasFlash('error') || Yii::$app->session->hasFlash('warning'))?'work-area-index':($hash_param=='1'?'panel-area':null));
-
-// 2018-07-27 : if an anchor parameter was send, then jumps to it using javascript.
-if ($hash_param) {
-    $script = <<< JS
-    location.hash = "#$hash_param";
-JS;
-    $this->registerJs($script);
-}
-
 // 2018-04-26 : Used to get a random int, and display a random parallax.
 $randomBg = rand(1,11);;
 
 ?>
 
 <!-- Includes Navigation Bar -->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_menu_navbar.inc'); ?>
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_menu_bar.inc'); ?>
 
 <!-- Header -->
 <header id="top">
@@ -139,4 +124,11 @@ if ($session->has('successLogin')) {
 
 }
 
-?>
+// 2018-05-25 : If the user haven't access to an site action, then display the modal window notification, using PHP & jQuery
+if (Yii::$app->session->hasFlash('forbiddenAccess')){
+
+    $script = "jQuery(document).ready(function () { $(\"#ctt-modal-forbidden-access\").modal({show: true, backdrop: \"static\"}); });";
+    $this->registerJs($script, View::POS_READY);
+
+}
+

@@ -39,17 +39,17 @@
 
 <?php endif; ?>
 
-<!--2018-06-19 : Access to the Catalog module and only available if isn't in the same view. -->
-<?php if (\Yii::$app->user->can('listCatalog') && Yii::$app->requestedRoute != 'catalog/index' && Yii::$app->requestedRoute != 'article/index'): ?>
-
-    <li><?= "<a href='".Url::to(['catalog/index'])."'>".Yii::t('app','Catálogos')."</a>" ?></li>
-
-<?php endif; ?>
-
 <!--2018-06-19 : Access to the Article module and only available if isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/index'): ?>
 
     <li><?= "<a href='".Url::to(['article/index'])."'>".Yii::t('app','Artículos')."</a>" ?></li>
+
+<?php endif; ?>
+
+<!--2018-06-19 : Access to the Catalog module and only available if isn't in the same view. -->
+<?php if (\Yii::$app->user->can('listCatalog') && Yii::$app->requestedRoute != 'catalog/index' && Yii::$app->requestedRoute != 'article/index'): ?>
+
+    <li><?= "<a href='".Url::to(['catalog/index'])."'>".Yii::t('app','Catálogos')."</a>" ?></li>
 
 <?php endif; ?>
 
@@ -80,3 +80,5 @@
     <li><a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Cotizaciones'); ?></a></li>
 
 <?php endif; ?>
+
+<!-- Ends the include file -->

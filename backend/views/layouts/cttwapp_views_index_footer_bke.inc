@@ -73,3 +73,5 @@
         </div>
     </section>
 </footer>
+
+<!-- Ends the include file -->

@@ -14,7 +14,7 @@ if (Yii::$app->user->getIsGuest()){
 }
 
 $this->title = 'Marca';
-$description = 'Modificar Marca';
+$description = 'Actualizar Marca';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;

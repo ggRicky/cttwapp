@@ -13,11 +13,17 @@ $description = 'Registre sus datos como nuevo usuario del sistema.';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-04-08 : If there is an flash message, then skip the header and go to the index-work-area using javascript.
-If (Yii::$app->session->hasFlash('warning') || Yii::$app->session->hasFlash('error'))
-{
-$script = <<< JS
-    location.hash = "#index-work-area"; 
+// 2018-07-27 : Stores a hash parameter to jump to the requested area.
+$hash_param = Yii::$app->getRequest()->getQueryParam('hash');
+// 2018-07-27 : Translates the $hash_param value to the corresponding anchor to jump.
+// $hash_param [ 0 - Jumps to the work area index  1 - Jumps to the panel area ]
+// 2018-07-27 : Or if there is an flash message, then jump directly towards the header and go to the work-area-index using javascript.
+$hash_param = (($hash_param=='0' || Yii::$app->session->hasFlash('error') || Yii::$app->session->hasFlash('warning'))?'work-area-index':($hash_param=='1'?null:null));
+
+// 2018-07-27 : if an anchor parameter was send, then jumps to it using javascript.
+if ($hash_param) {
+    $script = <<< JS
+    location.hash = "#$hash_param";
 JS;
     $this->registerJs($script);
 }
@@ -79,8 +85,6 @@ $randomBg = rand(1,11);;
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <p><?= Yii::t('app','Para registrarse como usuario, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
-
             <!-- 2018-04-08 : If there is an flash message, then display it.-->
             <?php if (Yii::$app->session->hasFlash('warning')): ?>
                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
@@ -89,6 +93,8 @@ $randomBg = rand(1,11);;
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                </div>
             <?php endif; ?>
+
+            <p><?= Yii::t('app','Para registrarse como usuario, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
             <div class="site-signup">
 

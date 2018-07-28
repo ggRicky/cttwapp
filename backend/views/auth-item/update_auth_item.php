@@ -14,7 +14,7 @@ if (Yii::$app->user->getIsGuest()){
 }
 
 $this->title = 'Objeto de Autorización';
-$description = 'Modificar Objeto de Autorización';
+$description = 'Actualizar Objeto de Autorización';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
@@ -69,6 +69,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 
                 <?= $this->render('_form', [
                     'model' => $model,
+                    'page' => $ret_page,
                 ]) ?>
 
             </div>

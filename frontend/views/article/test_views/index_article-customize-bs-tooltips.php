@@ -211,7 +211,7 @@ $randomBg = rand(1,11);;
                                     'update' => function ($url) {
                                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                                             'data-toggle' => 'tooltip',
-                                            'title' => Yii::t('app', 'Modificar') ,     // 2018-06-03 : Adds the tooltip Modify
+                                            'title' => Yii::t('app', 'Actualizar') ,     // 2018-06-03 : Adds the tooltip Modify
                                         ]);
                                     },
                                     // 2018-06-03 : Adds a new delete action to customize the window modal alert.

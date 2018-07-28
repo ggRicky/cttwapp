@@ -28,7 +28,7 @@ JS;
 }
 
 // 2018-04-26 : Used to get a random int, and display a random parallax.
-$randomBg = rand(1,11);;
+$randomBg = rand(1,11);
 
 ?>
 
@@ -65,7 +65,7 @@ $randomBg = rand(1,11);;
 <section id="yii2" class="yii2-page">
     <!-- Yii2 Title layout -->
     <div class="row"><div class="col-lg-10 yii2-header"><?= Yii::t('app',Html::encode($this->title)) ?></div></div>
-    <div class="row"><div class="yii2-message-area"><p>F r o n t e n d</p></div></div>
+    <div class="row"><div class="yii2-message-area"><p><?= Yii::t('app',Html::encode($subtitle)) ?></p></div></div>
 
     <!-- Yii2 complementary description -->
     <div class="row"><div class="col-lg-10 text-info yii2-description"><p><?= Yii::t('app',Html::encode($description)) ?></p></div></div>
@@ -91,8 +91,8 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-06-23 : Flash error message no auto-closable. -->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div class="alert alert-error alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-error alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
@@ -100,8 +100,8 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-06-23 : Flash warning message no auto-closable. -->
             <?php if (Yii::$app->session->hasFlash('warning')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-warning alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
@@ -109,8 +109,8 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-06-23 : Flash success message no auto-closable. -->
             <?php if (Yii::$app->session->hasFlash('success')): ?>
-                <div class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-success alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>

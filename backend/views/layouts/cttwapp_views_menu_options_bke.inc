@@ -17,7 +17,7 @@
 <!-- Content menu -->
 
 <!-- 2018-05-24 : Special Option - Only the admin user can create an new user. -->
-<?php if (\Yii::$app->user->can('adminSite') && (Yii::$app->requestedRoute == 'site/index' || empty(Yii::$app->requestedRoute))): ?>
+<?php if (\Yii::$app->user->can('adminProcess') && (Yii::$app->requestedRoute == 'site/index' || empty(Yii::$app->requestedRoute))): ?>
 
     <li>
         <div class="ctt-mini-bar-spc-opts">
@@ -26,3 +26,5 @@
     </li>
 
 <?php endif; ?>
+
+<!-- Ends the include file -->

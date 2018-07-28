@@ -13,7 +13,7 @@ if (Yii::$app->user->getIsGuest()){
 }
 
 $this->title = 'Tipo de Cliente';
-$description = 'Modificar Tipo de Cliente';
+$description = 'Actualizar Tipo de Cliente';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;

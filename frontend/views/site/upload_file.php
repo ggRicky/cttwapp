@@ -60,22 +60,22 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         <div class="col-lg-12 text-justify yii2-content">
             <!-- 2018-07-08 : If there is a flash error message display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div class="alert alert-error alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-error alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
             <!-- 2018-07-08 : If there is a flash warning message displays it. -->
             <?php elseif (Yii::$app->session->hasFlash('warning')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-warning alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
             <!-- 2018-07-08 : If there is a flash success message displays it. -->
             <?php elseif (Yii::$app->session->hasFlash('success')): ?>
-                <div class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-success alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>

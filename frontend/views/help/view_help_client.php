@@ -177,7 +177,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <p>
 
                 <p><b>Acción Consultar</b>. Tener acceso a esta acción llevará al usuario a consultar los datos del cliente seleccionado en otra área especialmente diseñada para tal efecto.</p>
-                <p><b>Acción Modificar</b>. Tener acceso a esta acción llevará al usuario a modificar los datos del cliente seleccionado en un formulario de captura de datos especialmente diseñado. Ahí el usuario podrá modificar o bien descartar las modificaciones hechas.</p>
+                <p><b>Acción Actualizar</b>. Tener acceso a esta acción llevará al usuario a actualizar los datos del cliente seleccionado en un formulario de captura de datos especialmente diseñado. Ahí el usuario podrá modificar o bien descartar las modificaciones hechas.</p>
                 <p><b>Acción Eliminar</b>.  Al pasar el cursor sobre este icono ( <em>bote de basura</em> ), cambiará su color a <span style="color: red">ROJO</span>, para señalar que se trata de una <b>acción sensible</b>. Tener acceso a esta acción llevará al usuario a contestar una
                       pregunta de confirmación para suprimir los datos del cliente seleccionado. De ser afirmativa la respuesta, el registro en cuestión se eliminará de la base de datos y aparecerá un mensaje de aviso en el área descrita en el punto 6 anterior.</p>
                 <p> En todo momento el usuario puede acercar el cursor del mouse y dejarlo un par de segundos para solicitar el '<em>tooltip</em>' que muestra una breve descripción de la acción.</p>

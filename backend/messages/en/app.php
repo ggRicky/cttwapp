@@ -69,7 +69,7 @@ return [
     'Listado Nominal' => 'Nominal Listing',
     'Nombre' => 'Name',
     'Nombre de la Regla' => 'Rule Name',
-    'Modificar Objeto de Autorización' =>'Update an Authorization Item',
+    'Actualizar Objeto de Autorización' =>'Update an Authorization Item',
     'Objeto de Autorización' => 'Auth Item',
     'Objetos de Autorización' => 'Auth Items',
     'Permiso' => 'Permission',

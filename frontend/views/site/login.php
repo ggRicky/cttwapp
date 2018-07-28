@@ -18,7 +18,7 @@ $hash_param = Yii::$app->getRequest()->getQueryParam('hash');
 // 2018-06-21 : Translates the $hash_param value to the corresponding anchor to jump.
 // $hash_param [ 0 - Jumps to the work area index  1 - Jumps to the panel area ]
 // 2018-06-21 : Or if there is an flash message, then jump directly towards the header and go to the work-area-index using javascript.
-$hash_param = (($hash_param=='0' || Yii::$app->session->hasFlash('error') || Yii::$app->session->hasFlash('warning'))?'work-area-index':($hash_param=='1'?'panel-area':null));
+$hash_param = (($hash_param=='0' || Yii::$app->session->hasFlash('error') || Yii::$app->session->hasFlash('warning'))?'work-area-index':($hash_param=='1'?null:null));
 
 // 2018-06-21 : if an anchor parameter was send, then jumps to it using javascript.
 if ($hash_param) {
@@ -37,13 +37,11 @@ $randomBg = rand(1,11);;
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
         <div class="col-lg-12"> <!-- Bootstrap's col -->
-            <!-- CTT logo to display over the CTT's crane video with opacity level -->
+            <!-- CTT logo to display over the parallax efect with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <div class="ctt-mask">  <!-- Defines an optionally mask to cover and color the video -->
-                <!-- Video settings to autoplay and infinite loop -->
-                <video class="crop-video" poster="<?=$baseUrl?>/img/ctt-poster.jpg" autoplay loop>
-                    <source src="<?=$baseUrl?>/mov/ctt-grua-scorpio.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
-                </video>
+            <!-- Parallax Efect -->
+            <div id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">
+                <div class="row"></div>
             </div>
         </div>
     </div>
@@ -85,8 +83,8 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-04-08 : If there is a flash error message display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div class="alert alert-error alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-error alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
@@ -94,8 +92,8 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-05-25 : If there is a flash warning message displays it. -->
             <?php if (Yii::$app->session->hasFlash('warning')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-warning alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
@@ -103,8 +101,8 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-07-02 : If there is a flash success message displays it. -->
             <?php if (Yii::$app->session->hasFlash('success')): ?>
-                <div class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-success alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>
@@ -112,15 +110,15 @@ $randomBg = rand(1,11);;
 
             <!-- 2018-07-03 : If there is a flash message in a successful password reset operation, only the password is displayed and the entry form is not displayed. -->
             <?php if (Yii::$app->session->hasFlash('success-req-passw-reset')): ?>
-                <div class="alert alert-success alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-success alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success-req-passw-reset') ?></p>
                 </div>
             <!-- 2018-07-03 : If there is a flash message in a warning password reset operation, only the password is displayed and the entry form is not displayed. -->
             <?php elseif (Yii::$app->session->hasFlash('warning-req-passw-reset')): ?>
-                <div class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-warning alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning-req-passw-reset') ?></p>
                 </div>

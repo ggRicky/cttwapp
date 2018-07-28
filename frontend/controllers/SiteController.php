@@ -217,6 +217,7 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
                 return $this->render('signup', [
                     'model' => $model,
+                    'hash'  => '0',
                 ]);
             }
 

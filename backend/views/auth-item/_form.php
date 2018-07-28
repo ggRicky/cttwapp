@@ -7,6 +7,11 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\AuthItem */
 /* @var $form yii\widgets\ActiveForm */
 
+// 2018-07-27 : If there is a page parameter, then stores and validate it.
+// Verifies and validate the current page value.
+$ret_page = Yii::$app->getRequest()->getQueryParam('page');
+$ret_page = (empty($ret_page)?'1':$ret_page);
+
 // Init the model's fields, with the today's date data.
 
 $model->created_at = ($model->isNewRecord ? time() : $model->created_at);
@@ -19,6 +24,15 @@ $model->rule_name = ($model->isNewRecord ? null : $model->rule_name);
 ?>
 
 <div class="auth-item-form">
+
+    <!-- 2018-07-27 : If there is an flash message, then display it.-->
+    <?php if (Yii::$app->session->hasFlash('warning')): ?>
+        <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+            <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+            <p><?= Yii::$app->session->getFlash('warning') ?></p>
+        </div>
+    <?php endif; ?>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -55,6 +69,10 @@ $model->rule_name = ($model->isNewRecord ? null : $model->rule_name);
     <div class="well">
         <?= date('Y-m-d G:i:s', $model->updated_at); ?>
     </div>
+
+    <!-- 2018-07-27 : Sends the current page value through a hidden input.-->
+
+    <?= Html::hiddenInput('page', $ret_page); ?>
 
     <div>
         <p class="required-field">* <?= Yii::t('app','Campo Requerido') ?></p><br><br>

@@ -44,3 +44,5 @@
 
     </div>
 </div>
+
+<!-- Ends the include file -->

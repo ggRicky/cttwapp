@@ -35,14 +35,24 @@ class AuthItemController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AuthItemSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (\Yii::$app->user->can('adminProcess')) {
+            $searchModel = new AuthItemSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index_auth_item', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'qryParams' => Yii::$app->request->queryParams,   // 2018-05-26 : This parameter is send to index_auth_item.php view for test if 'AuthItemSearch'
-        ]);
+            return $this->render('index_auth_item', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'qryParams' => Yii::$app->request->queryParams,   // 2018-05-26 : This parameter is send to index_auth_item.php view for test if 'AuthItemSearch'
+            ]);
+        }
+        else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest())
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+            else
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['site/index', 'hash' => '0']);
     }
 
     /**
@@ -51,15 +61,20 @@ class AuthItemController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $page)
     {
         if (\Yii::$app->user->can('adminProcess')) {
             return $this->render('view_auth_item', ['model' => $this->findModel($id)]);
         }
         else {
+            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-        return $this->redirect(['auth-item/index']);
+        return $this->redirect(['auth-item/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**
@@ -67,26 +82,32 @@ class AuthItemController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($page)
     {
         if (\Yii::$app->user->can('adminProcess')) {
+
             $model = new AuthItem();
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->name]);
+                    return $this->redirect(['view', 'id' => $model->name, 'page' => $page]);
                 }
                 // 2018-06-21 : An error occurred in the data capture process. A flash message is issued.
 
                 Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
-                return $this->render('create_auth_item', ['model' => $model]);
+                return $this->render('create_auth_item', ['model' => $model, 'page' => $page]);
             }
 
-            return $this->render('create_auth_item', ['model' => $model]);
+            return $this->render('create_auth_item', ['model' => $model, 'page' => $page]);
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-            return $this->redirect(['auth-item/index']);
+            return $this->redirect(['auth-item/index', 'page' => $page, 'hash' => '0']);
         }
     }
 
@@ -97,28 +118,33 @@ class AuthItemController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $page)
     {
         if (\Yii::$app->user->can('adminProcess')) {
+
             $model = $this->findModel($id);
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->name]);
+                    return $this->redirect(['view', 'id' => $model->name, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
                 Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
-                return $this->render('update_auth_item', ['model' => $model]);
+                return $this->render('update_auth_item', ['model' => $model, 'page' => $page]);
             }
 
-            return $this->render('update_auth_item', ['model' => $model]);
+            return $this->render('update_auth_item', ['model' => $model, 'page' => $page]);
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            return $this->redirect(['auth-item/index', 'page' => $page, 'hash' => '0']);
         }
-
-        return $this->redirect(['auth-item/index']);
     }
 
     /**
@@ -128,7 +154,7 @@ class AuthItemController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id, $page)
     {
         if (\Yii::$app->user->can('adminProcess')) {
             if ($this->findModel($id)->delete()){
@@ -136,10 +162,14 @@ class AuthItemController extends Controller
             }
         }
         else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
-
-        return $this->redirect(['auth-item/index']);
+        return $this->redirect(['auth-item/index', 'page' => $page, 'hash' => '0']);
     }
 
     /**

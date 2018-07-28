@@ -60,7 +60,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        // 2018-07-27 : Yii2 Rbac - Validates the access to the main page.
+        if (\Yii::$app->user->can('accessMain')) {
+            return $this->render('index');
+        }
+
+        return $this->redirect(['site/login']);
     }
 
     /**

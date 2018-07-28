@@ -69,8 +69,8 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
             <div class="auth-item-view">
 
                 <p>
-                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->name], ['class' => 'btn btn-primary btn-ctt-fixed-width']) ?>
-                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->name],   ['class' => 'btn btn-danger btn-ctt-fixed-width',
+                    <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->name, 'page' => $ret_page], ['class' => 'btn btn-primary btn-ctt-fixed-width']) ?>
+                    <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->name, 'page' => $ret_page],   ['class' => 'btn btn-danger btn-ctt-fixed-width',
                         'data' => [
                             // 2018-05-28 : Adds to the modal title the row id, like a warning information.
                             'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->name),

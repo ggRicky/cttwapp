@@ -54,7 +54,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app','Modificar Catálogo');?></p>
+            <p><?= Yii::t('app','Actualizar Catálogo');?></p>
         </div>
     </div>
 

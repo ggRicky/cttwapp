@@ -37,13 +37,11 @@ $randomBg = rand(1,11);;
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
         <div class="col-lg-12"> <!-- Bootstrap's col -->
-            <!-- CTT logo to display over the CTT's crane video with opacity level -->
+            <!-- CTT logo to display over the parallax efect with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
-            <div class="ctt-mask">  <!-- Defines an optionally mask to cover and color the video -->
-                <!-- Video settings to autoplay and infinite loop -->
-                <video class="crop-video" poster="<?=$baseUrl?>/img/ctt-poster.jpg" autoplay loop>
-                    <source src="<?=$baseUrl?>/mov/ctt-grua-scorpio.webm" type="video/webm">  <!-- The webm video format is the best for high performance downloads -->
-                </video>
+            <!-- Parallax Efect -->
+            <div id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">
+                <div class="row"></div>
             </div>
         </div>
     </div>
@@ -80,23 +78,34 @@ $randomBg = rand(1,11);;
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
-
-            <!-- 2018-04-08 : If there is an flash error message, then display it.-->
+            <!-- 2018-04-08 : If there is a flash error message display it.-->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
-                <div id="auto-close" class="alert alert-error alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                <div class="alert alert-error alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
-            <!-- 2018-05-25 : Flash warning message. -->
-            <?php elseif (Yii::$app->session->hasFlash('warning')): ?>
-                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
-                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+            <?php endif; ?>
+
+            <!-- 2018-05-25 : If there is a flash warning message displays it. -->
+            <?php if (Yii::$app->session->hasFlash('warning')): ?>
+                <div class="alert alert-warning alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
             <?php endif; ?>
+
+            <!-- 2018-07-02 : If there is a flash success message displays it. -->
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
+                <div class="alert alert-success alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('success') ?></p>
+                </div>
+            <?php endif; ?>
+
+            <p><?= Yii::t('app','Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :'); ?></p>
 
             <div class="site-login">
                 <div class="row">
@@ -108,10 +117,6 @@ $randomBg = rand(1,11);;
                         <?= $form->field($model, 'password')->passwordInput() ?>
 
                         <?= $form->field($model, 'rememberMe')->checkbox() ?>
-
-                        <div style="color:#999;margin:1em 0">
-                            <?= Yii::t('app','Para restablecer su contraseña en caso de olvido, '); ?><?= Html::a(Yii::t('app','haga clic en esta liga.'), ['site/request-password-reset']) ?>
-                        </div>
 
                         <div class="form-group">
                             <?= Html::submitButton(Yii::t('app','Ingresar'), ['class' => 'btn btn-primary btn-ctt-fixed-width', 'name' => 'login-button']) ?>

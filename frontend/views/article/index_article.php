@@ -228,6 +228,7 @@ $randomBg = rand(1,11);;
                                             'data-target' => '#ctt-modal-show-art',
                                             'data' => [
                                                 'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),
+                                                'name'  => ($model->name_art),
                                                 'url'   => Url::to(UPLOAD_DIR.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.'.jpg',
                                             ],
                                             'data-id'     => $key,
@@ -297,7 +298,7 @@ $randomBg = rand(1,11);;
                              }
                         ],
 
-                        // 2018-05-06 : The name_art field in red text color.
+                        // 2018-05-06 : Thide name_art field in red text color.
 
                         [
                             'attribute' => 'name_art',
@@ -357,20 +358,22 @@ $randomBg = rand(1,11);;
             <?php $this->registerJs(
                 /** @lang jQuery */
                 "$('.detail-view-link').click(function(e) {
-                        // For prevent default behavior of <a> tag.
+                        // This prevent default <a> tag behavior.
                         e.preventDefault();
                         
                         // Gets the modal window title. 
                         var p_title = $(this).data(\"title\");
+                        // Gets the article name. 
+                        var p_name = $(this).data(\"name\");
                         // Gets the image url to display. 
                         var p_url_image = $(this).data(\"url\");
                         // Shows the modal window.
                         var modal = $('#ctt-modal-show-art').modal('show');
 
                         // Inserts the title message in the html content-title area. 
-                        modal.find('#content-title').html('<h4 class=\"modal-title\">' + p_title + '</h4>');
+                        modal.find('#content-title').html('<h5 class=\"modal-title\">' + p_title + '</h5>');
                         // Inserts the image url in the html content-body area.
-                        modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div>');
+                        modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div><br/><p>'+p_name+'</p>');
 
                         // Includes an close button.
                         $('#close-ok').click(function(e) {

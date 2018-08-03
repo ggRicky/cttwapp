@@ -76,6 +76,7 @@ return ([
     'Clientes' => 'Clients',
     'Contacto' => 'Contact',
     'Cotizaciones' => 'Market Rates',
+    'Inicio' => 'Home',
     'Inventarios' => 'Inventories',
     'Proyectos' => 'Projects',
     'R e s e r v a c i o n e s' => 'R e s e r v a t i o n s',

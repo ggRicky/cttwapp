@@ -32,49 +32,56 @@
 
 <?php endif; ?>
 
-<!--2018-06-19 : Access to the Client module and only available if isn't in the same view. -->
+<!--2018-08-20 : Only available the index page if the user have the right permission and currently isn't in the same view. -->
+<?php if (\Yii::$app->user->can('accessMain') && Yii::$app->requestedRoute != 'site/index'): ?>
+
+    <li><?= "<a href='".Url::to(['site/index'])."'>".Yii::t('app','Inicio')."</a>" ?></li>
+
+<?php endif; ?>
+
+<!--2018-06-19 : Only available the Client module if the user have the right permission and currently isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listClient') && Yii::$app->requestedRoute != 'client/index'): ?>
 
     <li><?= "<a href='".Url::to(['client/index'])."'>".Yii::t('app','Clientes')."</a>" ?></li>
 
 <?php endif; ?>
 
-<!--2018-06-19 : Access to the Article module and only available if isn't in the same view. -->
+<!--2018-06-19 : Only available the Article module if the user have the right permission and currently isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/index'): ?>
 
     <li><?= "<a href='".Url::to(['article/index'])."'>".Yii::t('app','Artículos')."</a>" ?></li>
 
 <?php endif; ?>
 
-<!--2018-06-19 : Access to the Catalog module and only available if isn't in the same view. -->
+<!--2018-06-19 : Only available the Catalog module if the user have the right permission and currently isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listCatalog') && Yii::$app->requestedRoute != 'catalog/index' && Yii::$app->requestedRoute != 'article/index'): ?>
 
     <li><?= "<a href='".Url::to(['catalog/index'])."'>".Yii::t('app','Catálogos')."</a>" ?></li>
 
 <?php endif; ?>
 
-<!--2018-06-19 : Access to the Inventory module and only available if isn't in the same view. -->
+<!--2018-06-19 : Only available the Inventory module if the user have the right permission and currently isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listInventory') && Yii::$app->requestedRoute != 'inventory/index'): ?>
 
     <li><a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Inventarios'); ?></a></li>
 
 <?php endif; ?>
 
-<!--2018-06-19 : Access to the Projects module and only available if isn't in the same view. -->
+<!--2018-06-19 : Only available the Project module if the user have the right permission and currently isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listProject') && Yii::$app->requestedRoute != 'project/index'): ?>
 
     <li><a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Proyectos'); ?></a></li>
 
 <?php endif; ?>
 
-<!--2018-06-19 : Access to the Reservations module and only available if isn't in the same view. -->
+<!--2018-06-19 : Only available the Reservation module if the user have the right permission and currently isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listReservation') && Yii::$app->requestedRoute != 'reservation/index'): ?>
 
     <li><a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Reservaciones'); ?></a></li>
 
 <?php endif; ?>
 
-<!--2018-06-19 : Access to the Market Rates module and only available if isn't in the same view. -->
+<!--2018-06-19 : Only available the Market Rate module if the user have the right permission and currently isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listMarketRate') && Yii::$app->requestedRoute != 'market-rate/index'): ?>
 
     <li><a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Cotizaciones'); ?></a></li>

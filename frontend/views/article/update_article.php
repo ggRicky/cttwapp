@@ -28,7 +28,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 $hash_param = Yii::$app->getRequest()->getQueryParam('hash');
 // 2018-07-08 : Translates the $hash_param value to the corresponding anchor to jump.
 // $hash_param [ 0 - Jumps to the work area index  1 - Jumps to the upload button ]
-$hash_param = ($hash_param=='0'?'work-area-index':($hash_param=='1'?'upload-area':null));
+$hash_param = ($hash_param=='0'?'work-area-index':null);
 
 // 2018-07-08 : if an anchor parameter was send, then jumps to it using javascript.
 if ($hash_param) {
@@ -84,6 +84,7 @@ JS;
                 <?= $this->render('_form', [
                     'model' => $model,
                     'page'  => $ret_page,
+                    'hash'  => Yii::$app->getRequest()->getQueryParam('hash'),
                 ]) ?>
 
             </div>
@@ -91,9 +92,6 @@ JS;
         </div>
     </div>
 </section>
-
-<!-- The anchor to show the Upload button -->
-<section id="upload-area"></section>
 
 <!-- Includes the actions view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer.inc'); ?>

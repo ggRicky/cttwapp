@@ -373,7 +373,7 @@ $randomBg = rand(1,11);;
                         // Inserts the title message in the html content-title area. 
                         modal.find('#content-title').html('<h5 class=\"modal-title\">' + p_title + '</h5>');
                         // Inserts the image url in the html content-body area.
-                        modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div><br/><p>'+p_name+'</p>');
+                        modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div><br/><div align=\"center\">'+p_name+'</div>');
 
                         // Includes an close button.
                         $('#close-ok').click(function(e) {

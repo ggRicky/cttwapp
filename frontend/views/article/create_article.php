@@ -6,13 +6,6 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\Client */
 
-// 2018-06-09 : If the user isn't authenticated, then redirect him to the login form.
-if (Yii::$app->user->getIsGuest()){
-    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
-    Yii::$app->response->redirect(Url::to(['site/login'], true));
-    return;
-}
-
 $this->title = 'Artículo';
 $description = 'Crear Nuevo Artículo';
 

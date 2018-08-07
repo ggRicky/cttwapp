@@ -292,7 +292,7 @@ $randomBg = rand(1,11);;
                         // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
                         [
                              'attribute' => 'catalog_id',
-                             'headerOptions' => ['style' => 'width:12%'],
+                             'headerOptions' => ['style' => 'width:12%;'],
                              'value' => function($model){
                                  return implode(",",ArrayHelper::map(Catalog::find()->where(['id' =>  $model->catalog_id])->all(),'id','displayNameCat'));
                              }

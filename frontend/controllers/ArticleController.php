@@ -8,6 +8,8 @@ use app\models\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\mpdf\Pdf;
+
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -192,12 +194,13 @@ class ArticleController extends Controller
     }
 
     /**
-     * Stores the article colored status in a cookie.
+     * Switch and stores the article colored status in a cookie.
+     * @param string $color
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      *
      * 2018-05-14 22:31 Hrs.
-     *
      */
-
     public function actionColor($color)
     {
         if (isset($color)){ // if color parameter is set.
@@ -206,5 +209,73 @@ class ArticleController extends Controller
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
         return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+    }
+
+    /**
+     * Generates a PDF file with the data of an article in printable version.
+     * @param string $id
+     * @param string $page
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     *
+     * 2018-08-04 14:40 Hrs.
+     */
+    public function actionPrint($id, $page)
+    {
+        if (\Yii::$app->user->can('printArticle')) {
+            // Get your HTML raw content without any layouts or scripts
+            $content = $this->renderPartial('print_article', ['model' => $this->findModel($id),]);
+
+            // Setup kartik\mpdf\Pdf component
+            $pdf = new Pdf([
+                // Set to use core fonts only
+                'mode' => Pdf::MODE_CORE,
+                // LETTER paper format
+                'format' => Pdf::FORMAT_LETTER,
+                // Portrait orientation
+                'orientation' => Pdf::ORIENT_PORTRAIT,
+                // Stream to browser inline
+                'destination' => Pdf::DEST_BROWSER,
+                // File name
+                'filename' => 'cttwapp_article_report.pdf',
+                // Your html content input
+                'content' => $content,
+                // Format content from your own css file if needed or use the
+                // enhanced bootstrap css built by Krajee for mPDF formatting
+                'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                // Any css to be embedded if required
+                'cssInline' => '.kv-heading-1{font-size:28px; color: #15598c} .kv-heading-2{font-size:18px; color:red} .kv-heading-3{font-size:10px; color:red}',
+                // Call mPDF methods on the fly
+                'methods' => [
+                    'SetHeader'=>[Yii::t('app', 'Detalles')],
+                    'SetFooter'=>['{PAGENO}'],
+                ]
+            ]);
+
+            // Set mPDF properties on the fly
+
+            // Directly use the mPDF api for various other mPDF manipulations
+            // Fetches mPDF API
+            $mpdf = $pdf->api;
+
+            // Call methods or set any properties
+            $mpdf->SetTitle('Informacion del Articulo');
+            $mpdf->SetAuthor('ISC. Ricardo González González');
+            $mpdf->SetCreator('CTTwapp v1.0');
+            $mpdf->SetSubject('Reporte');
+            $mpdf->SetKeywords('cttwapp, report, article, detail, pdf');
+
+            // Return the pdf output as per the destination setting
+            return $pdf->render();
+        }
+        else {
+            // 2018-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
     }
 }

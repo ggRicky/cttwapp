@@ -13,59 +13,28 @@ use app\models\Brand;
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
 
-// 2018-06-09 : If the user isn't authenticated, then redirect him to the login form.
-
 $this->title = 'Artículo';
 $description = 'Vista del Artículo';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
-// 2018-06-11 : If there is a page parameter, then stores and validate it.
-// Verifies and validate the current page value.
-$ret_page = Yii::$app->getRequest()->getQueryParam('page');
-$ret_page = (empty($ret_page)?'1':$ret_page);
-
-// 2018-07-16 : To get the image path and filename.
-$file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
-// 2018-07-16 : Check the existence of a correct file type and determine its extension if there is one.
-$file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
-// 2018-07-16 : Check the existence of a correct file type and determine its extension if there is one.
-$url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_ext;
-
 ?>
-
-    <!-- Blue ribbon decoration -->
-    <section class="ctt-section bg-primary">
-        <div class="col-lg-12">
-            <div id="work-view-area" class="row">
-                <!-- CTT water mark background logo decoration -->
-                <div class="ctt-water-mark"></div>
-            </div>
-        </div>
-    </section>
 
     <!-- Yii2 Content -->
     <section id="yii2" class="yii2-page">
 
-        <!-- Main menu return -->
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
-            </div>
-        </div>
-
         <!-- Yii2 Title layout -->
         <div class="row">
             <div class="col-lg-10 yii2-header">
-                <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
+                <span class="kv-heading-1"><?= Yii::t('app',Html::encode($this->title)); ?></span>
             </div>
         </div>
 
         <!-- Yii2 complementary description -->
         <div class="row">
             <div class="col-lg-10 text-info yii2-description">
-                <p><?= Yii::t('app',Html::encode($description));?></p>
+                <p class="kv-heading-2"><?= Yii::t('app',Html::encode($description));?></p>
             </div>
         </div>
 
@@ -74,26 +43,7 @@ $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_
             <div class="col-lg-12 text-justify yii2-content">
 
                 <!-- Business logic for view an article  -->
-                <div class="article-update">
-
-                    <p>
-                        <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-primary btn-ctt-fixed-width']) ?>
-                        <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id, 'page' => $ret_page],   ['class' => 'btn btn-danger btn-ctt-fixed-width',
-                            'data' => [
-                                // 2018-05-28 : Adds to the modal title the row id, like a warning information.
-                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),
-                            ],
-                            // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
-                            // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
-                            // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
-                            // In this case the 'data-confirm' parameter must be empty.
-                            'data-confirm' => '',
-                            //  2018-05-31 : The next two parameters are needed to complete teh right call to the action delete, because it will be made using the post method.
-                            'data-method' => 'post',
-                            'data-pjax' => '0',
-                        ]) ?>
-                        <?= Html::a(Yii::t('app','Imprimir'), ['print', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-ctt-warning btn-ctt-fixed-width']) ?>
-                    </p>
+                <div class="article-update kv-heading-3">
 
                     <?= DetailView::widget([
                         'model' => $model,
@@ -106,7 +56,12 @@ $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_
                                 'value' => implode(",",ArrayHelper::map(Catalog::find()->where(['id' => $model->catalog_id])->all(),'id','displayNameCat')),
                             ],
 
-                            'name_art',
+                            [
+                                'attribute' => 'name_art',
+                                'options'=>[ 'style'=>'background-color:#ccf8fe' ],
+                                'contentOptions'=>[ 'style'=>'color:red; font-size:8px;' ],
+                            ],
+
                             'sp_desc',
                             'en_desc',
 
@@ -123,11 +78,11 @@ $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_
                                     $url_no_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).'ctt_no_image.jpg';
                                     // 2018-07-10 : Test for the right file type
                                     if (file_exists($file_name.'.jpg'))
-                                        return '<img src="'.$url_image.'.jpg" width="auto" style="max-height:100%; max-width:100%">';
+                                        return '<img src="'.$url_image.'.jpg" width="auto" style="max-height:50%; max-width:50%">';
                                     else if (file_exists($file_name.'.png'))
-                                        return '<img src="'.$url_image.'.png" width="auto" style="max-height:100%; max-width:100%">';
+                                        return '<img src="'.$url_image.'.png" width="auto" style="max-height:50%; max-width:50%">';
                                     else
-                                        return '<img src="'.$url_no_image.'" width="auto" style="max-height:100%; max-width:100%">';
+                                        return '<img src="'.$url_no_image.'" width="auto" style="max-height:50%; max-width:50%">';
                                 },
                             ],
 
@@ -174,9 +129,3 @@ $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_
             </div>
         </div>
     </section>
-
-<!-- Includes the actions view's footer file -->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer.inc'); ?>
-
-<!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete.inc'); ?>

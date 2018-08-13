@@ -214,7 +214,7 @@ $randomBg = rand(1,11);;
                                 // 2018-07-11 : Adds a new show action to display the related image in a bootstrap modal window.
                                 'show' => function ($url, $model, $key) {
                                     // 2018-07-10 : To get the image path and filename.
-                                    $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+                                    $file_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv'.'/').PREFIX_IMG.$model->id;
                                     // 2018-07-10 : Check the existence of a correct file type and determine its extension if there is one.
                                     $file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
 
@@ -229,7 +229,7 @@ $randomBg = rand(1,11);;
                                             'data' => [
                                                 'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),
                                                 'name'  => ($model->name_art),
-                                                'url'   => Url::to(UPLOAD_DIR.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.'.jpg',
+                                                'url'   => Url::to('@uploads_inv'.'/').PREFIX_IMG.$model->id.'.jpg',
                                             ],
                                             'data-id'     => $key,
                                             'data-pjax'   => '0',
@@ -269,11 +269,11 @@ $randomBg = rand(1,11);;
                             'format' => 'raw',
                             'value' => function ($model) {
                                 // 2018-07-10 : To get the image path and filename.
-                                $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+                                $file_name =  Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
                                 // 2018-07-10 : To get the image url.
-                                $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id;
+                                $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id;
                                 // 2018-07-11 : To get the no image url.
-                                $url_no_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).'ctt_no_image.jpg';
+                                $url_no_image = Url::to(Yii::getAlias('@uploads_inv').'/').'ctt_no_image.jpg';
                                 // 2018-07-10 : Test for the right file type
                                 if (file_exists($file_name.'.jpg'))
                                    return '<img src="'.$url_image.'.jpg" width="auto" height="50px">';

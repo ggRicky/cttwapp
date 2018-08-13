@@ -98,13 +98,13 @@ JS;
         echo '<p><b>'.Yii::t('app','Fotografía del Artículo').'</b></p>';
 
         // 2018-08-03 : To get the image path and filename.
-        $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+        $file_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
 
         // 2018-08-03 : To get the image url.
-        $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id;
+        $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id;
 
         // 2018-08-03 : To get the no image url.
-        $url_no_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).'ctt_no_image.jpg';
+        $url_no_image = Url::to(Yii::getAlias('@uploads_inv').'/').'ctt_no_image.jpg';
 
         // 2018-08-03 : Test for the right file type
         echo '<div class="well well-lg">';

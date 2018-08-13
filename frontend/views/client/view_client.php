@@ -70,7 +70,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         <div class="col-lg-12 text-justify yii2-content">
 
             <!-- Business logic for view a client -->
-            <div class="client-update">
+            <div class="client-view">
 
                 <p>
                     <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-primary btn-ctt-fixed-width']) ?>
@@ -90,8 +90,14 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                     ]) ?>
                 </p>
 
+                <br/>
+
                 <?= DetailView::widget([
                     'model' => $model,
+                    'options' => [
+                        // 2018-08-11 : Defines the styles for customize the DetailView widget.
+                        'class' => 'detail-view-style',
+                    ],
                     'attributes' => [
                         'id',
                         'rfc',

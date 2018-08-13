@@ -66,6 +66,11 @@ return [
         ],
         */
     ],
+    // 2018-08-12 : Defines the cttwapp project alias
+    'aliases' => [
+        '@uploads' => '/uploads',
+        '@uploads_inv' => '/uploads/inventory_pics',
+    ],
 
     // 2018-02-05 13:54 Hrs. : Register a new component ( class ). One method included in this component is for change dynamically the application's language.
     'as beforeRequest' => [

@@ -79,6 +79,7 @@ class Article extends \yii\db\ActiveRecord
             'created_by' => Yii::t('app', 'Creado por'),
             'updated_by' => Yii::t('app', 'Actualizado por'),
             'catalog_id' => Yii::t('app', 'Catálogo'),
+            'photo' => Yii::t('app','Fotografía del Artículo'),
         ];
     }
 

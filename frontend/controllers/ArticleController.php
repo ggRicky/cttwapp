@@ -6,10 +6,10 @@ use Yii;
 use app\models\Article;
 use app\models\ArticleSearch;
 use yii\web\Controller;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
-
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -222,6 +222,9 @@ class ArticleController extends Controller
      */
     public function actionPrint($id, $page)
     {
+        // 2018-08-11 : Only for debug purpose.
+        // return $this->render('print_article', ['model' => $this->findModel($id),]);
+
         if (\Yii::$app->user->can('printArticle')) {
             // Get your HTML raw content without any layouts or scripts
             $content = $this->renderPartial('print_article', ['model' => $this->findModel($id),]);
@@ -242,9 +245,10 @@ class ArticleController extends Controller
                 'content' => $content,
                 // Format content from your own css file if needed or use the
                 // enhanced bootstrap css built by Krajee for mPDF formatting
-                'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                //'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                'cssFile' => '@vendor/bower/cttwapp/css/cttwapp-stylish.css',
                 // Any css to be embedded if required
-                'cssInline' => '.kv-heading-1{font-size:28px; color: #15598c} .kv-heading-2{font-size:18px; color:red} .kv-heading-3{font-size:10px; color:red}',
+                'cssInline' => '.kv-heading-1{font-size:22px; color: #15598c} .kv-heading-2{font-size:10px; color:red; letter-spacing: 3px}',
                 // Call mPDF methods on the fly
                 'methods' => [
                     'SetHeader'=>[Yii::t('app', 'Detalles')],
@@ -264,6 +268,17 @@ class ArticleController extends Controller
             $mpdf->SetCreator('CTTwapp v1.0');
             $mpdf->SetSubject('Reporte');
             $mpdf->SetKeywords('cttwapp, report, article, detail, pdf');
+            // 2018-08-11 : Enables a water mark text
+            /*
+            $mpdf->showWatermarkText = true;                         // To shows the water mark text.
+            $mpdf->watermarkTextAlpha = 0.1;                         // To defines the alpha value for the water mark text.
+            $mpdf->watermark_font = 'Source Sans Pro';               // To defines the font type for the water mark text.
+            $mpdf->SetWatermarkText(Yii::t('app', 'Confidencial'));  // To defines the legend for the water mark text.
+            */
+            // 2018-08-11 : Enables a water image
+            $mpdf->showWatermarkImage = true;                        // To shows the water mark image.
+            $mpdf->watermarkImageAlpha = 0.1;                        // To defines the alpha value for the water mark image.
+            $mpdf->SetWatermarkImage(Url::to('/img/ctt-logo.png', true),0.2,'P',[0,-42]);   // To defines the image file for the water mark image.
 
             // Return the pdf output as per the destination setting
             return $pdf->render();

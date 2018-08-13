@@ -85,8 +85,14 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                     ]) ?>
                 </p>
 
+                <br/>
+
                 <?= DetailView::widget([
                     'model' => $model,
+                    'options' => [
+                        // 2018-08-11 : Defines the styles for customize the DetailView widget.
+                        'class' => 'detail-view-style',
+                    ],
                     // 2018-03-22 : Using this template the labels and values there are redistributing in the row area
                     'template' => '<tr><th width="10%">{label}</th><td width="80%">{value}</td></tr>',
                     'attributes' => [

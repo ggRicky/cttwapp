@@ -42,7 +42,7 @@ class UploadForm extends Model
     public function upload($id=null)
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs(Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.(is_null($id)? PREFIX_IMG.date('Ymd_his'):PREFIX_IMG.$id).'.'.$this->imageFile->extension);
+            $this->imageFile->saveAs(Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.(is_null($id)? PREFIX_IMG.date('Ymd_his'):PREFIX_IMG.$id).'.'.$this->imageFile->extension);
             return true;
         } else {
             return false;

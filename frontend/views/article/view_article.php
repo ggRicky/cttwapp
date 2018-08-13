@@ -27,11 +27,11 @@ $ret_page = Yii::$app->getRequest()->getQueryParam('page');
 $ret_page = (empty($ret_page)?'1':$ret_page);
 
 // 2018-07-16 : To get the image path and filename.
-$file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+$file_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
 // 2018-07-16 : Check the existence of a correct file type and determine its extension if there is one.
 $file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
 // 2018-07-16 : Check the existence of a correct file type and determine its extension if there is one.
-$url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_ext;
+$url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$file_ext;
 
 ?>
 
@@ -74,7 +74,7 @@ $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_
             <div class="col-lg-12 text-justify yii2-content">
 
                 <!-- Business logic for view an article  -->
-                <div class="article-update">
+                <div class="article-view">
 
                     <p>
                         <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-primary btn-ctt-fixed-width']) ?>
@@ -95,8 +95,14 @@ $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_
                         <?= Html::a(Yii::t('app','Imprimir'), ['print', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-ctt-warning btn-ctt-fixed-width']) ?>
                     </p>
 
+                    <br/>
+
                     <?= DetailView::widget([
                         'model' => $model,
+                        'options' => [
+                            // 2018-08-11 : Defines the styles for customize the DetailView widget.
+                            'class' => 'detail-view-style',
+                        ],
                         'attributes' => [
                             'id',
 
@@ -112,15 +118,15 @@ $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id.$file_
 
                             // 2018-08-03 : To displays the image.
                             [
-                                'attribute' => Yii::t('app','Fotografía del Artículo'),
+                                'attribute' => 'photo',
                                 'format' => 'raw',
                                 'value' => function ($model) {
                                     // 2018-07-10 : To get the image path and filename.
-                                    $file_name = Yii::getAlias('@webroot').UPLOAD_DIR.UPLOAD_INV_PICS_DIR.PREFIX_IMG.$model->id;
+                                    $file_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
                                     // 2018-07-10 : To get the image url.
-                                    $url_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).PREFIX_IMG.$model->id;
+                                    $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id;
                                     // 2018-07-11 : To get the no image url.
-                                    $url_no_image = Url::to('uploads'.UPLOAD_INV_PICS_DIR).'ctt_no_image.jpg';
+                                    $url_no_image = Url::to(Yii::getAlias('@uploads_inv').'/').'ctt_no_image.jpg';
                                     // 2018-07-10 : Test for the right file type
                                     if (file_exists($file_name.'.jpg'))
                                         return '<img src="'.$url_image.'.jpg" width="auto" style="max-height:100%; max-width:100%">';

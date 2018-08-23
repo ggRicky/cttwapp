@@ -293,4 +293,158 @@ class ArticleController extends Controller
         }
         return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
     }
+
+    /**
+     * Sets and stores each article column visibility status in cookies.
+     * @param string $c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$c10,$c11,$c12,$c13
+     * @return mixed
+     *
+     * 2018-08-20 16:43 Hrs.
+     */
+    public function actionSetColumns($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$c10,$c11,$c12,$c13)
+    {
+        if (isset($c1)){  // If the parameter for column 1 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c1', 'value' => $c1]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c2)){  // If the parameter for column 2 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c2', 'value' => $c2]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c3)){  // If the parameter for column 3 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c3', 'value' => $c3]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c4)){  // If the parameter for column 4 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c4', 'value' => $c4]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c5)){  // If the parameter for column 5 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c5', 'value' => $c5]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c6)){  // If the parameter for column 6 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c6', 'value' => $c6]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c7)){  // If the parameter for column 7 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c7', 'value' => $c7]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c8)){  // If the parameter for column 8 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c8', 'value' => $c8]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c9)){  // If the parameter for column 9 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c9', 'value' => $c9]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c10)){  // If the parameter for column 10 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c10', 'value' => $c10]);  // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c11)){  // If the parameter for column 11 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c11', 'value' => $c11]);  // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c12)){  // If the parameter for column 12 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c12', 'value' => $c12]);  // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        if (isset($c13)){  // If the parameter for column 13 has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-c13', 'value' => $c13]);  // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        // Apply and show the newly generated changes.
+        return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+    }
+
+    /**
+     * Shows the Column-Selector and sets the article columns visibility status.
+     * @return mixed
+     *
+     * 2018-08-20 16:50 Hrs.
+     */
+    public function actionSelectColumns(){
+
+        // Creates the new dynamic model
+        $model_1 = new \yii\base\DynamicModel(['column_1', 'column_2', 'column_3',  'column_4',  'column_5',  'column_6', 'column_7',
+                                               'column_8', 'column_9', 'column_10', 'column_11', 'column_12', 'column_13']);
+        // Add the rules to the new dynamic model
+        $model_1->addRule(['column_1', 'column_2', 'column_3',  'column_4',  'column_5',  'column_6', 'column_7',
+                           'column_8', 'column_9', 'column_10', 'column_11', 'column_12', 'column_13'], 'string', ['max' => 1]);
+        // Add the rules to the new dynamic model
+        $model_1->addRule(['column_1', 'column_2', 'column_3',  'column_4',  'column_5',  'column_6', 'column_7',
+                           'column_8', 'column_9', 'column_10', 'column_11', 'column_12', 'column_13'], 'required'); // The ->validate() can be used her to validate the user input data.
+
+        if ($model_1->load(Yii::$app->request->post())) {
+            // Saves all columns visibility status collected through the form.
+            return $this->redirect(['article/set-columns',
+                                    'c1'  => $model_1->column_1, 'c2' => $model_1->column_2, 'c3' => $model_1->column_3, 'c4' => $model_1->column_4, 'c5'  => $model_1->column_5,
+                                    'c6'  => $model_1->column_6, 'c7' => $model_1->column_7, 'c8' => $model_1->column_8, 'c9' => $model_1->column_9, 'c10' => $model_1->column_10,
+                                    'c11' => $model_1->column_11,'c12'=> $model_1->column_12,'c13'=> $model_1->column_13,
+            ]);
+        }
+
+        // Shows the Column-Selector view and pass to this the new model.
+        return $this->render('select_article_columns',['model_1' => $model_1]);
+    }
+
+    /**
+     * Gets the article page size.
+     * @return mixed
+     *
+     * 2018-08-22 20:28 Hrs.
+     */
+    public function actionGetPageSize(){
+
+        // Creates the new dynamic model
+        $model_2 = new \yii\base\DynamicModel(['pageSizeValue']);
+        // Add the rules to the new dynamic model
+        $model_2->addRule(['pageSizeValue'], 'integer', ['min' => 1, 'max' => 50]);
+        // Add the rules to the new dynamic model
+        $model_2->addRule(['pageSizeValue'], 'required'); // The ->validate() can be used her to validate the user input data.
+
+        if ($model_2->load(Yii::$app->request->post())) {
+            // Saves the page size value collected through the form.
+            return $this->redirect(['article/set-page-size',
+                'pageSize' => $model_2->pageSizeValue,
+            ]);
+        }
+
+        // Apply and show the newly generated changes.
+        return $this->render('set_article_page_size', ['model_2' => $model_2]);
+    }
+
+    /**
+     * Sets and stores the article page size.
+     * @param string $pageSize
+     * @return mixed
+     *
+     * 2018-08-22 22:55 Hrs.
+     */
+    public function actionSetPageSize($pageSize)
+    {
+        if (isset($pageSize)){  // If the parameter for page size has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article-pageSize', 'value' => $pageSize]);   // Creates a new cookie and stores the page size value in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        // Apply and show the newly generated changes.
+        return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+    }
+
 }

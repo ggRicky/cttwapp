@@ -341,11 +341,11 @@ $randomBg = rand(1,11);
                                $color_expr = Yii::$app->getRequest()->getCookies()->has('client-color') && Yii::$app->getRequest()->getCookies()->getValue('client-color') == '0';
                                if ($color_expr){
                                    echo Html::a('', ['client/color', 'color' => '1'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Activar código de colores')]);
-                                   echo '<span>'.Yii::t('app', 'Interruptor de Color').'</span>';
+                                   echo '<span>'.Yii::t('app', 'Colores').'</span>';
                                }
                                else{
                                    echo Html::a('', ['client/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Desactivar código de colores')]);
-                                   echo '<span>'.Yii::t('app', 'Interruptor de Color').'</span>';
+                                   echo '<span>'.Yii::t('app', 'Colores').'</span>';
                                }
                            ?>
                        </span>

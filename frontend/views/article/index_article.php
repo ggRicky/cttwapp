@@ -428,30 +428,35 @@ $randomBg = rand(1,11);;
             <!-- 2018-07-13 : This jQuery's piece of code implements the modal window for show the article image.-->
             <?php $this->registerJs(
                 /** @lang jQuery */
-                "$('.detail-view-link').click(function(e) {
-                        // This prevent default <a> tag behavior.
-                        e.preventDefault();
-                        
-                        // Gets the modal window title. 
-                        var p_title = $(this).data(\"title\");
-                        // Gets the article name. 
-                        var p_name = $(this).data(\"name\");
-                        // Gets the image url to display. 
-                        var p_url_image = $(this).data(\"url\");
-                        // Shows the modal window.
-                        var modal = $('#ctt-modal-show-art').modal('show');
+            "$('.detail-view-link').click(function(e) {
+                    // This prevent default <a> tag behavior.
+                    e.preventDefault();
+                    
+                    // Gets the modal window title. 
+                    var p_title = $(this).data(\"title\");
+                    // Gets the article name. 
+                    var p_name = $(this).data(\"name\");
+                    // Gets the image url to display. 
+                    var p_url_image = $(this).data(\"url\");
+                    // Shows the modal window.
+                    var modal = $('#ctt-modal-show-art').modal('show');
 
-                        // Inserts the title message in the html content-title area. 
-                        modal.find('#content-title').html('<h5 class=\"modal-title\">' + p_title + '</h5>');
-                        // Inserts the image url in the html content-body area.
-                        modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div><br/><div align=\"center\">'+p_name+'</div>');
+                    // Inserts the title message in the html content-title area. 
+                    modal.find('#content-title').html('<h5 class=\"modal-title\">' + p_title + '</h5>');
+                    // Inserts the image url in the html content-body area.
+                    modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div><br/><div align=\"center\">'+p_name+'</div>');
 
-                        // Includes an close button.
-                        $('#close-ok').click(function(e) {
-                        });
+                    // Includes an close button.
+                    $('#close-ok').click(function(e) {
+                    });
 
-                        return false;            
-                    });"
+                    return false;            
+                });
+                
+                // 2018-08-23 : This code is implemented for re-activate the bootstrap tooltips after each Pjax request.
+                $(document).on('pjax:success', function(event) {
+                    $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
+                });"
             );
             ?>
 

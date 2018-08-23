@@ -315,7 +315,7 @@ $randomBg = rand(1,11);;
 
                         [
                             'attribute' => 'catalog_id',
-                            'visible' => ($c[1] == '1' ? true : false),     // 2018-08-20 : Set the visibility status
+                            'visible' => ($c[1] == '1' ? true : false),     // 2018-08-20 : Set the column visibility status
                             'headerOptions' => ['style' => 'width:12%;'],
                             // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
                             'filter' => Html::activeDropDownList($searchModel, 'catalog_id', ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Catálogos Disponibles')]),
@@ -329,17 +329,17 @@ $randomBg = rand(1,11);;
                         [
                             'attribute' => 'name_art',
                             'contentOptions' => ['style' => 'color:red'],
-                            'visible' => ($c[2]== '1' ? true : false),     // 2018-08-20 : Set the visibility status
+                            'visible' => ($c[2]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
                         ],
 
                         [
                             'attribute' => 'sp_desc',
-                            'visible' => ($c[3]== '1' ? true : false),     // 2018-08-20 : Set the visibility status
+                            'visible' => ($c[3]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
                         ],
 
                         [
                             'attribute' => 'en_desc',
-                            'visible' => ($c[4]== '1' ? true : false),     // 2018-08-20 : Set the visibility status
+                            'visible' => ($c[4]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
                         ],
 
                         // 2018-05-06 : For type_art field, the right legend is displayed and colored properly.
@@ -354,13 +354,13 @@ $randomBg = rand(1,11);;
                             'contentOptions' => function ($model, $key, $index, $column) {
                                 return ['style' => 'color:'. ($model->type_art=='V'?'#337AB7':'#428bca')];
                             },
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[5]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'price_art',
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[6]== '1' ? true : false),
                         ],
 
@@ -371,7 +371,7 @@ $randomBg = rand(1,11);;
                             'value' => function($model){
                                 return ($model->currency_art=='P'?'PESOS':'DÓLARES');
                             },
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[7]== '1' ? true : false),
                         ],
 
@@ -384,37 +384,37 @@ $randomBg = rand(1,11);;
                                 function($model){
                                     return (implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')));
                             },
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[8]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'part_num',
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[9]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'created_at',
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[10] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'updated_at',
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[11] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'created_by',
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[12] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'updated_by',
-                             // 2018-08-20 : Set the visibility status
+                             // 2018-08-20 : Set the column visibility status
                             'visible' => ($c[13] == '1' ? true : false),
                         ],
 
@@ -490,15 +490,15 @@ $randomBg = rand(1,11);;
                         <!-- Columns Selector Tool -->
                         <span>
                            <?php
-                           echo Html::a('', ['article/select-columns', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-list-alt', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Selector de Columnas')]);
-                           echo '<span>'.Yii::t('app', 'Columnas').'</span>';
+                               echo Html::a('', ['article/select-columns', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-list-alt', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Selector de Columnas')]);
+                               echo '<span>'.Yii::t('app', 'Columnas').'</span>';
                            ?>
                        </span>
                         <!-- Page Size Tool -->
                         <span>
                            <?php
-                           echo Html::a('', ['article/get-page-size', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
-                           echo '<span>'.Yii::t('app', 'Paginado').'</span>';
+                               echo Html::a('', ['article/get-page-size', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
+                               echo '<span>'.Yii::t('app', 'Paginado').'</span>';
                            ?>
                        </span>
                     </div>

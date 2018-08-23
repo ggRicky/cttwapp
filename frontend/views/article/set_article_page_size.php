@@ -66,6 +66,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                 <!-- Business logic for sets the article's page size -->
                 <div class="article-columns">
 
+                    <!-- Info section -->
                     <div class="well well-lg text-info">
                         <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                         <h4><strong><?= Yii::t('app','Instrucciones'); ?></strong></h4>
@@ -73,7 +74,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                     </div>
 
                     <!-- Styles the form -->
-                    <div style="padding-left: 30px; padding-top: 20px;">
+                    <div style="padding-left: 5px; padding-top: 20px;">
                         <?= $this->render('_form2', [
                             'model_2' => $model_2,
                         ]) ?>

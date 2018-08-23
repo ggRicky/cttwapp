@@ -66,6 +66,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                 <!-- Business logic for selects the article's columns -->
                 <div class="article-columns">
 
+                    <!-- Info section -->
                     <div class="well well-lg text-info">
                         <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                         <h4><strong><?= Yii::t('app','Instrucciones'); ?></strong></h4>
@@ -73,7 +74,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                     </div>
 
                     <!-- Styles the form -->
-                    <div style="padding-left: 30px; padding-top: 20px;">
+                    <div style="padding-left: 5px; padding-top: 20px;">
                         <?= $this->render('_form1', [
                             'model_1' => $model_1,
                         ]) ?>
@@ -85,5 +86,5 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         </div>
     </section>
 
-    <!-- Includes the actions view's footer file -->
+<!-- Includes the actions view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer.inc'); ?>

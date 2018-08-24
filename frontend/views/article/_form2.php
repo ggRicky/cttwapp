@@ -30,7 +30,7 @@ use yii\bootstrap\ActiveForm;
     $model_2->pageSizeValue = (Yii::$app->getRequest()->getCookies()->has('article-pageSize') ? Yii::$app->getRequest()->getCookies()->getValue('article-pageSize') : 10);
 
     // 2018-08-22 : Shows the TextInput control for pageSizeValue textInput field.
-    echo $form->field($model_2, 'pageSizeValue')->textInput(['style'=>'width:10%'])->label(Yii::t('app','Tamaño del Paginado'));
+    echo $form->field($model_2, 'pageSizeValue')->textInput(['style'=>'width:20%'])->label(Yii::t('app','Tamaño del Paginado'));
 
     ?>
 

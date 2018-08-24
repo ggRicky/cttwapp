@@ -248,7 +248,7 @@ class ArticleController extends Controller
                 //'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
                 'cssFile' => '@vendor/bower/cttwapp/css/cttwapp-stylish.css',
                 // Any css to be embedded if required
-                'cssInline' => '.kv-heading-1{font-size:22px; color: #15598c} .kv-heading-2{font-size:10px; color:red; letter-spacing: 3px}',
+                'cssInline' => '.kv-heading-1{font-size:32px; color: #15598c} .kv-heading-2{font-size:10px; color:red; letter-spacing: 3px}',
                 // Call mPDF methods on the fly
                 'methods' => [
                     'SetHeader'=>[Yii::t('app', 'Detalles')],

@@ -286,7 +286,7 @@ $randomBg = rand(1,11);;
                         [
                             // 2018-07-10 : Include a new column with an article's thumbnail image.
                             'attribute' => Yii::t('app','Imagen'),
-                            'headerOptions' => ['style' => 'width:4%'],
+                            'headerOptions' => ['style' => 'width:4%; color:#337ab7;'],
                             'contentOptions' => ['class' => 'text-center'],
                             'format' => 'raw',
                             'value' => function ($model) {

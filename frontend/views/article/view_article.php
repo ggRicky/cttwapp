@@ -104,7 +104,9 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
                             'class' => 'detail-view-style',
                         ],
                         'attributes' => [
-                            'id',
+                            [
+                                'attribute' => 'id',
+                            ],
 
                             // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
                             [

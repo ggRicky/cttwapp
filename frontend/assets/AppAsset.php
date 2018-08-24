@@ -29,9 +29,10 @@ class AppAsset extends AssetBundle
         'css/cttwapp-stylish.css',
         // the fonts needs for the cttwapp project
         'font/css/font-awesome.min.css',
+        'https://fonts.googleapis.com/css?family=Roboto:300,400,700,300italic,400italic,700italic',
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic',
+        'https://fonts.googleapis.com/css?family=Raleway:300,400,700,300italic,400italic,700italic',
         'https://fonts.googleapis.com/css?family=Libre+Barcode+39+Extended',
-        'https://fonts.googleapis.com/css?family=Raleway',
     ];
     public $js = array(
         // the jquery version for parallax effect

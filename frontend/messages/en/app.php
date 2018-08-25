@@ -216,6 +216,7 @@ return ([
     'Número Exterior' => 'Outdoor Number',
     'Número Interior' => 'Interior Number',
     'Página Web' => 'Web Page',
+    'Página' => 'Page',
     'Panel de Herramientas' => 'Tools Panel',
     'Procedencia' => 'Provenance',
     'Razón Social / Nombre' => 'Business Name',
@@ -267,4 +268,5 @@ return ([
     'Vista del Artículo' => 'Article View',
     'Vista del Catálogo' => 'Catalog View',
     'Vista de la Marca' => 'Brand View',
+
 ]);

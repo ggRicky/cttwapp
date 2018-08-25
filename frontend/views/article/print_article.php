@@ -36,7 +36,7 @@ $baseUrl = $asset->baseUrl;
         </td>
     </tr>
     <tr>
-        <td style="font-size: 10px"><?= Yii::t('app', 'Emisión') ?> : <?= date('Y-m-d G:i:s'); ?></td>
+        <td style="font-size: 10px; letter-spacing: 2px;"><?= Yii::t('app', 'Emisión') ?> :: <?= date('Y-m-d G:i:s'); ?></td>
     </tr>
 </table>
 

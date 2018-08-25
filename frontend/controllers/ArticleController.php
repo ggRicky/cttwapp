@@ -189,7 +189,7 @@ class ArticleController extends Controller
         if (($model = Article::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe.'));
+            throw new NotFoundHttpException(Yii::t('app','La página solicitada no existe.'));
         }
     }
 
@@ -228,6 +228,7 @@ class ArticleController extends Controller
         if (\Yii::$app->user->can('printArticle')) {
             // Get your HTML raw content without any layouts or scripts
             $content = $this->renderPartial('print_article', ['model' => $this->findModel($id),]);
+            $footer = "<hr style=\"color: gainsboro;\"/>\n   <table width=\"100%\" style=\"vertical-align: bottom; font-size: 9px; color: gray;\"><tr>\n   <td width=\"33%\"><span style=\"letter-spacing: 3px;\">CTTwapp ver-1.0</span></td>\n   <td width=\"33%\" align=\"center\" style=\"letter-spacing: 5px;\">".Yii::t('app','Inventarios')."</td>\n   <td width=\"33%\" style=\"text-align: right; letter-spacing: 3px;\">".Yii::t('app', 'Página')." [ {PAGENO} ]</td>\n   </tr></table>";
 
             // Setup kartik\mpdf\Pdf component
             $pdf = new Pdf([
@@ -251,8 +252,8 @@ class ArticleController extends Controller
                 'cssInline' => '.kv-heading-1{font-size:32px; color: #15598c} .kv-heading-2{font-size:10px; color:red; letter-spacing: 3px}',
                 // Call mPDF methods on the fly
                 'methods' => [
-                    'SetHeader'=>[Yii::t('app', 'Detalles')],
-                    'SetFooter'=>['{PAGENO}'],
+                    'SetHTMLHeader'=>['<div style="text-align: right; font-size: 9px; font-weight: lighter; color: grey; letter-spacing: 3px">'.'CTT Exp. & Rentals S.A. de C.V.'.'</div>', 'O', true],
+                    'SetHTMLFooter'=>$footer,
                 ]
             ]);
 
@@ -263,7 +264,7 @@ class ArticleController extends Controller
             $mpdf = $pdf->api;
 
             // Call methods or set any properties
-            $mpdf->SetTitle('Informacion del Articulo');
+            $mpdf->SetTitle(Yii::t('app', 'Artículo').' : '.$id);
             $mpdf->SetAuthor('ISC. Ricardo González González');
             $mpdf->SetCreator('CTTwapp v1.0');
             $mpdf->SetSubject('Reporte');
@@ -278,6 +279,7 @@ class ArticleController extends Controller
             // 2018-08-11 : Enables a water image
             $mpdf->showWatermarkImage = true;                        // To shows the water mark image.
             $mpdf->watermarkImageAlpha = 0.1;                        // To defines the alpha value for the water mark image.
+            $mpdf->defaultfooterline = true;                         // To shows the water mark image.
             $mpdf->SetWatermarkImage(Url::to('/img/ctt-logo.png', true),0.2,'P',[0,-42]);   // To defines the image file for the water mark image.
 
             // Return the pdf output as per the destination setting

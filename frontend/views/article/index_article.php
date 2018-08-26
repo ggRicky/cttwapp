@@ -483,11 +483,11 @@ $randomBg = rand(1,11);;
                             <?php
                             $color_expr = Yii::$app->getRequest()->getCookies()->has('article-color') && Yii::$app->getRequest()->getCookies()->getValue('article-color') == '0';
                             if ($color_expr){
-                                echo Html::a('', ['article/color', 'color' => '1'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Activar código de colores')]);
+                                echo Html::a('', ['article/set-color', 'color' => '1'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Activar código de colores')]);
                                 echo '<span>'.Yii::t('app', 'Colores').'</span>';
                             }
                             else{
-                                echo Html::a('', ['article/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Desactivar código de colores')]);
+                                echo Html::a('', ['article/set-color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Desactivar código de colores')]);
                                 echo '<span>'.Yii::t('app', 'Colores').'</span>';
                             }
                             ?>

@@ -199,11 +199,11 @@ class ClientController extends Controller
      *
      */
 
-    public function actionColor($color)
+    public function actionSetColor($color)
     {
         if (isset($color)){ // if color parameter is set.
             // Create and store a new cookie
-            $cookie = new \yii\web\Cookie(['name' => 'client-color', 'value' => $color]);
+            $cookie = new \yii\web\Cookie(['name' => 'client-color', 'value' => $color, 'expire' => time() + 86400 * 365,]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
         return $this->redirect(['client/index', 'page' => '1', 'hash' => '0']);

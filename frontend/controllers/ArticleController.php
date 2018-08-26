@@ -441,16 +441,8 @@ class ArticleController extends Controller
     public function actionSetPageSize($pageSize)
     {
         if (isset($pageSize)){  // If the parameter for page size has been set, then ....
-            //$cookie = new \yii\web\Cookie(['name' => 'article-pageSize', 'value' => $pageSize]);   // Creates a new cookie and stores the page size value in it.
-            //Yii::$app->getResponse()->getCookies()->add($cookie);
-
-            $cookies = Yii::$app->response->cookies;
-            $cookies->add(new \yii\web\Cookie([
-                'name' => 'article-pageSize',
-                'value' => $pageSize,
-            ]));
-
-
+            $cookie = new \yii\web\Cookie(['name' => 'article-pageSize', 'value' => $pageSize, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the page size value in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         // Apply and show the newly generated changes.

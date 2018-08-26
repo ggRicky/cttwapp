@@ -27,9 +27,7 @@ use yii\bootstrap\ActiveForm;
     ]);
 
     // 2018-08-22 : Gets the value from the cookie and assign it to the model pageSizeValue. Default value to : 10 [ Records / Page ].
-    $cookies = Yii::$app->request->cookies;
-    $model_2->pageSizeValue = $cookies->getValue('article-pageSize', 10);
-    //$model_2->pageSizeValue = (Yii::$app->getRequest()->getCookies()->has('article-pageSize') ? Yii::$app->getRequest()->getCookies()->getValue('article-pageSize') : 10);
+    $model_2->pageSizeValue = (Yii::$app->getRequest()->getCookies()->has('article-pageSize') ? Yii::$app->getRequest()->getCookies()->getValue('article-pageSize') : 10);
 
     // 2018-08-22 : Shows the TextInput control for pageSizeValue textInput field.
     echo $form->field($model_2, 'pageSizeValue')->textInput(['style'=>'width:30%'])->label(Yii::t('app','Tamaño del Paginado'));

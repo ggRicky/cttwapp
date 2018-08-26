@@ -313,7 +313,7 @@ class SiteController extends Controller
     public function actionLanguage()
     {
         Yii::$app->language = $_POST['lang'];
-        $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang']]);
+        $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang'], 'expire' => time() + 86400 * 365,]);
         Yii::$app->getResponse()->getCookies()->add($cookie);
     }
 

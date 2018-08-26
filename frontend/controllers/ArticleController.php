@@ -306,67 +306,67 @@ class ArticleController extends Controller
     public function actionSetColumns($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$c10,$c11,$c12,$c13)
     {
         if (isset($c1)){  // If the parameter for column 1 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c1', 'value' => $c1]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c1', 'value' => $c1, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c2)){  // If the parameter for column 2 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c2', 'value' => $c2]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c2', 'value' => $c2, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c3)){  // If the parameter for column 3 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c3', 'value' => $c3]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c3', 'value' => $c3, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c4)){  // If the parameter for column 4 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c4', 'value' => $c4]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c4', 'value' => $c4, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c5)){  // If the parameter for column 5 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c5', 'value' => $c5]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c5', 'value' => $c5, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c6)){  // If the parameter for column 6 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c6', 'value' => $c6]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c6', 'value' => $c6, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c7)){  // If the parameter for column 7 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c7', 'value' => $c7]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c7', 'value' => $c7, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c8)){  // If the parameter for column 8 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c8', 'value' => $c8]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c8', 'value' => $c8, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c9)){  // If the parameter for column 9 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c9', 'value' => $c9]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c9', 'value' => $c9, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c10)){  // If the parameter for column 10 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c10', 'value' => $c10]);  // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c10', 'value' => $c10, 'expire' => time() + 86400 * 365,]);  // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c11)){  // If the parameter for column 11 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c11', 'value' => $c11]);  // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c11', 'value' => $c11, 'expire' => time() + 86400 * 365,]);  // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c12)){  // If the parameter for column 12 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c12', 'value' => $c12]);  // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c12', 'value' => $c12, 'expire' => time() + 86400 * 365,]);  // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         if (isset($c13)){  // If the parameter for column 13 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c13', 'value' => $c13]);  // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-c13', 'value' => $c13, 'expire' => time() + 86400 * 365,]);  // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 

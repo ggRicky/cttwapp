@@ -38,6 +38,9 @@ class ArticleController extends Controller
     public function actionIndex()
     {
         if (\Yii::$app->user->can('listArticle')) {
+            // 2018-08-28 : Records the article delete operation.
+            Yii::info('CTTWAPP : The user access the Article Module', 'cttwapp_user');
+
             $searchModel = new ArticleSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -67,6 +70,8 @@ class ArticleController extends Controller
     public function actionView($id, $page)
     {
         if (\Yii::$app->user->can('viewArticle')) {
+            // 2018-08-28 : Records the article view operation.
+            Yii::info('CTTWAPP : The user consulted the article ID='.$id, 'cttwapp_user');
             return $this->render('view_article', ['model' => $this->findModel($id),]);
         }
         else {
@@ -94,6 +99,8 @@ class ArticleController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
+                    // 2018-08-28 : Records the article create operation.
+                    Yii::info('CTTWAPP : The user created the article ID='.$model->id, 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
@@ -131,6 +138,8 @@ class ArticleController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
+                    // 2018-08-28 : Records the article updated operation.
+                    Yii::info('CTTWAPP : The user updated the article ID='.$model->id, 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
@@ -163,6 +172,8 @@ class ArticleController extends Controller
     {
         if (\Yii::$app->user->can('deleteArticle')) {
             if ($this->findModel($id)->delete()){
+                // 2018-08-28 : Records the article delete operation.
+                Yii::info('CTTWAPP : The user deleted the article ID='.$id, 'cttwapp_user');
                 Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
             }
         }
@@ -226,6 +237,9 @@ class ArticleController extends Controller
         // return $this->render('print_article', ['model' => $this->findModel($id),]);
 
         if (\Yii::$app->user->can('printArticle')) {
+            // 2018-08-28 : Records the article delete operation.
+            Yii::info('CTTWAPP : The user print the article ID='.$id, 'cttwapp_user');
+
             // Get your HTML raw content without any layouts or scripts
             $content = $this->renderPartial('print_article', ['model' => $this->findModel($id),]);
             $footer = "<hr style=\"color: gainsboro;\"/>\n   <table width=\"100%\" style=\"vertical-align: bottom; font-size: 9px; color: gray;\"><tr>\n   <td width=\"33%\"><span style=\"letter-spacing: 3px;\">CTTwapp ver-1.0</span></td>\n   <td width=\"33%\" align=\"center\" style=\"letter-spacing: 5px;\">".Yii::t('app','Inventarios')."</td>\n   <td width=\"33%\" style=\"text-align: right; letter-spacing: 3px;\">".Yii::t('app', 'Página')." [ {PAGENO} ]</td>\n   </tr></table>";

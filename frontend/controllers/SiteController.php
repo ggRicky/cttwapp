@@ -56,6 +56,18 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
+    public function beforeAction($action)
+    {
+        // '127.0.0.1' - replace by your IP address
+        if (in_array(@$_SERVER['REMOTE_ADDR'], ['192.168.1.67','127.0.0.1'])) {
+            Yii::$app->log->targets['email_1']->enabled = false; // Here we disable our log target
+        }
+        return parent::beforeAction($action);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [
@@ -96,6 +108,11 @@ class SiteController extends Controller
 
             // 2018-05-06 : This method were refactoring for issue a warning message in an wrong access operation.
             if ($model->login()){
+                // 2018-08-28 : Records the user login.
+                Yii::info('CTTWAPP : The user login and go into the index page', 'cttwapp_user');
+                // 2018-08-29 : Send a mail only when a user is logged.
+                Yii::info('CTTWAPP : The user login and go into the index page', 'cttwapp_mail');
+
                 // Access success
 
                 $str1 = Yii::t('app', 'Bienvenido');
@@ -134,8 +151,8 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        Yii::$app->user->logout();
-
+        // 2018-08-28 : Records the user logout.
+        (Yii::info('CTTWAPP : The user logout the application', 'cttwapp_user') && Yii::$app->user->logout());
         // 2018-06-21 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
         return $this->redirect(['site/login', 'hash' => '0']);
     }
@@ -312,9 +329,13 @@ class SiteController extends Controller
 
     public function actionLanguage()
     {
-        Yii::$app->language = $_POST['lang'];
-        $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang'], 'expire' => time() + 86400 * 365,]);
-        Yii::$app->getResponse()->getCookies()->add($cookie);
+        if (Yii::$app->request->isPost) {
+            Yii::$app->language = $_POST['lang'];
+            $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang'], 'expire' => time() + 86400 * 365,]);
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+            // 2018-08-28 : Record the change language activity.
+            Yii::info('Changes the language config to '.strtoupper($_POST['lang']), __METHOD__);
+        }
     }
 
     /**

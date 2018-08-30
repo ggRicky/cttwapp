@@ -58,8 +58,8 @@ class SiteController extends Controller
      */
     public function beforeAction($action)
     {
-        // '127.0.0.1' - replace by your IP address
-        if (in_array(@$_SERVER['REMOTE_ADDR'], ['192.168.1.67','127.0.0.1'])) {
+        // 2018-08-29 : If the IP address correspond to the production server or localhost, disable messages sends by email.
+        if (in_array(@$_SERVER['REMOTE_ADDR'], ['187.134.175.181','127.0.0.1'])) {
             Yii::$app->log->targets['email_1']->enabled = false; // Here we disable our log target
         }
         return parent::beforeAction($action);

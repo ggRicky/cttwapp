@@ -151,12 +151,11 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        // 2018-08-28 : Records the user logout.
-        Yii::info('CTTWAPP : The user logout the application', 'cttwapp_user');
         // 2018-08-29 : Send a mail only when a user is logged.
         Yii::info('CTTWAPP : The user logout the application', 'cttwapp_mail');
 
-        Yii::$app->user->logout();
+        // 2018-08-28 : Records the user logout.
+        (Yii::info('CTTWAPP : The user logout the application', 'cttwapp_user') && Yii::$app->user->logout());
 
         // 2018-06-21 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
         return $this->redirect(['site/login', 'hash' => '0']);

@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 /* 2018-03-17 : Used to display Description Type for the actual client record */
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use app\models\ClientType;
@@ -62,7 +63,7 @@ $randomBg = rand(1,11);
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
         <div class="col-lg-12"> <!-- Bootstrap's col -->
-            <!-- CTT logo to display over the parallax efect with opacity level -->
+            <!-- CTT logo to display over the parallax effect with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
             <!-- Parallax Efect -->
             <div id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">
@@ -137,6 +138,26 @@ $randomBg = rand(1,11);
                     <!-- 2018-06-07 : To disable pjax for a specific link inside the container adding data-pjax="0" attribute to this link.-->
                     <?= Html::a(Yii::t('app', 'Tipos de Clientes'), ['client-type/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Administrar los tipos de clientes')]) ?>
                 </p>
+
+                <?php
+
+                // 2018-09-30 : Gets the visibility status for all columns from the cookies and put it into the $c variable.
+                if (Yii::$app->getRequest()->getCookies()->has('client_columns_config')) {
+                    $c = Yii::$app->getRequest()->getCookies()->getValue('client_columns_config');
+                    // 2018-09-30 : Only for debug purpose. Shows the var content.
+                    // VarDumper::dump($c);
+                }
+                else
+                    // 2018-09-30 : If there isn't the client_columns_config cookie, then by default shows all the columns.
+                    $c = '1111111111111111111111111';
+
+                // 2018-09-30 : Gets the value from the cookie and assign it to the $dataProvider->pageSize.
+                if (Yii::$app->getRequest()->getCookies()->has('client-pageSize'))
+                    $dataProvider->pagination->pageSize = Yii::$app->getRequest()->getCookies()->getValue('client-pageSize');
+                else
+                    // 2018-09-30 : Sets the $dataProvider->pageSize to a default value
+                    $dataProvider->pagination->pageSize = 10;
+                ?>
 
                 <!-- 2018-04-13 : The next div including the id and class elements, enable the vertical and horizontal scrollbars. -->
                 <div id="div-scroll" class="div-scroll-area-horizon">
@@ -249,12 +270,17 @@ $randomBg = rand(1,11);
                             ],
 
                             'rfc',
-                            'curp',
+
+                            [
+                                'attribute' => 'curp',
+                                'visible' => ($c[0]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
 
                             // 2018-04-10 : New fields add to client table in refactoring action.
 
                             [
                                 'attribute' => 'business_name',
+                                'visible' => ($c[1]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
                                 'contentOptions' => ['style' => 'color:red'],
                             ],
 
@@ -262,6 +288,7 @@ $randomBg = rand(1,11);
 
                             [
                                 'attribute' => 'taxpayer',
+                                'visible' => ($c[2]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
                                 'value' => function($model){
                                     return ($model->taxpayer=='M'?'PERSONA MORAL':'PERSONA FÍSICA');
                                 },
@@ -270,41 +297,120 @@ $randomBg = rand(1,11);
                                 },
                             ],
 
-                            'corporate',
+                            [
+                                'attribute' => 'corporate',
+                                'visible' => ($c[3]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
 
                             // 2018-04-23 : For provenance type, the right legend is displayed.
 
                             [
                                 'attribute' => 'provenance',
+                                'visible' => ($c[4]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
                                 'value' => function($model){
                                     return ($model->provenance=='N'?'NACIONAL':'EXTRANJERO');
                                 },
                             ],
 
-                            'contact_name',
-                            'contact_email',
-                            'street',
-                            'outdoor_number',
-                            'interior_number',
-                            'suburb',
-                            'municipality',
-                            'delegation',
-                            'state',
-                            'zip_code',
-                            'phone_number_1',
-                            'phone_number_2',
-                            'web_page',
-                            'client_email',
-                            'considerations',
+                            [
+                                'attribute' => 'contact_name',
+                                'visible' => ($c[5]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
 
-                            'created_at',
-                            'updated_at',
-                            'created_by',
-                            'updated_by',
+                            [
+                                'attribute' => 'contact_email',
+                                'visible' => ($c[6]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'street',
+                                'visible' => ($c[7]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'outdoor_number',
+                                'visible' => ($c[8]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'interior_number',
+                                'visible' => ($c[9]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'suburb',
+                                'visible' => ($c[10]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'municipality',
+                                'visible' => ($c[11]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'delegation',
+                                'visible' => ($c[12]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'state',
+                                'visible' => ($c[13]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'zip_code',
+                                'visible' => ($c[14]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'phone_number_1',
+                                'visible' => ($c[15]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'phone_number_2',
+                                'visible' => ($c[16]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'web_page',
+                                'visible' => ($c[17]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'client_email',
+                                'visible' => ($c[18]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'considerations',
+                                'visible' => ($c[19]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'created_at',
+                                'visible' => ($c[20]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'updated_at',
+                                'visible' => ($c[21]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'created_by',
+                                'visible' => ($c[22]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
+
+                            [
+                                'attribute' => 'updated_by',
+                                'visible' => ($c[23]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            ],
 
                             // 2018-03-17 : Modified to display the ID and the Client Type Description instead of the ID only.
                             [
                                 'attribute' => 'client_type_id',
+                                'visible' => ($c[24]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
                                 'headerOptions' => ['style' => 'width:12%'],
                                 'value' => function($model){
                                     return implode(",",ArrayHelper::map(ClientType::find()->where(['id' =>  $model->client_type_id])->all(),'id','displayTypeDesc'));
@@ -347,6 +453,20 @@ $randomBg = rand(1,11);
                                    echo Html::a('', ['client/set-color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-tint', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Desactivar código de colores')]);
                                    echo '<span>'.Yii::t('app', 'Colores').'</span>';
                                }
+                           ?>
+                       </span>
+                        <!-- Columns Selector Tool -->
+                        <span>
+                           <?php
+                           echo Html::a('', ['client/select-columns', 'ret_url' => 'client/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-list-alt', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Selector de Columnas')]);
+                           echo '<span>'.Yii::t('app', 'Columnas').'</span>';
+                           ?>
+                       </span>
+                        <!-- Page Size Tool -->
+                        <span>
+                           <?php
+                           echo Html::a('', ['client/get-page-size', 'ret_url' => 'client/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
+                           echo '<span>'.Yii::t('app', 'Paginado').'</span>';
                            ?>
                        </span>
                     </div>

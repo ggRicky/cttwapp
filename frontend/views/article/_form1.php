@@ -35,96 +35,99 @@ use yii\bootstrap\ActiveForm;
         '1' => ['class' => 'dropDownList-item-1-css'],
     ];
 
-    // catalog_id : Gets the value from the cookie and assign it to the model column_1. Default value to : '1' [ Shows ].
-    $model_1->column_1 = (Yii::$app->getRequest()->getCookies()->has('article-c1') ? Yii::$app->getRequest()->getCookies()->getValue('article-c1') : '1');
+    // Get the config for the article columns.
+    $c = (Yii::$app->getRequest()->getCookies()->has('article_columns_config') ? Yii::$app->getRequest()->getCookies()->getValue('article_columns_config') : '1111111111111111111111111');
+
+    // catalog_id : Gets the value from the cookie and assign it to the model column_0. Default value to : '1' [ Shows ].
+    $model_1->column_0 = $c[0];
+    // It determines and stores the right css class to apply in the dropDownList control.
+    $css_rules = ($model_1->column_0=='1'?'dropDownList-1-css':'dropDownList-0-css');
+    // Shows the dropDownList control for the model column_1.
+    echo $form->field($model_1, 'column_0')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app','Catálogo'));
+
+    // name_art : Gets the value from the cookie and assign it to the model column_1. Default value to : '1' [ Shows ].
+    $model_1->column_1 = $c[1];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_1=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_1.
-    echo $form->field($model_1, 'column_1')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app','Catálogo'));
+    echo $form->field($model_1, 'column_1')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app','Nombre del Artículo'));
 
-    // name_art : Gets the value from the cookie and assign it to the model column_2. Default value to : '1' [ Shows ].
-    $model_1->column_2 = (Yii::$app->getRequest()->getCookies()->has('article-c2') ? Yii::$app->getRequest()->getCookies()->getValue('article-c2') : '1');
+    // sp_desc : Gets the value from the cookie and assign it to the model column_2. Default value to : '1' [ Shows ].
+    $model_1->column_2 = $c[2];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_2=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_2.
-    echo $form->field($model_1, 'column_2')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app','Nombre del Artículo'));
+    echo $form->field($model_1, 'column_2')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Descripción en Español'));
 
-    // sp_desc : Gets the value from the cookie and assign it to the model column_3. Default value to : '1' [ Shows ].
-    $model_1->column_3 = (Yii::$app->getRequest()->getCookies()->has('article-c3') ? Yii::$app->getRequest()->getCookies()->getValue('article-c3') : '1');
+    // en_desc : Gets the value from the cookie and assign it to the model column_3. Default value to : '1' [ Shows ].
+    $model_1->column_3 = $c[3];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_3=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_3.
-    echo $form->field($model_1, 'column_3')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Descripción en Español'));
+    echo $form->field($model_1, 'column_3')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Descripción en Inglés'));
 
-    // en_desc : Gets the value from the cookie and assign it to the model column_4. Default value to : '1' [ Shows ].
-    $model_1->column_4 = (Yii::$app->getRequest()->getCookies()->has('article-c4') ? Yii::$app->getRequest()->getCookies()->getValue('article-c4') : '1');
+    // type_art : Gets the value from the cookie and assign it to the model column_4. Default value to : '1' [ Shows ].
+    $model_1->column_4 = $c[4];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_4=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_4.
-    echo $form->field($model_1, 'column_4')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Descripción en Inglés'));
+    echo $form->field($model_1, 'column_4')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Tipo de Artículo'));
 
-    // type_art : Gets the value from the cookie and assign it to the model column_5. Default value to : '1' [ Shows ].
-    $model_1->column_5 = (Yii::$app->getRequest()->getCookies()->has('article-c5') ? Yii::$app->getRequest()->getCookies()->getValue('article-c5') : '1');
+    // price_art : Gets the value from the cookie and assign it to the model column_5. Default value to : '1' [ Shows ].
+    $model_1->column_5 = $c[5];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_5=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_5.
-    echo $form->field($model_1, 'column_5')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Tipo de Artículo'));
+    echo $form->field($model_1, 'column_5')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Precio'));
 
-    // price_art : Gets the value from the cookie and assign it to the model column_6. Default value to : '1' [ Shows ].
-    $model_1->column_6 = (Yii::$app->getRequest()->getCookies()->has('article-c6') ? Yii::$app->getRequest()->getCookies()->getValue('article-c6') : '1');
+    // currency_art : Gets the value from the cookie and assign it to the model column_6. Default value to : '1' [ Shows ].
+    $model_1->column_6 = $c[6];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_6=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_6.
-    echo $form->field($model_1, 'column_6')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Precio'));
+    echo $form->field($model_1, 'column_6')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Moneda'));
 
-    // currency_art : Gets the value from the cookie and assign it to the model column_7. Default value to : '1' [ Shows ].
-    $model_1->column_7 = (Yii::$app->getRequest()->getCookies()->has('article-c7') ? Yii::$app->getRequest()->getCookies()->getValue('article-c7') : '1');
+    // brand_id : Gets the value from the cookie and assign it to the model column_7. Default value to : '1' [ Shows ].
+    $model_1->column_7 = $c[7];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_7=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_7.
-    echo $form->field($model_1, 'column_7')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Moneda'));
+    echo $form->field($model_1, 'column_7')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Marca'));
 
-    // brand_id : Gets the value from the cookie and assign it to the model column_8. Default value to : '1' [ Shows ].
-    $model_1->column_8 = (Yii::$app->getRequest()->getCookies()->has('article-c8') ? Yii::$app->getRequest()->getCookies()->getValue('article-c8') : '1');
+    // part_num : Gets the value from the cookie and assign it to the model column_8. Default value to : '1' [ Shows ].
+    $model_1->column_8 = $c[8];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_8=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_8.
-    echo $form->field($model_1, 'column_8')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Marca'));
+    echo $form->field($model_1, 'column_8')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Número de Parte'));
 
-    // part_num : Gets the value from the cookie and assign it to the model column_9. Default value to : '1' [ Shows ].
-    $model_1->column_9 = (Yii::$app->getRequest()->getCookies()->has('article-c9') ? Yii::$app->getRequest()->getCookies()->getValue('article-c9') : '1');
+    // created_at : Gets the value from the cookie and assign it to the model column_9. Default value to : '1' [ Shows ].
+    $model_1->column_9 = $c[9];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_9=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_9.
-    echo $form->field($model_1, 'column_9')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Número de Parte'));
+    echo $form->field($model_1, 'column_9')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Creado en'));
 
-    // created_at : Gets the value from the cookie and assign it to the model column_10. Default value to : '1' [ Shows ].
-    $model_1->column_10 = (Yii::$app->getRequest()->getCookies()->has('article-c10') ? Yii::$app->getRequest()->getCookies()->getValue('article-c10') : '1');
+    // updated_at : Gets the value from the cookie and assign it to the model column_10. Default value to : '1' [ Shows ].
+    $model_1->column_10 = $c[10];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_10=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_10.
-    echo $form->field($model_1, 'column_10')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Creado en'));
+    echo $form->field($model_1, 'column_10')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Actualizado en'));
 
-    // updated_at : Gets the value from the cookie and assign it to the model column_11. Default value to : '1' [ Shows ].
-    $model_1->column_11 = (Yii::$app->getRequest()->getCookies()->has('article-c11') ? Yii::$app->getRequest()->getCookies()->getValue('article-c11') : '1');
+    // created_by : Gets the value from the cookie and assign it to the model column_11. Default value to : '1' [ Shows ].
+    $model_1->column_11 = $c[11];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_11=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_11.
-    echo $form->field($model_1, 'column_11')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Actualizado en'));
+    echo $form->field($model_1, 'column_11')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Creado por'));
 
-    // created_by : Gets the value from the cookie and assign it to the model column_12. Default value to : '1' [ Shows ].
-    $model_1->column_12 = (Yii::$app->getRequest()->getCookies()->has('article-c12') ? Yii::$app->getRequest()->getCookies()->getValue('article-c12') : '1');
+    // updated_by : Gets the value from the cookie and assign it to the model column_12. Default value to : '1' [ Shows ].
+    $model_1->column_12 = $c[12];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_12=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_12.
-    echo $form->field($model_1, 'column_12')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Creado por'));
-
-    // updated_by : Gets the value from the cookie and assign it to the model column_13. Default value to : '1' [ Shows ].
-    $model_1->column_13 = (Yii::$app->getRequest()->getCookies()->has('article-c13') ? Yii::$app->getRequest()->getCookies()->getValue('article-c13') : '1');
-    // It determines and stores the right css class to apply in the dropDownList control.
-    $css_rules = ($model_1->column_13=='1'?'dropDownList-1-css':'dropDownList-0-css');
-    // Shows the dropDownList control for the model column_13.
-    echo $form->field($model_1, 'column_13')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Actualizado por'));
+    echo $form->field($model_1, 'column_12')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Actualizado por'));
 
     ?>
 

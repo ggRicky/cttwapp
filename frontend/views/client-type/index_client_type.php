@@ -57,7 +57,7 @@ $randomBg = rand(1,11);;
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
         <div class="col-lg-12"> <!-- Bootstrap's col -->
-            <!-- CTT logo to display over the parallax efect with opacity level -->
+            <!-- CTT logo to display over the parallax effect with opacity level -->
             <img src="<?=$baseUrl?>/img/ctt-logo_1.png" class="ctt-logo">
             <!-- Parallax Efect -->
             <div id="parallax<?=$randomBg?>" class="parallax-section" data-stellar-background-ratio="0.5">

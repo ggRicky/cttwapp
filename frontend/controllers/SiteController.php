@@ -109,9 +109,9 @@ class SiteController extends Controller
             // 2018-05-06 : This method were refactoring for issue a warning message in an wrong access operation.
             if ($model->login()){
                 // 2018-08-28 : Records the user login.
-                Yii::info('CTTWAPP : The user login and go into the index page', 'cttwapp_user');
+                Yii::info('[The user has authenticated their access to the application and entered the host page]', 'cttwapp_user');
                 // 2018-08-29 : Send a mail only when a user is logged.
-                Yii::info('CTTWAPP : The user login and go into the index page', 'cttwapp_mail');
+                Yii::info('[The user has authenticated their access to the application and entered the host page]', 'cttwapp_mail');
 
                 // Access success
 
@@ -152,10 +152,13 @@ class SiteController extends Controller
     public function actionLogout()
     {
         // 2018-08-29 : Send a mail only when a user is logged.
-        Yii::info('CTTWAPP : The user logout the application', 'cttwapp_mail');
+        Yii::info('[The user has closed his work session in the application]', 'cttwapp_mail');
 
         // 2018-08-28 : Records the user logout.
-        (Yii::info('CTTWAPP : The user logout the application', 'cttwapp_user') && Yii::$app->user->logout());
+
+        // The next line uses the and operator ( && ) to gives the right execution order. First logs the info message, second logout the user session.
+        // If the statements is in sequential order, the info message is not logged in the target file.
+        (Yii::info('[The user has closed his work session in the application]', 'cttwapp_user') && Yii::$app->user->logout());
 
         // 2018-06-21 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
         return $this->redirect(['site/login', 'hash' => '0']);
@@ -338,7 +341,7 @@ class SiteController extends Controller
             $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang'], 'expire' => time() + 86400 * 365,]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
             // 2018-08-28 : Record the change language activity.
-            Yii::info('Changes the language config to '.strtoupper($_POST['lang']), __METHOD__);
+            Yii::info('[The user has changed the language config to '.strtoupper($_POST['lang']).']', __METHOD__);
         }
     }
 

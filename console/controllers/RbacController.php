@@ -113,29 +113,33 @@ class RbacController extends Controller
 
         // Adds "createClient" permission
         $createClient = $auth->createPermission('createClient');
-        $createClient->description = 'Permission : Allows to create a client in the CTTwapp system.';
+        $createClient->description = 'Permission : Allows to create a Client in the CTTwapp system.';
         $auth->add($createClient);
 
         // Adds "updateClient" permission
         $updateClient = $auth->createPermission('updateClient');
-        $updateClient->description = 'Permission : Allows to update a client in the CTTwapp system.';
+        $updateClient->description = 'Permission : Allows to update a Client in the CTTwapp system.';
         $auth->add($updateClient);
 
         // Adds "viewClient" permission
         $viewClient = $auth->createPermission('viewClient');
-        $viewClient->description = 'Permission : Allows to view a client in the CTTwapp system.';
+        $viewClient->description = 'Permission : Allows to view a Client in the CTTwapp system.';
         $auth->add($viewClient);
 
         // Adds "deleteClient" permission
         $deleteClient = $auth->createPermission('deleteClient');
-        $deleteClient->description = 'Permission : Allows to delete a client in the CTTwapp system.';
+        $deleteClient->description = 'Permission : Allows to delete a Client in the CTTwapp system.';
         $auth->add($deleteClient);
 
         // Adds "listClient" permission
         $listClient = $auth->createPermission('listClient');
-        $listClient->description = 'Permission : Allows to list the clients in the CTTwapp system.';
+        $listClient->description = 'Permission : Allows to list the Clients in the CTTwapp system.';
         $auth->add($listClient);
 
+        // Adds "printClient" permission
+        $printClient = $auth->createPermission('printClient');
+        $printClient->description = 'Permission : Allows to print a Client info in the CTTwapp system.';
+        $auth->add($printClient);
 
 
         // Defines the permissions on the Catalogs module
@@ -414,6 +418,7 @@ class RbacController extends Controller
         $auth->addChild($adminClient, $updateClient);
         $auth->addChild($adminClient, $viewClient);
         $auth->addChild($adminClient, $deleteClient);
+        $auth->addChild($adminClient, $printClient);
 
 
 

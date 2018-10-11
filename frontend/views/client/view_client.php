@@ -88,6 +88,8 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                         'data-method' => 'post',
                         'data-pjax' => '0',
                     ]) ?>
+                    <!-- 2018-09-30 : Send the newly generated PDF file to a new browser tab through 'target' => '_blank' -->
+                    <?= Html::a(Yii::t('app','Imprimir'), ['print', 'id' => $model->id, 'page' => $ret_page], ['target'=>'_blank', 'class' => 'btn btn-ctt-warning btn-ctt-fixed-width']) ?>
                 </p>
 
                 <br/>

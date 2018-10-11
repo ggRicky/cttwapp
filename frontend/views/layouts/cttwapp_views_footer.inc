@@ -20,6 +20,7 @@
                         <p class="text-muted"><?= Yii::t('app','Soportado por') ?></p>
                         <hr class="small">
                         <p>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <a href="https://www.yiiframework.com/"><img src="<?=$baseUrl?>/img/yii_logo_light.svg" height="30"/></a>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <a href="https://www.jetbrains.com/"><img src="<?=$baseUrl?>/img/jetbrains.svg" height="45"/></a>
@@ -31,6 +32,8 @@
                             <a href="https://git-scm.com//"><img src="<?=$baseUrl?>/img/git_logo.svg" height="40"/></a>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             <a href="https://nginx.com//"><img src="<?=$baseUrl?>/img/nginx_logo.svg" height="17"/></a>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a href="https://www.debian.org///"><img src="<?=$baseUrl?>/img/debian_logo.svg" height="45"/></a>
                         </p>
                     </div>
                 </div>
@@ -40,8 +43,14 @@
 
     <!-- Blue ribbon footer decoration -->
     <section class="ctt-section-footer ctt-footer-container">
-        <div class="col-lg-12">
-            <div class="row "></div>
+        <div class="col-lg-12" style="z-index:1">
+            <div class="row ctt-social">
+                <ul class="list-inline">
+                    <li class="ctt-social-fa ctt-social-fa-hover"><a href="http://www.facebook.com/CTTEXPRENTALS"><i class="fa fa-facebook fa-fw fa-3x"></i></a></li>
+                    <li class="ctt-social-fa ctt-social-fa-hover"><a href="https://twitter.com/cttexp"><i class="fa fa-twitter fa-fw fa-3x"></i></a></li>
+                    <li class="ctt-social-fa ctt-social-fa-hover"><a href="http://www.linkedin.com/company/ctt-exp-&-rentals"><i class="fa fa-linkedin fa-fw fa-3x"></i></a></li>
+                </ul>
+            </div>
         </div>
     </section>
 

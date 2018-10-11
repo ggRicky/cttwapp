@@ -222,6 +222,7 @@ return ([
     'Razón Social / Nombre' => 'Business Name',
     'Teléfono 1' => 'Phone Number 1',
     'Teléfono 2' => 'Phone Number 2',
+    'Tipo de Cliente' => 'Client Type',
     'Tipos de Clientes' => 'Client Types',
     'Vista del Cliente' => 'Client View',
     'Vista del Tipo de Cliente' => 'View Client Type',

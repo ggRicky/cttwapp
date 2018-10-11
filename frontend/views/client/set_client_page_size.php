@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: ricardo
- * Date: 20/08/18
- * Time: 04:54 PM
+ * Date: 30/09/18
+ * Time: 10:54 PM
  */
 
 use yii\helpers\Html;
@@ -11,7 +11,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model_2 \yii\base\DynamicModel */
 
-$this->title = 'Artículos';
+$this->title = 'Clientes';
 $description = 'Tamaño del Paginado';
 
 $asset = \frontend\assets\AppAsset::register($this);
@@ -40,7 +40,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         <!-- Main menu return -->
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
-                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+                <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
             </div>
         </div>
 

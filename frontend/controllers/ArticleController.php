@@ -6,8 +6,8 @@ use Yii;
 use app\models\Article;
 use app\models\ArticleSearch;
 use yii\web\Controller;
-use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
+use yii\helpers\Url;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
 
@@ -38,8 +38,8 @@ class ArticleController extends Controller
     public function actionIndex()
     {
         if (\Yii::$app->user->can('listArticle')) {
-            // 2018-08-28 : Records the article delete operation.
-            Yii::info('CTTWAPP : The user access the Article Module', 'cttwapp_user');
+            // 2018-08-28 : Records the access to Article module.
+            Yii::info('[The user get the access to the Article Module]', 'cttwapp_user');
 
             $searchModel = new ArticleSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -71,7 +71,7 @@ class ArticleController extends Controller
     {
         if (\Yii::$app->user->can('viewArticle')) {
             // 2018-08-28 : Records the article view operation.
-            Yii::info('CTTWAPP : The user consulted the article ID='.$id, 'cttwapp_user');
+            Yii::info('[The user has consulted the article record with ID='.$id.']', 'cttwapp_user');
             return $this->render('view_article', ['model' => $this->findModel($id),]);
         }
         else {
@@ -100,7 +100,7 @@ class ArticleController extends Controller
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
                     // 2018-08-28 : Records the article create operation.
-                    Yii::info('CTTWAPP : The user created the article ID='.$model->id, 'cttwapp_user');
+                    Yii::info('[The user has created the article record with ID='.$model->id.']', 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
@@ -138,8 +138,8 @@ class ArticleController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
-                    // 2018-08-28 : Records the article updated operation.
-                    Yii::info('CTTWAPP : The user updated the article ID='.$model->id, 'cttwapp_user');
+                    // 2018-08-28 : Records the article update operation.
+                    Yii::info('[The user has updated the article record with ID='.$model->id.']', 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
@@ -173,7 +173,7 @@ class ArticleController extends Controller
         if (\Yii::$app->user->can('deleteArticle')) {
             if ($this->findModel($id)->delete()){
                 // 2018-08-28 : Records the article delete operation.
-                Yii::info('CTTWAPP : The user deleted the article ID='.$id, 'cttwapp_user');
+                Yii::info('[The user has deleted the article record with ID='.$id.']', 'cttwapp_user');
                 Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
             }
         }
@@ -238,7 +238,7 @@ class ArticleController extends Controller
 
         if (\Yii::$app->user->can('printArticle')) {
             // 2018-08-28 : Records the article delete operation.
-            Yii::info('CTTWAPP : The user print the article ID='.$id, 'cttwapp_user');
+            Yii::info('[The user has printed the article record with ID='.$id.']', 'cttwapp_user');
 
             // Get your HTML raw content without any layouts or scripts
             $content = $this->renderPartial('print_article', ['model' => $this->findModel($id),]);
@@ -312,75 +312,16 @@ class ArticleController extends Controller
 
     /**
      * Sets and stores each article column visibility status in cookies.
-     * @param string $c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$c10,$c11,$c12,$c13
+     * @param string $article_columns_config
      * @return mixed
      *
+     * 2018-10-01 20:19 Hrs.  Re-factor : This code only uses one cookie ( article_columns_config ) instead of 13 cookies ( one per each column )
      * 2018-08-20 16:43 Hrs.
      */
-    public function actionSetColumns($c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8,$c9,$c10,$c11,$c12,$c13)
+    public function actionSetColumns($article_columns_config)
     {
-        if (isset($c1)){  // If the parameter for column 1 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c1', 'value' => $c1, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c2)){  // If the parameter for column 2 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c2', 'value' => $c2, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c3)){  // If the parameter for column 3 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c3', 'value' => $c3, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c4)){  // If the parameter for column 4 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c4', 'value' => $c4, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c5)){  // If the parameter for column 5 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c5', 'value' => $c5, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c6)){  // If the parameter for column 6 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c6', 'value' => $c6, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c7)){  // If the parameter for column 7 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c7', 'value' => $c7, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c8)){  // If the parameter for column 8 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c8', 'value' => $c8, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c9)){  // If the parameter for column 9 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c9', 'value' => $c9, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c10)){  // If the parameter for column 10 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c10', 'value' => $c10, 'expire' => time() + 86400 * 365,]);  // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c11)){  // If the parameter for column 11 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c11', 'value' => $c11, 'expire' => time() + 86400 * 365,]);  // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c12)){  // If the parameter for column 12 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c12', 'value' => $c12, 'expire' => time() + 86400 * 365,]);  // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        if (isset($c13)){  // If the parameter for column 13 has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-c13', 'value' => $c13, 'expire' => time() + 86400 * 365,]);  // Creates a new cookie and stores the column visibility status in it.
+        if (isset($article_columns_config)){  // If the parameter for columns config has been set, then ....
+            $cookie = new \yii\web\Cookie(['name' => 'article_columns_config', 'value' => $article_columns_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
@@ -392,27 +333,34 @@ class ArticleController extends Controller
      * Shows the Column-Selector and sets the article columns visibility status.
      * @return mixed
      *
+     * 2018-10-01 20:13 Hrs.  Re-factor : This code only uses one cookie ( article_columns_config ) instead of 13 cookies ( one per each column ).
+     *                                    Using one cookie resolves the trouble described in the file :
+     *
+     *                                    2018-09-30_PROBLEMA_CODIGO_DE_ERROR_502_DE_HTTP_AL_PASAR_COOKIES_EN_Yii2.pdf
+     *
      * 2018-08-20 16:50 Hrs.
      */
     public function actionSelectColumns(){
 
         // Creates the new dynamic model
-        $model_1 = new \yii\base\DynamicModel(['column_1', 'column_2', 'column_3',  'column_4',  'column_5',  'column_6', 'column_7',
-                                               'column_8', 'column_9', 'column_10', 'column_11', 'column_12', 'column_13']);
+        $model_1 = new \yii\base\DynamicModel(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
+                                               'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12',]);
         // Add the rules to the new dynamic model
-        $model_1->addRule(['column_1', 'column_2', 'column_3',  'column_4',  'column_5',  'column_6', 'column_7',
-                           'column_8', 'column_9', 'column_10', 'column_11', 'column_12', 'column_13'], 'string', ['max' => 1]);
+        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
+                           'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12'], 'string', ['max' => 1]);
         // Add the rules to the new dynamic model
-        $model_1->addRule(['column_1', 'column_2', 'column_3',  'column_4',  'column_5',  'column_6', 'column_7',
-                           'column_8', 'column_9', 'column_10', 'column_11', 'column_12', 'column_13'], 'required'); // The ->validate() can be used her to validate the user input data.
+        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
+                           'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12'], 'required'); // The ->validate() can be used here to validate the user input data.
 
         if ($model_1->load(Yii::$app->request->post())) {
             // Saves all columns visibility status collected through the form.
             return $this->redirect(['article/set-columns',
-                                    'c1'  => $model_1->column_1, 'c2' => $model_1->column_2, 'c3' => $model_1->column_3, 'c4' => $model_1->column_4, 'c5'  => $model_1->column_5,
-                                    'c6'  => $model_1->column_6, 'c7' => $model_1->column_7, 'c8' => $model_1->column_8, 'c9' => $model_1->column_9, 'c10' => $model_1->column_10,
-                                    'c11' => $model_1->column_11,'c12'=> $model_1->column_12,'c13'=> $model_1->column_13,
-            ]);
+                                    'article_columns_config' => $model_1->column_0. $model_1->column_1. $model_1->column_2. $model_1->column_3. $model_1->column_4.
+                                                                $model_1->column_5. $model_1->column_6. $model_1->column_7. $model_1->column_8. $model_1->column_9.
+                                                                $model_1->column_10.$model_1->column_11.$model_1->column_12,
+                                    ]
+            );
+
         }
 
         // Shows the Column-Selector view and pass to this the new model.

@@ -2,17 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: ricardo
- * Date: 20/08/18
- * Time: 04:54 PM
+ * Date: 30/09/18
+ * Time: 04:58 PM
  */
 
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model_2 \yii\base\DynamicModel */
+/* @var $model_1 \yii\base\DynamicModel */
 
-$this->title = 'Artículos';
-$description = 'Tamaño del Paginado';
+$this->title = 'Cliente';
+$description = 'Selector de Columnas';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
@@ -40,7 +40,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         <!-- Main menu return -->
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
-                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+                <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
             </div>
         </div>
 
@@ -63,20 +63,20 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 
             <div class="col-lg-12 text-justify yii2-content">
 
-                <!-- Business logic for sets the article's page size -->
+                <!-- Business logic for selects the article's columns -->
                 <div class="article-columns">
 
                     <!-- Info section -->
                     <div class="well well-lg text-info">
                         <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                         <h4><strong><?= Yii::t('app','Instrucciones'); ?></strong></h4>
-                        <p><?= Yii::t('app','Introduzca el número de registros que desea visualizar en el módulo. Por último, al guardar los cambios que realizó, éstos serán aplicados de inmediato al mismo.'); ?></p>
+                        <p><?= Yii::t('app','Seleccione y marque las columnas que desea Mostrar o bien Ocultar en este módulo. Por último, al guardar los cambios que realizó, éstos serán aplicados de inmediato al mismo.'); ?></p>
                     </div>
 
                     <!-- Styles the form -->
                     <div style="padding-left: 5px; padding-top: 20px;">
-                        <?= $this->render('_form2', [
-                            'model_2' => $model_2,
+                        <?= $this->render('_form1', [
+                            'model_1' => $model_1,
                         ]) ?>
                     </div>
 

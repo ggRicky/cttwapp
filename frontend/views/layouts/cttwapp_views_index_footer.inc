@@ -4,12 +4,14 @@
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
 
+                <!-- CTT logo -->
                 <ul class="list-inline">
                     <li>
                         <img src="<?=$baseUrl?>/img/ctt-logo_2.png" height="128" width="90"/>
                     </li>
                 </ul>
 
+                <!-- Contact -->
                 <hr class="small">
                 <p>Guadalupe I. Ramírez No. 763<br />Col. Tepepan, Delegación Xochimilco, C.P. 16029</p><p>Ciudad de México, CDMX</p>
 
@@ -20,6 +22,7 @@
 
                 <br />
 
+                <!-- Social links -->
                 <ul class="list-inline">
                     <li><a href="http://www.facebook.com/CTTEXPRENTALS"><i class="fa fa-facebook fa-fw fa-3x"></i></a></li>
                     <li><a href="https://twitter.com/cttexp"><i class="fa fa-twitter fa-fw fa-3x"></i></a></li>
@@ -68,10 +71,9 @@
 
     <!-- Blue ribbon footer decoration -->
     <section class="ctt-section-footer ctt-footer-container">
-        <div class="col-lg-12">
-            <div class="row "></div>
-        </div>
+        <div class="col-lg-12"></div>
     </section>
+
 </footer>
 
 <?php

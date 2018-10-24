@@ -439,8 +439,14 @@ $randomBg = rand(1,11);;
                 <?php $this->registerJs(
                     /** @lang jQuery */
                 "$('.detail-view-link').click(function(e) {
-                        // This prevent default <a> tag behavior.
+
+                        // 2018-10-23 : If this method is called, the default action of the event will not be triggered.
                         e.preventDefault();
+                        // 2018-10-23 : Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
+                        e.stopPropagation();
+                        // 2018-10-23 : Closes the sidebar menu if this is opened.
+                        if ($('#sidebar-wrapper').hasClass('active')) 
+                            $('#sidebar-wrapper').toggleClass('active');
                         
                         // Gets the modal window title. 
                         var p_title = $(this).data(\"title\");
@@ -456,11 +462,6 @@ $randomBg = rand(1,11);;
                         // Inserts the image url in the html content-body area.
                         modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div><br/><div align=\"center\">'+p_name+'</div>');
     
-                        // Includes an close button.
-                        $('#close-ok').click(function(e) {
-                        });
-    
-                        return false;            
                     });
                     
                     // 2018-08-23 : This code is implemented for re-activate the bootstrap tooltips after each Pjax request.

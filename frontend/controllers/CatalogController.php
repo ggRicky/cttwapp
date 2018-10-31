@@ -36,6 +36,9 @@ class CatalogController extends Controller
     public function actionIndex()
     {
         if (\Yii::$app->user->can('listCatalog')) {
+            // 2018-10-30 : Records the access to Brand module.
+            Yii::info('[The user get access to the Catalog Module]', 'cttwapp_user');
+
             $searchModel = new CatalogSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -64,6 +67,8 @@ class CatalogController extends Controller
     public function actionView($id, $page)
     {
         if (\Yii::$app->user->can('viewCatalog')) {
+            // 2018-10-30 : Records the catalog view operation.
+            Yii::info('[The user has consulted the catalog record with ID='.$id.']', 'cttwapp_user');
             return $this->render('view_catalog', ['model' => $this->findModel($id),]);
         }
         else {
@@ -91,6 +96,8 @@ class CatalogController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
+                    // 2018-10-30 : Records the catalog create operation.
+                    Yii::info('[The user has created the catalog record with ID='.$model->id.']', 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
@@ -129,6 +136,8 @@ class CatalogController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
+                    // 2018-10-30 : Records the catalog update operation.
+                    Yii::info('[The user has updated the catalog record with ID='.$model->id.']', 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
@@ -161,6 +170,8 @@ class CatalogController extends Controller
     {
         if (\Yii::$app->user->can('deleteCatalog')) {
             if ($this->findModel($id)->delete()){
+                // 2018-10-30 : Records the catalog delete operation.
+                Yii::info('[The user has deleted the catalog record with ID='.$id.']', 'cttwapp_user');
                 Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
             }
         }

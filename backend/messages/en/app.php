@@ -76,4 +76,11 @@ return [
     'Tipo' => 'Type',
     'Ver' => 'View',
     'Vista de un Objeto de Autorización' => 'View an Authorization Item',
+
+    // Logs messages
+
+    'Bitácora de Acceso' => 'Access Log',
+    'Accesos al Sistema' => 'Accesses to the System',
+    'Archivo de Registro' => 'Log File',
+
 ];

@@ -109,9 +109,9 @@ class SiteController extends Controller
             // 2018-05-06 : This method were refactoring for issue a warning message in an wrong access operation.
             if ($model->login()){
                 // 2018-08-28 : Records the user login.
-                Yii::info('[The user has authenticated their access to the application and entered the host page]', 'cttwapp_user');
+                Yii::info('[The user access has been authenticated in the cttwapp application and has entered the host page]', 'cttwapp_user');
                 // 2018-08-29 : Send a mail only when a user is logged.
-                Yii::info('[The user has authenticated their access to the application and entered the host page]', 'cttwapp_mail');
+                Yii::info('[The user access has been authenticated in the cttwapp application and has entered the host page]', 'cttwapp_mail');
 
                 // Access success
 

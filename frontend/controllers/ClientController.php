@@ -40,7 +40,7 @@ class ClientController extends Controller
         if (\Yii::$app->user->can('listClient')) {
 
             // 2018-09-30 : Records the access to Client module.
-            Yii::info('[The user get the access to the Client Module]', 'cttwapp_user');
+            Yii::info('[The user get access to the Client Module]', 'cttwapp_user');
 
             $searchModel = new ClientSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

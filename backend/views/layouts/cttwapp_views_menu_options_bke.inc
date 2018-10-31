@@ -27,4 +27,11 @@
 
 <?php endif; ?>
 
+<!-- 2018-05-24 : Special Option - Only the admin user can view the cttwapp_user.log file. -->
+<?php if (\Yii::$app->user->can('adminProcess') && (Yii::$app->requestedRoute == 'site/index' || empty(Yii::$app->requestedRoute))): ?>
+
+    <li><?= "<a href='".Url::to(['logs/index'])."'>".Yii::t('app','Bitácora de Acceso')."</a>" ?></li>
+
+<?php endif; ?>
+
 <!-- Ends the include file -->

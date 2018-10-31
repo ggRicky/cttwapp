@@ -36,6 +36,9 @@ class ClientTypeController extends Controller
     public function actionIndex()
     {
         if (\Yii::$app->user->can('listClientType')) {
+            // 2018-10-30 : Records the access to Client Type module.
+            Yii::info('[The user get access to the Client Type Module]', 'cttwapp_user');
+
             $searchModel = new ClientTypeSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -63,6 +66,8 @@ class ClientTypeController extends Controller
     public function actionView($id, $page)
     {
         if (\Yii::$app->user->can('viewClientType')) {
+            // 2018-10-30 : Records the client type view operation.
+            Yii::info('[The user has consulted the client type record with ID='.$id.']', 'cttwapp_user');
             return $this->render('view_client_type', ['model' => $this->findModel($id),]);
         }
         else {
@@ -90,6 +95,8 @@ class ClientTypeController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
+                    // 2018-10-30 : Records the client type create operation.
+                    Yii::info('[The user has created the client type record with ID='.$model->id.']', 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
@@ -126,6 +133,8 @@ class ClientTypeController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
+                    // 2018-10-30 : Records the client type update operation.
+                    Yii::info('[The user has updated the client type record with ID='.$model->id.']', 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
@@ -158,6 +167,8 @@ class ClientTypeController extends Controller
     {
         if (\Yii::$app->user->can('deleteClientType')) {
             if ($this->findModel($id)->delete()){
+                // 2018-10-30 : Records the client type delete operation.
+                Yii::info('[The user has deleted the client type record with ID='.$id.']', 'cttwapp_user');
                 Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
             }
         }

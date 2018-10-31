@@ -39,7 +39,7 @@ class ArticleController extends Controller
     {
         if (\Yii::$app->user->can('listArticle')) {
             // 2018-08-28 : Records the access to Article module.
-            Yii::info('[The user get the access to the Article Module]', 'cttwapp_user');
+            Yii::info('[The user get access to the Article Module]', 'cttwapp_user');
 
             $searchModel = new ArticleSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

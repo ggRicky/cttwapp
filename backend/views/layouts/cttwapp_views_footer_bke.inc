@@ -6,10 +6,22 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
+
                 <!-- CTT mini logo -->
-                <div class="col-lg-12">
-                    <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="center-block img-responsive" height="42" width="105" style="border-radius:4px;"/>
-                </div>
+                <ul class="list-inline">
+                    <li>
+                        <img src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" class="center-block img-responsive" height="42" width="105" style="border-radius:4px;"/>
+                    </li>
+                </ul>
+
+                <br />
+
+                <!-- Social links -->
+                <ul class="list-inline">
+                    <li><a href="http://www.facebook.com/CTTEXPRENTALS"><i class="fa fa-facebook fa-fw fa-3x"></i></a></li>
+                    <li><a href="https://twitter.com/cttexp"><i class="fa fa-twitter fa-fw fa-3x"></i></a></li>
+                    <li><a href="http://www.linkedin.com/company/ctt-exp-&-rentals"><i class="fa fa-linkedin fa-fw fa-3x"></i></a></li>
+                </ul>
 
                 <!-- Credits layer -->
                 <div class="row">
@@ -38,11 +50,9 @@
         </div>
     </div>
 
-    <!-- Blue ribbon footer decoration -->
+    <!-- Orange ribbon footer decoration -->
     <section class="ctt-section-footer ctt-footer-container-bke">
-        <div class="col-lg-12">
-            <div class="row "></div>
-        </div>
+        <div class="col-lg-12"></div>
     </section>
 
 </footer>

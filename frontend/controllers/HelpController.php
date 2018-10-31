@@ -19,6 +19,8 @@ class HelpController extends Controller
     public function actionView($theme, $ret_url, $ret_hash)
     {
         if (\Yii::$app->user->can('viewHelp')) {
+            // 2018-10-30 : Records the access to Help module.
+            Yii::info("[The user get access to the Help Theme : $theme]", 'cttwapp_user');
             return $this->render('view_help'.$theme, ['ret_url' => $ret_url, 'ret_hash' => $ret_hash]);
         }
         else {

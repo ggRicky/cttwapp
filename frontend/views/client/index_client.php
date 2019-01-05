@@ -158,7 +158,11 @@ $randomBg = rand(1,11);
                     // 2018-09-30 : Sets the $dataProvider->pageSize to a default value
                     $dataProvider->pagination->pageSize = 10;
                 ?>
-
+            <?php
+            $file = "/var/www/web/cttwapp/frontend/views/client/index_client.php";
+            $line = 161;
+            print "<a href='phpstorm://open?url=file://$file&line=$line'>Open with PhpStorm</a>";
+            ?>
                 <!-- 2018-04-13 : The next div including the id and class elements, enable the vertical and horizontal scrollbars. -->
                 <div id="div-scroll" class="div-scroll-area-horizon">
 

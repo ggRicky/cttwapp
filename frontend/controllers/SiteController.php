@@ -151,16 +151,10 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        // 2018-08-29 : Send a mail only when a user is logged.
-        Yii::info('[The user has closed his work session in the CTTwapp application]', 'cttwapp_mail');
-
-        // 2018-08-28 : Records the user logout.
-
-        // The next line uses the and operator ( && ) to gives the right execution order. First logs the info message, second logout the user session.
-        // If the statements is in sequential order, the info message is not logged in the target file.
+        // 2018-08-28 : Records in the log file when logs out the current user.
         Yii::info('[The user has closed his work session in the CTTwapp application]', 'cttwapp_user');
-
-        sleep(3);
+        // 2018-08-29 : Send a mail only when logs out the current user.
+        Yii::info('[The user has closed his work session in the CTTwapp application]', 'cttwapp_mail');
 
         Yii::$app->user->logout();
 

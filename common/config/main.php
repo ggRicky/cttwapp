@@ -30,20 +30,23 @@ return [
                         'cttwapp_user',
                     ],
                     'prefix' => function ($message) {                // 2018-08-28 : This setting defines a PHP callable to customize the message formatting.
-                        // There is an user logged ?
-                        if (Yii::$app->has('user', true)){
-                            // Yes!. Then gets the user Name, the user ID, and the user IP.
-                            $userID   = Yii::$app->user->identity->id;
-                            $userName = Yii::$app->user->identity->username;
-                            $userIP   = Yii::$app->request->getUserIP();
 
-                            // Creates the new prefix
-                            $new_prefix = "[$userID][$userName][$userIP]";
+                        // 2019-01-04 [ Refactored ] : Gets the current user and init the ID, Name and IP variables.
+                        $user     = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
+                        $userID   = '?';
+                        $userName = '?';
+                        $userIP   = '?';
+
+                        // 2019-01-04 [ Refactored ] : If there's a user logged, then gets the Name, the ID, and the user IP.
+                        if (gettype($user->getId(false)) != 'NULL'){
+                           $userID   = $user->getId(false);
+                           $userName = $user->getUsername();
+                           $userIP   = Yii::$app->request->getUserIP();
                         }
-                        else
-                            $new_prefix = "[-][-][-]";
 
-                        return $new_prefix;
+                        // 2019-01-04 [ Refactored ] : Creates the new prefix
+                        return "[$userID][$userName][$userIP]";
+
                     }
 
                 ],
@@ -54,28 +57,30 @@ return [
                     'class' => 'yii\log\FileTarget',                 // 2018-08-28 : Uses File Target class for Logs.
                     'enabled' => true,                               // 2018-08-28 : Target Enabled
                     'logFile' => '@runtime/logs/cttwapp_user.log',   // 2018-08-28 : The file for stores the cttwapp app log messages.
-                    'levels' => ['profile', 'info'],                 // 2018-08-28 : Defines log info and profile messages. The level 'profile' needs the 'application' category to log 'Performance Profiling'
+                    'levels' => ['info','profile'],                  // 2018-08-28 : Defines log info and profile messages. The level 'profile' needs the 'application' category to log 'Performance Profiling'
                     'categories' => ['application','cttwapp_user'],  // 2018-08-28 : Defines a new category 'cttwapp_user' for selected actions.
                     'logVars' => [],                                 // 2018-08-28 : This setting avoid to record the PHP variables info like $_SERVER, $_POST, $_SESSION, $_COOKIE in the log.
                     'except' => [                                    // 2018-08-28 : This setting avoid to record the SQL commands in the log.
                         'yii\db\*',
                     ],
                     'prefix' => function ($message) {                // 2018-08-28 : This setting defines a PHP callable to customize the message formatting.
-                        // There is an user logged ?
-                        if (Yii::$app->has('user', true)){
-                            // Yes!. Then gets the user Name, the user ID, and the user IP.
-                            $userID    = Yii::$app->user->identity->id;
-                            $userName  = Yii::$app->user->identity->username;
-                            $userIP    = Yii::$app->request->getUserIP();
-                            $duration  = Yii::getLogger()->getProfiling(['application']);
 
-                            // Creates the new prefix
-                            $new_prefix = "[$userID][$userName][$userIP]";
+                        // 2019-01-04 [ Refactored ] : Gets the current user and init the ID, Name and IP variables.
+                        $user     = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
+                        $userID   = '?';
+                        $userName = '?';
+                        $userIP   = '?';
+
+                        // 2019-01-04 [ Refactored ] : If there's a user logged, then gets the Name, the ID, and the user IP.
+                        if (gettype($user->getId(false)) != 'NULL'){
+                           $userID   = $user->getId(false);
+                           $userName = $user->getUsername();
+                           $userIP   = Yii::$app->request->getUserIP();
                         }
-                        else
-                            $new_prefix = "[-][-][-]";
 
-                        return $new_prefix;
+                        // 2019-01-04 [ Refactored ] : Creates the new prefix
+                        return "[$userID][$userName][$userIP]";
+
                     }
 
                 ],
@@ -92,20 +97,23 @@ return [
                         'yii\db\*',
                     ],
                     'prefix' => function ($message) {                // 2018-08-28 : This setting defines a PHP callable to customize the message formatting.
-                        // There is an user logged ?
-                        if (Yii::$app->has('user', true)){
-                            // Yes!. Then gets the user Name, the user ID, and the user IP.
-                            $userID   = Yii::$app->user->identity->id;
-                            $userName = Yii::$app->user->identity->username;
-                            $userIP   = Yii::$app->request->getUserIP();
 
-                            // Creates the new prefix
-                            $new_prefix = "[$userID][$userName][$userIP]";
+                        // 2019-01-04 [ Refactored ] : Gets the current user and init the ID, Name and IP variables.
+                        $user     = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
+                        $userID   = '?';
+                        $userName = '?';
+                        $userIP   = '?';
+
+                        // 2019-01-04 [ Refactored ] : If there's a user logged, then gets the Name, the ID, and the user IP.
+                        if (gettype($user->getId(false)) != 'NULL'){
+                           $userID   = $user->getId(false);
+                           $userName = $user->getUsername();
+                           $userIP   = Yii::$app->request->getUserIP();
                         }
-                        else
-                            $new_prefix = "[-][-][-]";
 
-                        return $new_prefix;
+                        // 2019-01-04 [ Refactored ] : Creates the new prefix
+                        return "[$userID][$userName][$userIP]";
+
                     }
 
                 ],
@@ -115,6 +123,7 @@ return [
 
                     'class' => 'yii\log\EmailTarget',                // 2018-08-28 : Uses Email Target class for Logs.
                     'enabled' => true,                               // 2018-08-28 : Target disabled
+                    'mailer' => 'mailer',
                     'message' => [                                   // 2018-08-28 : Defines the source and destination mail accounts for send the Logs.
                         'from' => ['soporte.cttwapp@gmail.com'],
                         'to' => ['ricardogg67@gmail.com', 'ricardo.gonzalez@itcelaya.edu.mx'],
@@ -127,24 +136,31 @@ return [
                         'yii\db\*',
                     ],
                     'prefix' => function ($message) {                // 2018-08-28 : This setting defines a PHP callable to customize the message formatting.
-                        // There is an user logged ?
-                        if (Yii::$app->has('user', true)){
-                            // Yes!. Then gets the user Name, the user ID, and the user IP.
-                            $userID   = Yii::$app->user->identity->id;
-                            $userName = Yii::$app->user->identity->username;
-                            $userIP   = Yii::$app->request->getUserIP();
 
-                            // Creates the new prefix
-                            $new_prefix = "[$userID][$userName][$userIP]";
+                        // 2019-01-04 [ Refactored ] : Gets the current user and init the ID, Name and IP variables.
+                        $user     = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
+                        $userID   = '?';
+                        $userName = '?';
+                        $userIP   = '?';
+
+                        // 2019-01-04 [ Refactored ] : If there's a user logged, then gets the Name, the ID, and the user IP.
+                        if (gettype($user->getId(false)) != 'NULL'){
+                           $userID   = $user->getId(false);
+                           $userName = $user->getUsername();
+                           $userIP   = Yii::$app->request->getUserIP();
                         }
-                        else
-                            $new_prefix = "[-][-][-]";
 
-                        return $new_prefix;
+                        // 2019-01-04 [ Refactored ] : Creates the new prefix
+                        return "[$userID][$userName][$userIP]";
+
                     },
 
                 ],
             ],
+        ],
+        // 2019-01-04 : To bends Yii2 to your will, by virtually extending everything!
+        'user' => [
+            'class' => 'frontend\components\User', // extend User component
         ],
     ],
 ];

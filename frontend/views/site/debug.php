@@ -62,5 +62,9 @@
     //  Replaces the regular expression with the same value in red color plus a <br /> tag.
     //  $data = preg_replace("/".$re1."/is","<br /><span style='color: red;'><b>$1</b></span>", $str);
 
+    //  2018-11-10 : Debug data
+    //  echo var_dump($data);
+    //  echo print_r($data);
+
 ?>
 </p>

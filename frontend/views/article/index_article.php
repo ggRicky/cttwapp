@@ -171,6 +171,16 @@ $randomBg = rand(1,11);;
                 <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
                 <div id="div-scroll" class="div-scroll-area-horizon">
 
+                    <!-- 2019-01-04: The following code defines a link in the application in execution, that will invoke the
+                         editor of Phpstorm to deploy the corresponding source code for purposes of debug and follow up.-->
+
+                    <?php
+                        // 2019-01-04 : Only for debug purpose
+                        // $file = "/var/www/web/cttwapp/frontend/views/article/index_article.php";
+                        // $line = 179;
+                        // print "<a href='phpstorm://open?url=file://$file&line=$line'>Open with PhpStorm</a>";
+                    ?>
+
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,

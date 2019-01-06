@@ -151,9 +151,9 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        // 2018-08-28 : Records in the log file when logs out the current user.
+        // 2018-08-28 : Records in the log file when the current user closes their work session.
         Yii::info('[The user has closed his work session in the CTTwapp application]', 'cttwapp_user');
-        // 2018-08-29 : Send a mail only when logs out the current user.
+        // 2018-08-29 : Sends an email only when the current user closes their work session.
         Yii::info('[The user has closed his work session in the CTTwapp application]', 'cttwapp_mail');
 
         Yii::$app->user->logout();
@@ -175,6 +175,8 @@ class SiteController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
                     Yii::$app->session->setFlash('success', Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'));
+                    // 2019-01-06 : Sends a email when the current user record a contact form.
+                    Yii::info('[ NEW: A user has registered a contact form in the CTTwapp application]', 'cttwapp_mail');
                 } else {
                     Yii::$app->session->setFlash('warning', Yii::t('app','Se presentó un error al enviar su mensaje.'));
                 }

@@ -46,10 +46,17 @@
 
 <?php endif; ?>
 
-<!--2018-06-19 : Only available the Article module if the user have the right permission and currently isn't in the same view. -->
+<!--2019-01-07 : Only available the Price List view if the user have the right permission and currently isn't in the same view. -->
 <?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/index'): ?>
 
-    <li><?= "<a href='".Url::to(['article/index'])."'>".Yii::t('app','Artículos')."</a>" ?></li>
+    <li><?= "<a href='".Url::to(['article/index'])."'>".Yii::t('app','Productos y Servicios')."</a>" ?></li>
+
+<?php endif; ?>
+
+<!--2019-01-06 : Only available the Price List view if the user have the right permission and currently isn't in the same view. -->
+<?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/index'): ?>
+
+    <li><?= "<a href='".Url::to(['article/show-price-list'])."'>".Yii::t('app','Lista de Precios')."</a>" ?></li>
 
 <?php endif; ?>
 

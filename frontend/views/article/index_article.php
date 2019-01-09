@@ -15,7 +15,7 @@ use app\models\Brand;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $qryParams */
 
-$this->title = 'Artículos';
+$this->title = 'Productos y Servicios';
 $description = 'Listado Nominal';
 
 // Register the cttwapp project asset bundle
@@ -161,7 +161,7 @@ $randomBg = rand(1,11);;
                         $dataProvider->pagination->pageSize = Yii::$app->getRequest()->getCookies()->getValue('article-pageSize');
                     // 2018-08-22 : Sets the $dataProvider->pageSize to a default value
                     else
-                        $dataProvider->pagination->pageSize = 10;
+                        $dataProvider->pagination->pageSize = 7;
                 ?>
 
                 <?php
@@ -516,14 +516,14 @@ $randomBg = rand(1,11);;
                         <!-- Columns Selector Tool -->
                         <span>
                            <?php
-                               echo Html::a('', ['article/select-columns', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-list-alt', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Selector de Columnas')]);
+                               echo Html::a('', ['article/get-columns', 'view_type' => '0'], ['class' => 'btn glyphicon glyphicon-list-alt', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Selector de Columnas')]);
                                echo '<span>'.Yii::t('app', 'Columnas').'</span>';
                            ?>
                        </span>
                         <!-- Page Size Tool -->
                         <span>
                            <?php
-                               echo Html::a('', ['article/get-page-size', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
+                               echo Html::a('', ['article/get-page-size', 'view_type' => '0'], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
                                echo '<span>'.Yii::t('app', 'Paginado').'</span>';
                            ?>
                        </span>

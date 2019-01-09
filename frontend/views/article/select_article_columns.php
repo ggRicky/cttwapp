@@ -10,9 +10,10 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model_1 \yii\base\DynamicModel */
+/* @var $view_type */
 
-$this->title = 'Artículo';
-$description = 'Selector de Columnas';
+$this->title = 'Selector de Columnas';
+$description = 'Configuración';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
@@ -21,6 +22,9 @@ $baseUrl = $asset->baseUrl;
 // Verifies and validate the current page value.
 $ret_page = Yii::$app->getRequest()->getQueryParam('page');
 $ret_page = (empty($ret_page)?'1':$ret_page);
+
+// 2019-01-07 : Gets the request param view_type
+$view_type = Yii::$app->getRequest()->getQueryParam('view_type');
 
 ?>
 
@@ -40,7 +44,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         <!-- Main menu return -->
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
-                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/'.($view_type==1?'show-price-list':'index'), 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
             </div>
         </div>
 
@@ -77,6 +81,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                     <div style="padding-left: 5px; padding-top: 20px;">
                         <?= $this->render('_form1', [
                             'model_1' => $model_1,
+                            'view_type' => $view_type,
                         ]) ?>
                     </div>
 

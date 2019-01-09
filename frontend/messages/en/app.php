@@ -24,6 +24,7 @@ return ([
     'Colores' => 'Colors',
     'Columnas' => 'Columns',
     'Confidencial' => 'Confidential',
+    'Configuración' => 'Configuration',
     'Desactivar código de colores' => 'Disable color code',
     'Descarta la operación' => 'Discard the operation',
     'Detalles' => 'Detail',
@@ -254,20 +255,29 @@ return ([
     'Fotografía del Artículo' => 'Article Photography',
     'Información del Artículo' => 'Article Information',
     'Imagen' => 'Image',
+    'Lista de Precios' => 'Price list',
     'Marca' => 'Brand',
     'Marcas' => 'Brands',
     'Marcas Disponibles' => 'Available Brands',
     'Módulo Administrador de Artículos' => 'Articles Administrator Module',
+    'Módulo Lista de Precios' => 'Price List Administrator Module',
     'Moneda' => 'Currency',
     'Nombre del Artículo' => 'Article Name',
     'Nombre del Catálogo' => 'Catalog Name',
     'Número de Parte' => 'Part Number',
     'N/D' => 'N/A',
     'Precio' => 'Price',
+    'Productos y Servicios' => 'Products and Services',
     'Tipo de Artículo' => 'Article Type',
     'Vista Detallada' => 'Detailed View',
     'Vista del Artículo' => 'Article View',
     'Vista del Catálogo' => 'Catalog View',
     'Vista de la Marca' => 'Brand View',
+
+    // Validadores
+
+    'El valor no debe ser menor a ' => 'The value must be no less than ',
+    'El valor no debe ser mayor a ' => 'The value must be no greater than ',
+    'El valor no puede estar vacío.' => 'The value cannot be blank.',
 
 ]);

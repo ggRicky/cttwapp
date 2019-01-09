@@ -6,6 +6,10 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model_2 \yii\base\DynamicModel */
 /* @var $form yii\bootstrap\ActiveForm */
+/* @var $view_type */
+
+// 2019-01-07 : Gets the request param view_type
+$view_type = Yii::$app->getRequest()->getQueryParam('view_type');
 
 ?>
 
@@ -26,11 +30,11 @@ use yii\bootstrap\ActiveForm;
         ],
     ]);
 
-    // 2018-08-22 : Gets the value from the cookie and assign it to the model pageSizeValue. Default value to : 10 [ Records / Page ].
-    $model_2->pageSizeValue = (Yii::$app->getRequest()->getCookies()->has('article-pageSize') ? Yii::$app->getRequest()->getCookies()->getValue('article-pageSize') : 10);
+    // 2018-08-22 : Gets the value from the cookie and assign it to the model pageSizeValue. Default value to : 7 [ Records / Page ].
+    $model_2->paginado = (Yii::$app->getRequest()->getCookies()->has('article-pageSize'.($view_type==1?'2':'')) ? Yii::$app->getRequest()->getCookies()->getValue('article-pageSize'.($view_type==1?'2':'')) : 7);
 
     // 2018-08-22 : Shows the TextInput control for pageSizeValue textInput field.
-    echo $form->field($model_2, 'pageSizeValue')->textInput(['style'=>'width:30%'])->label(Yii::t('app','Tamaño del Paginado'));
+    echo $form->field($model_2, 'paginado')->textInput(['style'=>'width:30%'])->label(Yii::t('app','Tamaño del Paginado'))->hint(Yii::t('app','Tamaño del Paginado').' : [ 1 - 50 ]');
 
     ?>
 

@@ -6,6 +6,10 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model_1 \yii\base\DynamicModel */
 /* @var $form yii\bootstrap\ActiveForm */
+/* @var $view_type */
+
+// 2019-01-07 : Gets the request param view_type
+$view_type = Yii::$app->getRequest()->getQueryParam('view_type');
 
 ?>
 
@@ -36,7 +40,7 @@ use yii\bootstrap\ActiveForm;
     ];
 
     // Get the config for the article columns.
-    $c = (Yii::$app->getRequest()->getCookies()->has('article_columns_config') ? Yii::$app->getRequest()->getCookies()->getValue('article_columns_config') : '1111111111111111111111111');
+    $c = (Yii::$app->getRequest()->getCookies()->has('article_columns_config'.($view_type==1?'2':'')) ? Yii::$app->getRequest()->getCookies()->getValue('article_columns_config'.($view_type==1?'2':'')) : '1111111111111111111111111');
 
     // catalog_id : Gets the value from the cookie and assign it to the model column_0. Default value to : '1' [ Shows ].
     $model_1->column_0 = $c[0];

@@ -61,6 +61,35 @@ class ArticleController extends Controller
     }
 
     /**
+     * Shows the Price List view.
+     * @return mixed
+     */
+    public function actionShowPriceList()
+    {
+        if (\Yii::$app->user->can('listArticle')) {
+            // 2018-08-28 : Records the access to Article module.
+            Yii::info('[The user get access to the Article Module]', 'cttwapp_user');
+
+            $searchModel = new ArticleSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index_price_list', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_article.php view for test if 'ArticleSearch'
+            ]);
+        }
+        else {
+            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest())
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+            else
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['site/index', 'hash' => '0']);
+    }
+
+    /**
      * Displays a single Article model.
      * @param string $id
      * @param string $page
@@ -165,6 +194,7 @@ class ArticleController extends Controller
      * Deletes an existing Article model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
+     * @param string $page
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -205,7 +235,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Switch and stores the article colored status in a cookie.
+     * Switch and stores the articles colored status in a cookie.
      * @param string $color
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -220,6 +250,140 @@ class ArticleController extends Controller
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
         return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+    }
+
+    /**
+     * Switch and stores the articles colored status in a cookie for the price list view.
+     * @param string $color
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     *
+     * 2019-01-07 17:27 Hrs.
+     */
+    public function actionSetColor2($color)
+    {
+        if (isset($color)){ // if color parameter is set.
+            // Create and store a new cookie
+            $cookie = new \yii\web\Cookie(['name' => 'article-color2', 'value' => $color, 'expire' => time() + 86400 * 365,]);
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+        return $this->redirect(['article/show-price-list', 'page' => '1', 'hash' => '0']);
+    }
+
+    /**
+     * Gets the article columns visibility status.
+     * @param string $view_type
+     * @return mixed
+     *
+     * 2018-10-01 20:13 Hrs.  Re-factor : This code only uses one cookie ( article_columns_config ) instead of 13 cookies ( one per each column ).
+     *                                    Using one cookie resolves the trouble described in the file :
+     *
+     *                                    2018-09-30_PROBLEMA_CODIGO_DE_ERROR_502_DE_HTTP_AL_PASAR_COOKIES_EN_Yii2.pdf
+     *
+     * 2018-08-20 16:50 Hrs.
+     */
+    public function actionGetColumns($view_type){
+
+        // Creates the new dynamic model
+        $model_1 = new \yii\base\DynamicModel(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
+                                               'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12',]);
+        // Add the rules to the new dynamic model
+        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
+                           'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12'], 'string', ['max' => 1]);
+        // Add the rules to the new dynamic model
+        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
+                           'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12'], 'required'); // The ->validate() can be used here to validate the user input data.
+
+        if ($model_1->load(Yii::$app->request->post())) {
+            // Saves all columns visibility status collected through the form.
+            return $this->redirect(['article/set-columns',
+                                    'article_columns_config' => $model_1->column_0. $model_1->column_1. $model_1->column_2. $model_1->column_3. $model_1->column_4.
+                                                                $model_1->column_5. $model_1->column_6. $model_1->column_7. $model_1->column_8. $model_1->column_9.
+                                                                $model_1->column_10.$model_1->column_11.$model_1->column_12,
+                                    'view_type' => $view_type,
+                                    ]
+            );
+
+        }
+
+        // Shows the Column-Selector view and pass to this the new model.
+        return $this->render('select_article_columns',['model_1' => $model_1, 'view_type' => $view_type]);
+
+    }
+
+    /**
+     * Sets and stores each articles column visibility status in cookies.
+     * @param string $article_columns_config
+     * @param string $view_type
+     * @return mixed
+     *
+     * 2018-10-01 20:19 Hrs.  Re-factor : This code only uses one cookie ( article_columns_config ) instead of 13 cookies ( one per each column )
+     * 2018-08-20 16:43 Hrs.
+     */
+    public function actionSetColumns($article_columns_config, $view_type)
+    {
+        // 2019-01-07 : Refactored
+        // $view_type == 0 : article/index view
+        // $view_type == 1 : article/show-price-list
+
+        if (isset($article_columns_config)){  // If the parameter for columns config has been set, then ...
+            // ... creates a new cookie named (article_columns_config / article_columns_config2) and stores the page size value in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article_columns_config'.($view_type==1?'2':''), 'value' => $article_columns_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        // Apply and show the newly generated changes.
+        return $this->redirect(['article/'.($view_type==1?'show-price-list':'index'), 'page' => '1', 'hash' => '0']);
+    }
+
+    /**
+     * Gets the article page size.
+     * @return mixed
+     *
+     * 2018-08-22 20:28 Hrs.
+     */
+    public function actionGetPageSize($view_type){
+
+        // Creates the new dynamic model
+        $model_2 = new \yii\base\DynamicModel(['paginado']);
+        // Add the rules to the new dynamic model
+        $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 50, 'tooSmall' => Yii::t('app','El valor no debe ser menor a ').'1.', 'tooBig' => Yii::t('app','El valor no debe ser mayor a ').'50.']);
+        // Add the rules to the new dynamic model
+        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app','El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
+
+        if ($model_2->load(Yii::$app->request->post())) {
+            // Saves the page size value collected through the form.
+            return $this->redirect(['article/set-page-size',
+                                    'page_size_config' => $model_2->paginado,
+                                    'view_type' => $view_type,
+            ]);
+        }
+
+        // Apply and show the newly generated changes.
+        return $this->render('set_article_page_size', ['model_2' => $model_2, 'view_type' => $view_type]);
+    }
+
+    /**
+     * Sets and stores the article page size.
+     * @param string $page_size_config
+     * @return mixed
+     *
+     * 2018-08-22 22:55 Hrs.
+     */
+    public function actionSetPageSize($page_size_config, $view_type)
+    {
+        // 2019-01-07 : Refactored
+        // $view_type == 0 : article/index view
+        // $view_type == 1 : article/show-price-list
+
+        if (isset($page_size_config)){  // If the parameter for page size has been set, then ...
+            // ... creates a new cookie named (article-pageSize / article-pageSize2) and stores the page size value in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article-pageSize'.($view_type==1?'2':''), 'value' => $page_size_config, 'expire' => time() + 86400 * 365,]);
+            Yii::$app->getResponse()->getCookies()->add($cookie);
+        }
+
+        // Apply and show the newly generated changes.
+        return $this->redirect(['article/'.($view_type==1?'show-price-list':'index'), 'page' => '1', 'hash' => '0']);
     }
 
     /**
@@ -308,107 +472,6 @@ class ArticleController extends Controller
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
         }
         return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
-    }
-
-    /**
-     * Sets and stores each article column visibility status in cookies.
-     * @param string $article_columns_config
-     * @return mixed
-     *
-     * 2018-10-01 20:19 Hrs.  Re-factor : This code only uses one cookie ( article_columns_config ) instead of 13 cookies ( one per each column )
-     * 2018-08-20 16:43 Hrs.
-     */
-    public function actionSetColumns($article_columns_config)
-    {
-        if (isset($article_columns_config)){  // If the parameter for columns config has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article_columns_config', 'value' => $article_columns_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        // Apply and show the newly generated changes.
-        return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
-    }
-
-    /**
-     * Shows the Column-Selector and sets the article columns visibility status.
-     * @return mixed
-     *
-     * 2018-10-01 20:13 Hrs.  Re-factor : This code only uses one cookie ( article_columns_config ) instead of 13 cookies ( one per each column ).
-     *                                    Using one cookie resolves the trouble described in the file :
-     *
-     *                                    2018-09-30_PROBLEMA_CODIGO_DE_ERROR_502_DE_HTTP_AL_PASAR_COOKIES_EN_Yii2.pdf
-     *
-     * 2018-08-20 16:50 Hrs.
-     */
-    public function actionSelectColumns(){
-
-        // Creates the new dynamic model
-        $model_1 = new \yii\base\DynamicModel(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
-                                               'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12',]);
-        // Add the rules to the new dynamic model
-        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
-                           'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12'], 'string', ['max' => 1]);
-        // Add the rules to the new dynamic model
-        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
-                           'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12'], 'required'); // The ->validate() can be used here to validate the user input data.
-
-        if ($model_1->load(Yii::$app->request->post())) {
-            // Saves all columns visibility status collected through the form.
-            return $this->redirect(['article/set-columns',
-                                    'article_columns_config' => $model_1->column_0. $model_1->column_1. $model_1->column_2. $model_1->column_3. $model_1->column_4.
-                                                                $model_1->column_5. $model_1->column_6. $model_1->column_7. $model_1->column_8. $model_1->column_9.
-                                                                $model_1->column_10.$model_1->column_11.$model_1->column_12,
-                                    ]
-            );
-
-        }
-
-        // Shows the Column-Selector view and pass to this the new model.
-        return $this->render('select_article_columns',['model_1' => $model_1]);
-    }
-
-    /**
-     * Gets the article page size.
-     * @return mixed
-     *
-     * 2018-08-22 20:28 Hrs.
-     */
-    public function actionGetPageSize(){
-
-        // Creates the new dynamic model
-        $model_2 = new \yii\base\DynamicModel(['pageSizeValue']);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['pageSizeValue'], 'integer', ['min' => 1, 'max' => 50]);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['pageSizeValue'], 'required'); // The ->validate() can be used her to validate the user input data.
-
-        if ($model_2->load(Yii::$app->request->post())) {
-            // Saves the page size value collected through the form.
-            return $this->redirect(['article/set-page-size',
-                'pageSize' => $model_2->pageSizeValue,
-            ]);
-        }
-
-        // Apply and show the newly generated changes.
-        return $this->render('set_article_page_size', ['model_2' => $model_2]);
-    }
-
-    /**
-     * Sets and stores the article page size.
-     * @param string $pageSize
-     * @return mixed
-     *
-     * 2018-08-22 22:55 Hrs.
-     */
-    public function actionSetPageSize($pageSize)
-    {
-        if (isset($pageSize)){  // If the parameter for page size has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'article-pageSize', 'value' => $pageSize, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the page size value in it.
-            Yii::$app->getResponse()->getCookies()->add($cookie);
-        }
-
-        // Apply and show the newly generated changes.
-        return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
     }
 
 }

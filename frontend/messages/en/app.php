@@ -268,6 +268,7 @@ return ([
     'N/D' => 'N/A',
     'Precio' => 'Price',
     'Productos y Servicios' => 'Products and Services',
+    'Producto / Servicio' => 'Product / Service',
     'Tipo de Artículo' => 'Article Type',
     'Vista Detallada' => 'Detailed View',
     'Vista del Artículo' => 'Article View',

@@ -39,6 +39,8 @@ class AppAsset extends AssetBundle
         'js/jquery-2.0.2.js',
         // the parallax plugin
         'js/jquery.stellar.js',
+        // the jquery tableHeadFixer plugin
+        'js/tableHeadFixer.js',
         // the js/jquery core for the cttwapp project
         'js/cttwapp-core.js',
         // the bootstrap plugin

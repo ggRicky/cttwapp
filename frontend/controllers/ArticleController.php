@@ -115,6 +115,31 @@ class ArticleController extends Controller
     }
 
     /**
+     * Displays a single Article model in the Price List GridView.
+     * @param string $id
+     * @param string $page
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView2($id, $page)
+    {
+        if (\Yii::$app->user->can('viewArticle')) {
+            // 2018-08-28 : Records the article view operation.
+            Yii::info('[The user has consulted the article record with ID='.$id.']', 'cttwapp_user');
+            return $this->render('view_price_list', ['model' => $this->findModel($id),]);
+        }
+        else {
+            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        }
+        return $this->redirect(['article/show-price-list', 'page' => $page, 'hash' => '0']);
+    }
+
+    /**
      * Creates a new Article model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @param integer $page

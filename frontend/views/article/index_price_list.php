@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+//use yii\grid\GridView;
 
 /* 2018-05-06 : Used to display the catalog name for the actual article record */
 use yii\helpers\ArrayHelper;
@@ -10,6 +10,7 @@ use yii\helpers\Url;
 use yii\web\View;
 use app\models\Catalog;
 use app\models\Brand;
+use frontend\components\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ArticleSearch */
@@ -154,11 +155,14 @@ $randomBg = rand(1,11);;
             ?>
 
             <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
-            <div id="div-scroll" class="div-scroll-area-horizon">
+            <div id="div-scroll">
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'tableOptions' => ['id' => 'fixTable', 'class' => 'table table-striped table-bordered'],
+                     // 2019-01-12 : Some options to custom the table header
+                     // 'headerRowOptions' => ['style' => 'background-color:lightgray'],
                     'rowOptions' => function($model){
                         // 2018-04-23 : The next conditional statement enable colored rows based on specific database value
                         // 2018-05-14 : Improvement. The color on/off status is stored in a cookie.
@@ -179,8 +183,10 @@ $randomBg = rand(1,11);;
                         // 2018-06-03 : A new action is implemented to pass the page number parameter and return to the current page in GridView widget.
 
                         [
+                            // 2019-01-12 : Some options to custom the table header
                             'class' => 'yii\grid\ActionColumn',
-                            'headerOptions' => ['style' => 'width:4%'],
+                            'header' => '<span>Acción</span>',
+                            'headerOptions' => ['style' => 'width:4%; color:#8b8787;'],
                             'template' => '{show} {view}',
                             'buttons' => [
                                 // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
@@ -199,12 +205,13 @@ $randomBg = rand(1,11);;
                                     $file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
 
                                     if (!is_null($file_ext)) {
-                                        return Html::a('<span class="glyphicon glyphicon-camera" data-toggle="tooltip" title="'.Yii::t('app', 'Mostrar').'"></span>', '#', [
+                                        return Html::a('<span class="glyphicon glyphicon-camera"></span>', '#', [
                                             'class'       => 'detail-view-link',
-                                            'style'       => 'color:#337ab7, ',                            // 2018-07-11 : Display the glyphicon-camera in default color.
-                                            'onMouseOver' => 'this.style.color=\'#ff8e00\'',               // 2018-07-11 : When mouse is hover on the link, the color changes to orange advising an available operation.
+                                            'style'       => 'color:#337ab7;',                            // 2018-07-11 : Display the glyphicon-camera in default color.
+                                            'onMouseOver' => 'this.style.color=\'#ff8e00\'',              // 2018-07-11 : When mouse is hover on the link, the color changes to orange advising an available operation.
                                             'onMouseOut'  => 'this.style.color=\'#337ab7\'',
-                                            'data-toggle' => 'modal',
+                                            'data-toggle' => 'tooltip',
+                                            'title' => Yii::t('app', 'Mostrar'),         // 2018-06-03 : Adds the tooltip View
                                             'data-target' => '#ctt-modal-show-art',
                                             'data' => [
                                                 'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),
@@ -220,10 +227,10 @@ $randomBg = rand(1,11);;
                                 },
                             ],
 
-                            // 2018-06-03 : Adds an url that include the current page in GridView widget.
-                            'urlCreator' => function ($action, $model)  use ($dataProvider) {
+                            // 2018-06-03 : Adds an url that includes the current page in GridView widget.
+                            'urlCreator' => function ($action, $model) use ($dataProvider) {
                                 if ($action === 'view') {
-                                    $url = Url::to(['article/view', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    $url = Url::to(['article/view2', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                 }
                                 else $url = null;
 
@@ -234,13 +241,13 @@ $randomBg = rand(1,11);;
 
                         [
                             'class' => 'yii\grid\SerialColumn',
-                            'headerOptions' => ['style' => 'width:3%'],
+                            'headerOptions' => ['style' => 'width:3%; color:#8b8787;'],
                         ],
 
                         [
                             // 2018-07-10 : Include a new column with an article's thumbnail image.
                             'attribute' => Yii::t('app','Imagen'),
-                            'headerOptions' => ['style' => 'width:4%; color:#337ab7;'],
+                            'headerOptions' => ['style' => 'width:4%; color:#8b8787;'],
                             'contentOptions' => ['class' => 'text-center'],
                             'format' => 'raw',
                             'value' => function ($model) {
@@ -408,9 +415,15 @@ $randomBg = rand(1,11);;
     
                     });
                     
-                    // 2018-08-23 : This code is implemented for re-activate the bootstrap tooltips after each Pjax request.
+                    // This code is implemented for re-activate several functionalities after each Pjax request.
                     $(document).on('pjax:success', function(event) {
+                    
+                        // 2018-08-23 : Re-activate the Bootstrap Tooltips.
                         $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
+
+                        // 2019-01-11 : Re-activate the tableHeadFixer plugin.
+                        $(\"#fixTable\").tableHeadFixer();
+                        
                     });"
             );
 
@@ -481,3 +494,5 @@ $randomBg = rand(1,11);;
 
 <!-- Includes the modal window to show an article image -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
+
+<?php $this->registerJs(/** @lang jquery */"$(document).ready(function() { $(\"#fixTable\").tableHeadFixer(); });",View::POS_READY,'fix-Header'); ?>

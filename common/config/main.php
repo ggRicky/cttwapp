@@ -162,5 +162,8 @@ return [
         'user' => [
             'class' => 'frontend\components\User', // extend User component
         ],
+        'gridview' => [
+            'class' => 'frontend\components\GriView', // extend User component
+        ],
     ],
 ];

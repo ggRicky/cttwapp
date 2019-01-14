@@ -440,7 +440,7 @@ $randomBg = rand(1,11);;
 
                         ],
 
-                        'layout' => '{summary}{items}{pager}',
+                        'layout' => '{items}{summary}{pager}',
                     ]);?>
 
                 </div>

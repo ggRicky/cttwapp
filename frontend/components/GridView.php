@@ -45,11 +45,11 @@ class GridView extends \yii\grid\GridView
         ]);
 
         // 2019-01-12 : Refactor 1
-        // Add an HTML <div> tag to wrap the content of the GridView widget to enable the fixHeadTable add-on.
+        // Adds an HTML <div> tag to wrap the content of the GridView widget to enable the fixHeadTable add-on.
 
         // 2019-01-12 : Refactor 2
-        // Add an HTML div tag to separate a line the content of the GridView widget from the information tags.
-        return Html::tag('div',Html::tag('table', implode("\n", $content), $this->tableOptions),['id' =>'fixTableWrapper']).Html::tag('br');
+        // Adds an HTML <br> tag to separate by one line the content ( items ) of the GridView widget from the information tags ( summary and pager ).
+        return Html::tag('div',Html::tag('table', implode("\n", $content), $this->tableOptions),['id' =>'grid-view-data-block', 'class'=>'div-scroll-area-horizon']).Html::tag('br');
     }
 
 }

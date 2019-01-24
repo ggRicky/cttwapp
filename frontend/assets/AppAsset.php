@@ -17,6 +17,7 @@ class AppAsset extends AssetBundle
     // 2018-06-02 : Adds jsscrollpane plugin to resolves the conflict with bootstrap modals.
     // 2018-06-03 : Removes jsscrollpane plugin due to conflict with bootstrap modals.
     // 2018-06-04 : Adds Yii2 default site.css file. Adding this file, the sort glyphicons are showed.
+    // 2019-01-17 : Adds jquery.tablescroll.js plugin to fix <thead> html element.
 
     public $sourcePath = '@bower/cttwapp/';
 
@@ -39,8 +40,8 @@ class AppAsset extends AssetBundle
         'js/jquery-2.0.2.js',
         // the parallax plugin
         'js/jquery.stellar.js',
-        // the jquery tableHeadFixer plugin
-        'js/tableHeadFixer.js',
+        // the jquery tablescroll plugin
+        'js/jquery.tablescroll.js',
         // the js/jquery core for the cttwapp project
         'js/cttwapp-core.js',
         // the bootstrap plugin

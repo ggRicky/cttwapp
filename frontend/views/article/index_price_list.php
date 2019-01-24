@@ -154,237 +154,232 @@ $randomBg = rand(1,11);;
                 $dataProvider->pagination->pageSize = 7;
             ?>
 
-            <!-- 2018-04-13 : The next div, including the id and class elements, enable the vertical and horizontal scrollbars. -->
-            <div id="div-scroll">
-
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'tableOptions' => ['id' => 'fixTable', 'class' => 'table table-striped table-bordered'],
-                     // 2019-01-12 : Some options to custom the table header
-                     // 'headerRowOptions' => ['style' => 'background-color:lightgray'],
-                    'rowOptions' => function($model){
-                        // 2018-04-23 : The next conditional statement enable colored rows based on specific database value
-                        // 2018-05-14 : Improvement. The color on/off status is stored in a cookie.
-                        if (Yii::$app->getRequest()->getCookies()->has('article-color2') &&
-                            Yii::$app->getRequest()->getCookies()->getValue('article-color2') == '1'){
-                            // 2018-05-06 : Change the row background color based on the type_art value.
-                            if ($model->type_art == 'V')  // 'V'- Venta  'R' - Renta
-                            {
-                                return ['class' => 'yellow-light'];
-                            };
-                            return [];
-                        }
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'tableOptions' => ['id' => 'dataTable', 'class' => 'table-striped table-bordered tablescroll_colors tablescroll_colors-hover'],
+                 // 2019-01-12 : Some options to custom the table header
+                 // 'headerRowOptions' => ['style' => 'background-color:lightgray'],
+                'rowOptions' => function($model){
+                    // 2018-04-23 : The next conditional statement enable colored rows based on specific database value
+                    // 2018-05-14 : Improvement. The color on/off status is stored in a cookie.
+                    if (Yii::$app->getRequest()->getCookies()->has('article-color2') &&
+                        Yii::$app->getRequest()->getCookies()->getValue('article-color2') == '1'){
+                        // 2018-05-06 : Change the row background color based on the type_art value.
+                        if ($model->type_art == 'V')  // 'V'- Venta  'R' - Renta
+                        {
+                            return ['class' => 'yellow-light'];
+                        };
                         return [];
-                    },
+                    }
+                    return [];
+                },
 
-                    'columns' => [
-                        // 2018-06-03 : This code adds the current page as an URL parameter to the view, update and delete buttons in the column actions.
-                        // 2018-06-03 : A new action is implemented to pass the page number parameter and return to the current page in GridView widget.
+                'columns' => [
+                    // 2018-06-03 : This code adds the current page as an URL parameter to the view, update and delete buttons in the column actions.
+                    // 2018-06-03 : A new action is implemented to pass the page number parameter and return to the current page in GridView widget.
 
-                        [
-                            // 2019-01-12 : Some options to custom the table header
-                            'class' => 'yii\grid\ActionColumn',
-                            'header' => '<span>Acción</span>',
-                            'headerOptions' => ['style' => 'width:4%; color:#8b8787;'],
-                            'template' => '{show} {view}',
-                            'buttons' => [
-                                // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
-                                'view' => function ($url) {
-                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                                        'data-toggle' => 'tooltip',
-                                        'title' => Yii::t('app', 'Ver'),           // 2018-06-03 : Adds the tooltip View
-                                    ]);
-                                },
+                    [
+                        // 2019-01-12 : Some options to custom the table header
+                        'class' => 'yii\grid\ActionColumn',
+                        'header' => '<span>Acción</span>',
+                        'headerOptions' => ['style' => 'color:#8b8787;'],
+                        'template' => '{show} {view}',
+                        'buttons' => [
+                            // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
+                            'view' => function ($url) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                    'data-toggle' => 'tooltip',
+                                    'title' => Yii::t('app', 'Ver'),           // 2018-06-03 : Adds the tooltip View
+                                ]);
+                            },
 
-                                // 2018-07-11 : Adds a new show action to display the related image in a bootstrap modal window.
-                                'show' => function ($url, $model, $key) {
-                                    // 2018-07-10 : To get the image path and filename.
-                                    $file_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv'.'/').PREFIX_IMG.$model->id;
-                                    // 2018-07-10 : Check the existence of a correct file type and determine its extension if there is one.
-                                    $file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
-
-                                    if (!is_null($file_ext)) {
-                                        return Html::a('<span class="glyphicon glyphicon-camera"></span>', '#', [
-                                            'class'       => 'detail-view-link',
-                                            'style'       => 'color:#337ab7;',                            // 2018-07-11 : Display the glyphicon-camera in default color.
-                                            'onMouseOver' => 'this.style.color=\'#ff8e00\'',              // 2018-07-11 : When mouse is hover on the link, the color changes to orange advising an available operation.
-                                            'onMouseOut'  => 'this.style.color=\'#337ab7\'',
-                                            'data-toggle' => 'tooltip',
-                                            'title' => Yii::t('app', 'Mostrar'),         // 2018-06-03 : Adds the tooltip View
-                                            'data-target' => '#ctt-modal-show-art',
-                                            'data' => [
-                                                'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),
-                                                'name'  => ($model->name_art),
-                                                'url'   => Url::to('@uploads_inv'.'/').PREFIX_IMG.$model->id.'.jpg',
-                                            ],
-                                            'data-id'     => $key,
-                                            'data-pjax'   => '0',
-                                        ]);
-                                    }
-
-                                    return null;
-                                },
-                            ],
-
-                            // 2018-06-03 : Adds an url that includes the current page in GridView widget.
-                            'urlCreator' => function ($action, $model) use ($dataProvider) {
-                                if ($action === 'view') {
-                                    $url = Url::to(['article/view2', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
-                                }
-                                else $url = null;
-
-                                // 2018-06-03 : If null value is returned, the url created have only home page address plus &page parameter. The right value is return $url.
-                                return $url;
-                            }
-                        ],
-
-                        [
-                            'class' => 'yii\grid\SerialColumn',
-                            'headerOptions' => ['style' => 'width:3%; color:#8b8787;'],
-                        ],
-
-                        [
-                            // 2018-07-10 : Include a new column with an article's thumbnail image.
-                            'attribute' => Yii::t('app','Imagen'),
-                            'headerOptions' => ['style' => 'width:4%; color:#8b8787;'],
-                            'contentOptions' => ['class' => 'text-center'],
-                            'format' => 'raw',
-                            'value' => function ($model) {
+                            // 2018-07-11 : Adds a new show action to display the related image in a bootstrap modal window.
+                            'show' => function ($url, $model, $key) {
                                 // 2018-07-10 : To get the image path and filename.
-                                $file_name =  Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
-                                // 2018-07-10 : To get the image url.
-                                $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id;
-                                // 2018-07-11 : To get the no image url.
-                                $url_no_image = Url::to(Yii::getAlias('@uploads_inv').'/').'ctt_no_image.jpg';
-                                // 2018-07-10 : Test for the right file type
-                                if (file_exists($file_name.'.jpg'))
-                                    return '<img src="'.$url_image.'.jpg" width="auto" height="50px">';
-                                else if (file_exists($file_name.'.png'))
-                                    return '<img src="'.$url_image.'.png" width="auto" height="50px">';
-                                else
-                                    return '<img src="'.$url_no_image.'" width="auto" height="50px">';
+                                $file_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv'.'/').PREFIX_IMG.$model->id;
+                                // 2018-07-10 : Check the existence of a correct file type and determine its extension if there is one.
+                                $file_ext = (file_exists($file_name.'.jpg') ? '.jpg': (file_exists($file_name.'.png') ? '.png': null));
+
+                                if (!is_null($file_ext)) {
+                                    return Html::a('<span class="glyphicon glyphicon-camera"></span>', '#', [
+                                        'class'       => 'detail-view-link',
+                                        'style'       => 'color:#337ab7;',                            // 2018-07-11 : Display the glyphicon-camera in default color.
+                                        'onMouseOver' => 'this.style.color=\'#ff8e00\'',              // 2018-07-11 : When mouse is hover on the link, the color changes to orange advising an available operation.
+                                        'onMouseOut'  => 'this.style.color=\'#337ab7\'',
+                                        'data-toggle' => 'tooltip',
+                                        'title' => Yii::t('app', 'Mostrar'),         // 2018-06-03 : Adds the tooltip View
+                                        'data-target' => '#ctt-modal-show-art',
+                                        'data' => [
+                                            'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),
+                                            'name'  => ($model->name_art),
+                                            'url'   => Url::to('@uploads_inv'.'/').PREFIX_IMG.$model->id.'.jpg',
+                                        ],
+                                        'data-id'     => $key,
+                                        'data-pjax'   => '0',
+                                    ]);
+                                }
+
+                                return null;
                             },
                         ],
 
-                        [
-                            'attribute' => 'id',
-                            'headerOptions' => ['style' => 'width:3%'],
-                        ],
-
-                        // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
-
-                        [
-                            'attribute' => 'catalog_id',
-                            'visible' => ($c[0] == '1' ? true : false),     // 2018-08-20 : Set the column visibility status
-                            'headerOptions' => ['style' => 'width:12%;'],
-                            // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
-                            'filter' => Html::activeDropDownList($searchModel, 'catalog_id', ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Catálogos Disponibles')]),
-                            'value' => function($model){
-                                return implode(",",ArrayHelper::map(Catalog::find()->where(['id' =>  $model->catalog_id])->all(),'id','displayNameCat'));
+                        // 2018-06-03 : Adds an url that includes the current page in GridView widget.
+                        'urlCreator' => function ($action, $model) use ($dataProvider) {
+                            if ($action === 'view') {
+                                $url = Url::to(['article/view2', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                             }
-                        ],
+                            else $url = null;
 
-                        // 2018-05-06 : Displays the name_art field in red text color.
-
-                        [
-                            'attribute' => 'name_art',
-                            'contentOptions' => ['style' => 'color:red'],
-                            'visible' => ($c[1]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
-                        ],
-
-                        [
-                            'attribute' => 'sp_desc',
-                            'visible' => ($c[2]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
-                        ],
-
-                        [
-                            'attribute' => 'en_desc',
-                            'visible' => ($c[3]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
-                        ],
-
-                        // 2018-05-06 : For type_art field, the right legend is displayed and colored properly.
-
-                        [
-                            'attribute' => 'type_art',
-                            // 2018-08-21 : Modified to display a DropDownList with the available article typs list, using the filter option.
-                            'filter' => Html::activeDropDownList($searchModel, 'type_art', ['R' => 'RENTA', 'V' => 'VENTA'], ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]),
-                            'value' => function($model){
-                                return ($model->type_art=='R'?'RENTA':'VENTA');
-                            },
-                            'contentOptions' => function ($model, $key, $index, $column) {
-                                return ['style' => 'color:'. ($model->type_art=='V'?'#337AB7':'#428bca')];
-                            },
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[4]== '1' ? true : false),
-                        ],
-
-                        [
-                            'attribute' => 'price_art',
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[5]== '1' ? true : false),
-                        ],
-
-                        // 2018-04-23 : To the provenance type, the right legend is displayed.
-
-                        [
-                            'attribute' => 'currency_art',
-                            'value' => function($model){
-                                return ($model->currency_art=='P'?'PESOS':'DÓLARES');
-                            },
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[6]== '1' ? true : false),
-                        ],
-
-                        // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
-                        [
-                            'attribute' => 'brand_id',
-                            // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
-                            'filter' => Html::activeDropDownList($searchModel, 'brand_id', ArrayHelper::map(Brand::find()->select(['id','brand_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayBrandDesc'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Marcas Disponibles')]),
-                            'value' =>
-                                function($model){
-                                    return (implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')));
-                                },
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[7]== '1' ? true : false),
-                        ],
-
-                        [
-                            'attribute' => 'part_num',
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[8]== '1' ? true : false),
-                        ],
-
-                        [
-                            'attribute' => 'created_at',
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[9] == '1' ? true : false),
-                        ],
-
-                        [
-                            'attribute' => 'updated_at',
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[10] == '1' ? true : false),
-                        ],
-
-                        [
-                            'attribute' => 'created_by',
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[11] == '1' ? true : false),
-                        ],
-
-                        [
-                            'attribute' => 'updated_by',
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[12] == '1' ? true : false),
-                        ],
-
+                            // 2018-06-03 : If null value is returned, the url created have only home page address plus &page parameter. The right value is return $url.
+                            return $url;
+                        }
                     ],
 
-                    'layout' => '{items}{summary}{pager}',
-                ]);?>
+                    [
+                        'class' => 'yii\grid\SerialColumn',
+                        'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
+                    ],
 
-            </div>
+                    [
+                        // 2018-07-10 : Include a new column with an article's thumbnail image.
+                        'attribute' => Yii::t('app','Imagen'),
+                        'headerOptions' => ['style' => 'width:4%; color:#8b8787;'],
+                        'contentOptions' => ['class' => 'text-center'],
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            // 2018-07-10 : To get the image path and filename.
+                            $file_name =  Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
+                            // 2018-07-10 : To get the image url.
+                            $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id;
+                            // 2018-07-11 : To get the no image url.
+                            $url_no_image = Url::to(Yii::getAlias('@uploads_inv').'/').'ctt_no_image.jpg';
+                            // 2018-07-10 : Test for the right file type
+                            if (file_exists($file_name.'.jpg'))
+                                return '<img src="'.$url_image.'.jpg" width="auto" height="50px">';
+                            else if (file_exists($file_name.'.png'))
+                                return '<img src="'.$url_image.'.png" width="auto" height="50px">';
+                            else
+                                return '<img src="'.$url_no_image.'" width="auto" height="50px">';
+                        },
+                    ],
+
+                    [
+                        'attribute' => 'id',
+                        'headerOptions' => ['style' => 'width:3%'],
+                    ],
+
+                    // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
+
+                    [
+                        'attribute' => 'catalog_id',
+                        'visible' => ($c[0] == '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                        'headerOptions' => ['style' => 'width:12%;'],
+                        // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
+                        'filter' => Html::activeDropDownList($searchModel, 'catalog_id', ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Catálogos Disponibles')]),
+                        'value' => function($model){
+                            return implode(",",ArrayHelper::map(Catalog::find()->where(['id' =>  $model->catalog_id])->all(),'id','displayNameCat'));
+                        }
+                    ],
+
+                    // 2018-05-06 : Displays the name_art field in red text color.
+
+                    [
+                        'attribute' => 'name_art',
+                        'contentOptions' => ['style' => 'color:red'],
+                        'visible' => ($c[1]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                    ],
+
+                    [
+                        'attribute' => 'sp_desc',
+                        'visible' => ($c[2]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                    ],
+
+                    [
+                        'attribute' => 'en_desc',
+                        'visible' => ($c[3]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                    ],
+
+                    // 2018-05-06 : For type_art field, the right legend is displayed and colored properly.
+
+                    [
+                        'attribute' => 'type_art',
+                        // 2018-08-21 : Modified to display a DropDownList with the available article typs list, using the filter option.
+                        'filter' => Html::activeDropDownList($searchModel, 'type_art', ['R' => 'RENTA', 'V' => 'VENTA'], ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]),
+                        'value' => function($model){
+                            return ($model->type_art=='R'?'RENTA':'VENTA');
+                        },
+                        'contentOptions' => function ($model, $key, $index, $column) {
+                            return ['style' => 'color:'. ($model->type_art=='V'?'#337ab7':'#428bca')];
+                        },
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[4]== '1' ? true : false),
+                    ],
+
+                    [
+                        'attribute' => 'price_art',
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[5]== '1' ? true : false),
+                    ],
+
+                    // 2018-04-23 : To the provenance type, the right legend is displayed.
+
+                    [
+                        'attribute' => 'currency_art',
+                        'value' => function($model){
+                            return ($model->currency_art=='P'?'PESOS':'DÓLARES');
+                        },
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[6]== '1' ? true : false),
+                    ],
+
+                    // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
+                    [
+                        'attribute' => 'brand_id',
+                        // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
+                        'filter' => Html::activeDropDownList($searchModel, 'brand_id', ArrayHelper::map(Brand::find()->select(['id','brand_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayBrandDesc'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Marcas Disponibles')]),
+                        'value' =>
+                            function($model){
+                                return (implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')));
+                            },
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[7]== '1' ? true : false),
+                    ],
+
+                    [
+                        'attribute' => 'part_num',
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[8]== '1' ? true : false),
+                    ],
+
+                    [
+                        'attribute' => 'created_at',
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[9] == '1' ? true : false),
+                    ],
+
+                    [
+                        'attribute' => 'updated_at',
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[10] == '1' ? true : false),
+                    ],
+
+                    [
+                        'attribute' => 'created_by',
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[11] == '1' ? true : false),
+                    ],
+
+                    [
+                        'attribute' => 'updated_by',
+                        // 2018-08-20 : Set the column visibility status
+                        'visible' => ($c[12] == '1' ? true : false),
+                    ],
+
+                ],
+
+                'layout' => '{items}{summary}{pager}',
+            ]);?>
 
             <!-- 2018-07-13 : This jQuery's piece of code implements the modal window for show the article image.-->
             <?php $this->registerJs(
@@ -421,9 +416,9 @@ $randomBg = rand(1,11);;
                         // 2018-08-23 : Re-activate the Bootstrap Tooltips.
                         $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
 
-                        // 2019-01-11 : Re-activate the tableHeadFixer plugin.
-                        $(\"#fixTable\").tableHeadFixer();
-                        
+                        // 2019-01-17 : Re-activate the tableScroll plugin.
+                        $(\"#dataTable\").tableScroll({height:300, width:3500});
+
                     });"
             );
 
@@ -495,4 +490,4 @@ $randomBg = rand(1,11);;
 <!-- Includes the modal window to show an article image -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
 
-<?php $this->registerJs(/** @lang jquery */"$(document).ready(function() { $(\"#fixTable\").tableHeadFixer(); });",View::POS_READY,'fix-Header'); ?>
+<?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:300, width:3500}); });",View::POS_READY,'fix-Header'); ?>

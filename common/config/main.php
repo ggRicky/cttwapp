@@ -162,8 +162,9 @@ return [
         'user' => [
             'class' => 'frontend\components\User', // extend User component
         ],
+        // 2019-01-17 : Extends the GridView class to re-config the html table structure and leave the table header fixed
         'gridview' => [
-            'class' => 'frontend\components\GriView', // extend User component
+            'class' => 'frontend\components\GriView', // extend GridView component
         ],
     ],
 ];

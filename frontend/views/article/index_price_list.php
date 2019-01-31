@@ -423,7 +423,7 @@ $randomBg = rand(1,11);;
                         $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
 
                         // 2019-01-17 : Re-activate the tableScroll plugin.
-                        $(\"#dataTable\").tableScroll({height:300, width:3500});
+                        $(\"#dataTable\").tableScroll({height:300, width:5500});
 
                     });"
                 );
@@ -497,4 +497,4 @@ $randomBg = rand(1,11);;
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
 
 <!-- Includes the jQuery tableScroll plugin -->
-<?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:300, width:3500}); });",View::POS_READY,'fix-Header'); ?>
+<?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:300, width:5500}); });",View::POS_READY,'fix-Header'); ?>

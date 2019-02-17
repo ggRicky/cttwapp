@@ -686,6 +686,7 @@ class RbacController extends Controller
         $auth->addChild($inventoryCTT, $adminBrand);           // Grant access to admin all brand process.
         $auth->addChild($inventoryCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($inventoryCTT, $adminArticle);         // Grant access to admin all article process.
+        $auth->addChild($inventoryCTT, $adminInventory);       // Grant access to admin all inventory process.
 
 
 

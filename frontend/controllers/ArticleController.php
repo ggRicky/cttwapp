@@ -39,7 +39,7 @@ class ArticleController extends Controller
     {
         if (\Yii::$app->user->can('listArticle')) {
             // 2018-08-28 : Records the access to Article module.
-            Yii::info('[The user get access to the Article Module]', 'cttwapp_user');
+            Yii::info('[The user gets access to the Article Module]', 'cttwapp_user');
 
             $searchModel = new ArticleSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -52,10 +52,14 @@ class ArticleController extends Controller
         }
         else {
             // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
-            if (Yii::$app->user->getIsGuest())
+            if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
-            else
+                Yii::error('[Access denied to the Article Module]', 'cttwapp_user');
+            }
+            else {
                 Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+                Yii::warning('[Unauthorized access profile to the Article Module]', 'cttwapp_user');
+            }
         }
         return $this->redirect(['site/index', 'hash' => '0']);
     }
@@ -68,7 +72,7 @@ class ArticleController extends Controller
     {
         if (\Yii::$app->user->can('listArticle')) {
             // 2018-08-28 : Records the access to Article module.
-            Yii::info('[The user get access to the Article Module]', 'cttwapp_user');
+            Yii::info('[The user gets access to the Price List Module]', 'cttwapp_user');
 
             $searchModel = new ArticleSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -81,10 +85,14 @@ class ArticleController extends Controller
         }
         else {
             // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
-            if (Yii::$app->user->getIsGuest())
+            if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
-            else
+                Yii::error('[Access denied to the Price List Module]', 'cttwapp_user');
+            }
+            else {
                 Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+                Yii::warning('[Unauthorized access profile to the Price List Module]', 'cttwapp_user');
+            }
         }
         return $this->redirect(['site/index', 'hash' => '0']);
     }
@@ -107,9 +115,11 @@ class ArticleController extends Controller
             // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to view an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to view an Article]', 'cttwapp_user');
         }
         return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
     }
@@ -132,9 +142,11 @@ class ArticleController extends Controller
             // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to view an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to view an Article]', 'cttwapp_user');
         }
         return $this->redirect(['article/show-price-list', 'page' => $page, 'hash' => '0']);
     }
@@ -154,7 +166,7 @@ class ArticleController extends Controller
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
                     // 2018-08-28 : Records the article create operation.
-                    Yii::info('[The user has created the article record with ID='.$model->id.']', 'cttwapp_user');
+                    Yii::info('[The user has created a new article record with ID='.$model->id.']', 'cttwapp_user');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
@@ -163,15 +175,18 @@ class ArticleController extends Controller
                 return $this->render('create_article', ['model' => $model, 'page' => $page]);
             }
 
+            Yii::info('[The user gets access to create a new article record]', 'cttwapp_user');
             return $this->render('create_article', ['model' => $model, 'page' => $page]);
         }
         else {
             // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to create an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to create an Article]', 'cttwapp_user');
             return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         }
     }
@@ -202,15 +217,18 @@ class ArticleController extends Controller
                 return $this->render('update_article', ['model' => $model, 'page' => $page]);
             }
 
+            Yii::info('[The user gets access to update an article record]', 'cttwapp_user');
             return $this->render('update_article', ['model' => $model, 'page' => $page]);
         }
         else {
             // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to update an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to update an Article]', 'cttwapp_user');
             return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         }
     }
@@ -236,9 +254,11 @@ class ArticleController extends Controller
             // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to delete an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to delete an Article]', 'cttwapp_user');
         }
         return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
     }
@@ -353,16 +373,17 @@ class ArticleController extends Controller
 
         if (isset($article_columns_config)){  // If the parameter for columns config has been set, then ...
             // ... creates a new cookie named (article_columns_config / article_columns_config2) and stores the page size value in it.
-            $cookie = new \yii\web\Cookie(['name' => 'article_columns_config'.($view_type==1?'2':''), 'value' => $article_columns_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new \yii\web\Cookie(['name' => 'article_columns_config'.($view_type == 1 ? '2' : ''), 'value' => $article_columns_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         // Apply and show the newly generated changes.
-        return $this->redirect(['article/'.($view_type==1?'show-price-list':'index'), 'page' => '1', 'hash' => '0']);
+        return $this->redirect(['article/'.($view_type == 1 ? 'show-price-list' : 'index'), 'page' => '1', 'hash' => '0']);
     }
 
     /**
      * Gets the article page size.
+     * @param string $view_type
      * @return mixed
      *
      * 2018-08-22 20:28 Hrs.
@@ -391,6 +412,7 @@ class ArticleController extends Controller
     /**
      * Sets and stores the article page size.
      * @param string $page_size_config
+     * @param string $view_type
      * @return mixed
      *
      * 2018-08-22 22:55 Hrs.
@@ -403,24 +425,25 @@ class ArticleController extends Controller
 
         if (isset($page_size_config)){  // If the parameter for page size has been set, then ...
             // ... creates a new cookie named (article-pageSize / article-pageSize2) and stores the page size value in it.
-            $cookie = new \yii\web\Cookie(['name' => 'article-pageSize'.($view_type==1?'2':''), 'value' => $page_size_config, 'expire' => time() + 86400 * 365,]);
+            $cookie = new \yii\web\Cookie(['name' => 'article-pageSize'.($view_type == 1 ? '2' : ''), 'value' => $page_size_config, 'expire' => time() + 86400 * 365,]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
         // Apply and show the newly generated changes.
-        return $this->redirect(['article/'.($view_type==1?'show-price-list':'index'), 'page' => '1', 'hash' => '0']);
+        return $this->redirect(['article/'.($view_type == 1 ? 'show-price-list' : 'index'), 'page' => '1', 'hash' => '0']);
     }
 
     /**
      * Generates a PDF file with the data of an article in printable version.
      * @param string $id
+     * @param string $view_type
      * @param string $page
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      *
      * 2018-08-04 14:40 Hrs.
      */
-    public function actionPrint($id, $page)
+    public function actionPrint($id, $view_type, $page)
     {
         // 2018-08-11 : Only for debug purpose.
         // return $this->render('print_article', ['model' => $this->findModel($id),]);
@@ -460,7 +483,7 @@ class ArticleController extends Controller
                 ]
             ]);
 
-            // Set mPDF properties on the fly
+            // Set some mPDF properties on the fly
 
             // Directly use the mPDF api for various other mPDF manipulations
             // Fetches mPDF API
@@ -492,11 +515,13 @@ class ArticleController extends Controller
             // 2018-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to print an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to print an Article]', 'cttwapp_user');
         }
-        return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
+        return $this->redirect(['article/'.($view_type == 1 ? 'show-price-list' : 'index'), 'page' => $page, 'hash' => '0']);
     }
 
 }

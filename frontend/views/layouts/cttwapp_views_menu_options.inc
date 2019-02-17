@@ -46,17 +46,10 @@
 
 <?php endif; ?>
 
-<!--2019-01-07 : Only available the Price List view if the user have the right permission and currently isn't in the same view. -->
-<?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/index'): ?>
+<!--2018-06-19 : Only available the Inventory module if the user have the right permission and currently isn't in the same view. -->
+<?php if (\Yii::$app->user->can('listInventory') && Yii::$app->requestedRoute != 'inventory/index'): ?>
 
-    <li><?= "<a href='".Url::to(['article/index'])."'>".Yii::t('app','Productos y Servicios')."</a>" ?></li>
-
-<?php endif; ?>
-
-<!--2019-01-06 : Only available the Price List view if the user have the right permission and currently isn't in the same view. -->
-<?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/index'): ?>
-
-    <li><?= "<a href='".Url::to(['article/show-price-list'])."'>".Yii::t('app','Lista de Precios')."</a>" ?></li>
+    <li><a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Inventarios'); ?></a></li>
 
 <?php endif; ?>
 
@@ -67,10 +60,10 @@
 
 <?php endif; ?>
 
-<!--2018-06-19 : Only available the Inventory module if the user have the right permission and currently isn't in the same view. -->
-<?php if (\Yii::$app->user->can('listInventory') && Yii::$app->requestedRoute != 'inventory/index'): ?>
+<!--2019-01-06 : Only available the Price List view if the user have the right permission and currently isn't in the same view. -->
+<?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/index' && Yii::$app->requestedRoute != 'article/show-price-list'): ?>
 
-    <li><a href="#" data-toggle="modal" data-target="#ctt-modal-in-construction"><?= Yii::t('app','Inventarios'); ?></a></li>
+    <li><?= "<a href='".Url::to(['article/show-price-list'])."'>".Yii::t('app','Lista de Precios')."</a>" ?></li>
 
 <?php endif; ?>
 

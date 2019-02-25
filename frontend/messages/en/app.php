@@ -39,6 +39,7 @@ return ([
     'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.' => 'IMPORTANT: The information shown in the relationship corresponds to experimental test data.',
     'Imprimir' => 'Print',
     'I n g r e s a r' => 'E n t e r',
+    'Ingresar al Módulo' => 'Enter the Module',
     'Instrucciones' => 'Instructions',
     'Introduzca el número de registros que desea visualizar en el módulo. Por último, al guardar los cambios que realizó, éstos serán aplicados de inmediato al mismo.' => 'Enter the number of records you want to display in the module. Finally, when saving the changes you made, they will be applied immediately to it.',
     'Ir al inicio' => 'Go to start',
@@ -91,7 +92,7 @@ return ([
     'Contacto' => 'Contact',
     'Cotizaciones' => 'Market Rates',
     'Inicio' => 'Home',
-    'Inventarios' => 'Inventories',
+    'Inventario' => 'Inventory',
     'Proyectos' => 'Projects',
     'R e s e r v a c i o n e s' => 'R e s e r v a t i o n s',
     'Registro' => 'Signup',
@@ -274,6 +275,11 @@ return ([
     'Vista del Artículo' => 'Article View',
     'Vista del Catálogo' => 'Catalog View',
     'Vista de la Marca' => 'Brand View',
+
+    // Inventory
+    'Almacenes' => 'Warehouse',
+    'Múlti Almacén' => 'Multi Warehouse',
+    'Movimientos Inventario' => 'Inventory Movements',
 
     // Validadores
 

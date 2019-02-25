@@ -65,6 +65,34 @@ class ArticleController extends Controller
     }
 
     /**
+     * Gets the article page size.
+     * @param string $view_type
+     * @return mixed
+     *
+     * 2018-08-22 20:28 Hrs.
+     */
+    public function actionGetPageSize($view_type){
+
+        // Creates the new dynamic model
+        $model_2 = new \yii\base\DynamicModel(['paginado']);
+        // Add the rules to the new dynamic model
+        $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 50, 'tooSmall' => Yii::t('app','El valor no debe ser menor a ').'1.', 'tooBig' => Yii::t('app','El valor no debe ser mayor a ').'50.']);
+        // Add the rules to the new dynamic model
+        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app','El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
+
+        if ($model_2->load(Yii::$app->request->post())) {
+            // Saves the page size value collected through the form.
+            return $this->redirect(['article/set-page-size',
+                'page_size_config' => $model_2->paginado,
+                'view_type' => $view_type,
+            ]);
+        }
+
+        // Apply and show the newly generated changes.
+        return $this->render('set_article_page_size', ['model_2' => $model_2, 'view_type' => $view_type]);
+    }
+
+    /**
      * Shows the Price List view.
      * @return mixed
      */
@@ -379,34 +407,6 @@ class ArticleController extends Controller
 
         // Apply and show the newly generated changes.
         return $this->redirect(['article/'.($view_type == 1 ? 'show-price-list' : 'index'), 'page' => '1', 'hash' => '0']);
-    }
-
-    /**
-     * Gets the article page size.
-     * @param string $view_type
-     * @return mixed
-     *
-     * 2018-08-22 20:28 Hrs.
-     */
-    public function actionGetPageSize($view_type){
-
-        // Creates the new dynamic model
-        $model_2 = new \yii\base\DynamicModel(['paginado']);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 50, 'tooSmall' => Yii::t('app','El valor no debe ser menor a ').'1.', 'tooBig' => Yii::t('app','El valor no debe ser mayor a ').'50.']);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app','El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
-
-        if ($model_2->load(Yii::$app->request->post())) {
-            // Saves the page size value collected through the form.
-            return $this->redirect(['article/set-page-size',
-                                    'page_size_config' => $model_2->paginado,
-                                    'view_type' => $view_type,
-            ]);
-        }
-
-        // Apply and show the newly generated changes.
-        return $this->render('set_article_page_size', ['model_2' => $model_2, 'view_type' => $view_type]);
     }
 
     /**

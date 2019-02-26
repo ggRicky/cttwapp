@@ -33,7 +33,7 @@
 <?php endif; ?>
 
 <!--2018-08-20 : Only available the index page if the user have the right permission and currently isn't in the same view. -->
-<?php if (\Yii::$app->user->can('accessMain') && Yii::$app->requestedRoute != 'site/index'): ?>
+<?php if (\Yii::$app->user->can('accessMain') && !empty(Yii::$app->requestedRoute) && Yii::$app->requestedRoute != 'site/index'): ?>
 
     <li><?= "<a href='".Url::to(['site/index'])."'>".Yii::t('app','Inicio')."</a>" ?></li>
 

@@ -67,7 +67,7 @@ $randomBg = rand(1,11);
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
             <div class="table-responsive">
-                <table class="table-bordered table-striped table-hover">
+                <table class="table-bordered table-striped table-hover table-about">
                     <tbody>
                     <tr>
                         <th><?= Yii::t('app','Clave') ?></th><td>CTTwapp</td>

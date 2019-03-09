@@ -15,6 +15,7 @@ return ([
     '¿ Está seguro de eliminar este elemento ?' => 'Are you sure you want to delete this item ?',
     'Abrir Panel de Navegación' => 'Open Navigation Panel',
     'Aceptar' => 'Ok',
+    'Acceso Denegado.' => 'Access Denied.',
     'Activar código de colores' => 'Activate color code',
     'Bienvenido' => 'Welcome',
     'Cambiar Idioma' => 'Change language',
@@ -28,9 +29,14 @@ return ([
     'Desactivar código de colores' => 'Disable color code',
     'Descarta la operación' => 'Discard the operation',
     'Detalles' => 'Detail',
-    'El registro se ha eliminado del sistema exitosamente.' => 'The registry has been successfully removed from the system.',
+    'El registro se ha actualizado exitosamente.' => 'The record has been successfully updated.',
+    'El registro se ha creado exitosamente.' => 'The record has been successfully created.',
+    'El registro se ha eliminado exitosamente.' => 'The record has been successfully deleted.',
+    'El sistema no puede encontrar el archivo especificado.' =>'The system cannot find the file specified.',
+    'El sistema no puede encontrar la ruta especificada.' =>'The system cannot find the path specified.',
     'Eliminar' => 'Delete',
     'Emisión' => 'Issued in',
+    'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.' => 'It is impossible to execute the Update or Delete action on this record, due to a foreign key violation. This record is part of a reference in another entity.',
     'Esta dirección de correo ya fue asignada.' => 'This email address has already been taken.',
     'Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.' => 'This functionality is under construction and is not yet fully implemented.',
     'Este nombre de usuario ya fue asignado.' => 'This username has already been taken.',
@@ -60,11 +66,14 @@ return ([
     'Seleccione y marque las columnas que desea Mostrar o bien Ocultar en este módulo. Por último, al guardar los cambios que realizó, éstos serán aplicados de inmediato al mismo.' => 'Select and mark the columns that you want to Show or Hide in this module. Finally, when saving the changes you made, they will be applied immediately to it.',
     'Selector de Columnas' => 'Columns Selector',
     'Soportado por' => 'Supported by',
+    'El archivo de imagen asociado, también se ha actualizado exitosamente.' => 'The associated image file has also been successfully updated.',
+    'El archivo de imagen asociado, también se ha eliminado exitosamente.' => 'The associated image file has also been successfully deleted.',
     'Tamaño del Paginado' => 'Paging Size',
     'Todos los derechos reservados &copy;' => 'Copyright &copy;',
     'Ubicación de' => 'Location of',
     'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.' => 'You are trying to access the system in an unauthorized manner. Please, first authenticate your login credentials.',
     'Ver' => 'View',
+
 
     // Modals messages
 
@@ -178,7 +187,7 @@ return ([
     'Asignar Imagen' => 'Assign Image',
     'Cargar la imagen para este artículo.' => 'Load the image for this article.',
     'Cargar una fotografía para el artículo' => 'Upload a photo for the article',
-    'El archivo fue cargado, validado y almacenado exitosamente.' => 'The file was loaded, validated and stored successfully.',
+    'El archivo fue validado, cargado y almacenado exitosamente.' => 'The file was validated, loaded and stored successfully.',
     'El archivo no fue cargado correctamente, por favor intente de nuevo.' => 'The file was not loaded correctly, please try again.',
     'Selector de Archivos' => 'File Selector',
 
@@ -277,6 +286,7 @@ return ([
     'Vista de la Marca' => 'Brand View',
 
     // Inventory
+    'Acciones Disponibles' => 'Available Actions',
     'Almacenes' => 'Warehouse',
     'Múlti Almacén' => 'Multi Warehouse',
     'Movimientos Inventario' => 'Inventory Movements',

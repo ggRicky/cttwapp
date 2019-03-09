@@ -17,8 +17,8 @@
                              ctt-modal-header-error       glyphicon-exclamation-sign
                         -->
                         <div class="col-sm-1"><span class="glyphicon glyphicon-info-sign"></span></div>
-                        <div id="content-title" class="col-sm-7"></div>
-                        <div class="col-sm-4"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
+                        <div id="content-title" class="col-sm-8"></div>
+                        <div class="col-sm-3"><button type="button" class="close" data-dismiss="modal" data-toggle="tooltip" title="<?= Yii::t('app','Cerrar') ?>">&times;</button></div>
                     </div>
                 </div>
 

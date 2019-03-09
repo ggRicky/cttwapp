@@ -105,15 +105,28 @@ $randomBg = rand(1,11);;
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <!-- 2018-05-23 : If there is an flash message, then display it.-->
+            <!-- Flash messages area -->
+
+            <!-- 2019-03-05 : Flash error message. No auto closable -->
+            <?php if (Yii::$app->session->hasFlash('error')): ?>
+                <div class="alert alert-error alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                </div>
+            <?php endif; ?>
+
+            <!-- 2018-05-23 : Flash warning message. Auto closable -->
             <?php if (Yii::$app->session->hasFlash('warning')): ?>
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
-            <!-- 2018-05-25 : Flash success message. -->
-            <?php elseif (Yii::$app->session->hasFlash('success')): ?>
+            <?php endif; ?>
+
+            <!-- 2018-05-25 : Flash success message. Auto closable -->
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
                 <div id="auto-close" class="alert alert-success alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>

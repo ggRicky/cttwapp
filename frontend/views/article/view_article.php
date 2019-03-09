@@ -73,6 +73,35 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
         <div class="row">
             <div class="col-lg-12 text-justify yii2-content">
 
+                <!-- Flash messages area -->
+
+                <!-- 2019-03-05 : Flash error message no auto-closable. -->
+                <?php if (Yii::$app->session->hasFlash('error')): ?>
+                    <div class="alert alert-error alert-dismissible fade in slow-close">
+                        <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                        <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
+                        <p><?= Yii::$app->session->getFlash('error') ?></p>
+                    </div>
+                <?php endif; ?>
+
+                <!-- 2018-05-23 : Flash warning message. Auto closable -->
+                <?php if (Yii::$app->session->hasFlash('warning')): ?>
+                    <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                        <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                        <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                        <p><?= Yii::$app->session->getFlash('warning') ?></p>
+                    </div>
+                <?php endif; ?>
+
+                <!-- 2018-05-25 : Flash success message. Auto closable -->
+                <?php if (Yii::$app->session->hasFlash('success')): ?>
+                    <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                        <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                        <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
+                        <p><?= Yii::$app->session->getFlash('success') ?></p>
+                    </div>
+                <?php endif; ?>
+
                 <!-- Business logic for view an article  -->
                 <div class="article-view">
 
@@ -124,7 +153,7 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
                                 'attribute' => 'photo',
                                 'format' => 'raw',
                                 'value' => function ($model) {
-                                    // 2018-07-10 : To get the image path and filename.
+                                    // 2018-07-10 : To get the image path and the filename.
                                     $file_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
                                     // 2018-07-10 : To get the image url.
                                     $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id;

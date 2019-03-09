@@ -158,7 +158,7 @@ class AuthItemController extends Controller
     {
         if (\Yii::$app->user->can('adminProcess')) {
             if ($this->findModel($id)->delete()){
-                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado del sistema exitosamente.'));
+                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado exitosamente.'));
             }
         }
         else {

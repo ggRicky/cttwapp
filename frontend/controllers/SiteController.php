@@ -362,14 +362,11 @@ class SiteController extends Controller
         // 2018-07-27 : Yii2 Rbac - Validates the access to uploads files.
         if (\Yii::$app->user->can('uploadFile')) {
             if (Yii::$app->request->isPost) {
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $model->file = UploadedFile::getInstance($model, 'file');
                 if ($model->upload($id)) {
                     // file is uploaded successfully
-                    Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue cargado, validado y almacenado exitosamente.'));
+                    Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue validado, cargado y almacenado exitosamente.'));
                 }
-                else
-                    // file wasn't uploaded correctly
-                    Yii::$app->session->setFlash('error', Yii::t('app','El archivo no fue cargado correctamente, por favor intente de nuevo.'));
             }
         }
         else

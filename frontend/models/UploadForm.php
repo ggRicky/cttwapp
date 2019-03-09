@@ -16,12 +16,12 @@ class UploadForm extends Model
     /**
      * @var UploadedFile
      */
-    public $imageFile;
+    public $file;
 
     public function rules()
     {
         return [
-            [['imageFile'], 'image',
+            [['file'], 'image',
                 'skipOnEmpty' => false,   //  Whether the validation can be skipped if the input is empty. Defaults to false, which means the input is required.
                 'extensions'  => 'png, jpg',
                 'minWidth'    => 100, 'maxWidth' => 1000,
@@ -35,15 +35,34 @@ class UploadForm extends Model
     public function attributeLabels()
     {
         return [
-            'imageFile' => Yii::t('app', 'Selector de Archivos').' : ',
+            'file' => Yii::t('app', 'Selector de Archivos').' : ',
         ];
     }
 
     public function upload($id=null)
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs(Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.(is_null($id)? PREFIX_IMG.date('Ymd_his'):PREFIX_IMG.$id).'.'.$this->imageFile->extension);
-            return true;
+            try {
+                $this->file->saveAs(Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.(is_null($id)? PREFIX_IMG.date('Ymd_his'):PREFIX_IMG.$id).'.'.$this->file->extension);
+                return true;
+            } catch (\Exception $e) {
+                // file wasn't uploaded correctly
+                switch ($e->getCode()) {
+                    case 2 :
+                        $message = Yii::t('app','El sistema no puede encontrar el archivo especificado.');
+                        break;
+                    case 3 :
+                        $message = Yii::t('app','El sistema no puede encontrar la ruta especificada.');
+                        break;
+                    case 5 :
+                        $message = Yii::t('app','Acceso Denegado.');
+                        break;
+                    default :
+                        $message = $e->getMessage();
+                }
+                Yii::$app->session->setFlash('error', nl2br("El archivo no fue cargado correctamente, por favor intente de nuevo.\n".$message));
+                return false;
+            }
         } else {
             return false;
         }

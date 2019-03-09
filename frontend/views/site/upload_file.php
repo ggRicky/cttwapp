@@ -56,38 +56,44 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 
     <!-- Yii2 work area -->
     <div class="row">
-
         <div class="col-lg-12 text-justify yii2-content">
-            <!-- 2018-07-08 : If there is a flash error message display it.-->
+
+            <!-- Flash messages area -->
+
+            <!-- 2019-07-08 : Flash error message no auto-closable. -->
             <?php if (Yii::$app->session->hasFlash('error')): ?>
                 <div class="alert alert-error alert-dismissible fade in slow-close">
                     <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('error') ?></p>
                 </div>
-            <!-- 2018-07-08 : If there is a flash warning message displays it. -->
-            <?php elseif (Yii::$app->session->hasFlash('warning')): ?>
-                <div class="alert alert-warning alert-dismissible fade in slow-close">
-                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+            <?php endif; ?>
+
+            <!-- 2018-07-08 : Flash warning message. Auto closable -->
+            <?php if (Yii::$app->session->hasFlash('warning')): ?>
+                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('warning') ?></p>
                 </div>
-            <!-- 2018-07-08 : If there is a flash success message displays it. -->
-            <?php elseif (Yii::$app->session->hasFlash('success')): ?>
-                <div class="alert alert-success alert-dismissible fade in slow-close">
-                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+            <?php endif; ?>
+
+            <!-- 2018-07-08 : Flash success message. Auto closable -->
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
+                <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                     <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
                     <p><?= Yii::$app->session->getFlash('success') ?></p>
                 </div>
-            <?php else: ?>
-                <!-- Business logic for upload a file -->
-                <div class="article-update">
-                    <?= $this->render('_upload', [
-                        'model' => $model,
-                        'page'  => $ret_page,
-                    ]) ?>
-                </div>
             <?php endif; ?>
+
+            <!-- Business logic for upload a file -->
+            <div class="article-update">
+                <?= $this->render('_upload', [
+                    'model' => $model,
+                    'page'  => $ret_page,
+                ]) ?>
+            </div>
 
         </div>
     </div>

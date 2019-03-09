@@ -13,7 +13,7 @@ use kartik\file\FileInput;
 ?>
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
-    <?= $form->field($model, 'imageFile')->widget(FileInput::class, ['options' => ['accept' => 'image/*'],]); ?>
+    <?= $form->field($model, 'file')->widget(FileInput::class, ['options' => ['accept' => 'image/*'],]); ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app','Enviar'), ['class' => 'btn btn-success btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Cargar la imagen de este inventario.')]) ?>

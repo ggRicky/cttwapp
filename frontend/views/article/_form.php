@@ -77,13 +77,19 @@ JS;
 
     if ($model->isNewRecord) {
         $model->sp_desc = $model->en_desc = $model->part_num = "N/D";
+        $model->shown_price_list = "N";
+        $model->currency_art = "P";
     }
 
     ?>
 
+    <!-- ID input text  -->
     <?= $form->field($model, 'id')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
+    <!-- Name Article input text  -->
     <?= $form->field($model, 'name_art')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
+    <!-- Spanish input text  -->
     <?= $form->field($model, 'sp_desc')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
+    <!-- English input text  -->
     <?= $form->field($model, 'en_desc')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
 
     <!-- The anchor to show the Upload button -->
@@ -122,21 +128,41 @@ JS;
         }
     ?>
 
+    <!-- Type Art input text  -->
     <?= $form->field($model, 'type_art')->radioList(['V' => 'Venta', 'R' => 'Renta']) ?>
+
+    <!-- Price input text  -->
     <?= $form->field($model, 'price_art')->textInput() ?>
+
+    <!-- Currency input text  -->
     <?= $form->field($model, 'currency_art')->radioList(['P' => 'Pesos', 'D' => 'Dólares']) ?>
 
     <!-- Brand Selector  -->
-    <?php
-        echo $form->field($model, 'brand_id')->dropDownList(ArrayHelper::map(Brand::find()->select(['id','brand_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayBrandDesc'), ['prompt' => Yii::t('app','Seleccione...')]);
-    ?>
+    <?= $form->field($model, 'brand_id')->dropDownList(ArrayHelper::map(Brand::find()->select(['id','brand_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayBrandDesc'), ['prompt' => Yii::t('app','Seleccione...')]); ?>
 
+    <!-- Part Number input text  -->
     <?= $form->field($model, 'part_num')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
 
     <!-- Catalog Selector  -->
-    <?php
-        echo $form->field($model, 'catalog_id')->dropDownList(ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccione...')]);
-    ?>
+    <?= $form->field($model, 'catalog_id')->dropDownList(ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccione...')]); ?>
+
+    <!-- Shown in Price List Selector  -->
+    <?= $form->field($model, 'shown_price_list')->radioList(
+            ['S' => 'Si', 'N' => 'No'],
+            // 2019-03-31 : This code is for customize the tooltip in each radio button, avoiding have only one for the entire RadioList control.
+            // Because this condition, the tooltip was displayed at the center of the screen area.
+            [
+                'item' => function($index, $label, $name, $checked, $value) {
+
+                    $return = '<label class="modal-radio">';
+                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" title=" Permitir mostrar o no, este registro en el Listado de Precios " data-toggle="tooltip" ' . ($checked?"checked":""). '>';
+                    $return .= '<i></i>';
+                    $return .= '<span>' . ucwords($label) . '</span>';
+                    $return .= '</label>';
+
+                    return $return;
+                }
+            ]); ?>
 
     <!-- The next four fields are read only and filled automatically -->
 

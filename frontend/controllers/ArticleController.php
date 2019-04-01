@@ -106,7 +106,7 @@ class ArticleController extends Controller
             Yii::info('[The user gets access to the Price List Module]', 'cttwapp_user');
 
             $searchModel = new ArticleSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'pl');
 
             return $this->render('index_price_list', [
                 'searchModel' => $searchModel,

@@ -2,10 +2,8 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Article;
 
 /**
  * ArticleSearch represents the model behind the search form of `app\models\Article`.
@@ -18,7 +16,7 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'name_art', 'sp_desc', 'en_desc', 'type_art', 'currency_art', 'brand_id', 'part_num', 'created_at', 'updated_at', 'catalog_id'], 'safe'],
+            [['id', 'name_art', 'sp_desc', 'en_desc', 'type_art', 'currency_art', 'brand_id', 'part_num', 'created_at', 'updated_at', 'catalog_id', 'shown_price_list'], 'safe'],
             [['price_art'], 'number'],
             [['created_by', 'updated_by'], 'integer'],
         ];
@@ -37,15 +35,17 @@ class ArticleSearch extends Article
      * Creates data provider instance with search query applied
      *
      * @param array $params
+     * @param string $qry_type
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $qry_type=null)
     {
-        $query = Article::find();
+        // 2019-03-31 : Adds a new functionality to show filtered data in the  Price List option. At the same time, it show all records in the article table in Products & Services option.
+        if($qry_type=='pl') $query = Article::find()->where('shown_price_list LIKE \'S\'');  // 2019-03-31 : $qry_type == 'pl' [ Price List ] To filter only records for the Price List option
+        else $query = Article::find();  // No filter shows all available records in the article table.
 
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             // 2018-05-28 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
@@ -69,7 +69,7 @@ class ArticleSearch extends Article
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'price_art' => $this->price_art,
+            'price_art'  => $this->price_art,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
@@ -84,7 +84,8 @@ class ArticleSearch extends Article
             ->andFilterWhere(['ilike', 'currency_art', $this->currency_art])
             ->andFilterWhere(['ilike', 'brand_id', $this->brand_id])
             ->andFilterWhere(['ilike', 'part_num', $this->part_num])
-            ->andFilterWhere(['ilike', 'catalog_id', $this->catalog_id]);
+            ->andFilterWhere(['ilike', 'catalog_id', $this->catalog_id])
+            ->andFilterWhere(['ilike', 'shown_price_list', $this->shown_price_list]);
 
         return $dataProvider;
     }

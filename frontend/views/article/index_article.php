@@ -321,7 +321,18 @@ $randomBg = rand(1,11);;
                             'class' => 'yii\grid\SerialColumn',
                             'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
                         ],
+                        [
+                            'attribute' => 'shown_price_list',
+                            'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
+                            'filter' => Html::activeDropDownList($searchModel, 'shown_price_list', ['S' => 'Si', 'N' => 'No'], ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Mostrar en la lista de precios')]),
+                            'value' => function($model){
+                                return ($model->shown_price_list=='S'?'Si':'No');
+                            },
+                            'contentOptions' => function ($model, $key, $index, $column) {
+                                return ['style' => 'color:'. ($model->shown_price_list=='S'?'#337AB7':'red')];
+                            },
 
+                        ],
                         [
                             // 2018-07-10 : Include a new column with an article's thumbnail image.
                             'attribute' => Yii::t('app','Imagen'),

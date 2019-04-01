@@ -201,6 +201,14 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
                                 'value' => implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')),
                             ],
 
+                            // 2019-03-31 : Display the show price list status
+                            [
+                                'attribute' => 'shown_price_list',
+                                'value' => function($model){
+                                    return ($model->shown_price_list=='S'?'Si':'No');
+                                },
+                            ],
+
                             'created_at',
                             'updated_at',
                             'created_by',

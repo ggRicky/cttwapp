@@ -123,20 +123,20 @@ $randomBg = rand(1,11);
 
 <?php
 
-// Include the index's footer file
-include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_footer.inc');
+    // Include the index's footer file
+    include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_footer.inc');
 
-// Include the index's modals file
-include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_modals.inc');
+    // Include the index's modals file
+    include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_modals.inc');
 
-// 2018-02-09 : If the user was logged successfully, then display the modal window notification, using PHP & jQuery
-$session = Yii::$app->session;
+    // 2018-02-09 : If the user was logged successfully, then display the modal window notification, using PHP & jQuery
+    $session = Yii::$app->session;
 
-if ($session->has('successLogin')) {
+    if ($session->has('successLogin')) {
 
-    $script = "jQuery(document).ready(function () { $(\"#ctt-modal-usr-logged\").modal({show: true, backdrop: \"static\"}); });";
-    $this->registerJs($script, View::POS_READY);
+        $script = "jQuery(document).ready(function () { $(\"#ctt-modal-usr-logged\").modal({show: true, backdrop: \"static\"}); });";
+        $this->registerJs($script, View::POS_READY);
 
-}
+    }
 
 ?>

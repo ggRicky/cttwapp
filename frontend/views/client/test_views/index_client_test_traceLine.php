@@ -393,4 +393,4 @@ $randomBg = rand(1,11);
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_footer.inc'); ?>
 
 <!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete.inc'); ?>
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_modal_confirm.inc'); ?>

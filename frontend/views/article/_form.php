@@ -155,7 +155,7 @@ JS;
                 'item' => function($index, $label, $name, $checked, $value) {
 
                     $return = '<label class="modal-radio">';
-                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" title=" Permitir mostrar o no, este registro en el Listado de Precios " data-toggle="tooltip" ' . ($checked?"checked":""). '>';
+                    $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" title="'.Yii::t('app','Permite mostrar u ocultar este registro en el Listado de Precios').'" data-toggle="tooltip" ' . ($checked?"checked":""). '>';
                     $return .= '<i></i>';
                     $return .= '<span>' . ucwords($label) . '</span>';
                     $return .= '</label>';

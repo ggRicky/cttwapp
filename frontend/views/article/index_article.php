@@ -223,10 +223,10 @@ $randomBg = rand(1,11);;
 
                         [
                             'class' => 'yii\grid\ActionColumn',
-                            'header' => '<span>Acción</span>',
+                            'header' => '<span>'.Yii::t('app','Acción').'</span>',
                             'headerOptions' => ['style' => 'color:#8b8787;'],
                             // 2018-06-03 : Redefines the default {delete} action from the template and adds the new behaviors like an customized modal window.
-                            'template' => '{show} {view} {update} {delete}',
+                            'template' => '{view} {update} {delete} {list} {show}',
                             'buttons' => [
                                 // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
                                 'view' => function ($url) {
@@ -256,16 +256,60 @@ $randomBg = rand(1,11);;
                                             // 2018-06-03 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
                                             // and displayed in the modal window.
                                             'data' => [
-                                                // 2018-06-03 : Adds to the modal title the row id, like a warning information.
-                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->id),
+                                                // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
+                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->name_art,0,60),
+                                                'color' => 4,   // Red color header in modal window.
                                             ],
                                             // 2018-06-03 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
                                             // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
                                             // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
                                             // In this case the 'data-confirm' parameter must be empty.
+                                            // In summary : The 'data-confirm' parameter displays a confirmation dialog before starting the action
                                             'data-confirm' => '',
                                             // 2018-06-03 : The next two parameters are needed to complete the right call to the action delete, because it will be made using the post method.
                                             'data-method' => 'post',
+                                            // 2018-06-03 : The Pjax widget allows you to update a certain section of a page instead of reloading the entire page. You can use it to update only
+                                            // the GridView content when using filters. But this might be a problem for the links of an ActionColumn. To prevent this, add the HTML attribute
+                                            // data-pjax="0" to the links when you edit the ActionColumn::$buttons property.
+
+                                            // You may configure $linkSelector to specify which links should trigger pjax, and configure $formSelector to specify which form submission may trigger pjax.
+                                            // You may disable pjax for a specific link inside the container by adding data-pjax="0" attribute to this link.
+                                            'data-pjax' => '0',
+                                        ]);
+                                },
+
+                                // 2019-04-01 : Adds a new list action to switch between show or hide a product or service in the price list.
+                                'list' => function($url, $model) {
+                                    return Html::a('<span class="glyphicon glyphicon-list-alt"></span>', $url,
+                                        [
+                                            'data-toggle' => 'tooltip',
+                                            'title'       => Yii::t('app', 'Listar'),     // 2018-06-03 : Adds the tooltip List
+                                            'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-list-alt in black color like a attention signal.
+                                            'onMouseOver' => 'this.style.color=\'#000000\'',               // 2018-06-06 : When mouse is hover on the link, the color changes
+                                            'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to black advising attention in list operation.
+                                            // 2018-06-03 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
+                                            //              and displayed in the modal window.
+                                            'data' => [
+                                                // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
+                                                'message' => Yii::t('app', '¿ Desea cambiar el estado de visibilidad de este elemento en la lista de precios ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->name_art,0,60),
+
+                                                // Green color header in modal window.
+                                                'color' => 2,
+                                            ],
+                                            // 2018-06-03 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
+                                            // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
+                                            // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
+                                            // In this case the 'data-confirm' parameter must be empty.
+                                            // In summary : The 'data-confirm' parameter displays a confirmation dialog before starting the action
+                                            'data-confirm' => '',
+                                            // 2018-06-03 : The next two parameters are needed to complete the right call to the action delete, because it will be made using the post method.
+                                            'data-method' => 'post',
+                                            // 2018-06-03 : The Pjax widget allows you to update a certain section of a page instead of reloading the entire page. You can use it to update only
+                                            // the GridView content when using filters. But this might be a problem for the links of an ActionColumn. To prevent this, add the HTML attribute
+                                            // data-pjax="0" to the links when you edit the ActionColumn::$buttons property.
+
+                                            // You may configure $linkSelector to specify which links should trigger pjax, and configure $formSelector to specify which form submission may trigger pjax.
+                                            // You may disable pjax for a specific link inside the container by adding data-pjax="0" attribute to this link.
                                             'data-pjax' => '0',
                                         ]);
                                 },
@@ -280,23 +324,29 @@ $randomBg = rand(1,11);;
                                     if (!is_null($file_ext)) {
                                         return Html::a('<span class="glyphicon glyphicon-camera" data-toggle="tooltip" title="'.Yii::t('app', 'Mostrar').'"></span>', '#', [
                                             'class'       => 'detail-view-link',
-                                            'style'       => 'color:#337ab7, ',                            // 2018-07-11 : Display the glyphicon-camera in default color.
-                                            'onMouseOver' => 'this.style.color=\'#ff8e00\'',               // 2018-07-11 : When mouse is hover on the link, the color changes to orange advising an available operation.
+                                            'style'       => 'color:#337ab7, ',               // 2018-07-11 : Display the glyphicon-camera in default color.
+                                            'onMouseOver' => 'this.style.color=\'#ff8e00\'',  // 2018-07-11 : When mouse is hover on the link, the color changes to orange advising an available operation.
                                             'onMouseOut'  => 'this.style.color=\'#337ab7\'',
-                                            'data-toggle' => 'modal',
-                                            'data-target' => '#ctt-modal-show-art',
+                                            'data-toggle' => 'modal',                         // 2019-04-01 : It is a HTML5 data attribute that automatically hooks up the element to the type of widget it is.
+                                                                                              //              Some samples : data-toggle="modal", data-toggle="collapse", data-toggle="dropdown", data-toggle="tab"
+                                                                                              // In summary : Activate a modal without writing JavaScript. Set data-toggle="modal" on a controller element,
+                                                                                              //              like a button, along with a data-target="#foo" or href="#foo" to target a specific modal to toggle.
+
+                                            'data-target' => '#ctt-modal-show-art',           // 2019-04-01 : The target to displays as a modal window
                                             'data' => [
-                                                'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),
-                                                'name'  => ($model->name_art),
-                                                'url'   => Url::to('@uploads_inv'.'/').PREFIX_IMG.$model->id.$file_ext,
+                                                'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),    // 2018-07-11 : Title header
+                                                'name'  => ($model->name_art),                                                      // 2018-07-11 : Article name
+                                                'url'   => Url::to('@uploads_inv'.'/').PREFIX_IMG.$model->id.$file_ext,         // 2018-07-11 : Article image Url
+                                                'color' => 0,                                                                       // 2019-04-02 : Blue color header in modal window.
                                             ],
-                                            'data-id'     => $key,
+                                            'data-id'     => $key,                            // 2019-04-02 : Adds the article ID to the <a> tag as a unique descriptor.
                                             'data-pjax'   => '0',
                                         ]);
                                     }
 
                                     return null;
                                 },
+
                             ],
 
                             // 2018-06-03 : Adds an url that include the current page in GridView widget.
@@ -310,6 +360,9 @@ $randomBg = rand(1,11);;
                                 elseif ($action === 'update') {
                                     $url = Url::to(['article/update', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                 }
+                                elseif ($action === 'list') {
+                                    $url = Url::to(['article/update2', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                }
                                 else $url = null;
 
                                 // 2018-06-03 : If null value is returned, the url created have only home page address plus &page parameter. The right value is return $url.
@@ -320,19 +373,22 @@ $randomBg = rand(1,11);;
                         [
                             'class' => 'yii\grid\SerialColumn',
                             'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
+                            'contentOptions' => ['class' => 'text-center'],
                         ],
+
                         [
                             'attribute' => 'shown_price_list',
-                            'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
-                            'filter' => Html::activeDropDownList($searchModel, 'shown_price_list', ['S' => 'Si', 'N' => 'No'], ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Mostrar en la lista de precios')]),
+                            'headerOptions' => ['style' => 'width:2.5%; color:#8b8787;'],
+                            'filter' => Html::activeDropDownList($searchModel, 'shown_price_list', ['S' => Yii::t('app','Si'), 'N' => 'No'], ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Mostrar en la lista de precios')]),
                             'value' => function($model){
-                                return ($model->shown_price_list=='S'?'Si':'No');
+                                return ($model->shown_price_list=='S'?Yii::t('app','Si'):'No');
                             },
                             'contentOptions' => function ($model, $key, $index, $column) {
-                                return ['style' => 'color:'. ($model->shown_price_list=='S'?'#337AB7':'red')];
+                                return ['class' => 'text-center', 'style' => 'color:'. ($model->shown_price_list=='S'?'#337AB7':'red')];
                             },
 
                         ],
+
                         [
                             // 2018-07-10 : Include a new column with an article's thumbnail image.
                             'attribute' => Yii::t('app','Imagen'),
@@ -476,7 +532,8 @@ $randomBg = rand(1,11);;
                 <!-- 2018-07-13 : This jQuery's piece of code implements the modal window for show the article image.-->
                 <?php $this->registerJs(
                     /** @lang jQuery */
-                "$('.detail-view-link').click(function(e) {
+                "// This code is implemented to show the article image in a modal window
+                    $('.detail-view-link').click(function(e) {
 
                         // 2018-10-23 : If this method is called, the default action of the event will not be triggered.
                         e.preventDefault();
@@ -501,7 +558,7 @@ $randomBg = rand(1,11);;
                         modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div><br/><div align=\"center\">'+p_name+'</div>');
     
                     });
-                    
+                   
                     // This code is implemented for re-activate several functionalities after each Pjax request.
                     $(document).on('pjax:success', function(event) {
 
@@ -572,17 +629,29 @@ $randomBg = rand(1,11);;
 
 </section>
 
+<!-- Includes the modal success, warning and config window to show several kinds of messages -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_modals.inc'); ?>
+
 <!-- Includes the view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_footer.inc'); ?>
 
-<!-- Includes the modal window to confirm the delete operation -->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete.inc'); ?>
+<!-- Includes the custom modal window to confirm the GridView actions -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_modal_confirm.inc'); ?>
 
 <!-- Includes the modal window to show an article image -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
 
-<!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_modals.inc'); ?>
-
 <!-- Includes the jQuery tableScroll plugin -->
 <?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:300, width:5500}); });",View::POS_READY,'fix-Header'); ?>
+
+<?php
+    // 2019-04-04 : Display a notification message in the modal window using PHP & jQuery. This occurs when a config process is done.
+    $session = Yii::$app->session;
+
+    if ($session->has('configProcess')) {
+
+        $script = "jQuery(document).ready(function () { $(\"#ctt-modal-config\").modal({show: true, backdrop: \"static\"}); });";
+        $this->registerJs($script, View::POS_READY);
+
+    }
+?>

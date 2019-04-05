@@ -72,8 +72,9 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                     <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->name, 'page' => $ret_page], ['class' => 'btn btn-primary btn-ctt-fixed-width']) ?>
                     <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->name, 'page' => $ret_page],   ['class' => 'btn btn-danger btn-ctt-fixed-width',
                         'data' => [
-                            // 2018-05-28 : Adds to the modal title the row id, like a warning information.
-                            'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'  :  '.($model->name),
+                            // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
+                            'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.str_repeat('&nbsp;',16).($model->name).'&nbsp;-&nbsp;'.substr($model->description,0,60),
+                            'color' => 4,   // Red color header in modal window.
                         ],
                         // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
                         // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
@@ -121,5 +122,5 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
 <!-- Includes the actions view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer_bke.inc'); ?>
 
-<!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete_bke.inc'); ?>
+<!-- Includes the custom modal window to confirm the GridView actions-->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_modal_confirm_bke.inc'); ?>

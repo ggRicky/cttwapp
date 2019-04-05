@@ -263,6 +263,8 @@ class ClientController extends Controller
             // Create and store a new cookie
             $cookie = new \yii\web\Cookie(['name' => 'client-color', 'value' => $color, 'expire' => time() + 86400 * 365,]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
+            // Send a message about the current color status.
+            Yii::$app->session->setFlash('configProcess', Yii::t('app','La configuración del color ha sido : '.($color==1?'ACTIVADA':'DESACTIVADA')));
         }
         return $this->redirect(['client/index', 'page' => '1', 'hash' => '0']);
     }

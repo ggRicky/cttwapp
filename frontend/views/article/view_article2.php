@@ -51,7 +51,7 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
         <!-- Main menu return -->
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
-                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/show-price-list', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index2', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
             </div>
         </div>
 
@@ -180,5 +180,5 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
 <!-- Includes the actions view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer.inc'); ?>
 
-<!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete.inc'); ?>
+<!-- Includes the custom modal window to confirm the GridView actions-->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_modal_confirm.inc'); ?>

@@ -1,5 +1,5 @@
-<!-- Modal Question : Used to confirm or cancel the delete action -->
-<div id="confirm-delete" tabindex="-1" class="modal fade" role="dialog" data-backdrop="true">
+<!-- Modal Confirm : Used to confirm or cancel a Yii2 GridView action -->
+<div id="ctt-modal-confirm" tabindex="-1" class="modal fade" role="dialog" data-backdrop="true">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -31,7 +31,7 @@
                         <div class="col-sm-6"><img align="left" src="<?=$baseUrl?>/img/ctt-mini-logo_1.jpg" height="42" width="105"/></div>
                         <div class="col-sm-6">
                             <span><button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="[ Esc ] - <?= Yii::t('app','Descarta la operación') ?>"><?= Yii::t('app','Cancelar') ?></button></span>
-                            <span><button type="button" class="btn btn-danger btn-ok" id="delete-ok" data-toggle="tooltip" title="<?= Yii::t('app','Procede la operación') ?>"><?= Yii::t('app','Aceptar') ?></button></span>
+                            <span><button type="button" class="btn btn-danger btn-ok" id="button-ok" data-toggle="tooltip" title="<?= Yii::t('app','Procede la operación') ?>"><?= Yii::t('app','Aceptar') ?></button></span>
                         </div>
                     </div>
                 </div>

@@ -44,7 +44,7 @@ $view_type = Yii::$app->getRequest()->getQueryParam('view_type');
         <!-- Main menu return -->
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
-                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/'.($view_type==1?'show-price-list':'index'), 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+                <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/'.($view_type==1?'index2':'index'), 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
             </div>
         </div>
 

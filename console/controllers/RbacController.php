@@ -44,7 +44,7 @@ class RbacController extends Controller
         // Defines the permissions to access the special admin process
         // -----------------------------------------------------------
 
-        // Adds "adminProcess" permission
+        // Adds "adminProcess" permission ( i.e. Backend subsystem )
         $adminProcess = $auth->createPermission('adminProcess');
         $adminProcess->description = 'Permission : Allows access to the admin process in the CTTwapp system.';
         $auth->add($adminProcess);
@@ -229,6 +229,12 @@ class RbacController extends Controller
         $listArticle = $auth->createPermission('listArticle');
         $listArticle->description = 'Permission : Allows to list the Articles in the CTTwapp system.';
         $auth->add($listArticle);
+
+        // Adds "listPriceList" permission
+        $listPriceList = $auth->createPermission('listPriceList');
+        $listPriceList->description = 'Permission : Allows to list the Price List in the CTTwapp system.';
+        $auth->add($listPriceList);
+
 
         // Adds "printArticle" permission
         $printArticle = $auth->createPermission('printArticle');
@@ -492,6 +498,7 @@ class RbacController extends Controller
 
         // Adds permissions
         $auth->addChild($userArticle, $listArticle);                 // Adds this permission to role userArticle, to allows the access to the list catalogs.
+        $auth->addChild($userArticle, $listPriceList);               // Adds this permission to role userArticle, to allows the access to the list catalogs.
 
 
 
@@ -657,7 +664,7 @@ class RbacController extends Controller
         // Adds basic roles to list entities
         $auth->addChild($userCTT, $accessMain);            // Grant access only to the site main index.
         $auth->addChild($userCTT, $adminSite);             // Grant access to admin site process.
-        //$auth->addChild($userCTT, $viewHelp);              // Grant access to view the CTTwapp help.
+        $auth->addChild($userCTT, $viewHelp);              // Grant access to view the CTTwapp help.
         $auth->addChild($userCTT, $userClient);            // Grant access to list client entities.
         $auth->addChild($userCTT, $userClientType);        // Grant access to list client type entities.
         $auth->addChild($userCTT, $userBrand);             // Grant access to list brand entities.
@@ -710,28 +717,28 @@ class RbacController extends Controller
 
 
 
-        // Role : superCTT
-        // ---------------
+        // Role : managementCTT
+        // --------------------
 
-        // Creates the role 'superCTT' and grants to it all the available permissions in the CTTwapp application.
-        $superCTT = $auth->createRole('superCTT');
-        $superCTT->description = 'Role : Defines a default CTT super user and grants all the available permissions.';
-        $auth->add($superCTT);
+        // Creates the role 'managementCTT' and grants to it all the available permissions in the CTTwapp application.
+        $managementCTT = $auth->createRole('managementCTT');
+        $managementCTT->description = 'Role : Defines a default CTT super user and grants all the available permissions.';
+        $auth->add($managementCTT);
 
         // Adds all roles to list entities
-        $auth->addChild($superCTT, $accessMain);           // Grant access only to the site main index.
-        $auth->addChild($superCTT, $adminSite);            // Grant access to admin site process.
-        $auth->addChild($superCTT, $uploadFile);           // Grant access to uploads files.
-        $auth->addChild($superCTT, $viewHelp);             // Grant access to view the CTTwapp help.
-        $auth->addChild($superCTT, $adminClient);          // Grant access to admin all client process.
-        $auth->addChild($superCTT, $adminClientType);      // Grant access to admin all client type process.
-        $auth->addChild($superCTT, $adminBrand);           // Grant access to admin all brand process.
-        $auth->addChild($superCTT, $adminCatalog);         // Grant access to admin all catalog process.
-        $auth->addChild($superCTT, $adminArticle);         // Grant access to admin all article process.
-        $auth->addChild($superCTT, $adminInventory);       // Grant access to admin all inventory entities.
-        $auth->addChild($superCTT, $adminProject);         // Grant access to admin all project entities.
-        $auth->addChild($superCTT, $adminReservation);     // Grant access to admin all reservation entities.
-        $auth->addChild($superCTT, $adminMarketRate);      // Grant access to admin all market rate entities.
+        $auth->addChild($managementCTT, $accessMain);           // Grant access only to the site main index.
+        $auth->addChild($managementCTT, $adminSite);            // Grant access to admin site process.
+        $auth->addChild($managementCTT, $uploadFile);           // Grant access to uploads files.
+        $auth->addChild($managementCTT, $viewHelp);             // Grant access to view the CTTwapp help.
+        $auth->addChild($managementCTT, $adminClient);          // Grant access to admin all client process.
+        $auth->addChild($managementCTT, $adminClientType);      // Grant access to admin all client type process.
+        $auth->addChild($managementCTT, $adminBrand);           // Grant access to admin all brand process.
+        $auth->addChild($managementCTT, $adminCatalog);         // Grant access to admin all catalog process.
+        $auth->addChild($managementCTT, $adminArticle);         // Grant access to admin all article process.
+        $auth->addChild($managementCTT, $adminInventory);       // Grant access to admin all inventory entities.
+        $auth->addChild($managementCTT, $adminProject);         // Grant access to admin all project entities.
+        $auth->addChild($managementCTT, $adminReservation);     // Grant access to admin all reservation entities.
+        $auth->addChild($managementCTT, $adminMarketRate);      // Grant access to admin all market rate entities.
 
 
 
@@ -748,7 +755,7 @@ class RbacController extends Controller
         $auth->addChild($adminCTT, $adminSite);            // Grant access to admin site process.
         $auth->addChild($adminCTT, $uploadFile);           // Grant access to uploads files.
         $auth->addChild($adminCTT, $viewHelp);             // Grant access to view the CTTwapp help.
-        $auth->addChild($adminCTT, $adminProcess);         // Grant access to special admin process.
+        $auth->addChild($adminCTT, $adminProcess);         // Grant access to special admin process ( i.e. Backend subsystem ).
         $auth->addChild($adminCTT, $adminClient);          // Grant access to admin all client process.
         $auth->addChild($adminCTT, $adminClientType);      // Grant access to admin all client type process.
         $auth->addChild($adminCTT, $adminBrand);           // Grant access to admin all brand process.
@@ -765,9 +772,8 @@ class RbacController extends Controller
         // ----------------
 
         // Assigns the role adminCTT to the admin user.
-
         $auth->assign($adminCTT, 1);                 // Assign the adminCTT role to the UserId = 1
-        $auth->assign($superCTT, 2);                 // Assign the superCTT role to the UserId = 2
+        $auth->assign($managementCTT, 2);            // Assign the managementCTT role to the UserId = 2
         $auth->assign($marketingCTT, 3);             // Assign the marketingCTT role to the UserId = 3
         $auth->assign($inventoryCTT, 4);             // Assign the inventoryCTT role to the UserId = 4
         $auth->assign($guestCTT, 5);                 // Assign the guestCTT role to the UserId = 5

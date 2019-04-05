@@ -154,5 +154,5 @@ $logFile  = 'cttwapp_user.log';
 <!-- Includes the view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_footer_bke.inc'); ?>
 
-<!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete_bke.inc'); ?>
+<!-- Includes the custom modal window to confirm the GridView actions-->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_modal_confirm_bke.inc'); ?>

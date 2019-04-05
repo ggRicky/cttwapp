@@ -188,9 +188,9 @@ $randomBg = rand(1,11);;
                         [
                             // 2019-01-12 : Some options to custom the table header
                             'class' => 'yii\grid\ActionColumn',
-                            'header' => '<span>Acción</span>',
+                            'header' => '<span>'.Yii::t('app','Acción').'</span>',
                             'headerOptions' => ['style' => 'color:#8b8787;'],
-                            'template' => '{show} {view}',
+                            'template' => '{view} {show}',
                             'buttons' => [
                                 // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
                                 'view' => function ($url) {
@@ -245,6 +245,7 @@ $randomBg = rand(1,11);;
                         [
                             'class' => 'yii\grid\SerialColumn',
                             'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
+                            'contentOptions' => ['class' => 'text-center'],
                         ],
 
                         [
@@ -443,7 +444,7 @@ $randomBg = rand(1,11);;
                         <!-- Help Tool -->
                         <span>
                            <?php
-                           echo Html::a('', ['help/view', 'theme' => '_price_list', 'ret_url' => 'article/show-price-list', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ayuda')]);
+                           echo Html::a('', ['help/view', 'theme' => '_price_list', 'ret_url' => 'article/index2', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ayuda')]);
                            echo '<span>'.Yii::t('app', 'Ayuda').'</span>';
                            ?>
                         </span>
@@ -487,17 +488,29 @@ $randomBg = rand(1,11);;
 
 </section>
 
+<!-- Includes the modal success, warning and config window to show several kinds of messages -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_modals.inc'); ?>
+
 <!-- Includes the view's footer file -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_footer.inc'); ?>
 
-<!-- Includes the modal window to confirm the delete operation -->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_confirm_delete.inc'); ?>
+<!-- Includes the custom modal window to confirm the GridView actions -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_modal_confirm.inc'); ?>
 
 <!-- Includes the modal window to show an article image -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
 
-<!-- Includes the modal window to confirm the delete operation-->
-<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_index_modals.inc'); ?>
-
 <!-- Includes the jQuery tableScroll plugin -->
 <?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:300, width:5500}); });",View::POS_READY,'fix-Header'); ?>
+
+<?php
+    // 2019-04-04 : Display a notification message in the modal window using PHP & jQuery. This occurs when a config process is done.
+    $session = Yii::$app->session;
+
+    if ($session->has('configProcess')) {
+
+        $script = "jQuery(document).ready(function () { $(\"#ctt-modal-config\").modal({show: true, backdrop: \"static\"}); });";
+        $this->registerJs($script, View::POS_READY);
+
+    }
+?>

@@ -61,9 +61,9 @@
 <?php endif; ?>
 
 <!--2019-01-06 : Only available the Price List view if the user have the right permission and currently isn't in the same view. -->
-<?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/show-price-list'): ?>
+<?php if (\Yii::$app->user->can('listArticle') && Yii::$app->requestedRoute != 'article/index2'): ?>
 
-    <li><?= "<a href='".Url::to(['article/show-price-list'])."'>".Yii::t('app','Lista de Precios')."</a>" ?></li>
+    <li><?= "<a href='".Url::to(['article/index2'])."'>".Yii::t('app','Lista de Precios')."</a>" ?></li>
 
 <?php endif; ?>
 

@@ -52,14 +52,12 @@ class ArticleController extends Controller
                 'dataProvider' => $dataProvider,
                 'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_article.php view for test if 'ArticleSearch'
             ]);
-        }
-        else {
+        } else {
             // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to the Article Module]', 'cttwapp_user');
-            }
-            else {
+            } else {
                 Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
                 Yii::warning('[Unauthorized access profile to the Article Module]', 'cttwapp_user');
             }
@@ -68,59 +66,29 @@ class ArticleController extends Controller
     }
 
     /**
-     * Gets the article page size.
-     * @param string $view_type
-     * @return mixed
-     *
-     * 2018-08-22 20:28 Hrs.
-     */
-    public function actionGetPageSize($view_type)
-    {
-        // Creates the new dynamic model
-        $model_2 = new DynamicModel(['paginado']);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 50, 'tooSmall' => Yii::t('app','El valor no debe ser menor a ').'1.', 'tooBig' => Yii::t('app','El valor no debe ser mayor a ').'50.']);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app','El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
-
-        if ($model_2->load(Yii::$app->request->post())) {
-            // Saves the page size value collected through the form.
-            return $this->redirect(['article/set-page-size',
-                'page_size_config' => $model_2->paginado,
-                'view_type' => $view_type,
-            ]);
-        }
-
-        // Apply and show the newly generated changes.
-        return $this->render('set_article_page_size', ['model_2' => $model_2, 'view_type' => $view_type]);
-    }
-
-    /**
-     * Shows the Price List view.
+     * Shows the special Price List view.
      * @return mixed
      */
-    public function actionShowPriceList()
+    public function actionIndex2()
     {
-        if (\Yii::$app->user->can('listArticle')) {
+        if (\Yii::$app->user->can('listPriceList')) {
             // 2018-08-28 : Records the access to Article module.
             Yii::info('[The user gets access to the Price List Module]', 'cttwapp_user');
 
             $searchModel = new ArticleSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams,'pl');
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'pl');
 
-            return $this->render('index_price_list', [
+            return $this->render('index_article2', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_article.php view for test if 'ArticleSearch'
             ]);
-        }
-        else {
+        } else {
             // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to the Price List Module]', 'cttwapp_user');
-            }
-            else {
+            } else {
                 Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
                 Yii::warning('[Unauthorized access profile to the Price List Module]', 'cttwapp_user');
             }
@@ -129,7 +97,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Displays a single Article model.
+     * Displays a single Article model in the Products & Services GridView.
      * @param string $id
      * @param string $page
      * @return mixed
@@ -139,10 +107,9 @@ class ArticleController extends Controller
     {
         if (\Yii::$app->user->can('viewArticle')) {
             // 2018-08-28 : Records the article view operation.
-            Yii::info('[The user has consulted the article record with ID='.$id.']', 'cttwapp_user');
+            Yii::info('[The user has consulted the article record with ID=' . $id . ']', 'cttwapp_user');
             return $this->render('view_article', ['model' => $this->findModel($id),]);
-        }
-        else {
+        } else {
             // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
@@ -166,10 +133,9 @@ class ArticleController extends Controller
     {
         if (\Yii::$app->user->can('viewArticle')) {
             // 2018-08-28 : Records the article view operation.
-            Yii::info('[The user has consulted the article record with ID='.$id.']', 'cttwapp_user');
-            return $this->render('view_price_list', ['model' => $this->findModel($id),]);
-        }
-        else {
+            Yii::info('[The user has consulted the article record with ID=' . $id . ']', 'cttwapp_user');
+            return $this->render('view_article2', ['model' => $this->findModel($id),]);
+        } else {
             // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
@@ -179,7 +145,7 @@ class ArticleController extends Controller
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
             Yii::warning('[Unauthorized access profile to view an article record]', 'cttwapp_user');
         }
-        return $this->redirect(['article/show-price-list', 'page' => $page, 'hash' => '0']);
+        return $this->redirect(['article/index2', 'page' => $page, 'hash' => '0']);
     }
 
     /**
@@ -197,7 +163,7 @@ class ArticleController extends Controller
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->save()) {
                     // 2018-08-28 : Records the article create operation.
-                    Yii::info('[The user has created a new article record with ID='.$model->id.']', 'cttwapp_user');
+                    Yii::info('[The user has created a new article record with ID=' . $model->id . ']', 'cttwapp_user');
                     Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha creado exitosamente.'));
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
@@ -208,9 +174,9 @@ class ArticleController extends Controller
             }
 
             Yii::info('[The user gets access to create a new article record]', 'cttwapp_user');
+            // Render the page to create an article.
             return $this->render('create_article', ['model' => $model, 'page' => $page]);
-        }
-        else {
+        } else {
             // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
@@ -241,31 +207,30 @@ class ArticleController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 // 2019-03-07 : Try to catch any DBMS constraint violation
-                try{
+                try {
                     if ($model->update() !== false) {
                         // 2018-10-30 : Records the catalog update operation.
-                        Yii::info('[The user has updated the article record with ID='.$model->id.']', 'cttwapp_user');
+                        Yii::info('[The user has updated the article record with ID=' . $model->id . ']', 'cttwapp_user');
                         $message = Yii::t('app', 'El registro se ha actualizado exitosamente.');
 
                         // 2019-03-07 : Rename the inventory image file ( .jpg or .png formats ) if it exists.
-                        if ($this->renameFile($id, $model->id, '.jpg') || $this->renameFile($id, $model->id, '.png')){
-                            $message = $message . '<br>'. Yii::t('app', 'El archivo de imagen asociado, también se ha actualizado exitosamente.');
+                        if ($this->renameFile($id, $model->id, '.jpg') || $this->renameFile($id, $model->id, '.png')) {
+                            $message = $message . '<br>' . Yii::t('app', 'El archivo de imagen asociado, también se ha actualizado exitosamente.');
                         }
 
                         Yii::$app->session->setFlash('success', $message);
                         return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
-                    }
-                    else{
+                    } else {
                         // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
                         Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
                         return $this->render('update_article', ['model' => $model, 'page' => $page]);
                     }
-                }catch (Exception $e) {
+                } catch (Exception $e) {
                     // 2019-03-06 : The next statement is used to display the current error reported by SQLSTATUS : nl2br($e->errorInfo[0].' '.$e->errorInfo[2])
                     // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
-                    switch ($e->errorInfo[0]){
+                    switch ($e->errorInfo[0]) {
                         case '23503' :
-                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                            Yii::$app->session->setFlash('error', Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
 
                     }
                     return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
@@ -273,9 +238,9 @@ class ArticleController extends Controller
             }
 
             Yii::info('[The user gets access to update an article record]', 'cttwapp_user');
+            // Render the page to update an article.
             return $this->render('update_article', ['model' => $model, 'page' => $page]);
-        }
-        else {
+        } else {
             // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
@@ -286,6 +251,64 @@ class ArticleController extends Controller
             Yii::warning('[Unauthorized access profile to update an article record]', 'cttwapp_user');
             return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         }
+    }
+
+    /**
+     * Updates the visibility status to shows or to hides a product or service record in the 'Price List' index.
+     * Toggles the shown_price_list field content in the Article table, from 'S' value to 'N' value and vice versa.
+     * If update is successful, the browser will be redirected to the 'Products & Services' index.
+     * @param string $id
+     * @param string $page
+     * @return mixed
+     * @throws
+     *
+     * 2019-04-02 12:12 Hrs.
+     */
+    public function actionUpdate2($id, $page)
+    {
+        if (\Yii::$app->user->can('updateArticle')) {
+
+            // 2019-04-02 : Return static|null ActiveRecord instance matching the condition, or `null` if nothing matches.
+            $model = $this->findModel($id);
+
+            // 2019-04-02 : Toggles the visibility status for this article record
+            if ($model->shown_price_list=='S') $model->shown_price_list='N';
+            else $model->shown_price_list='S';
+
+            // 2019-03-07 : Try to catch any DBMS constraint violation
+            try {
+                if ($model->update() !== false) {
+                    // 2018-10-30 : Records the catalog update operation.
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'El estado de visibilidad para este registro se ha actualizado exitosamente.'));
+                } else {
+                    // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
+                    Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                }
+            } catch (Exception $e) {
+                // 2019-03-06 : The next statement is used to display the current error reported by SQLSTATUS : nl2br($e->errorInfo[0].' '.$e->errorInfo[2])
+                // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
+                switch ($e->errorInfo[0]) {
+                    case '23503' :
+                        Yii::$app->session->setFlash('error', Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+
+                }
+            }
+
+            Yii::info('[The user has updated the visibility status for the record with ID=' . $model->id . ']', 'cttwapp_user');
+            // Redirects to show all available Products & Services at the same page.
+            return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
+        } else {
+            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to update an article record]', 'cttwapp_user');
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to update an article record]', 'cttwapp_user');
+            return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
+        }
+
     }
 
     /**
@@ -302,31 +325,30 @@ class ArticleController extends Controller
     {
         if (\Yii::$app->user->can('deleteArticle')) {
             // 2019-03-07 : Try to catch any DBMS constraint violation
-            try{
-                if ($this->findModel($id)->delete()){
+            try {
+                if ($this->findModel($id)->delete()) {
                     // 2018-10-30 : Records the brand delete operation.
-                    Yii::info('[The user has deleted the article record with ID='.$id.']', 'cttwapp_user');
+                    Yii::info('[The user has deleted the article record with ID=' . $id . ']', 'cttwapp_user');
 
                     $message = Yii::t('app', 'El registro se ha eliminado exitosamente.');
 
                     // 2019-03-07 : Try to delete the image file ( .jpg or .png formats ) if it exists
-                    if ($this->deleteFile($id,'.jpg') || $this->deleteFile($id,'.png')){
-                        $message = $message . '<br>'. Yii::t('app', 'El archivo de imagen asociado, también se ha eliminado exitosamente.');
+                    if ($this->deleteFile($id, '.jpg') || $this->deleteFile($id, '.png')) {
+                        $message = $message . '<br>' . Yii::t('app', 'El archivo de imagen asociado, también se ha eliminado exitosamente.');
                     }
 
                     Yii::$app->session->setFlash('success', $message);
                 }
-            }catch (Exception $e) {
+            } catch (Exception $e) {
                 // 2019-03-06 : The next statement is used to display the current error reported by SQLSTATUS : nl2br($e->errorInfo[0].' '.$e->errorInfo[2])
                 // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
-                switch ($e->errorInfo[0]){
+                switch ($e->errorInfo[0]) {
                     case '23503' :
-                        Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                        Yii::$app->session->setFlash('error', Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
 
                 }
             }
-        }
-        else {
+        } else {
             // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
@@ -336,6 +358,7 @@ class ArticleController extends Controller
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
             Yii::warning('[Unauthorized access profile to delete an Article]', 'cttwapp_user');
         }
+        // Redirects to show all available products & services at the same page.
         return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
     }
 
@@ -356,7 +379,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Switch and stores the articles colored status in a cookie.
+     * Switch and stores the articles colored status in a cookie for the products & services view.
      * @param string $color
      * @return mixed
      *
@@ -368,6 +391,8 @@ class ArticleController extends Controller
             // Create and store a new cookie
             $cookie = new Cookie(['name' => 'article-color', 'value' => $color, 'expire' => time() + 86400 * 365,]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
+            // Send a message about the current color status.
+            Yii::$app->session->setFlash('configProcess', Yii::t('app','La configuración del color ha sido : '.($color==1?'ACTIVADA':'DESACTIVADA')));
         }
         return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
     }
@@ -386,8 +411,10 @@ class ArticleController extends Controller
             // Create and store a new cookie
             $cookie = new Cookie(['name' => 'article-color2', 'value' => $color, 'expire' => time() + 86400 * 365,]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
+            // Send a message about the current color status.
+            Yii::$app->session->setFlash('configProcess', Yii::t('app','La configuración del color ha sido : '.($color==1?'ACTIVADA':'DESACTIVADA')));
         }
-        return $this->redirect(['article/show-price-list', 'page' => '1', 'hash' => '0']);
+        return $this->redirect(['article/index2', 'page' => '1', 'hash' => '0']);
     }
 
     /**
@@ -423,7 +450,6 @@ class ArticleController extends Controller
                                     'view_type' => $view_type,
                                     ]
             );
-
         }
 
         // Shows the Column-Selector view and pass to this the new model.
@@ -443,7 +469,7 @@ class ArticleController extends Controller
     {
         // 2019-01-07 : Refactored
         // $view_type == 0 : article/index view
-        // $view_type == 1 : article/show-price-list
+        // $view_type == 1 : article/index2 view
 
         if (isset($article_columns_config)){  // If the parameter for columns config has been set, then ...
             // ... creates a new cookie named (article_columns_config / article_columns_config2) and stores the page size value in it.
@@ -452,7 +478,35 @@ class ArticleController extends Controller
         }
 
         // Apply and show the newly generated changes.
-        return $this->redirect(['article/'.($view_type == 1 ? 'show-price-list' : 'index'), 'page' => '1', 'hash' => '0']);
+        return $this->redirect(['article/'.($view_type == 1 ? 'index2' : 'index'), 'page' => '1', 'hash' => '0']);
+    }
+
+    /**
+     * Gets the article page size.
+     * @param string $view_type
+     * @return mixed
+     *
+     * 2018-08-22 20:28 Hrs.
+     */
+    public function actionGetPageSize($view_type)
+    {
+        // Creates the new dynamic model
+        $model_2 = new DynamicModel(['paginado']);
+        // Add the rules to the new dynamic model
+        $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 50, 'tooSmall' => Yii::t('app', 'El valor no debe ser menor a ') . '1.', 'tooBig' => Yii::t('app', 'El valor no debe ser mayor a ') . '50.']);
+        // Add the rules to the new dynamic model
+        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app', 'El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
+
+        if ($model_2->load(Yii::$app->request->post())) {
+            // Saves the page size value collected through the form.
+            return $this->redirect(['article/set-page-size',
+                'page_size_config' => $model_2->paginado,
+                'view_type' => $view_type,
+            ]);
+        }
+
+        // Apply and show the newly generated changes.
+        return $this->render('set_article_page_size', ['model_2' => $model_2, 'view_type' => $view_type]);
     }
 
     /**
@@ -467,7 +521,7 @@ class ArticleController extends Controller
     {
         // 2019-01-07 : Refactored
         // $view_type == 0 : article/index view
-        // $view_type == 1 : article/show-price-list
+        // $view_type == 1 : article/index2 view
 
         if (isset($page_size_config)){  // If the parameter for page size has been set, then ...
             // ... creates a new cookie named (article-pageSize / article-pageSize2) and stores the page size value in it.
@@ -475,8 +529,8 @@ class ArticleController extends Controller
             Yii::$app->getResponse()->getCookies()->add($cookie);
         }
 
-        // Apply and show the newly generated changes.
-        return $this->redirect(['article/'.($view_type == 1 ? 'show-price-list' : 'index'), 'page' => '1', 'hash' => '0']);
+        // Applies and displays the newly generated changes.
+        return $this->redirect(['article/'.($view_type == 1 ? 'index2' : 'index'), 'page' => '1', 'hash' => '0']);
     }
 
     /**
@@ -554,7 +608,7 @@ class ArticleController extends Controller
             $mpdf->defaultfooterline = true;                         // To shows the water mark image.
             $mpdf->SetWatermarkImage(Url::to('/img/ctt-logo.png', true),0.2,'P',[0,-42]);   // To defines the image file for the water mark image.
 
-            // Return the pdf output as per the destination setting
+            // Returns the pdf output as per the destination setting
             return $pdf->render();
         }
         else {
@@ -567,10 +621,12 @@ class ArticleController extends Controller
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
             Yii::warning('[Unauthorized access profile to print an Article]', 'cttwapp_user');
         }
-        return $this->redirect(['article/'.($view_type == 1 ? 'show-price-list' : 'index'), 'page' => $page, 'hash' => '0']);
+
+        // Redirect to the index page, according to the $view_type parameter.
+        return $this->redirect(['article/'.($view_type == 1 ? 'index2' : 'index'), 'page' => $page, 'hash' => '0']);
     }
     /**
-     * Rename a file inside the upload directory.
+     * Renames a file inside the upload directory.
      * If renaming is successful, the method return true. Otherwise return false.
      * @param string $current_id
      * @param string $new_id
@@ -598,7 +654,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Delete a file inside the upload directory.
+     * Deletes a file inside the upload directory.
      * If deletion is successful, the method return true. Otherwise return false.
      * @param string $current_id
      * @param string $file_ext

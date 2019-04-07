@@ -566,7 +566,7 @@ $randomBg = rand(1,11);;
                         $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
 
                         // 2019-01-17 : Re-activate the tableScroll plugin.
-                        $(\"#dataTable\").tableScroll({height:300, width:4500});
+                        $(\"#dataTable\").tableScroll({height:300, width:5500});
                         
                     });"
                 );

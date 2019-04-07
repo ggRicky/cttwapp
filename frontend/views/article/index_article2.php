@@ -189,7 +189,7 @@ $randomBg = rand(1,11);;
                             // 2019-01-12 : Some options to custom the table header
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '<span>'.Yii::t('app','Acción').'</span>',
-                            'headerOptions' => ['style' => 'color:#8b8787;'],
+                            'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
                             'template' => '{view} {show}',
                             'buttons' => [
                                 // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.

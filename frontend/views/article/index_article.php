@@ -224,7 +224,7 @@ $randomBg = rand(1,11);;
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '<span>'.Yii::t('app','Acción').'</span>',
-                            'headerOptions' => ['style' => 'color:#8b8787;'],
+                            'headerOptions' => ['style' => 'width:2.3%; color:#8b8787;'],
                             // 2018-06-03 : Redefines the default {delete} action from the template and adds the new behaviors like an customized modal window.
                             'template' => '{view} {update} {delete} {list} {show}',
                             'buttons' => [

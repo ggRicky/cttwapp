@@ -37,14 +37,14 @@
     echo '<th>cttwapp_user.log :</th> <tr><td>';
 
     // Reorder the array content in reverse order and shows the very last data at the beginning.
-    rsort($data);
-    foreach($data as $line){
-        echo $line."<br />";
-    }
+    // 2019-04-07 : Disabled temporarily
+    // rsort($data);
+    // foreach($data as $line){
+    //    echo $line."<br />";
+    // }
 
     echo '</td></tr>';
-    echo '</table>';
-    echo '</div>';
+    echo '</table></br></br>';
 
     //  2018-10-27 : Test-OK
     //  Displays the current path to cttwapp_user.log
@@ -65,6 +65,15 @@
     //  2018-11-10 : Debug data
     //  echo var_dump($data);
     //  echo print_r($data);
+
+    // 2019-04-07 : Test to refactoring the content of the window modal confirm.
+    echo '<table class="table-bordered">';
+    echo '<tr>';
+    echo '<th scope="row"><span><i class="fa fa-spinner fa-pulse fa-2x fa-fw" style="color:#999"></i></th> <td>', ' Do you want to change the visibility status of this item in the price list ? L10 - LAMPARA SEGUIDOR 350 W.', '</td>';
+    echo '</tr>';
+    echo '</table>';
+
+    echo '</div>';
 
 ?>
 </p>

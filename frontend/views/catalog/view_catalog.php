@@ -102,7 +102,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                     <?= Html::a(Yii::t('app','Eliminar'), ['delete', 'id' => $model->id, 'page' => $ret_page],   ['class' => 'btn btn-danger btn-ctt-fixed-width',
                         'data' => [
                             // 2019-04-04 : Adds to the modal content the record id and other description, like a warning message.
-                            'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->name_cat,0,60),
+                            'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->name_cat,
                             'color' => 4,   // Red color header in modal window.
                         ],
                         // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.

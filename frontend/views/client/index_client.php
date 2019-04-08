@@ -252,7 +252,7 @@ $randomBg = rand(1,11);
                                             // and displayed in the modal window.
                                             'data' => [
                                                 // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
-                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->business_name,0,60),
+                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->business_name,
                                                 'color' => 4,   // Red color header in modal window.
 
                                             ],

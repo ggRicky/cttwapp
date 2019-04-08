@@ -257,8 +257,9 @@ $randomBg = rand(1,11);;
                                             // and displayed in the modal window.
                                             'data' => [
                                                 // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
-                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->name_art,0,60),
-                                                'color' => 4,   // Red color header in modal window.
+                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->name_art,
+                                                // Red color header in modal window.
+                                                'color' => 4,
                                             ],
                                             // 2018-06-03 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
                                             // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
@@ -291,7 +292,8 @@ $randomBg = rand(1,11);;
                                             //              and displayed in the modal window.
                                             'data' => [
                                                 // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
-                                                'message' => Yii::t('app', '¿ Desea cambiar el estado de visibilidad de este elemento en la lista de precios ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->name_art,0,60),
+//                                              // 2019-04-07 : Refactored [ 'message' => Yii::t('app', '¿ Desea cambiar el estado de visibilidad de este elemento en la lista de precios ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->name_art,0,60), ]
+                                                'message' => Yii::t('app', '¿ Desea cambiar el estado de visibilidad de este elemento en la lista de precios ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->name_art,
 
                                                 // Green color header in modal window.
                                                 'color' => 2,
@@ -314,7 +316,7 @@ $randomBg = rand(1,11);;
                                         ]);
                                 },
 
-                                // 2018-07-11 : Adds a new show action to display the related image in a bootstrap modal window.
+                                // 2018-07-11 : Adds a new show action to display the associated image in a bootstrap modal window.
                                 'show' => function ($url, $model, $key) {
                                     // 2018-07-10 : To get the image path and filename.
                                     $file_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv'.'/').PREFIX_IMG.$model->id;
@@ -337,7 +339,6 @@ $randomBg = rand(1,11);;
                                                 'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),    // 2018-07-11 : Title header
                                                 'name'  => ($model->name_art),                                                      // 2018-07-11 : Article name
                                                 'url'   => Url::to('@uploads_inv'.'/').PREFIX_IMG.$model->id.$file_ext,         // 2018-07-11 : Article image Url
-                                                'color' => 0,                                                                       // 2019-04-02 : Blue color header in modal window.
                                             ],
                                             'data-id'     => $key,                            // 2019-04-02 : Adds the article ID to the <a> tag as a unique descriptor.
                                             'data-pjax'   => '0',

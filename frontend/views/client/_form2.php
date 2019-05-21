@@ -26,11 +26,11 @@ use yii\bootstrap\ActiveForm;
         ],
     ]);
 
-    // 2018-09-30 : Gets the value from the cookie and assign it to the model pageSizeValue. Default value to : 10 [ Records / Page ].
-    $model_2->pageSizeValue = (Yii::$app->getRequest()->getCookies()->has('client-pageSize') ? Yii::$app->getRequest()->getCookies()->getValue('client-pageSize') : 10);
+    // 2018-09-30 : Gets the value from the cookie and assign it to the model field 'paginado'. Default value to : 10 [ Records / Page ].
+    $model_2->paginado = (Yii::$app->getRequest()->getCookies()->has('client-pageSize') ? Yii::$app->getRequest()->getCookies()->getValue('client-pageSize') : 10);
 
-    // 2018-09-30 : Shows the TextInput control for pageSizeValue textInput field.
-    echo $form->field($model_2, 'pageSizeValue')->textInput(['style'=>'width:30%'])->label(Yii::t('app','Tamaño del Paginado'));
+    // 2018-09-30 : Shows the TextInput control to save the new value for the field 'paginado', defined in the dynamic model.
+    echo $form->field($model_2, 'paginado')->textInput(['style'=>'width:30%'])->label(Yii::t('app','Tamaño del Paginado'))->hint(Yii::t('app','Tamaño del Paginado').' : [ 1 - 100 ]');
 
     ?>
 

@@ -6,6 +6,7 @@ use Yii;
 use app\models\Client;
 use app\models\ClientSearch;
 use yii\db\Exception;
+use yii\web\Cookie;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\helpers\Url;
@@ -424,16 +425,16 @@ class ClientController extends Controller
     public function actionGetPageSize(){
 
         // Creates the new dynamic model
-        $model_2 = new \yii\base\DynamicModel(['pageSizeValue']);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['pageSizeValue'], 'integer', ['min' => 1, 'max' => 50]);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['pageSizeValue'], 'required'); // The ->validate() can be used her to validate the user input data.
+        $model_2 = new \yii\base\DynamicModel(['paginado']);
+        // Adds the type rule to the new dynamic model
+        $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 100, 'tooSmall' => Yii::t('app', 'El valor no debe ser menor a ') . '1.', 'tooBig' => Yii::t('app', 'El valor no debe ser mayor a ') . '100.']);
+        // Adds the required rule to the new dynamic model
+        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app', 'El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
 
         if ($model_2->load(Yii::$app->request->post())) {
             // Saves the page size value collected through the form.
             return $this->redirect(['client/set-page-size',
-                'pageSize' => $model_2->pageSizeValue,
+                'page_size_config' => $model_2->paginado,
             ]);
         }
 
@@ -443,16 +444,17 @@ class ClientController extends Controller
 
     /**
      * Sets and stores the client page size.
-     * @param string $pageSize
+     * @param string $page_size_config
      * @return mixed
      *
      * 2018-09-30 12:18 Hrs.
      */
-    public function actionSetPageSize($pageSize)
+    public function actionSetPageSize($page_size_config)
     {
-        if (isset($pageSize)){  // If the parameter for page size has been set, then ....
-            $cookie = new \yii\web\Cookie(['name' => 'client-pageSize', 'value' => $pageSize, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the page size value in it.
+        if (isset($page_size_config)){  // If the parameter for page size has been set, then ....
+            $cookie = new Cookie(['name' => 'client-pageSize', 'value' => $page_size_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the page size value in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
+            Yii::$app->session->setFlash('configProcess', Yii::t('app','La configuración del tamaño de página ha sido definida en').' '.$page_size_config.' '.Yii::t('app','registro(s)').'.');
         }
 
         // Apply and show the newly generated changes.

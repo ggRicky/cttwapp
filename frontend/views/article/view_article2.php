@@ -78,7 +78,7 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
 
                     <p>
                         <!-- 2018-08-25 : Send the newly generated PDF file to a new browser tab through 'target' => '_blank' -->
-                        <?= Html::a(Yii::t('app','Imprimir'), ['print', 'id' => $model->id, 'view_type' => '1', 'page' => $ret_page], ['target'=>'_blank', 'class' => 'btn btn-ctt-warning btn-ctt-fixed-width']) ?>
+                        <?= Html::a(Yii::t('app','Imprimir'), ['print', 'id' => $model->id, 'view_type' => '2', 'page' => $ret_page], ['target'=>'_blank', 'class' => 'btn btn-ctt-warning btn-ctt-fixed-width']) ?>
                     </p>
 
                     <br/>

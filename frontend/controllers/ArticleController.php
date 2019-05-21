@@ -429,11 +429,10 @@ class ArticleController extends Controller
      *
      * 2018-08-20 16:50 Hrs.
      */
-    public function actionGetColumns($view_type)
+    public function actionGetColumns($view_type='')
     {
         // Creates the new dynamic model
-        $model_1 = new DynamicModel(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
-                                               'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12',]);
+        $model_1 = new DynamicModel(['column_0', 'column_1', 'column_2', 'column_3', 'column_4', 'column_5', 'column_6', 'column_7', 'column_8', 'column_9', 'column_10', 'column_11', 'column_12',]);
         // Add the rules to the new dynamic model
         $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
                            'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12'], 'string', ['max' => 1]);
@@ -465,20 +464,21 @@ class ArticleController extends Controller
      * 2018-10-01 20:19 Hrs.  Re-factor : This code only uses one cookie ( article_columns_config ) instead of 13 cookies ( one per each column )
      * 2018-08-20 16:43 Hrs.
      */
-    public function actionSetColumns($article_columns_config, $view_type)
+    public function actionSetColumns($article_columns_config, $view_type='')
     {
         // 2019-01-07 : Refactored
-        // $view_type == 0 : article/index view
-        // $view_type == 1 : article/index2 view
+        // $view_type == ''  : article/index view
+        // $view_type == '2' : article/index2 view
 
         if (isset($article_columns_config)){  // If the parameter for columns config has been set, then ...
             // ... creates a new cookie named (article_columns_config / article_columns_config2) and stores the page size value in it.
-            $cookie = new Cookie(['name' => 'article_columns_config'.($view_type == 1 ? '2' : ''), 'value' => $article_columns_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
+            $cookie = new Cookie(['name' => 'article_columns_config'.$view_type, 'value' => $article_columns_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
+            Yii::$app->session->setFlash('configProcess', Yii::t('app','La configuración del número de columnas visibles se ha modificado exitosamente').'.');
         }
 
         // Apply and show the newly generated changes.
-        return $this->redirect(['article/'.($view_type == 1 ? 'index2' : 'index'), 'page' => '1', 'hash' => '0']);
+        return $this->redirect(['article/index'.$view_type, 'page' => '1', 'hash' => '0']);
     }
 
     /**
@@ -488,13 +488,13 @@ class ArticleController extends Controller
      *
      * 2018-08-22 20:28 Hrs.
      */
-    public function actionGetPageSize($view_type)
+    public function actionGetPageSize($view_type='')
     {
         // Creates the new dynamic model
         $model_2 = new DynamicModel(['paginado']);
-        // Add the rules to the new dynamic model
-        $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 50, 'tooSmall' => Yii::t('app', 'El valor no debe ser menor a ') . '1.', 'tooBig' => Yii::t('app', 'El valor no debe ser mayor a ') . '50.']);
-        // Add the rules to the new dynamic model
+        // Adds the type rule to the new dynamic model
+        $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 100, 'tooSmall' => Yii::t('app', 'El valor no debe ser menor a ') . '1.', 'tooBig' => Yii::t('app', 'El valor no debe ser mayor a ') . '100.']);
+        // Adds the required rule to the new dynamic model
         $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app', 'El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
 
         if ($model_2->load(Yii::$app->request->post())) {
@@ -517,20 +517,21 @@ class ArticleController extends Controller
      *
      * 2018-08-22 22:55 Hrs.
      */
-    public function actionSetPageSize($page_size_config, $view_type)
+    public function actionSetPageSize($page_size_config, $view_type='')
     {
         // 2019-01-07 : Refactored
-        // $view_type == 0 : article/index view
-        // $view_type == 1 : article/index2 view
+        // $view_type == ''  : article/index view
+        // $view_type == '2' : article/index2 view
 
         if (isset($page_size_config)){  // If the parameter for page size has been set, then ...
             // ... creates a new cookie named (article-pageSize / article-pageSize2) and stores the page size value in it.
-            $cookie = new Cookie(['name' => 'article-pageSize'.($view_type == 1 ? '2' : ''), 'value' => $page_size_config, 'expire' => time() + 86400 * 365,]);
+            $cookie = new Cookie(['name' => 'article-pageSize'.$view_type, 'value' => $page_size_config, 'expire' => time() + 86400 * 365,]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
+            Yii::$app->session->setFlash('configProcess', Yii::t('app','La configuración del tamaño de página ha sido definida en').' '.$page_size_config.' '.Yii::t('app','registro(s)').'.');
         }
 
         // Applies and displays the newly generated changes.
-        return $this->redirect(['article/'.($view_type == 1 ? 'index2' : 'index'), 'page' => '1', 'hash' => '0']);
+        return $this->redirect(['article/index'.$view_type, 'page' => '1', 'hash' => '0']);
     }
 
     /**
@@ -543,10 +544,13 @@ class ArticleController extends Controller
      *
      * 2018-08-04 14:40 Hrs.
      */
-    public function actionPrint($id, $view_type, $page)
+    public function actionPrint($id, $view_type='', $page)
     {
         // 2018-08-11 : Only for debug purpose.
         // return $this->render('print_article', ['model' => $this->findModel($id),]);
+
+        // $view_type == ''  : article/index view
+        // $view_type == '2' : article/index2 view
 
         if (\Yii::$app->user->can('printArticle')) {
             // 2018-08-28 : Records the article delete operation.
@@ -623,7 +627,7 @@ class ArticleController extends Controller
         }
 
         // Redirect to the index page, according to the $view_type parameter.
-        return $this->redirect(['article/'.($view_type == 1 ? 'index2' : 'index'), 'page' => $page, 'hash' => '0']);
+        return $this->redirect(['article/index'.$view_type, 'page' => $page, 'hash' => '0']);
     }
     /**
      * Renames a file inside the upload directory.

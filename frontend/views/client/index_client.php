@@ -458,8 +458,8 @@ $randomBg = rand(1,11);
                         // 2018-08-23 : Re-activate the Bootstrap Tooltips.
                         $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
 
-                        // 2019-01-17 : Re-activate the tableScroll plugin.
-                        $(\"#dataTable\").tableScroll({height:300, width:4500});
+                        // 2019-01-17 : Re-activate the tableScroll plugin. Sets the height and width values to grow up or grow down the size of table window. 
+                        $(\"#dataTable\").tableScroll({height:500, width:4500});
                         
                     });"
                 );
@@ -507,7 +507,7 @@ $randomBg = rand(1,11);
                         <!-- Page Size Tool -->
                         <span>
                            <?php
-                           echo Html::a('', ['client/get-page-size', 'ret_url' => 'client/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
+                           echo Html::a('', ['client/get-page-size'], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
                            echo '<span>'.Yii::t('app', 'Paginado').'</span>';
                            ?>
                        </span>
@@ -530,8 +530,8 @@ $randomBg = rand(1,11);
 <!-- Includes the custom modal window to confirm the GridView actions-->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_modal_confirm.inc'); ?>
 
-<!-- Includes the jQuery tableScroll plugin -->
-<?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:300, width:5500}); });",View::POS_READY,'fix-Header'); ?>
+<!-- Includes the jQuery tableScroll plugin and configuring the height and width initial values for the size of the table window -->
+<?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:500, width:5500}); });",View::POS_READY,'fix-Header'); ?>
 
 <?php
     // 2019-04-04 : Display a notification message in the modal window using PHP & jQuery. This occurs when a config process is done.

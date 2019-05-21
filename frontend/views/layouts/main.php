@@ -17,7 +17,7 @@ $baseUrl = $asset->baseUrl;
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
+        <title><?= Html::encode(Yii::t('app', $this->title)) ?></title>
         <?php $this->head() ?>
 
         <!-- 2018-05-20 : Code Snippet added for Positive SSL secure seal validation -->

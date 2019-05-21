@@ -566,8 +566,8 @@ $randomBg = rand(1,11);;
                         // 2018-08-23 : Re-activate the Bootstrap Tooltips.
                         $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
 
-                        // 2019-01-17 : Re-activate the tableScroll plugin.
-                        $(\"#dataTable\").tableScroll({height:300, width:5500});
+                        // 2019-01-17 : Re-activate the tableScroll plugin. Sets the height and width values to grow up or grow down the size of table window.
+                        $(\"#dataTable\").tableScroll({height:500, width:5500});
                         
                     });"
                 );
@@ -608,14 +608,14 @@ $randomBg = rand(1,11);;
                         <!-- Columns Selector Tool -->
                         <span>
                            <?php
-                               echo Html::a('', ['article/get-columns', 'view_type' => '0'], ['class' => 'btn glyphicon glyphicon-list-alt', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Selector de Columnas')]);
+                               echo Html::a('', ['article/get-columns'], ['class' => 'btn glyphicon glyphicon-list-alt', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Selector de Columnas')]);
                                echo '<span>'.Yii::t('app', 'Columnas').'</span>';
                            ?>
                         </span>
                         <!-- Page Size Tool -->
                         <span>
                            <?php
-                               echo Html::a('', ['article/get-page-size', 'view_type' => '0'], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
+                               echo Html::a('', ['article/get-page-size'], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
                                echo '<span>'.Yii::t('app', 'Paginado').'</span>';
                            ?>
                        </span>
@@ -642,8 +642,8 @@ $randomBg = rand(1,11);;
 <!-- Includes the modal window to show an article image -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
 
-<!-- Includes the jQuery tableScroll plugin -->
-<?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:300, width:5500}); });",View::POS_READY,'fix-Header'); ?>
+<!-- Includes the jQuery tableScroll plugin and configuring the height and width initial values for the size of the table window -->
+<?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:500, width:5500}); });",View::POS_READY,'fix-Header'); ?>
 
 <?php
     // 2019-04-04 : Display a notification message in the modal window using PHP & jQuery. This occurs when a config process is done.

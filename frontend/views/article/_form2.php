@@ -30,11 +30,11 @@ $view_type = Yii::$app->getRequest()->getQueryParam('view_type');
         ],
     ]);
 
-    // 2018-08-22 : Gets the value from the cookie and assign it to the model pageSizeValue. Default value to : 7 [ Records / Page ].
-    $model_2->paginado = (Yii::$app->getRequest()->getCookies()->has('article-pageSize'.($view_type==1?'2':'')) ? Yii::$app->getRequest()->getCookies()->getValue('article-pageSize'.($view_type==1?'2':'')) : 7);
+    // 2018-08-22 : Gets the value from the cookie and assign it to the model field 'paginado'. Default value to : 10 [ Records / Page ].
+    $model_2->paginado = (Yii::$app->getRequest()->getCookies()->has('article-pageSize'.$view_type) ? Yii::$app->getRequest()->getCookies()->getValue('article-pageSize'.$view_type) : 10);
 
-    // 2018-08-22 : Shows the TextInput control for pageSizeValue textInput field.
-    echo $form->field($model_2, 'paginado')->textInput(['style'=>'width:30%'])->label(Yii::t('app','Tamaño del Paginado'))->hint(Yii::t('app','Tamaño del Paginado').' : [ 1 - 50 ]');
+    // 2018-08-22 : Shows the TextInput control to save the new value for the field 'paginado', defined in the dynamic model.
+    echo $form->field($model_2, 'paginado')->textInput(['style'=>'width:30%'])->label(Yii::t('app','Tamaño del Paginado'))->hint(Yii::t('app','Tamaño del Paginado').' : [ 1 - 100 ]');
 
     ?>
 

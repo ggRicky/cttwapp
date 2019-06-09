@@ -20,12 +20,14 @@ $baseUrl = $asset->baseUrl;
         <title><?= Html::encode(Yii::t('app', $this->title)) ?></title>
         <?php $this->head() ?>
 
-        <!-- 2018-05-20 : Code Snippet added for Positive SSL secure seal validation -->
+        <!-- 2019-06-09 : Code Snippet added for Positive SSL secure seal validation -->
+
         <script type="text/javascript"> //<![CDATA[
-            var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+            var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
             document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
             //]]>
         </script>
+
     </head>
 
     <body>

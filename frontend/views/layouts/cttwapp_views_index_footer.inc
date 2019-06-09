@@ -29,11 +29,11 @@
                     <li><a href="http://www.linkedin.com/company/ctt-exp-&-rentals"><i class="fa fa-linkedin fa-fw fa-3x"></i></a></li>
                 </ul>
 
-                <!-- 2018-05-20 : Comodo Secure Seal -->
+                <!-- 2019-06-09 : Comodo Secure Seal -->
                 <div class="row">
                      <span>
                         <script language="JavaScript" type="text/javascript">
-                            TrustLogo("<?=$baseUrl."/img/comodo_secure_seal_100x85_transp.png"?>", "CL1", "none");
+                            TrustLogo("<?=$baseUrl."/img/positivessl_trust_seal_sm_124x32.png"?>", "POSDV", "none");
                         </script>
                         <a href="https://www.positivessl.com/" id="comodoTL" >Positive SSL</a>
                      </span>

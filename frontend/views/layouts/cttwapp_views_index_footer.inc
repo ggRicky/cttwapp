@@ -29,7 +29,7 @@
                     <li><a href="http://www.linkedin.com/company/ctt-exp-&-rentals"><i class="fa fa-linkedin fa-fw fa-3x"></i></a></li>
                 </ul>
 
-                <!-- 2019-06-09 : Comodo Secure Seal -->
+                <!-- 2019-06-09 : PositiveSSL Secure Seal -->
                 <div class="row">
                      <span>
                         <script language="JavaScript" type="text/javascript">

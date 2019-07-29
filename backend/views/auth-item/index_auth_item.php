@@ -252,10 +252,10 @@ $randomBg = rand(1,11);
                     <!-- 2019-04-04 : This jQuery's piece of code implements the modal window for show the article image.-->
                     <?php $this->registerJs(
                         /** @lang jQuery */
-                    "// This code is implemented for re-activate several functionalities after each Pjax request.
+                    "// This code is implemented for re-start several functionalities after each Pjax request.
                         $(document).on('pjax:success', function(event) {
     
-                            // 2018-08-23 : Re-activate the Bootstrap Tooltips.
+                            // 2018-08-23 : Re-start the Bootstrap Tooltips.
                             $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
     
                         });"

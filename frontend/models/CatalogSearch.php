@@ -49,7 +49,7 @@ class CatalogSearch extends Catalog
             'query' => $query,
             // 2018-06-13 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 50,
             ],
             'sort' => [
                 'defaultOrder' => [

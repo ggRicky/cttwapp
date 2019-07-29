@@ -48,7 +48,7 @@ class BrandSearch extends Brand
             'query' => $query,
             // 2018-05-28 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 50,
             ],
             'sort' => [
                 'defaultOrder' => [

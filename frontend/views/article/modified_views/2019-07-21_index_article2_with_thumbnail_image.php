@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-/* use yii\grid\GridView; // 2019-07-21 : Disable the base class reference */
+/* use yii\grid\GridView; // 2019-01-17 : Disable the base class reference */
 
 /* 2018-05-06 : Used to display the catalog name for the actual article record */
 use yii\helpers\ArrayHelper;
@@ -11,7 +11,7 @@ use yii\web\View;
 use app\models\Catalog;
 use app\models\Brand;
 
-/* 2019-07-21 : Used to extend the GridView class */
+/* 2019-01-17 : Used to extend the GridView class */
 use frontend\components\GridView;
 
 /* @var $this yii\web\View */
@@ -138,22 +138,22 @@ $randomBg = rand(1,11);;
             <?php Pjax::begin(); ?>
 
                 <?php
-                    // 2018-09-30 : Gets the visibility status for all columns from the cookies and put it into the $c variable.
-                    if (Yii::$app->getRequest()->getCookies()->has('article_columns_config2')) {
-                        $c = Yii::$app->getRequest()->getCookies()->getValue('article_columns_config2');
-                        // 2018-09-30 : Only for debug purpose. Shows the var content.
-                        // VarDumper::dump($c);
-                    }
-                    else
-                        // 2018-09-30 : If there isn't the article_columns_config cookie, then by default shows all the columns.
-                        $c = '1111111111111111111111111';
+                // 2018-09-30 : Gets the visibility status for all columns from the cookies and put it into the $c variable.
+                if (Yii::$app->getRequest()->getCookies()->has('article_columns_config2')) {
+                    $c = Yii::$app->getRequest()->getCookies()->getValue('article_columns_config2');
+                    // 2018-09-30 : Only for debug purpose. Shows the var content.
+                    // VarDumper::dump($c);
+                }
+                else
+                    // 2018-09-30 : If there isn't the article_columns_config cookie, then by default shows all the columns.
+                    $c = '1111111111111111111111111';
 
-                    // 2018-08-22 : Gets the value from the cookie and assign it to the $dataProvider->pageSize.
-                    if (Yii::$app->getRequest()->getCookies()->has('article-pageSize2'))
-                        $dataProvider->pagination->pageSize = Yii::$app->getRequest()->getCookies()->getValue('article-pageSize2');
-                    // 2018-08-22 : Sets the $dataProvider->pageSize to a default value
-                    else
-                        $dataProvider->pagination->pageSize = 50;   // 2019-07-21 : updated by requirements
+                // 2018-08-22 : Gets the value from the cookie and assign it to the $dataProvider->pageSize.
+                if (Yii::$app->getRequest()->getCookies()->has('article-pageSize2'))
+                    $dataProvider->pagination->pageSize = Yii::$app->getRequest()->getCookies()->getValue('article-pageSize2');
+                // 2018-08-22 : Sets the $dataProvider->pageSize to a default value
+                else
+                    $dataProvider->pagination->pageSize = 7;
                 ?>
 
                 <?= GridView::widget([
@@ -189,9 +189,7 @@ $randomBg = rand(1,11);;
                             // 2019-01-12 : Some options to custom the table header
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '<span>'.Yii::t('app','Acción').'</span>',
-                            // 2019-07-21 : Determines the headers height ( 60px ) in the GridView control
-                            'headerOptions' => ['style' => 'width:1.5%; height:60px; color:#8b8787;'],
-                            // 2018-06-03 : Redefines the default {delete} action from the template and adds the new behaviors like an customized modal window.
+                            'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
                             'template' => '{view} {show}',
                             'buttons' => [
                                 // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
@@ -246,8 +244,31 @@ $randomBg = rand(1,11);;
 
                         [
                             'class' => 'yii\grid\SerialColumn',
-                            'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'], // 2019-07-21 : Determines the rows height ( 30px ) in the GridView control
-                            'contentOptions' => ['class' => 'text-center', 'style' => 'height:30px;'],
+                            'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
+                            'contentOptions' => ['class' => 'text-center'],
+                        ],
+
+                        [
+                            // 2018-07-10 : Include a new column with an article's thumbnail image.
+                            'attribute' => Yii::t('app','Imagen'),
+                            'headerOptions' => ['style' => 'width:4%; color:#8b8787;'],
+                            'contentOptions' => ['class' => 'text-center'],
+                            'format' => 'raw',
+                            'value' => function ($model) {
+                                // 2018-07-10 : To get the image path and filename.
+                                $file_name =  Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
+                                // 2018-07-10 : To get the image url.
+                                $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id;
+                                // 2018-07-11 : To get the no image url.
+                                $url_no_image = Url::to(Yii::getAlias('@uploads_inv').'/').'ctt_no_image.jpg';
+                                // 2018-07-10 : Test for the right file type
+                                if (file_exists($file_name.'.jpg'))
+                                    return '<img src="'.$url_image.'.jpg" width="auto" height="50px">';
+                                else if (file_exists($file_name.'.png'))
+                                    return '<img src="'.$url_image.'.png" width="auto" height="50px">';
+                                else
+                                    return '<img src="'.$url_no_image.'" width="auto" height="50px">';
+                            },
                         ],
 
                         [
@@ -272,19 +293,17 @@ $randomBg = rand(1,11);;
 
                         [
                             'attribute' => 'name_art',
-                            'contentOptions' => ['style' => 'color:red; text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
+                            'contentOptions' => ['style' => 'color:red'],
                             'visible' => ($c[1]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
                         ],
 
                         [
                             'attribute' => 'sp_desc',
-                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                             'visible' => ($c[2]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
                         ],
 
                         [
                             'attribute' => 'en_desc',
-                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                             'visible' => ($c[3]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
                         ],
 
@@ -300,12 +319,14 @@ $randomBg = rand(1,11);;
                             'contentOptions' => function ($model, $key, $index, $column) {
                                 return ['style' => 'color:'. ($model->type_art=='V'?'#337ab7':'#428bca')];
                             },
-                            'visible' => ($c[4]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[4]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'price_art',
-                            'visible' => ($c[5]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[5]== '1' ? true : false),
                         ],
 
                         // 2018-04-23 : To the provenance type, the right legend is displayed.
@@ -328,32 +349,38 @@ $randomBg = rand(1,11);;
                                 function($model){
                                     return (implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')));
                                 },
-                            'visible' => ($c[7]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[7]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'part_num',
-                            'visible' => ($c[8]== '1' ? true : false), // 2018-08-20 : Set the column visibility status
+                            // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[8]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'created_at',
-                            'visible' => ($c[9] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[9] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'updated_at',
-                            'visible' => ($c[10] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[10] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'created_by',
-                            'visible' => ($c[11] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[11] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'updated_by',
-                            'visible' => ($c[12] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[12] == '1' ? true : false),
                         ],
 
                     ],

@@ -288,8 +288,7 @@ $randomBg = rand(1,11);
                         [
                             'class' => 'yii\grid\SerialColumn',
                             'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
-                            // 2019-04-05 : Determines the rows height ( 50px ) in the GridView control
-                            'contentOptions' => ['class' => 'text-center', 'style' => 'height:50px;'],
+                            'contentOptions' => ['class' => 'text-center', 'style' => 'height:30px;'],   // 2019-07-21 : Determines the rows height ( 30px ) in the GridView control
                         ],
 
                         [
@@ -297,11 +296,15 @@ $randomBg = rand(1,11);
                             'headerOptions' => ['style' => 'width:5%'],
                         ],
 
-                        'rfc',
+                        [
+                            'attribute' =>'rfc',
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
+                        ],
 
                         [
                             'attribute' => 'curp',
                             'visible' => ($c[0]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         // 2018-04-10 : New fields add to client table in refactoring action.
@@ -309,7 +312,7 @@ $randomBg = rand(1,11);
                         [
                             'attribute' => 'business_name',
                             'visible' => ($c[1]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
-                            'contentOptions' => ['style' => 'color:red'],
+                            'contentOptions' => ['style' => 'color:red; text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         // 2018-04-23 : To the taxpayer type, the right legend is displayed and colored properly.
@@ -328,6 +331,7 @@ $randomBg = rand(1,11);
                         [
                             'attribute' => 'corporate',
                             'visible' => ($c[3]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         // 2018-04-23 : For provenance type, the right legend is displayed.
@@ -343,6 +347,7 @@ $randomBg = rand(1,11);
                         [
                             'attribute' => 'contact_name',
                             'visible' => ($c[5]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
@@ -353,6 +358,7 @@ $randomBg = rand(1,11);
                         [
                             'attribute' => 'street',
                             'visible' => ($c[7]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
@@ -368,21 +374,25 @@ $randomBg = rand(1,11);
                         [
                             'attribute' => 'suburb',
                             'visible' => ($c[10]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
                             'attribute' => 'municipality',
                             'visible' => ($c[11]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
                             'attribute' => 'delegation',
                             'visible' => ($c[12]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
                             'attribute' => 'state',
                             'visible' => ($c[13]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
@@ -413,6 +423,7 @@ $randomBg = rand(1,11);
                         [
                             'attribute' => 'considerations',
                             'visible' => ($c[19]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
@@ -449,16 +460,16 @@ $randomBg = rand(1,11);
                     'layout' => '{items}{summary}{pager}',
                 ]);?>
 
-                <!-- 2019-04-05 : This jQuery's piece of code implements re-activate several functionalities -->
+                <!-- 2019-04-05 : This jQuery's piece of code implements re-start several functionalities -->
                 <?php $this->registerJs(
                     /** @lang jQuery */
-                "// This code is implemented for re-activate several functionalities after each Pjax request.
+                "// This code is implemented for re-start several functionalities after each Pjax request.
                     $(document).on('pjax:success', function(event) {
 
-                        // 2018-08-23 : Re-activate the Bootstrap Tooltips.
+                        // 2018-08-23 : Re-start the Bootstrap Tooltips.
                         $('[data-toggle=\"tooltip\"]').tooltip({trigger:'hover', animation:true, delay:{show:1000, hide:100}});
 
-                        // 2019-01-17 : Re-activate the tableScroll plugin. Sets the height and width values to grow up or grow down the size of table window. 
+                        // 2019-01-17 : Re-start the tableScroll plugin. Sets the height and width values to grow up or grow down the size of table window. 
                         $(\"#dataTable\").tableScroll({height:500, width:4500});
                         
                     });"

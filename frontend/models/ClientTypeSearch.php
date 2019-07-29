@@ -49,7 +49,7 @@ class ClientTypeSearch extends ClientType
             'query' => $query,
             // 2018-06-05 : Set the records displayed in the GridView widget, defining the pageSize value.
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 50,
             ],
             'sort' => [
                 'defaultOrder' => [

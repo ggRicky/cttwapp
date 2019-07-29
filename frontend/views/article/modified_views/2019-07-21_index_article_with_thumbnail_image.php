@@ -177,7 +177,7 @@ $randomBg = rand(1,11);;
                         $dataProvider->pagination->pageSize = Yii::$app->getRequest()->getCookies()->getValue('article-pageSize');
                     // 2018-08-22 : Sets the $dataProvider->pageSize to a default value
                     else
-                        $dataProvider->pagination->pageSize = 50;   // 2019-07-21 : updated by requirements
+                        $dataProvider->pagination->pageSize = 7;
                 ?>
 
                 <?php
@@ -224,8 +224,7 @@ $randomBg = rand(1,11);;
                         [
                             'class' => 'yii\grid\ActionColumn',
                             'header' => '<span>'.Yii::t('app','Acción').'</span>',
-                            // 2019-07-21 : Determines the headers height ( 60px ) in the GridView control
-                            'headerOptions' => ['style' => 'width:2.3%; height:60px; color:#8b8787;'],
+                            'headerOptions' => ['style' => 'width:2.3%; color:#8b8787;'],
                             // 2018-06-03 : Redefines the default {delete} action from the template and adds the new behaviors like an customized modal window.
                             'template' => '{view} {update} {delete} {list} {show}',
                             'buttons' => [
@@ -375,7 +374,7 @@ $randomBg = rand(1,11);;
                         [
                             'class' => 'yii\grid\SerialColumn',
                             'headerOptions' => ['style' => 'width:1.5%; color:#8b8787;'],
-                            'contentOptions' => ['class' => 'text-center', 'style' => 'height:30px;'],  // 2019-07-21 : Determines the rows height ( 30px ) in the GridView control
+                            'contentOptions' => ['class' => 'text-center'],
                         ],
 
                         [
@@ -387,6 +386,30 @@ $randomBg = rand(1,11);;
                             },
                             'contentOptions' => function ($model, $key, $index, $column) {
                                 return ['class' => 'text-center', 'style' => 'color:'. ($model->shown_price_list=='S'?'#337AB7':'red')];
+                            },
+
+                        ],
+
+                        [
+                            // 2018-07-10 : Include a new column with an article's thumbnail image.
+                            'attribute' => Yii::t('app','Imagen'),
+                            'headerOptions' => ['style' => 'width:4%; color:#8b8787;'],
+                            'contentOptions' => ['class' => 'text-center'],
+                            'format' => 'raw',
+                            'value' => function ($model) {
+                                // 2018-07-10 : To get the image path and filename.
+                                $file_name =  Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.PREFIX_IMG.$model->id;
+                                // 2018-07-10 : To get the image url.
+                                $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id;
+                                // 2018-07-11 : To get the no image url.
+                                $url_no_image = Url::to(Yii::getAlias('@uploads_inv').'/').'ctt_no_image.jpg';
+                                // 2018-07-10 : Test for the right file type
+                                if (file_exists($file_name.'.jpg'))
+                                   return '<img src="'.$url_image.'.jpg" width="auto" height="50px">';
+                                else if (file_exists($file_name.'.png'))
+                                   return '<img src="'.$url_image.'.png" width="auto" height="50px">';
+                                else
+                                   return '<img src="'.$url_no_image.'" width="auto" height="50px">';
                             },
                         ],
 
@@ -412,20 +435,18 @@ $randomBg = rand(1,11);;
 
                         [
                             'attribute' => 'name_art',
+                            'contentOptions' => ['style' => 'color:red'],
                             'visible' => ($c[1]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
-                            'contentOptions' => ['style' => 'color:red;text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
                             'attribute' => 'sp_desc',
                             'visible' => ($c[2]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
-                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
                             'attribute' => 'en_desc',
                             'visible' => ($c[3]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
-                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         // 2018-05-06 : For type_art field, the right legend is displayed and colored properly.
@@ -440,12 +461,14 @@ $randomBg = rand(1,11);;
                             'contentOptions' => function ($model, $key, $index, $column) {
                                 return ['style' => 'color:'. ($model->type_art=='V'?'#337AB7':'#428bca')];
                             },
-                            'visible' => ($c[4]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[4]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'price_art',
-                            'visible' => ($c[5]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[5]== '1' ? true : false),
                         ],
 
                         // 2018-04-23 : To the provenance type, the right legend is displayed.
@@ -455,11 +478,11 @@ $randomBg = rand(1,11);;
                             'value' => function($model){
                                 return ($model->currency_art=='P'?'PESOS':'DÓLARES');
                             },
-                            'visible' => ($c[6]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[6]== '1' ? true : false),
                         ],
 
                         // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
-
                         [
                             'attribute' => 'brand_id',
                             // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
@@ -468,32 +491,38 @@ $randomBg = rand(1,11);;
                                 function($model){
                                     return (implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')));
                             },
-                            'visible' => ($c[7]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[7]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'part_num',
-                            'visible' => ($c[8]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[8]== '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'created_at',
-                            'visible' => ($c[9] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[9] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'updated_at',
-                            'visible' => ($c[10] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[10] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'created_by',
-                            'visible' => ($c[11] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[11] == '1' ? true : false),
                         ],
 
                         [
                             'attribute' => 'updated_by',
-                            'visible' => ($c[12] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                             // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[12] == '1' ? true : false),
                         ],
 
                     ],

@@ -85,7 +85,7 @@ $randomBg = rand(1,11);
                         <th><?= Yii::t('app','Plataforma') ?></th><td><?= Yii::t('app','Yii versión 2.0') ?></td>
                     </tr>
                     <tr>
-                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2019-04-08 &nbsp;&nbsp;&nbsp; 18:51 Hrs.</td>
+                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2019-07-29 &nbsp;&nbsp;&nbsp; 11:05 Hrs.</td>
                     </tr>
                     </tbody>
                 </table>

@@ -103,7 +103,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                         'data' => [
                             // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
                             'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->brand_desc,
-                            'color' => 4,   // Red color header in modal window.
+                            'color' => 4,   // Red color header in modal window. This and others values are defined into the cttwapp-core.js file
                         ],
                         // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
                         // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.

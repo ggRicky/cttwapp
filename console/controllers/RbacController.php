@@ -271,6 +271,34 @@ class RbacController extends Controller
         $auth->add($listInventory);
 
 
+        // Defines the permissions on the Warehouse module
+        // ----------------------------------------------
+
+        // Adds "createWarehouse" permission
+        $createWarehouse = $auth->createPermission('createWarehouse');
+        $createWarehouse->description = 'Permission : Allows to create a Warehouse in the CTTwapp system.';
+        $auth->add($createWarehouse);
+
+        // Adds "updateWarehouse" permission
+        $updateWarehouse = $auth->createPermission('updateWarehouse');
+        $updateWarehouse->description = 'Permission : Allows to update a Warehouse in the CTTwapp system.';
+        $auth->add($updateWarehouse);
+
+        // Adds "viewWarehouse" permission
+        $viewWarehouse = $auth->createPermission('viewWarehouse');
+        $viewWarehouse->description = 'Permission : Allows to view a Warehouse in the CTTwapp system.';
+        $auth->add($viewWarehouse);
+
+        // Adds "deleteWarehouse" permission
+        $deleteWarehouse = $auth->createPermission('deleteWarehouse');
+        $deleteWarehouse->description = 'Permission : Allows to delete a Warehouse in the CTTwapp system.';
+        $auth->add($deleteWarehouse);
+
+        // Adds "listWarehouse" permission
+        $listWarehouse = $auth->createPermission('listWarehouse');
+        $listWarehouse->description = 'Permission : Allows to list the Warehouse in the CTTwapp system.';
+        $auth->add($listWarehouse);
+
 
         // Defines the permissions on the Project module
         // ---------------------------------------------
@@ -550,6 +578,36 @@ class RbacController extends Controller
 
 
 
+        // Role : userWarehouse
+        // --------------------
+
+        // Adds the role 'userWarehouse' for a user of the Warehouse module.
+        $userWarehouse = $auth->createRole('userWarehouse');
+        $userWarehouse->description = 'Role : Defines a user with the only permission to list warehouses.';
+        $auth->add($userWarehouse);
+
+        // Adds permissions
+        $auth->addChild($userWarehouse, $listWarehouse);                   // Adds this permission to role userWarehouse, to allows the access to the list Warehouses.
+
+
+
+        // Role : adminWarehouse
+        // ---------------------
+
+        // Adds the role 'adminWarehouse' for an admin of the Warehouse module.
+        $adminWarehouse = $auth->createRole('adminWarehouse');
+        $adminWarehouse->description = 'Role : Defines an admin user with all permissions to process Warehouses.';
+        $auth->add($adminWarehouse);
+
+        // Adds roles and permissions
+        $auth->addChild($adminWarehouse, $userWarehouse);                  // Adds the role userWarehouse to the role adminWarehouse.
+        $auth->addChild($adminWarehouse, $createWarehouse);                // Adds these permissions to role adminWarehouse, to allows create, update, view, and delete Inventories.
+        $auth->addChild($adminWarehouse, $updateWarehouse);
+        $auth->addChild($adminWarehouse, $viewWarehouse);
+        $auth->addChild($adminWarehouse, $deleteWarehouse);
+
+
+
         // Role : userProject
         // ------------------
 
@@ -674,6 +732,7 @@ class RbacController extends Controller
         $auth->addChild($userCTT, $userProject);           // Grant access to list project entities.
         $auth->addChild($userCTT, $userReservation);       // Grant access to list reservation entities.
         $auth->addChild($userCTT, $userMarketRate);        // Grant access to list market rate entities.
+        $auth->addChild($userCTT, $userWarehouse);         // Grant access to list warehouse entities.
 
 
 
@@ -694,6 +753,7 @@ class RbacController extends Controller
         $auth->addChild($inventoryCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($inventoryCTT, $adminArticle);         // Grant access to admin all article process.
         $auth->addChild($inventoryCTT, $adminInventory);       // Grant access to admin all inventory process.
+        $auth->addChild($inventoryCTT, $adminWarehouse);       // Grant access to admin all warehouse process.
 
 
 
@@ -736,6 +796,7 @@ class RbacController extends Controller
         $auth->addChild($managementCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($managementCTT, $adminArticle);         // Grant access to admin all article process.
         $auth->addChild($managementCTT, $adminInventory);       // Grant access to admin all inventory entities.
+        $auth->addChild($managementCTT, $adminWarehouse);       // Grant access to admin all warehouse entities.
         $auth->addChild($managementCTT, $adminProject);         // Grant access to admin all project entities.
         $auth->addChild($managementCTT, $adminReservation);     // Grant access to admin all reservation entities.
         $auth->addChild($managementCTT, $adminMarketRate);      // Grant access to admin all market rate entities.
@@ -762,6 +823,7 @@ class RbacController extends Controller
         $auth->addChild($adminCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($adminCTT, $adminArticle);         // Grant access to admin all article process.
         $auth->addChild($adminCTT, $adminInventory);       // Grant access to admin all inventory entities.
+        $auth->addChild($adminCTT, $adminWarehouse);       // Grant access to admin all warehouse entities.
         $auth->addChild($adminCTT, $adminProject);         // Grant access to admin all project entities.
         $auth->addChild($adminCTT, $adminReservation);     // Grant access to admin all reservation entities.
         $auth->addChild($adminCTT, $adminMarketRate);      // Grant access to admin all market rate entities.

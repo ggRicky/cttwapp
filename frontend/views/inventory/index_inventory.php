@@ -4,15 +4,7 @@ use yii\helpers\Html;
 /* use yii\grid\GridView; // 2019-01-30 : Disable the base class reference */
 
 /* 2018-05-06 : Used to display the catalog name for the actual article record */
-use yii\helpers\ArrayHelper;
-use yii\widgets\Pjax;
-use yii\helpers\Url;
 use yii\web\View;
-use app\models\Catalog;
-use app\models\Brand;
-
-/* 2019-01-30 : Used to extend the GridView class */
-use frontend\components\GridView;
 
 /* @var $this yii\web\View */
 
@@ -150,7 +142,7 @@ $randomBg = rand(1,11);;
 
                 <!-- Options not implemented yet -->
 
-                <?= Html::a(Yii::t('app', 'Almacenes'), ['#'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'data-toggle' => 'modal', 'data-target' => '#ctt-modal-in-construction', 'title' => Yii::t('app', 'Ingresar al Módulo')]) ?>
+                <?= Html::a(Yii::t('app', 'Almacenes'), ['warehouse/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ingresar al Módulo')]) ?>
                 <?= Html::a(Yii::t('app', 'Múlti Almacén'), ['#'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-ctt-warning btn-ctt-fixed-width', 'data-toggle' => 'modal', 'data-target' => '#ctt-modal-in-construction', 'title' => Yii::t('app', 'Ingresar al Módulo')]) ?>
                 <?= Html::a(Yii::t('app', 'Movimientos Inventario'), ['#'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-ctt-info btn-ctt-fixed-width', 'data-toggle' => 'modal', 'data-target' => '#ctt-modal-in-construction', 'title' => Yii::t('app', 'Ingresar al Módulo')]) ?>
 

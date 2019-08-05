@@ -302,6 +302,16 @@ return ([
     'Múlti Almacén' => 'Multi Warehouse',
     'Movimientos Inventario' => 'Inventory Movements',
 
+    // Warehouse
+    'Actualizar Almacén' => 'Update Warehouse',
+    'Almacén' => 'Warehouse',
+    'Crear Almacén' => 'Create New Warehouse',
+    'Crear Nuevo Almacén' => 'Create New Warehouse',
+    'Descripción del Almacén' => 'Description Warehouse',
+    'Módulo Administrador de Almacenes' => 'Warehouse Administrator Module',
+    'Vista del Almacén' => 'Warehouse View',
+    'Responsable del Almacén' => 'Manager Warehouse',
+
     // Validadores
 
     'El valor no debe ser menor a ' => 'The value must be no less than ',

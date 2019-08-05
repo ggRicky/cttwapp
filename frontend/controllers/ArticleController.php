@@ -168,7 +168,6 @@ class ArticleController extends Controller
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
-
                 Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
                 return $this->render('create_article', ['model' => $model, 'page' => $page]);
             }

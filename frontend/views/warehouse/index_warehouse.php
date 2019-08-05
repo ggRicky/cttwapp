@@ -11,10 +11,10 @@ use yii\web\View;
 use frontend\components\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\CatalogSearch */
+/* @var $searchModel app\models\WarehouseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Catálogos';
+$this->title = 'Almacenes';
 $description = 'Listado Nominal';
 
 $asset = \frontend\assets\AppAsset::register($this);
@@ -87,7 +87,7 @@ $randomBg = rand(1,11);;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['inventory/index', 'page' => '1', 'hash' => '0'], ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -142,7 +142,7 @@ $randomBg = rand(1,11);;
             <?php Pjax::begin(); ?>
 
                 <p>
-                    <?= Html::a(Yii::t('app', 'Crear Catálogo'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de catálogo')]) ?>
+                    <?= Html::a(Yii::t('app', 'Crear Almacén'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de catálogo')]) ?>
                 </p>
 
                 <?= GridView::widget([
@@ -190,7 +190,7 @@ $randomBg = rand(1,11);;
                                             // and displayed in the modal window.
                                             'data' => [
                                                 // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
-                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->name_cat,
+                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->desc_warehouse,
                                                 'color' => 4,   // Red color header in modal window.
                                             ],
                                             // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
@@ -207,13 +207,13 @@ $randomBg = rand(1,11);;
                             // 2018-05-28 : Adds an url that include the current page in GridView widget.
                             'urlCreator' => function ($action, $model)  use ($dataProvider) {
                                 if ($action === 'delete') {
-                                     $url = Url::to(['catalog/delete', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                     $url = Url::to(['warehouse/delete', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                 }
                                 elseif ($action === 'view') {
-                                     $url = Url::to(['catalog/view', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                     $url = Url::to(['warehouse/view', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                 }
                                 elseif ($action === 'update') {
-                                     $url = Url::to(['catalog/update', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                     $url = Url::to(['warehouse/update', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                 }
                                 else $url = null;
 
@@ -235,17 +235,12 @@ $randomBg = rand(1,11);;
                         ],
 
                         [
-                            'attribute' => 'name_cat',  // 2018-05-07 : The name_cat field in red text color.
+                            'attribute' => 'desc_warehouse',  // 2018-05-07 : The desc_warehouse field in red text color.
                             'contentOptions' => ['style' => 'color:red; text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
-                            'attribute' => 'sp_desc',
-                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
-                        ],
-
-                        [
-                            'attribute' => 'en_desc',
+                            'attribute' => 'attendant_warehouse',
                             'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
@@ -288,7 +283,7 @@ $randomBg = rand(1,11);;
                         <!-- Help Tool -->
                         <span>
                            <?php
-                               echo Html::a('', ['help/view', 'theme' => '_catalog', 'ret_url' => 'catalog/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ayuda')]);
+                               echo Html::a('', ['help/view', 'theme' => '_warehouse', 'ret_url' => 'warehouse/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ayuda')]);
                                echo '<span>'.Yii::t('app', 'Ayuda').'</span>';
                            ?>
                        </span>

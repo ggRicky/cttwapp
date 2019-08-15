@@ -305,6 +305,7 @@ return ([
     // Warehouse
     'Actualizar Almacén' => 'Update Warehouse',
     'Almacén' => 'Warehouse',
+    'Almacenes Disponibles' => 'Available Warehouses',
     'Crear Almacén' => 'Create New Warehouse',
     'Crear Nuevo Almacén' => 'Create New Warehouse',
     'Descripción del Almacén' => 'Description Warehouse',

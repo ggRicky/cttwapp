@@ -4,11 +4,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
 
-/* 2018-06-05 : Used to display Catalog Name for the actual article record */
+/* 2018-06-05 : Used to display Catalog, Brand and Warehouse Names for the actual article record */
 
 use yii\helpers\ArrayHelper;
 use app\models\Catalog;
 use app\models\Brand;
+use app\models\Warehouse;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
@@ -114,6 +115,12 @@ $baseUrl = $asset->baseUrl;
         [
             'attribute' => 'brand_id',
             'value' => implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')),
+        ],
+
+        // 2019-08-14 : Modified to display the ID and the Warehouse Description instead of the ID only.
+        [
+            'attribute' => 'warehouse_id',
+            'value' => implode(",",ArrayHelper::map(Warehouse::find()->where(['id' => $model->warehouse_id])->all(),'id','displayDescWarehouse')),
         ],
 
         'created_at',

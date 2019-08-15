@@ -16,7 +16,7 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'name_art', 'sp_desc', 'en_desc', 'type_art', 'currency_art', 'brand_id', 'part_num', 'created_at', 'updated_at', 'catalog_id', 'shown_price_list'], 'safe'],
+            [['id', 'name_art', 'sp_desc', 'en_desc', 'type_art', 'currency_art', 'brand_id', 'part_num', 'created_at', 'updated_at', 'catalog_id', 'shown_price_list', 'warehouse_id'], 'safe'],
             [['price_art'], 'number'],
             [['created_by', 'updated_by'], 'integer'],
         ];
@@ -77,15 +77,16 @@ class ArticleSearch extends Article
         ]);
 
         $query->andFilterWhere(['ilike', 'id', $this->id])
-            ->andFilterWhere(['ilike', 'name_art', $this->name_art])
-            ->andFilterWhere(['ilike', 'sp_desc', $this->sp_desc])
-            ->andFilterWhere(['ilike', 'en_desc', $this->en_desc])
-            ->andFilterWhere(['ilike', 'type_art', $this->type_art])
-            ->andFilterWhere(['ilike', 'currency_art', $this->currency_art])
-            ->andFilterWhere(['ilike', 'brand_id', $this->brand_id])
-            ->andFilterWhere(['ilike', 'part_num', $this->part_num])
-            ->andFilterWhere(['ilike', 'catalog_id', $this->catalog_id])
-            ->andFilterWhere(['ilike', 'shown_price_list', $this->shown_price_list]);
+              ->andFilterWhere(['ilike', 'name_art', $this->name_art])
+              ->andFilterWhere(['ilike', 'sp_desc', $this->sp_desc])
+              ->andFilterWhere(['ilike', 'en_desc', $this->en_desc])
+              ->andFilterWhere(['ilike', 'type_art', $this->type_art])
+              ->andFilterWhere(['ilike', 'currency_art', $this->currency_art])
+              ->andFilterWhere(['ilike', 'brand_id', $this->brand_id])
+              ->andFilterWhere(['ilike', 'part_num', $this->part_num])
+              ->andFilterWhere(['ilike', 'catalog_id', $this->catalog_id])
+              ->andFilterWhere(['ilike', 'shown_price_list', $this->shown_price_list])
+              ->andFilterWhere(['ilike', 'warehouse_id', $this->warehouse_id]);
 
         return $dataProvider;
     }

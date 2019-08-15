@@ -22,9 +22,11 @@ use Yii;
  * @property int $updated_by
  * @property string $catalog_id
  * @property boolean $shown_price_list
+ * @property string $warehouse_id
  *
  * @property Brand $brand
  * @property Catalog $catalog
+ * @property Warehouse $warehouse
  */
 class Article extends \yii\db\ActiveRecord
 {
@@ -42,14 +44,14 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name_art', 'type_art', 'price_art', 'currency_art', 'brand_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'catalog_id', 'shown_price_list'], 'required'],
+            [['id', 'name_art', 'type_art', 'price_art', 'currency_art', 'brand_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'catalog_id', 'shown_price_list', 'warehouse_id'], 'required'],
             [['id', 'name_art','sp_desc','en_desc'], 'filter', 'filter'=>'strtoupper'],
             [['id'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'default', 'value' => null],
             [['created_by', 'updated_by'], 'integer'],
 
-            [['id', 'brand_id', 'catalog_id'], 'string', 'max' => 15],
+            [['id', 'brand_id', 'catalog_id', 'warehouse_id'], 'string', 'max' => 15],
             [['name_art', 'part_num'], 'string', 'max' => 50],
             [['sp_desc', 'en_desc'], 'string', 'max' => 100],
             [['type_art', 'currency_art', 'shown_price_list'], 'string', 'max' => 1],
@@ -57,6 +59,7 @@ class Article extends \yii\db\ActiveRecord
 
             [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['brand_id' => 'id']],
             [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::class, 'targetAttribute' => ['catalog_id' => 'id']],
+            [['warehouse_id'], 'exist', 'skipOnError' => true, 'targetClass' => Warehouse::class, 'targetAttribute' => ['warehouse_id' => 'id']],
         ];
     }
 
@@ -80,6 +83,7 @@ class Article extends \yii\db\ActiveRecord
             'created_by' => Yii::t('app', 'Creado por'),
             'updated_by' => Yii::t('app', 'Actualizado por'),
             'catalog_id' => Yii::t('app', 'Catálogo'),
+            'warehouse_id' => Yii::t('app', 'Almacén'),
             'photo' => Yii::t('app','Fotografía del Artículo'),
             'shown_price_list' => Yii::t('app','Lista de Precios'),
         ];
@@ -100,4 +104,13 @@ class Article extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Catalog::class, ['id' => 'catalog_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWarehouse()
+    {
+        return $this->hasOne(Warehouse::class, ['id' => 'warehouse_id']);
+    }
+
 }

@@ -8,6 +8,7 @@ use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use app\models\Catalog;
 use app\models\Brand;
+use app\models\Warehouse;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
@@ -145,6 +146,9 @@ JS;
 
     <!-- Catalog Selector  -->
     <?= $form->field($model, 'catalog_id')->dropDownList(ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccione...')]); ?>
+
+    <!-- Warehouse Selector  -->
+    <?= $form->field($model, 'warehouse_id')->dropDownList(ArrayHelper::map(Warehouse::find()->select(['id','desc_warehouse'])->orderBy(['id' => SORT_ASC])->all(),'id','displayDescWarehouse'), ['prompt' => Yii::t('app','Seleccione...')]); ?>
 
     <!-- Shown in Price List Selector  -->
     <?= $form->field($model, 'shown_price_list')->radioList(

@@ -73,7 +73,14 @@
     echo '</tr>';
     echo '</table>';
 
+    // 2019-08-14 : Test the & operator in strings
+    echo '<br/><br/>';
+    echo '$a = ', $a = '10011111111111111111111',' : ',strlen($a),'<br/>';
+    echo '$b = ', $b = '1111111111111111111111111',' : ',strlen($b),'<br/>';
+    echo '$c = ', $c = ($a & $b).str_repeat('0',abs(strlen($a)-strlen($b))),' : ', strlen($c);
+
     echo '</div>';
+
 
 ?>
 </p>

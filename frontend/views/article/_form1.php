@@ -39,8 +39,18 @@ $view_type = Yii::$app->getRequest()->getQueryParam('view_type');
         '1' => ['class' => 'dropDownList-item-1-css'],
     ];
 
-    // Get the config for the article columns.
-    $c = (Yii::$app->getRequest()->getCookies()->has('article_columns_config'.$view_type) ? Yii::$app->getRequest()->getCookies()->getValue('article_columns_config'.$view_type) : '1111111111111111111111111');
+    // 2018-09-30 : If there isn't the article_columns_config cookie, then by default shows all the columns.
+
+    // 2019-08-14 : $m - This variable is the mask for fills the undefined columns.
+    $c = $m = '1111111111111111111111111';
+
+    // 2018-09-30 : Gets the visibility status for all columns from the cookies and put it into the $c variable.
+    if (Yii::$app->getRequest()->getCookies()->has('article_columns_config')) {
+        $c = Yii::$app->getRequest()->getCookies()->getValue('article_columns_config');
+
+        // 2019-08-14 : Fills the string variable $c up to 25 characters
+        $c = ($m & $c).str_repeat('0',abs(strlen($m)-strlen($c)));
+    }
 
     // catalog_id : Gets the value from the cookie and assign it to the model column_0. Default value to : '1' [ Shows ].
     $model_1->column_0 = $c[0];
@@ -132,6 +142,13 @@ $view_type = Yii::$app->getRequest()->getQueryParam('view_type');
     $css_rules = ($model_1->column_12=='1'?'dropDownList-1-css':'dropDownList-0-css');
     // Shows the dropDownList control for the model column_12.
     echo $form->field($model_1, 'column_12')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Actualizado por'));
+
+    // warehouse_id : Gets the value from the cookie and assign it to the model column_13. Default value to : '1' [ Shows ].
+    $model_1->column_13 = $c[13];
+    // It determines and stores the right css class to apply in the dropDownList control.
+    $css_rules = ($model_1->column_13=='1'?'dropDownList-1-css':'dropDownList-0-css');
+    // Shows the dropDownList control for the model column_13.
+    echo $form->field($model_1, 'column_13')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Almacén'));
 
     ?>
 

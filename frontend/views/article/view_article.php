@@ -9,6 +9,7 @@ use yii\widgets\DetailView;
 use yii\helpers\ArrayHelper;
 use app\models\Catalog;
 use app\models\Brand;
+use app\models\Warehouse;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
@@ -196,10 +197,16 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
 
                             'part_num',
 
-                            // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
+                            // 2018-05-06 : Modified to display the ID and the Brand Description instead of the ID only.
                             [
                                 'attribute' => 'brand_id',
                                 'value' => implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')),
+                            ],
+
+                            // 2019-08-14 : Modified to display the ID and the Warehouse Description instead of the ID only.
+                            [
+                                'attribute' => 'warehouse_id',
+                                'value' => implode(",",ArrayHelper::map(Warehouse::find()->where(['id' => $model->warehouse_id])->all(),'id','displayDescWarehouse')),
                             ],
 
                             // 2019-03-31 : Display the show price list status

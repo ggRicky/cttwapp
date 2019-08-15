@@ -56,4 +56,13 @@ class Warehouse extends \yii\db\ActiveRecord
             'updated_by' => Yii::t('app', 'Actualizado por'),
         ];
     }
+
+    /** 2019-08-14 : Get the string data ['id']-['desc_warehouse']
+     *
+     */
+    public function getDisplayDescWarehouse()
+    {
+        return $this->id . ' - ' . $this->desc_warehouse;
+    }
+
 }

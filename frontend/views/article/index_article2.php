@@ -10,6 +10,7 @@ use yii\helpers\Url;
 use yii\web\View;
 use app\models\Catalog;
 use app\models\Brand;
+use app\models\Warehouse;
 
 /* 2019-07-21 : Used to extend the GridView class */
 use frontend\components\GridView;
@@ -138,15 +139,19 @@ $randomBg = rand(1,11);;
             <?php Pjax::begin(); ?>
 
                 <?php
-                    // 2018-09-30 : Gets the visibility status for all columns from the cookies and put it into the $c variable.
-                    if (Yii::$app->getRequest()->getCookies()->has('article_columns_config2')) {
-                        $c = Yii::$app->getRequest()->getCookies()->getValue('article_columns_config2');
-                        // 2018-09-30 : Only for debug purpose. Shows the var content.
-                        // VarDumper::dump($c);
-                    }
-                    else
-                        // 2018-09-30 : If there isn't the article_columns_config cookie, then by default shows all the columns.
-                        $c = '1111111111111111111111111';
+                // 2018-09-30 : If there isn't the article_columns_config cookie, then by default shows all the columns.
+                $c = $m = '1111111111111111111111111';  // 2019-08-14 : $m - This variable is the mask for fills the undefined columns.
+
+                // 2018-09-30 : Gets the visibility status for all columns from the cookies and put it into the $c variable.
+                if (Yii::$app->getRequest()->getCookies()->has('article_columns_config2')) {
+                    $c = Yii::$app->getRequest()->getCookies()->getValue('article_columns_config2');
+
+                    // 2019-08-14 : Fills the string variable $c up to 25 characters
+                    $c = ($m & $c).str_repeat('0',abs(strlen($m)-strlen($c)));
+
+                    // 2018-09-30 : Only for debug purpose. Shows the var content.
+                    // VarDumper::dump($c);
+                }
 
                     // 2018-08-22 : Gets the value from the cookie and assign it to the $dataProvider->pageSize.
                     if (Yii::$app->getRequest()->getCookies()->has('article-pageSize2'))
@@ -260,11 +265,24 @@ $randomBg = rand(1,11);;
                         [
                             'attribute' => 'catalog_id',
                             'visible' => ($c[0] == '1' ? true : false),     // 2018-08-20 : Set the column visibility status
-                            'headerOptions' => ['style' => 'width:12%;'],
+                            'headerOptions' => ['style' => 'width:6%;'],
                             // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
                             'filter' => Html::activeDropDownList($searchModel, 'catalog_id', ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Catálogos Disponibles')]),
                             'value' => function($model){
                                 return implode(",",ArrayHelper::map(Catalog::find()->where(['id' =>  $model->catalog_id])->all(),'id','displayNameCat'));
+                            }
+                        ],
+
+                        // 2019-08-14 : Added to display the ID and the Warehouse Description instead of the ID only.
+
+                        [
+                            'attribute' => 'warehouse_id',
+                            'visible' => ($c[13] == '1' ? true : false),    // 2019-08-14 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:6%;'],
+                            // 2019-08-14 : Modified to display a DropDownList with the available warehouses, using the filter option.
+                            'filter' => Html::activeDropDownList($searchModel, 'warehouse_id', ArrayHelper::map(Warehouse::find()->select(['id','desc_warehouse'])->orderBy(['id' => SORT_ASC])->all(),'id','displayDescWarehouse'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Almacenes Disponibles')]),
+                            'value' => function($model){
+                                return implode(",",ArrayHelper::map(Warehouse::find()->where(['id' =>  $model->warehouse_id])->all(),'id','displayDescWarehouse'));
                             }
                         ],
 

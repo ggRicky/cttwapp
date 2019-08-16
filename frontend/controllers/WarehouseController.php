@@ -207,6 +207,7 @@ class WarehouseController extends Controller
                 // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
                 switch ($e->errorInfo[0]){
                     case '23503' :
+                        Yii::info('[SQLState: 23503 - Foreign key violation in Warehouse record with ID='.$id.']', 'cttwapp_user');
                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
 
                 }

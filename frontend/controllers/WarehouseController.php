@@ -209,6 +209,10 @@ class WarehouseController extends Controller
                     case '23503' :
                         Yii::info('[SQLState: 23503 - Foreign key violation in Warehouse record with ID='.$id.']', 'cttwapp_user');
                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                        break;
+
+                    default :
+                        Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
 
                 }
             }

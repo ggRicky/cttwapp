@@ -153,7 +153,7 @@ class ClientController extends Controller
                 try{
                     if ($model->update() !== false) {
                         // 2018-10-30 : Records the brand update operation.
-                        Yii::info('[The user has updated the cleient record with ID='.$model->id.']', 'cttwapp_user');
+                        Yii::info('[The user has updated the client record with ID='.$model->id.']', 'cttwapp_user');
                         Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha actualizado exitosamente.'));
                         return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                     }
@@ -167,8 +167,15 @@ class ClientController extends Controller
                     // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
                     switch ($e->errorInfo[0]){
                         case '23503' :
+                            Yii::info('[SQLState: 23503 - Foreign key violation at the client record with ID='.$id.']', 'cttwapp_user');
                             Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
-
+                            break;
+                        case '42501' :
+                            Yii::info('[SQLState: 42501 - Insufficient privileges at the client table]', 'cttwapp_user');
+                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                            break;
+                        default :
+                            Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
                     }
                     return $this->redirect(['client/index', 'page' => $page, 'hash' => '0']);
                 }
@@ -212,8 +219,15 @@ class ClientController extends Controller
                 // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
                 switch ($e->errorInfo[0]){
                     case '23503' :
-                        Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
-
+                         Yii::info('[SQLState: 23503 - Foreign key violation at the client record with ID='.$id.']', 'cttwapp_user');
+                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                         break;
+                    case '42501' :
+                         Yii::info('[SQLState: 42501 - Insufficient privileges at the client table]', 'cttwapp_user');
+                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                         break;
+                    default :
+                         Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
                 }
             }
         }

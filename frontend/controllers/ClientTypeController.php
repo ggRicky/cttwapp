@@ -161,8 +161,15 @@ class ClientTypeController extends Controller
                     // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
                     switch ($e->errorInfo[0]){
                         case '23503' :
-                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
-
+                             Yii::info('[SQLState: 23503 - Foreign key violation at the client type record with ID='.$id.']', 'cttwapp_user');
+                             Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                             break;
+                        case '42501' :
+                             Yii::info('[SQLState: 42501 - Insufficient privileges at the client type table]', 'cttwapp_user');
+                             Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                             break;
+                        default :
+                             Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
                     }
                     return $this->redirect(['client-type/index', 'page' => $page, 'hash' => '0']);
                 }
@@ -206,8 +213,15 @@ class ClientTypeController extends Controller
                 // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
                 switch ($e->errorInfo[0]){
                     case '23503' :
+                        Yii::info('[SQLState: 23503 - Foreign key violation at the client type record with ID='.$id.']', 'cttwapp_user');
                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
-
+                        break;
+                    case '42501' :
+                        Yii::info('[SQLState: 42501 - Insufficient privileges at the client type table]', 'cttwapp_user');
+                        Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                        break;
+                    default :
+                        Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
                 }
             }
         }

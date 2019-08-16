@@ -38,6 +38,7 @@ return ([
     'Eliminar' => 'Delete',
     'Emisión' => 'Issued in',
     'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.' => 'It is impossible to execute the Update or Delete action on this record, due to a foreign key violation. This record is part of a reference in another entity.',
+    'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.' => 'It is impossible to execute the Update or Delete action on this record, due to not having sufficient privileges.',
     'Esta dirección de correo ya fue asignada.' => 'This email address has already been taken.',
     'Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.' => 'This functionality is under construction and is not yet fully implemented.',
     'Este nombre de usuario ya fue asignado.' => 'This username has already been taken.',

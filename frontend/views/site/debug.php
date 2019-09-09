@@ -1,4 +1,13 @@
+<?php
+
+namespace frontend\controllers;
+
+use Yii;
+use app\models\Article;
+?>
+
 <p>
+
 <?php
 /**
  * Created by PhpStorm.
@@ -79,7 +88,38 @@
     echo '$b = ', $b = '1111111111111111111111111',' : ',strlen($b),'<br/>';
     echo '$c = ', $c = ($a & $b).str_repeat('0',abs(strlen($a)-strlen($b))),' : ', strlen($c);
 
-    echo '</div>';
+    // 2019-09-06 : Test the session array 'keylist'
+    echo '<br/><br/>';
+
+    $session = Yii::$app->session;
+
+    if (isset($session['keylist']) && count($session['keylist'])>0) {
+
+        echo '$session[\'keylist\'] = ';
+        print_r($session['keylist']);
+
+        echo '<br/><br/>';
+        echo 'Conversión del arreglo de sesión $session[\'keylist\'] ', "a Cadenas : ", "\"".implode("\", \"",$session['keylist'])."\"";
+
+        echo '<br/><br/>';
+        $list = "'".implode("', '",$session['keylist'])."'";
+        echo '$list : ', $list;
+
+        // $model = Article::findOne('11B3');   // Ok - Gets one article record with id ='11B3'
+
+        $sql = "SELECT * FROM article WHERE \"id\" IN (".$list.");";  // Ok - Gets an article list based on the variable $list content.
+        $model = Article::findBySql($sql)->all();
+
+        echo '<br/><br/>';
+        echo 'Consulta de Registros en $list : ';
+
+        echo '<br/><br/>';
+        print_r($model);
+
+    }
+    else echo 'The $session[\'keylist\'] is not available !';
+
+echo '</div>';
 
 
 ?>

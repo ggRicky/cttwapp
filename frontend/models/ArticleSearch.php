@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -32,7 +33,7 @@ class ArticleSearch extends Article
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates different kinds of data provider instance with search query applied based on the '$qry_type' parameter
      *
      * @param array $params
      * @param string $qry_type
@@ -41,23 +42,63 @@ class ArticleSearch extends Article
      */
     public function search($params, $qry_type=null)
     {
-        // 2019-03-31 : Adds a new functionality to show filtered data in the  Price List option. At the same time, it show all records in the article table in Products & Services option.
-        if($qry_type=='pl') $query = Article::find()->where('shown_price_list LIKE \'S\'');  // 2019-03-31 : $qry_type == 'pl' [ Price List ] To filter only records for the Price List option
-        else $query = Article::find();  // No filter shows all available records in the article table.
+        switch ($qry_type){
+            case '0':   // Price List. Shows filtered data in the Price List option,
 
-        // add conditions that should always apply here
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            // 2018-05-28 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
-            'pagination' => [
-                'pageSize' => 50,
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_ASC,
-                ],
-            ],
-        ]);
+                // 2019-03-31 : Adds a new functionality to show filtered data in the Price List option. At the same time, it show all records in the article table in Products & Services option.
+                $query = Article::find()->where('shown_price_list LIKE \'S\'');  // 2019-03-31 : $qry_type == 'pl' [ Price List ] To filter only records for the Price List option
+
+                // Adds the conditions that should always apply to the dataProvider
+                $dataProvider = new ActiveDataProvider([
+                    'query' => $query,
+                    'pagination' => [
+                        'pageSize' => 50,  // 2018-05-28 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
+                    ],
+                    'sort' => [
+                        'defaultOrder' => ['id' => SORT_ASC,],
+                    ],
+                ]);
+
+                break;
+
+            case '1':   // Print Article List. Shows all selected records in the article table, based on the session array 'keylist'.
+
+                // 2019-09-08 : Access to sessions through the session application component
+                $session = Yii::$app->session;
+
+                // 2019-09-08 : Gets the list of selected article records.
+                $list = "'".implode("', '",$session['keylist'])."'";
+
+                // 2019-09-08 : Gets an article list based on the variable $list content.
+                $sql = "SELECT * FROM article WHERE \"id\" IN (".$list.")";
+                // 2019-09-08 : Find all the records listed in the $list variable.
+                $query = Article::findBySql($sql);
+
+                // Adds the conditions that should always apply to the dataProvider
+                $dataProvider = new ActiveDataProvider([
+                    'query' => $query,
+                    'sort' => false,       // 2019-09-08 : Removes the sort object in the top header of the GridView control
+                ]);
+
+                break;
+
+            default:
+
+                // No filter applied. Shows all available records in the article table.
+                $query = Article::find();
+
+                // Adds the conditions that should always apply to the dataProvider
+                $dataProvider = new ActiveDataProvider([
+                    'query' => $query,
+                    'pagination' => [
+                        'pageSize' => 50,  // 2018-05-28 : Set the records displayed in the GridView widget, setting up the pageSize attribute.
+                    ],
+                    'sort' => [
+                        'defaultOrder' => ['id' => SORT_ASC,],
+                    ],
+                ]);
+
+        }
 
         $this->load($params);
 

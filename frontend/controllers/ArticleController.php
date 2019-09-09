@@ -11,6 +11,7 @@ use yii\web\Cookie;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\helpers\Url;
+use yii\helpers\Json;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
 
@@ -53,7 +54,7 @@ class ArticleController extends Controller
                 'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_article.php view for test if 'ArticleSearch'
             ]);
         } else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to the Article Module]', 'cttwapp_user');
@@ -76,7 +77,7 @@ class ArticleController extends Controller
             Yii::info('[The user gets access to the Price List Module]', 'cttwapp_user');
 
             $searchModel = new ArticleSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'pl');
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, '0');
 
             return $this->render('index_article2', [
                 'searchModel' => $searchModel,
@@ -84,7 +85,7 @@ class ArticleController extends Controller
                 'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_article.php view for test if 'ArticleSearch'
             ]);
         } else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to the Price List Module]', 'cttwapp_user');
@@ -110,7 +111,7 @@ class ArticleController extends Controller
             Yii::info('[The user has consulted the article record with ID=' . $id . ']', 'cttwapp_user');
             return $this->render('view_article', ['model' => $this->findModel($id),]);
         } else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to view an article record]', 'cttwapp_user');
@@ -136,7 +137,7 @@ class ArticleController extends Controller
             Yii::info('[The user has consulted the article record with ID=' . $id . ']', 'cttwapp_user');
             return $this->render('view_article2', ['model' => $this->findModel($id),]);
         } else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to view an article record]', 'cttwapp_user');
@@ -176,7 +177,7 @@ class ArticleController extends Controller
             // Render the page to create an article.
             return $this->render('create_article', ['model' => $model, 'page' => $page]);
         } else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to create an article record]', 'cttwapp_user');
@@ -247,7 +248,7 @@ class ArticleController extends Controller
             // Render the page to update an article.
             return $this->render('update_article', ['model' => $model, 'page' => $page]);
         } else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to update an article record]', 'cttwapp_user');
@@ -278,8 +279,7 @@ class ArticleController extends Controller
             $model = $this->findModel($id);
 
             // 2019-04-02 : Toggles the visibility status for this article record
-            if ($model->shown_price_list=='S') $model->shown_price_list='N';
-            else $model->shown_price_list='S';
+            if ($model->shown_price_list=='S') $model->shown_price_list='N'; else $model->shown_price_list='S';
 
             // 2019-03-07 : Try to catch any DBMS constraint violation
             try {
@@ -311,7 +311,7 @@ class ArticleController extends Controller
             // Redirects to show all available Products & Services at the same page.
             return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         } else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to update an article record]', 'cttwapp_user');
@@ -321,7 +321,6 @@ class ArticleController extends Controller
             Yii::warning('[Unauthorized access profile to update an article record]', 'cttwapp_user');
             return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         }
-
     }
 
     /**
@@ -369,7 +368,7 @@ class ArticleController extends Controller
                 }
             }
         } else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to delete an Article]', 'cttwapp_user');
@@ -494,6 +493,7 @@ class ArticleController extends Controller
             // ... creates a new cookie named (article_columns_config / article_columns_config2) and stores the page size value in it.
             $cookie = new Cookie(['name' => 'article_columns_config'.$view_type, 'value' => $article_columns_config, 'expire' => time() + 86400 * 365,]);   // Creates a new cookie and stores the column visibility status in it.
             Yii::$app->getResponse()->getCookies()->add($cookie);
+            // Send a message about the process status
             Yii::$app->session->setFlash('configProcess', Yii::t('app','La configuración del número de columnas visibles se ha modificado exitosamente').'.');
         }
 
@@ -547,6 +547,7 @@ class ArticleController extends Controller
             // ... creates a new cookie named (article-pageSize / article-pageSize2) and stores the page size value in it.
             $cookie = new Cookie(['name' => 'article-pageSize'.$view_type, 'value' => $page_size_config, 'expire' => time() + 86400 * 365,]);
             Yii::$app->getResponse()->getCookies()->add($cookie);
+            // Send a message about the process status
             Yii::$app->session->setFlash('configProcess', Yii::t('app','La configuración del tamaño de página ha sido definida en').' '.$page_size_config.' '.Yii::t('app','registro(s)').'.');
         }
 
@@ -578,6 +579,8 @@ class ArticleController extends Controller
 
             // Get your HTML raw content without any layouts or scripts
             $content = $this->renderPartial('print_article', ['model' => $this->findModel($id),]);
+
+            // Defines the footer page style
             $footer = "<hr style=\"color: gainsboro;\"/>\n   <table width=\"100%\" style=\"vertical-align: bottom; font-size: 9px; color: gray;\"><tr>\n   <td width=\"33%\"><span style=\"letter-spacing: 3px;\">CTTwapp ver-1.0</span></td>\n   <td width=\"33%\" align=\"center\" style=\"letter-spacing: 5px;\">".Yii::t('app','Inventarios')."</td>\n   <td width=\"33%\" style=\"text-align: right; letter-spacing: 3px;\">".Yii::t('app', 'Página')." [ {PAGENO} ]</td>\n   </tr></table>";
 
             // Setup kartik\mpdf\Pdf component
@@ -636,7 +639,7 @@ class ArticleController extends Controller
             return $pdf->render();
         }
         else {
-            // 2018-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to print an Article]', 'cttwapp_user');
@@ -649,6 +652,115 @@ class ArticleController extends Controller
         // Redirect to the index page, according to the $view_type parameter.
         return $this->redirect(['article/index'.$view_type, 'page' => $page, 'hash' => '0']);
     }
+    /**
+     * Generates a PDF file with the user selected records of articles in printable version.
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     *
+     * 2019-09-07 15:59 Hrs.
+     */
+    public function actionPrint2()
+    {
+
+        // Access to sessions through the session application component
+        $session = Yii::$app->session;
+
+        // Validate the existence and content of the session array 'keylist'.
+        if (!isset($session['keylist']) || count($session['keylist'])==0){
+            // Shows a flash warning message.
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'No ha marcado ningún registro y por ello es imposible procesar su petición.'));
+            // Redirect to the index page, according to the $view_type parameter.
+            return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+        }
+
+        // Validate the user access to this action
+        if (\Yii::$app->user->can('printArticle')) {
+            // 2018-08-28 : Records the article delete operation.
+            Yii::info('[The user has printed the article list]', 'cttwapp_user');
+
+            $searchModel = new ArticleSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, '1');
+
+            // Get your HTML raw content without any layouts or scripts
+            $content = $this->renderPartial('print_article_list', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'qryParams' => Yii::$app->request->queryParams,   // 2018-05-06 : This parameter is send to index_article.php view for test if 'ArticleSearch'
+            ]);
+
+            // Defines the footer page style
+            $footer = "<hr style=\"color: gainsboro;\"/>\n   <table width=\"100%\" style=\"vertical-align: bottom; font-size: 9px; color: gray;\"><tr>\n   <td width=\"33%\"><span style=\"letter-spacing: 3px;\">CTTwapp ver-1.0</span></td>\n   <td width=\"33%\" align=\"center\" style=\"letter-spacing: 5px;\">".Yii::t('app','Inventarios')."</td>\n   <td width=\"33%\" style=\"text-align: right; letter-spacing: 3px;\">".Yii::t('app', 'Página')." [ {PAGENO} ]</td>\n   </tr></table>";
+
+            // Setup kartik\mpdf\Pdf component
+            $pdf = new Pdf([
+                // Set to use core fonts only
+                'mode' => Pdf::MODE_CORE,
+                // LETTER paper format
+                'format' => Pdf::FORMAT_LETTER,
+                // Portrait orientation
+                'orientation' => Pdf::ORIENT_LANDSCAPE,
+                // Stream to browser inline
+                'destination' => Pdf::DEST_BROWSER,
+                // File name
+                'filename' => 'cttwapp_articles_report.pdf',
+                // Your html content input
+                'content' => $content,
+                // Format content from your own css file if needed or use the
+                // enhanced bootstrap css built by Krajee for mPDF formatting
+                //'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+                'cssFile' => '@vendor/bower/cttwapp/css/cttwapp-stylish.css',
+                // Any css to be embedded if required
+                'cssInline' => '.kv-heading-1{font-size:32px; color: #15598c} .kv-heading-2{font-size:10px; color:red; letter-spacing: 3px}',
+                // Call mPDF methods on the fly
+                'methods' => [
+                    'SetHTMLHeader'=>['<div style="text-align: right; font-size: 9px; font-weight: lighter; color: grey; letter-spacing: 3px">'.'CTT Exp. & Rentals S.A. de C.V.'.'</div>', 'O', true],
+                    'SetHTMLFooter'=>$footer,
+                ]
+            ]);
+
+            // Set some mPDF properties on the fly
+
+            // Directly use the mPDF api for various other mPDF manipulations
+            // Fetches mPDF API
+            $mpdf = $pdf->api;
+
+            // Call methods or set any properties
+            $mpdf->SetTitle(Yii::t('app', 'Lista de Artículos'));
+            $mpdf->SetAuthor('ISC. Ricardo González González');
+            $mpdf->SetCreator('CTTwapp v1.0');
+            $mpdf->SetSubject('Reporte');
+            $mpdf->SetKeywords('cttwapp, report, article, list, pdf');
+            // 2018-08-11 : Enables a water mark text
+            /*
+            $mpdf->showWatermarkText = true;                         // To shows the water mark text.
+            $mpdf->watermarkTextAlpha = 0.1;                         // To defines the alpha value for the water mark text.
+            $mpdf->watermark_font = 'Source Sans Pro';               // To defines the font type for the water mark text.
+            $mpdf->SetWatermarkText(Yii::t('app', 'Confidencial'));  // To defines the legend for the water mark text.
+            */
+            // 2018-08-11 : Enables a water image
+            $mpdf->showWatermarkImage = true;                        // To shows the water mark image.
+            $mpdf->watermarkImageAlpha = 0.1;                        // To defines the alpha value for the water mark image.
+            $mpdf->defaultfooterline = true;                         // To shows the water mark image.
+            $mpdf->SetWatermarkImage(Url::to('/img/ctt-logo.png', true),0.2,'P',[0,-42]);   // To defines the image file for the water mark image.
+
+            // Returns the pdf output as per the destination setting
+            return $pdf->render();
+        }
+        else {
+            // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to print an Article]', 'cttwapp_user');
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to print an Article]', 'cttwapp_user');
+        }
+
+        // Redirect to the index page, according to the $view_type parameter.
+        return $this->redirect(['article/index']);
+    }
+
     /**
      * Renames a file inside the upload directory.
      * If renaming is successful, the method return true. Otherwise return false.
@@ -701,4 +813,133 @@ class ArticleController extends Controller
         // The default operation status
         return false;
     }
+
+    /**
+     * Adds a key item to the session array 'keylist'
+     * The key item to adds is sent to the controller, using the http post method.
+     * Returns a json response to notify the operation status
+     *
+     * 2019-09-06 23:19 Hrs.
+     */
+
+    public function actionAddKey(){
+
+        // Has a new item key been sent to be stored in the session array ?
+        if (isset($_POST["itemkey"])) {
+
+            // Retrieve the new item key
+            $item_id = $_POST["itemkey"];
+            // Access to sessions through the session application component
+            $session = Yii::$app->session;
+
+            // If there isn't an session array named 'keylist' or there is one empty, then ...
+            if (!isset($session['keylist']) || count($session['keylist'])==0)
+               // Creates a new session array based on the new item key ( $item_id )
+               $session['keylist'] = array($item_id);
+            else {
+               // Copy the actual session array 'keylist' into a temp array
+               $new_key_list_array = $session['keylist'];
+               // Adds the new item key into the temp array named '$new_key_list_array'
+               $new_key_list_array[] = $item_id;
+               // Reassigns the temp array to as an session array named 'keylist'
+               $session['keylist'] = $new_key_list_array;
+            }
+
+            // The next lines prepares information ( data ) about the elements counted, the elements added and the status of the last request.
+            $keylist_length = count($session['keylist']);
+            $elements = Json::encode($session['keylist']);
+            $status = 'success-add';
+        }
+        else {
+            // There isn't sent a new itemkey through the post method. Then prepares information ( data ) about the error
+            $item_id = -1;
+            $keylist_length = 0;
+            $elements = "";
+            $status = 'error-add';
+        };
+
+        // Returns the information about the last operation in the json format
+        echo Json::encode([
+            'status' => $status,
+            'value' => $item_id,
+            'length' => $keylist_length,
+            'elements' => $elements,
+        ]);
+
+        return;
+    }
+
+    /**
+     * Removes a key item to the session array 'keylist'
+     * The key item to removes is sent to the controller, using the http post method.
+     * Returns a json response to notify the operation status
+     *
+     * 2019-09-06 23:26 Hrs.
+     */
+    public function actionRemoveKey(){
+
+        // Has a new item key been sent to be stored in the session array ?
+        if (isset($_POST["itemkey"])) {
+
+           // Retrieve the new item key
+           $item_id = $_POST["itemkey"];
+           // Access to sessions through the session application component
+           $session = Yii::$app->session;
+
+           // If there is an session array named 'keylist' and there are elements, then ...
+           if (isset($session['keylist']) && count($session['keylist'])>0){
+
+              // Removes the itemkey from session array 'keylist' and assigns it back into a temp array named '$new_key_list_array'
+              $new_key_list_array = array_values(array_diff( $session['keylist'], array($item_id) ));
+              // Reassigns the temp array to as an session array named 'keylist'
+              $session['keylist'] = $new_key_list_array;
+
+              // The next lines prepares information ( data ) about the elements counted, the elements added and the status of the last request.
+              $keylist_length = count($session['keylist']);
+              $elements = Json::encode($session['keylist']);
+              $status = 'success-remove';
+           }
+        }
+        else {
+           // The next lines prepares information ( data ) about the elements counted, the elements added and the status of the last request.
+           $item_id = -1;
+           $keylist_length = 0;
+           $elements = "";
+           $status = 'error-remove';
+        }
+
+        // Returns the information about the last operation in the json format
+        echo Json::encode([
+            'status' => $status,
+            'value' => $item_id,
+            'length' => $keylist_length,
+            'elements' => $elements,
+        ]);
+
+        return;
+    }
+
+    /**
+     * Cleans out the session array 'keylist'
+     * Returns a json response to notify the operation status
+     *
+     * 2019-09-06 23:32 Hrs.
+     */
+    public function actionCleanKeys(){
+
+        $session = Yii::$app->session;
+
+        // Cleans out the 'keylist' session array
+        if (isset($session['keylist'])){
+            unset($session['keylist']);
+            $session['keylist'] = array();
+        }
+
+        // Send a message about the process status
+        Yii::$app->session->setFlash('configProcess', Yii::t('app','La opción para Desmarcar Todos los registros marcados se ha completado exitosamente.'));
+
+        // Redirect to the index page, according to the $view_type parameter.
+        return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+    }
+
 }

@@ -64,6 +64,8 @@ $randomBg = rand(1,11);;
 <!-- Includes Navigation Bar -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_menu_navbar.inc'); ?>
 
+<?//= $x=Url::to(['article/add-key']); ?><!--;-->
+
 <!-- Header -->
 <header id="top">
     <div class="row"> <!-- Bootstrap's row -->
@@ -201,6 +203,7 @@ $randomBg = rand(1,11);;
                 ?>
 
                 <?= GridView::widget([
+                    'id' => 'GridView-1',
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
 
@@ -236,7 +239,8 @@ $randomBg = rand(1,11);;
                             'buttons' => [
                                 // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
                                 'view' => function ($url) {
-                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url,
+                                    [
                                         'data-toggle' => 'tooltip',
                                         'title' => Yii::t('app', 'Ver'),           // 2018-06-03 : Adds the tooltip View
                                     ]);
@@ -244,7 +248,8 @@ $randomBg = rand(1,11);;
 
                                 // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
                                 'update' => function ($url) {
-                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url,
+                                    [
                                         'data-toggle' => 'tooltip',
                                         'title' => Yii::t('app', 'Actualizar') ,     // 2018-06-03 : Adds the tooltip Modify
                                     ]);
@@ -256,7 +261,7 @@ $randomBg = rand(1,11);;
                                         [
                                             'data-toggle' => 'tooltip',
                                             'title'       => Yii::t('app', 'Eliminar'),   // 2018-06-03 : Adds the tooltip Delete
-                                            'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
+                                            'style'       => 'color:#337ab7;',                             // 2018-05-28 : Display the glyphicon-trash in blue color
                                             'onMouseOver' => 'this.style.color=\'#f00\'',                  // 2018-06-06 : When mouse is hover on the link, the color changes
                                             'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to red advising danger in delete operation.
                                             // 2018-06-03 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
@@ -291,14 +296,14 @@ $randomBg = rand(1,11);;
                                         [
                                             'data-toggle' => 'tooltip',
                                             'title'       => Yii::t('app', 'Listar'),     // 2018-06-03 : Adds the tooltip List
-                                            'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-list-alt in black color like a attention signal.
+                                            'style'       => 'color:#337ab7;',                            // 2018-05-28 : Display the glyphicon-list-alt in black color like a attention signal.
                                             'onMouseOver' => 'this.style.color=\'#000000\'',               // 2018-06-06 : When mouse is hover on the link, the color changes
                                             'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to black advising attention in list operation.
                                             // 2018-06-03 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
                                             //              and displayed in the modal window.
                                             'data' => [
                                                 // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
-//                                              // 2019-04-07 : Refactored [ 'message' => Yii::t('app', '¿ Desea cambiar el estado de visibilidad de este elemento en la lista de precios ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->name_art,0,60), ]
+                                                // 2019-04-07 : Refactored [ 'message' => Yii::t('app', '¿ Desea cambiar el estado de visibilidad de este elemento en la lista de precios ?').'<br>'.str_repeat('&nbsp;',16).($model->id).'&nbsp;-&nbsp;'.substr($model->name_art,0,60), ]
                                                 'message' => Yii::t('app', '¿ Desea cambiar el estado de visibilidad de este elemento en la lista de precios ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->name_art,
 
                                                 // Green color header in modal window.
@@ -310,7 +315,7 @@ $randomBg = rand(1,11);;
                                             // In this case the 'data-confirm' parameter must be empty.
                                             // In summary : The 'data-confirm' parameter displays a confirmation dialog before starting the action
                                             'data-confirm' => '',
-                                            // 2018-06-03 : The next two parameters are needed to complete the right call to the action delete, because it will be made using the post method.
+                                            // 2018-06-03 : The next two parameters are needed to complete the right call to the action list, because it will be made using the post method.
                                             'data-method' => 'post',
                                             // 2018-06-03 : The Pjax widget allows you to update a certain section of a page instead of reloading the entire page. You can use it to update only
                                             // the GridView content when using filters. But this might be a problem for the links of an ActionColumn. To prevent this, add the HTML attribute
@@ -375,6 +380,28 @@ $randomBg = rand(1,11);;
                                 // 2018-06-03 : If null value is returned, the url created have only home page address plus &page parameter. The right value is return $url.
                                 return $url;
                             }
+                        ],
+
+                        [
+                            // 2019-09-03 : Adds a Checkbox Column to multi-selection records in the GridView control.
+                            'header' => '<span>'.Yii::t('app','Selector').'</span>',
+                            // 2019-07-21 : Determines the headers height ( 60px ) in the GridView control.
+                            'headerOptions' => ['style' => 'width:1.3%; height:60px; color:#8b8787;'],
+                            'contentOptions' => ['class' => 'text-center'],
+                            'class' => 'yii\grid\CheckboxColumn', 'checkboxOptions' => function($model) {
+
+                                // 2019-09-06 : Access to sessions through the session application component.
+                                $session = Yii::$app->session;
+                                // 2019-09-06 : The $status variable will stores the true or false status based on find the article's id in the session array 'keylist'.
+                                $status = false;
+                                // 2019-09-06 : If the 'keylist' session array is set and their content is upper to zero then, determines the status of the corresponding checkbox control.
+                                if (isset($session['keylist']) && count($session['keylist'])>0){
+                                    // 2019-09-06 : Search the article's id in the session array 'keylist'. If it's found, then assigns the true value to the $status variable.
+                                    $status = (array_search($model->id, $session['keylist']) !== false ? true : false );
+                                }
+                                // 2019-09-06 : Builds the attributes for each checkbox control and check it, based on the $status variable.
+                                return ['class' => 'sel_checkbox', 'value' => $model->id, 'checked' => $status,];
+                            },
                         ],
 
                         [
@@ -558,6 +585,17 @@ $randomBg = rand(1,11);;
                         // 2019-01-17 : Re-start the tableScroll plugin. Sets the height and width values to grow up or grow down the size of table window.
                         $(\"#dataTable\").tableScroll({height:500, width:5500});
                         
+                    });
+                    
+                    // This code is implemented for adds or removes the product id in the session array. 
+                    $('.sel_checkbox').on('click',function() {
+
+                          // 2019-09-06 : Determine the action to be executed
+                          var action = (this.checked?'add-key':'remove-key');
+
+                          // 2019-09-06 : Using the post method to call an Add or Remove Action : Load data from the server using a HTTP POST request.                                                        
+                          var jqxhr = $.post(\"/index.php?r=article/\"+action, {itemkey:this.value});
+
                     });"
                 );
                 ?>
@@ -608,6 +646,21 @@ $randomBg = rand(1,11);;
                                echo '<span>'.Yii::t('app', 'Paginado').'</span>';
                            ?>
                        </span>
+                        <!-- Uncheck Tool -->
+                        <span>
+                           <?php
+                           echo Html::a('', ['article/clean-keys'], ['class' => 'btn glyphicon glyphicon-unchecked', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Desmarcar Todo')]);
+                           echo '<span>'.Yii::t('app', 'Desmarcar').'</span>';
+                           ?>
+                       </span>
+                        <!-- Print Tool -->
+                        <span>
+                           <?php
+                           echo Html::a('', ['article/print2'], ['class' => 'btn glyphicon glyphicon-print', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Imprimir lo Marcado')]);
+                           echo '<span>'.Yii::t('app', 'Imprimir').'</span>';
+                           ?>
+                       </span>
+
                     </div>
                 </div>
             </div>
@@ -640,6 +693,7 @@ $randomBg = rand(1,11);;
 
     if ($session->has('configProcess')) {
 
+        // The ctt-modal-config is defined in the cttwapp_views_index_modals.inc file.
         $script = "jQuery(document).ready(function () { $(\"#ctt-modal-config\").modal({show: true, backdrop: \"static\"}); });";
         $this->registerJs($script, View::POS_READY);
 

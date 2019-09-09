@@ -51,6 +51,8 @@ class AppAsset extends AssetBundle
     );
     public $depends = [
         'yii\web\YiiAsset',
+        // 2019-09-06 : Adds jquery asset
+        'yii\web\JqueryAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
 }

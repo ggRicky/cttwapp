@@ -50,7 +50,7 @@ class CatalogController extends Controller
             ]);
         }
         else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()){
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to the Catalog Module]', 'cttwapp_user');
@@ -77,7 +77,7 @@ class CatalogController extends Controller
             return $this->render('view_catalog', ['model' => $this->findModel($id),]);
         }
         else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to view a catalog record]', 'cttwapp_user');
@@ -118,7 +118,7 @@ class CatalogController extends Controller
             return $this->render('create_catalog', ['model' => $model, 'page' => $page]);
         }
         else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to create a catalog record]', 'cttwapp_user');
@@ -181,7 +181,7 @@ class CatalogController extends Controller
             return $this->render('update_catalog', ['model' => $model, 'page' => $page]);
         }
         else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to update a catalog record]', 'cttwapp_user');
@@ -216,7 +216,7 @@ class CatalogController extends Controller
                 // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
                 switch ($e->errorInfo[0]){
                     case '23503' :
-                         Yii::info('[SQLState: 23503 - Foreign key violation in at the catalog record with ID='.$id.']', 'cttwapp_user');
+                         Yii::info('[SQLState: 23503 - Foreign key violation at the catalog record with ID='.$id.']', 'cttwapp_user');
                          Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
                          break;
                     case '42501' :
@@ -229,7 +229,7 @@ class CatalogController extends Controller
             }
         }
         else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to delete a Catalog]', 'cttwapp_user');

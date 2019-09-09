@@ -54,7 +54,7 @@ class ClientController extends Controller
             ]);
         }
         else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to the Client Module]', 'cttwapp_user');
@@ -82,7 +82,7 @@ class ClientController extends Controller
             return $this->render('view_client', ['model' => $this->findModel($id),]);
         }
         else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to view a client record]', 'cttwapp_user');
@@ -122,7 +122,7 @@ class ClientController extends Controller
             return $this->render('create_client', ['model' => $model, 'page' => $page]);
         }
         else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to create a client record]', 'cttwapp_user');
@@ -185,7 +185,7 @@ class ClientController extends Controller
             return $this->render('update_client', ['model' => $model, 'page' => $page]);
         }
         else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to update a client record]', 'cttwapp_user');
@@ -232,7 +232,7 @@ class ClientController extends Controller
             }
         }
         else {
-            // 2018-07-27 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to delete a Client]', 'cttwapp_user');
@@ -361,7 +361,7 @@ class ClientController extends Controller
             return $pdf->render();
         }
         else {
-            // 2018-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 return $this->redirect(['site/index', 'hash' => '0']);

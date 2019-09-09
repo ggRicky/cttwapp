@@ -49,7 +49,7 @@ class WarehouseController extends Controller
                 'qryParams' => Yii::$app->request->queryParams,   // 2019-08-04 : This parameter is send to index_warehouse.php view for test if 'WarehouseSearch'
             ]);
         } else {
-            // 2019-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2019-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to the Warehouse Module]', 'cttwapp_user');
@@ -75,7 +75,7 @@ class WarehouseController extends Controller
             Yii::info('[The user has consulted the warehouse record with ID=' . $id . ']', 'cttwapp_user');
             return $this->render('view_warehouse', ['model' => $this->findModel($id),]);
         } else {
-            // 2019-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2019-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to view an warehouse record]', 'cttwapp_user');
@@ -116,7 +116,7 @@ class WarehouseController extends Controller
             // Render the page to create an article.
             return $this->render('create_warehouse', ['model' => $model, 'page' => $page]);
         } else {
-            // 2019-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2019-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to create an warehouse record]', 'cttwapp_user');
@@ -184,7 +184,7 @@ class WarehouseController extends Controller
                 Yii::error('[Access denied to update a warehouse record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            // 2019-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2019-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             Yii::warning('[Unauthorized access profile to update a warehouse record]', 'cttwapp_user');
             return $this->redirect(['warehouse/index', 'page' => $page, 'hash' => '0']);
             Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
@@ -227,7 +227,7 @@ class WarehouseController extends Controller
             }
         }
         else {
-            // 2019-08-04 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2019-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to delete a Warehouse]', 'cttwapp_user');

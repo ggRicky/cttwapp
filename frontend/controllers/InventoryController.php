@@ -45,7 +45,7 @@ class InventoryController extends Controller
             return $this->render('index_inventory');
         }
         else {
-            // 2018-07-26 : If the user is a guest, then he sends an error message. Otherwise it sends a warning message.
+            // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
                 Yii::error('[Access denied to the Inventory Module]', 'cttwapp_user');

@@ -235,12 +235,20 @@ class RbacController extends Controller
         $listPriceList->description = 'Permission : Allows to list the Price List in the CTTwapp system.';
         $auth->add($listPriceList);
 
-
         // Adds "printArticle" permission
         $printArticle = $auth->createPermission('printArticle');
         $printArticle->description = 'Permission : Allows to print an Article info in the CTTwapp system.';
         $auth->add($printArticle);
 
+        // Adds "exportArticle" permission
+        $exportArticle = $auth->createPermission('exportArticle');
+        $exportArticle->description = 'Permission : Allows to export a group of records of selected articles in the CTTwapp system.';
+        $auth->add($exportArticle);
+
+        // Adds "importArticle" permission
+        $importArticle = $auth->createPermission('importArticle');
+        $importArticle->description = 'Permission : Allows to import a group of records of articles into the CTTwapp system.';
+        $auth->add($importArticle);
 
         // Defines the permissions on the Inventory module
         // -----------------------------------------------
@@ -545,6 +553,8 @@ class RbacController extends Controller
         $auth->addChild($adminArticle, $viewArticle);
         $auth->addChild($adminArticle, $deleteArticle);
         $auth->addChild($adminArticle, $printArticle);
+        $auth->addChild($adminArticle, $exportArticle);
+        $auth->addChild($adminArticle, $importArticle);
 
 
 

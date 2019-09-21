@@ -660,6 +660,13 @@ $randomBg = rand(1,11);;
                            echo '<span>'.Yii::t('app', 'Imprimir').'</span>';
                            ?>
                        </span>
+                        <!-- Export Tool -->
+                        <span>
+                           <?php
+                           echo Html::a('', ['article/export-csv'], ['class' => 'btn glyphicon glyphicon-export', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Exportar lo Marcado')]);
+                           echo '<span>'.Yii::t('app', 'Exportar').'</span>';
+                           ?>
+                       </span>
 
                     </div>
                 </div>

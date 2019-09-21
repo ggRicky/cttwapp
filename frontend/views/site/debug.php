@@ -3,6 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use app\models\Article;
 ?>
 
@@ -115,6 +117,20 @@ use app\models\Article;
 
         echo '<br/><br/>';
         print_r($model);
+
+        // Export data using COPY SQL statement
+
+        $sql1 = "COPY (SELECT * FROM article WHERE \"id\" IN (".$list.")) TO '/var/www/web/cttwapp/frontend/web/downloads/ctt_arts.csv' CSV HEADER;";
+        Yii::$app->db->createCommand($sql1)->execute();
+
+        echo '<br/><br/>';
+
+        $file_name = Yii::getAlias('@webroot').Yii::getAlias('@downloads').'/ctt_arts.csv';
+        $url_csv = Url::to(Yii::getAlias('@downloads').'/ctt_arts.csv');
+
+        if (file_exists($file_name)) {
+            echo '<a href="' . $url_csv . '">Artículos Exportados</a>';
+        }
 
     }
     else echo 'The $session[\'keylist\'] is not available !';

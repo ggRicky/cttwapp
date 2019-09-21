@@ -574,7 +574,7 @@ class ArticleController extends Controller
         // $view_type == '2' : article/index2 view
 
         if (\Yii::$app->user->can('printArticle')) {
-            // 2018-08-28 : Records the article delete operation.
+            // 2018-08-28 : Records the article print operation.
             Yii::info('[The user has printed the article record with ID='.$id.']', 'cttwapp_user');
 
             // Get your HTML raw content without any layouts or scripts
@@ -675,7 +675,7 @@ class ArticleController extends Controller
 
         // Validate the user access to this action
         if (\Yii::$app->user->can('printArticle')) {
-            // 2018-08-28 : Records the article delete operation.
+            // 2018-08-28 : Records the article print operation.
             Yii::info('[The user has printed the article list]', 'cttwapp_user');
 
             $searchModel = new ArticleSearch();
@@ -927,6 +927,7 @@ class ArticleController extends Controller
      */
     public function actionCleanKeys(){
 
+        // Access to sessions through the session application component
         $session = Yii::$app->session;
 
         // Cleans out the 'keylist' session array
@@ -937,6 +938,47 @@ class ArticleController extends Controller
 
         // Send a message about the process status
         Yii::$app->session->setFlash('configProcess', Yii::t('app','La opción para Desmarcar Todos los registros marcados se ha completado exitosamente.'));
+
+        // Redirect to the index page, according to the $view_type parameter.
+        return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+    }
+
+    /**
+     * Exports Article records from the session array 'keylist' to a CSV file
+     *
+     * 2019-09-20 19:17 Hrs.
+     */
+    public function actionExportCsv(){
+
+        // Access to sessions through the session application component
+        $session = Yii::$app->session;
+
+        // Validate the existence and content of the session array 'keylist'.
+        if (!isset($session['keylist']) || count($session['keylist'])==0){
+            // Shows a flash warning message.
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'No ha marcado ningún registro y por ello es imposible procesar su petición.'));
+            // Redirect to the index page, according to the $view_type parameter.
+            return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+        }
+
+        // Validate the user access to this action
+        if (\Yii::$app->user->can('exportArticle')) {
+            // 2018-08-28 : Records the article export operation.
+            Yii::info('[The user has exported the article list]', 'cttwapp_user');
+
+            // Render the page to export an article list in CSV file format.
+            return $this->render('export_article_list');
+        }
+        else {
+            // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::error('[Access denied to export an Article]', 'cttwapp_user');
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::warning('[Unauthorized access profile to export an Article]', 'cttwapp_user');
+        }
 
         // Redirect to the index page, according to the $view_type parameter.
         return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);

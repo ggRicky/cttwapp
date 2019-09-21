@@ -66,10 +66,11 @@ return [
         ],
         */
     ],
-    // 2018-08-12 : Defines the cttwapp project alias
+    // Defines the cttwapp project alias
     'aliases' => [
-        '@uploads' => '/uploads',
-        '@uploads_inv' => '/uploads/inventory_pics',
+        '@uploads' => '/uploads',                       // 2018-08-12 : Defined to uploads files into the system
+        '@uploads_inv' => '/uploads/inventory_pics',    // 2018-08-12 : Defined to uploads image files into the system
+        '@downloads' => '/downloads',                   // 2019-09-19 : Defined to downloads files into the system
     ],
 
     // 2018-02-05 13:54 Hrs. : Register a new component ( class ). One method included in this component is for change dynamically the application's language.

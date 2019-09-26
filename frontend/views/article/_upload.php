@@ -10,13 +10,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
 
+// 2018-07-10 : This is the form to gets a image file type.
+
 ?>
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'file')->widget(FileInput::class, ['options' => ['accept' => 'image/*'],]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app','Enviar'), ['class' => 'btn btn-success btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Cargar la imagen de este inventario.')]) ?>
+        <?= Html::submitButton(Yii::t('app','Enviar'), ['class' => 'btn btn-success btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Cargar la imagen de este inventario').'.']) ?>
     </div>
 
 <?php ActiveForm::end() ?>

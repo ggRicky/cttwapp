@@ -118,25 +118,38 @@ use app\models\Article;
         echo '<br/><br/>';
         print_r($model);
 
-        // Export data using COPY SQL statement
+        // Export data using COPY SQL statement. Status : Ok
 
-        $sql1 = "COPY (SELECT * FROM article WHERE \"id\" IN (".$list.")) TO '/var/www/web/cttwapp/frontend/web/downloads/ctt_arts.csv' CSV HEADER;";
-        Yii::$app->db->createCommand($sql1)->execute();
+        if (false) {
 
-        echo '<br/><br/>';
+            $sql1 = "COPY (SELECT * FROM article WHERE \"id\" IN (" . $list . ")) TO '/var/www/web/cttwapp/frontend/web/downloads/ctt_arts.csv' CSV HEADER;";
+            Yii::$app->db->createCommand($sql1)->execute();
+            echo '<br/><br/>';
+            $file_name = Yii::getAlias('@webroot') . Yii::getAlias('@downloads') . '/ctt_arts.csv';
+            $url_csv = Url::to(Yii::getAlias('@downloads') . '/ctt_arts.csv');
+            if (file_exists($file_name)) {
+                echo '<a href="' . $url_csv . '">Artículos Exportados</a>';
+            }
 
-        $file_name = Yii::getAlias('@webroot').Yii::getAlias('@downloads').'/ctt_arts.csv';
-        $url_csv = Url::to(Yii::getAlias('@downloads').'/ctt_arts.csv');
-
-        if (file_exists($file_name)) {
-            echo '<a href="' . $url_csv . '">Artículos Exportados</a>';
         }
 
     }
     else echo 'The $session[\'keylist\'] is not available !';
 
-echo '</div>';
+    // Import data using COPY SQL statement. Status : Ok
 
+    if (false) {
+
+        echo '<br/><br/>';
+        echo 'Importing ... ';
+        $sql1 = "COPY article(id,name_art,sp_desc,en_desc,type_art,price_art,currency_art,brand_id,part_num,created_at,updated_at,created_by,updated_by,catalog_id,shown_price_list,warehouse_id) FROM '/var/www/web/cttwapp/frontend/web/uploads/imported_article_list.csv' DELIMITER ',' CSV HEADER;";
+        Yii::$app->db->createCommand($sql1)->execute();
+        echo '<br/><br/>';
+        echo '$sql1 : '. $sql1;
+
+    }
+
+echo '</div>';
 
 ?>
 </p>

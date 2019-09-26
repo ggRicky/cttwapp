@@ -262,11 +262,11 @@ $randomBg = rand(1,11);;
                     <?= Html::a('', ['client/color', 'color' => '0'], ['class' => 'btn glyphicon glyphicon-remove-circle']) ?>
                 </p>
 
-                <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></div>
+                <div class="well well-sm text-info"><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba').'.';?></div>
 
             <?php else: ?>
 
-                <?php Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
+                <?php Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.'); ?>
 
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>

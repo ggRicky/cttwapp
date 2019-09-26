@@ -30,14 +30,14 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('app','Este nombre de usuario ya fue asignado.')],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('app','Este nombre de usuario ya fue asignado').'.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('app','Esta dirección de correo ya fue asignada.')],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('app','Esta dirección de correo ya fue asignada').'.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],

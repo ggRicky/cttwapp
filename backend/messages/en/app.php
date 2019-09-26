@@ -38,20 +38,20 @@ return [
 
     // Error messages
 
-    'El error que se indica arriba, ocurrió mientras el servidor Web procesaba su solicitud.' => 'The above error occurred while the Web server was processing your request.',
+    'El error que se indica arriba, ocurrió mientras el servidor Web procesaba su solicitud' => 'The above error occurred while the Web server was processing your request',
     'Fallo en la operación' => 'Operation failure',
-    'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.' => 'Your access profile does not authorize you to use this action. Please contact the system administrator for more details.',
+    'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles' => 'Your access profile does not authorize you to use this action. Please contact the system administrator for more details',
 
     // Login messages
 
     'Autentificación' => 'Login',
-    'Inicie su sesión de trabajo.' => 'Start your work session.',
+    'Inicie su sesión de trabajo' => 'Start your work session',
     'Ingresar' => 'Enter',
     'Ir al inicio' => 'Go to start',
     'Ir al fin' => 'Go to the end',
-    'Nombre de usuario o contraseña incorrecta.' => 'Incorrect username or password.',
+    'Nombre de usuario o contraseña incorrecta' => 'Incorrect username or password',
     'Para iniciar su sesión de trabajo, por favor ingrese sus datos de autentificación en los siguientes campos :' => 'To start your work session, please enter your authentication data in the following fields :',
-    'Por favor atienda las siguientes consideraciones antes de proceder a su atentificación.' => 'Please pay attention to the following considerations before proceeding to its authentication.',
+    'Por favor atienda las siguientes consideraciones antes de proceder a su atentificación' => 'Please pay attention to the following considerations before proceeding to its authentication',
 
     // AuthItem messages
 

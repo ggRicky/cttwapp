@@ -25,7 +25,7 @@
                 <!-- Modal Content -->
                 <div class="modal-body modal-body-config">
                     <!-- 2019-04-11 : Refactoring this section by adding a table with an animated icon and the text of the message separated in each cell. -->
-                    <table class="table-modal-content"><tbody><tr><th><span><i class="fa fa-spinner fa-pulse fa-2x fa-fw" style="color:#999"></i></th><td><?= Yii::t('app','Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.'); ?></td></tr></tbody></table>
+                    <table class="table-modal-content"><tbody><tr><th><span><i class="fa fa-spinner fa-pulse fa-2x fa-fw" style="color:#999"></i></th><td><?= Yii::t('app','Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad').'.'; ?></td></tr></tbody></table>
                 </div>
 
                 <!-- Modal Footer -->

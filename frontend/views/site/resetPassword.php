@@ -7,8 +7,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Restablecer Contraseña';
-$description = 'Inicie el proceso para restablecer su contraseña.';
+$this->title = Yii::t('app','Restablecer Contraseña').'.';
+$description = Yii::t('app','Inicie el proceso para restablecer su contraseña').'.';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;

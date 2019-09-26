@@ -101,7 +101,7 @@ if (isset($session['keylist']) && count($session['keylist'])>0) {
                     </div>
                 <?php endif; ?>
 
-                <!-- Business logic for export a article list -->
+                <!-- Business logic to exports an article list to a CSV file -->
                 <div class="article-export"></div>
             </div>
         </div>

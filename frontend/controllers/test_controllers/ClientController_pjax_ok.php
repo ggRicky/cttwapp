@@ -58,7 +58,7 @@ class ClientController extends Controller
             ]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
         }
         return $this->redirect(['client/index', '#' => 'work-area-index']);
     }
@@ -80,7 +80,7 @@ class ClientController extends Controller
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información').'.');
                 return $this->render('create_client', [
                     'model' => $model,
                 ]);
@@ -91,7 +91,7 @@ class ClientController extends Controller
             ]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             return $this->redirect(['client/index', '#' => 'work-area-index']);
         }
     }
@@ -114,7 +114,7 @@ class ClientController extends Controller
                 }
                 // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
 
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información').'.');
                 return $this->render('update_client', [
                     'model' => $model,
                 ]);
@@ -125,7 +125,7 @@ class ClientController extends Controller
             ]);
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
         }
 
         return $this->redirect(['client/index', '#' => 'work-area-index']);
@@ -142,11 +142,11 @@ class ClientController extends Controller
     {
         if (\Yii::$app->user->can('deleteClient')) {
             if ($this->findModel($id)->delete()){
-                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado exitosamente.'));
+                Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado exitosamente').'.');
             }
         }
         else {
-            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('error', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
         }
 
         return $this->redirect(['client/index', '#' => 'work-area-index']);
@@ -164,7 +164,7 @@ class ClientController extends Controller
         if (($model = Client::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe.'));
+            throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe').'.');
         }
     }
 

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\UploadForm1;
 use Yii;
 use app\models\Article;
 use app\models\ArticleSearch;
@@ -13,6 +14,9 @@ use yii\web\NotFoundHttpException;
 use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use frontend\models\UploadForm;
+
 use kartik\mpdf\Pdf;
 
 /**
@@ -56,10 +60,10 @@ class ArticleController extends Controller
         } else {
             // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to the Article Module]', 'cttwapp_user');
             } else {
-                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
                 Yii::warning('[Unauthorized access profile to the Article Module]', 'cttwapp_user');
             }
         }
@@ -87,10 +91,10 @@ class ArticleController extends Controller
         } else {
             // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to the Price List Module]', 'cttwapp_user');
             } else {
-                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
                 Yii::warning('[Unauthorized access profile to the Price List Module]', 'cttwapp_user');
             }
         }
@@ -113,11 +117,11 @@ class ArticleController extends Controller
         } else {
             // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to view an article record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to view an article record]', 'cttwapp_user');
         }
         return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
@@ -139,11 +143,11 @@ class ArticleController extends Controller
         } else {
             // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to view an article record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to view an article record]', 'cttwapp_user');
         }
         return $this->redirect(['article/index2', 'page' => $page, 'hash' => '0']);
@@ -165,11 +169,11 @@ class ArticleController extends Controller
                 if ($model->save()) {
                     // 2018-08-28 : Records the article create operation.
                     Yii::info('[The user has created a new article record with ID=' . $model->id . ']', 'cttwapp_user');
-                    Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha creado exitosamente.'));
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha creado exitosamente').'.');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
-                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información').'.');
                 return $this->render('create_article', ['model' => $model, 'page' => $page]);
             }
 
@@ -179,11 +183,11 @@ class ArticleController extends Controller
         } else {
             // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to create an article record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to create an article record]', 'cttwapp_user');
             return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         }
@@ -211,18 +215,18 @@ class ArticleController extends Controller
                     if ($model->update() !== false) {
                         // 2018-10-30 : Records the catalog update operation.
                         Yii::info('[The user has updated the article record with ID=' . $model->id . ']', 'cttwapp_user');
-                        $message = Yii::t('app', 'El registro se ha actualizado exitosamente.');
+                        $message = Yii::t('app', 'El registro se ha actualizado exitosamente').'.';
 
                         // 2019-03-07 : Rename the inventory image file ( .jpg or .png formats ) if it exists.
                         if ($this->renameFile($id, $model->id, '.jpg') || $this->renameFile($id, $model->id, '.png')) {
-                            $message = $message . '<br>' . Yii::t('app', 'El archivo de imagen asociado, también se ha actualizado exitosamente.');
+                            $message = $message . '<br>' . Yii::t('app', 'El archivo de imagen asociado, también se ha actualizado exitosamente').'.';
                         }
 
                         Yii::$app->session->setFlash('success', $message);
                         return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                     } else {
                         // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
-                        Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                        Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información').'.');
                         return $this->render('update_article', ['model' => $model, 'page' => $page]);
                     }
                 } catch (Exception $e) {
@@ -231,11 +235,11 @@ class ArticleController extends Controller
                     switch ($e->errorInfo[0]) {
                         case '23503' :
                             Yii::info('[SQLState: 23503 - Foreign key violation at the article record with ID='.$id.']', 'cttwapp_user');
-                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad').'.');
                             break;
                         case '42501' :
                             Yii::info('[SQLState: 42501 - Insufficient privileges at the article table]', 'cttwapp_user');
-                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios').'.');
                             break;
                         default :
                             Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
@@ -250,11 +254,11 @@ class ArticleController extends Controller
         } else {
             // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to update an article record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to update an article record]', 'cttwapp_user');
             return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         }
@@ -288,7 +292,7 @@ class ArticleController extends Controller
                     Yii::$app->session->setFlash('success', Yii::t('app', 'El estado de visibilidad para este registro se ha actualizado exitosamente.'));
                 } else {
                     // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
-                    Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                    Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información').'.');
                 }
             } catch (Exception $e) {
                 // 2019-03-06 : The next statement is used to display the current error reported by SQLSTATUS : nl2br($e->errorInfo[0].' '.$e->errorInfo[2])
@@ -296,11 +300,11 @@ class ArticleController extends Controller
                 switch ($e->errorInfo[0]) {
                     case '23503' :
                         Yii::info('[SQLState: 23503 - Foreign key violation at the article record with ID='.$id.']', 'cttwapp_user');
-                        Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                        Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad').'.');
                         break;
                     case '42501' :
                         Yii::info('[SQLState: 42501 - Insufficient privileges at the article table]', 'cttwapp_user');
-                        Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                        Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios').'.');
                         break;
                     default :
                         Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
@@ -313,11 +317,11 @@ class ArticleController extends Controller
         } else {
             // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to update an article record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to update an article record]', 'cttwapp_user');
             return $this->redirect(['article/index', 'page' => $page, 'hash' => '0']);
         }
@@ -342,11 +346,11 @@ class ArticleController extends Controller
                     // 2018-10-30 : Records the brand delete operation.
                     Yii::info('[The user has deleted the article record with ID=' . $id . ']', 'cttwapp_user');
 
-                    $message = Yii::t('app', 'El registro se ha eliminado exitosamente.');
+                    $message = Yii::t('app', 'El registro se ha eliminado exitosamente').'.';
 
                     // 2019-03-07 : Try to delete the image file ( .jpg or .png formats ) if it exists
                     if ($this->deleteFile($id, '.jpg') || $this->deleteFile($id, '.png')) {
-                        $message = $message . '<br>' . Yii::t('app', 'El archivo de imagen asociado, también se ha eliminado exitosamente.');
+                        $message = $message . '<br>' . Yii::t('app', 'El archivo de imagen asociado, también se ha eliminado exitosamente').'.';
                     }
 
                     Yii::$app->session->setFlash('success', $message);
@@ -357,11 +361,11 @@ class ArticleController extends Controller
                 switch ($e->errorInfo[0]) {
                     case '23503' :
                          Yii::info('[SQLState: 23503 - Foreign key violation at the article record with ID='.$id.']', 'cttwapp_user');
-                         Yii::$app->session->setFlash('error', Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                         Yii::$app->session->setFlash('error', Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad').'.');
                          break;
                     case '42501' :
                          Yii::info('[SQLState: 42501 - Insufficient privileges at the article table]', 'cttwapp_user');
-                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios').'.');
                          break;
                     default :
                          Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
@@ -370,11 +374,11 @@ class ArticleController extends Controller
         } else {
             // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to delete an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to delete an Article]', 'cttwapp_user');
         }
         // Redirects to show all available products & services at the same page.
@@ -393,8 +397,38 @@ class ArticleController extends Controller
         if (($model = Article::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('app','La página solicitada no existe.'));
+            throw new NotFoundHttpException(Yii::t('app','La página solicitada no existe').'.');
         }
+    }
+
+    /**
+     * Implement the action of loading an image file.
+     *
+     * 2018-07-08 11:23 Hrs.
+     *
+     * Source :  yii2/docs/guide/input-file-upload.md
+     * Resource : https://github.com/yiisoft/yii2/blob/master/docs/guide/input-file-upload.md
+     *
+     */
+
+    public function actionUpload($id=null)
+    {
+        $model = new UploadForm();
+
+        // 2018-07-27 : Yii2 Rbac - Validates the access to uploads files.
+        if (\Yii::$app->user->can('uploadFile')) {
+            if (Yii::$app->request->isPost) {
+                $model->file = UploadedFile::getInstance($model, 'file');
+                if ($model->upload($id)) {
+                    // File is uploaded successfully
+                    Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue validado, cargado y almacenado exitosamente').'.');
+                }
+            }
+        }
+        else
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
+
+        return $this->render('upload_file', ['model' => $model, 'id' => $id]);
     }
 
     /**
@@ -515,7 +549,7 @@ class ArticleController extends Controller
         // Adds the type rule to the new dynamic model
         $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 100, 'tooSmall' => Yii::t('app', 'El valor no debe ser menor a ') . '1.', 'tooBig' => Yii::t('app', 'El valor no debe ser mayor a ') . '100.']);
         // Adds the required rule to the new dynamic model
-        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app', 'El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
+        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app', 'El valor no puede estar vacío').'.']); // The ->validate() can be used here to validate the user input data.
 
         if ($model_2->load(Yii::$app->request->post())) {
             // Saves the page size value collected through the form.
@@ -641,11 +675,11 @@ class ArticleController extends Controller
         else {
             // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to print an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to print an Article]', 'cttwapp_user');
         }
 
@@ -668,7 +702,7 @@ class ArticleController extends Controller
         // Validate the existence and content of the session array 'keylist'.
         if (!isset($session['keylist']) || count($session['keylist'])==0){
             // Shows a flash warning message.
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'No ha marcado ningún registro y por ello es imposible procesar su petición.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'No ha marcado ningún registro y por ello es imposible procesar su petición').'.');
             // Redirect to the index page, according to the $view_type parameter.
             return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
         }
@@ -749,11 +783,11 @@ class ArticleController extends Controller
         else {
             // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to print an Article]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to print an Article]', 'cttwapp_user');
         }
 
@@ -841,7 +875,7 @@ class ArticleController extends Controller
                $new_key_list_array = $session['keylist'];
                // Adds the new item key into the temp array named '$new_key_list_array'
                $new_key_list_array[] = $item_id;
-               // Reassigns the temp array to as an session array named 'keylist'
+               // Reassigns the temporary array as a session array item called 'key list'
                $session['keylist'] = $new_key_list_array;
             }
 
@@ -871,7 +905,7 @@ class ArticleController extends Controller
 
     /**
      * Removes a key item to the session array 'keylist'
-     * The key item to removes is sent to the controller, using the http post method.
+     * The key item to be removed is sent to the controller using the http post method.
      * Returns a json response to notify the operation status
      *
      * 2019-09-06 23:26 Hrs.
@@ -937,7 +971,7 @@ class ArticleController extends Controller
         }
 
         // Send a message about the process status
-        Yii::$app->session->setFlash('configProcess', Yii::t('app','La opción para Desmarcar Todos los registros marcados se ha completado exitosamente.'));
+        Yii::$app->session->setFlash('configProcess', Yii::t('app','La acción para Desmarcar Todos los registros seleccionados se ha completado exitosamente.'));
 
         // Redirect to the index page, according to the $view_type parameter.
         return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
@@ -956,15 +990,15 @@ class ArticleController extends Controller
         // Validate the existence and content of the session array 'keylist'.
         if (!isset($session['keylist']) || count($session['keylist'])==0){
             // Shows a flash warning message.
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'No ha marcado ningún registro y por ello es imposible procesar su petición.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'No ha marcado ningún registro y por ello es imposible procesar su petición').'.');
             // Redirect to the index page, according to the $view_type parameter.
             return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
         }
 
         // Validate the user access to this action
         if (\Yii::$app->user->can('exportArticle')) {
-            // 2018-08-28 : Records the article export operation.
-            Yii::info('[The user has exported the article list]', 'cttwapp_user');
+            // 2019-09-20 : Records the article export operation.
+            Yii::info('[The user has been exported the article list to a CSV file]', 'cttwapp_user');
 
             // Render the page to export an article list in CSV file format.
             return $this->render('export_article_list');
@@ -972,16 +1006,102 @@ class ArticleController extends Controller
         else {
             // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
-                Yii::error('[Access denied to export an Article]', 'cttwapp_user');
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
+                Yii::error('[Access denied to export an Article list to a CSV file]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-            Yii::warning('[Unauthorized access profile to export an Article]', 'cttwapp_user');
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
+            Yii::warning('[Unauthorized access profile to export a CSV file]', 'cttwapp_user');
         }
 
-        // Redirect to the index page, according to the $view_type parameter.
         return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+    }
+
+    /**
+     * Implements the actions to load and validates a CSV file. If the file is successfully loaded, then tries to validates and accomplish the import process.
+     * 2019-09-22 22:42 Hrs.
+     *
+     * Source :  yii2/docs/guide/input-file-upload.md
+     * Resource : https://github.com/yiisoft/yii2/blob/master/docs/guide/input-file-upload.md
+     *
+     */
+
+    public function actionImportCsv()
+    {
+        // 2019-09-22 : Creates a new model to upload a file.
+        $model = new UploadForm1();
+
+        // 2018-07-27 : Yii2 Rbac - Validates the access to uploads files.
+        if (\Yii::$app->user->can('uploadFile') && \Yii::$app->user->can('importArticle')) {
+            if (Yii::$app->request->isPost) {
+                // UploadedFile represents the information for an uploaded file.
+                $model->file = UploadedFile::getInstance($model, 'file');
+                // Are there loaded data ?
+                if ($model->upload()) {
+                    // Yes. File is uploaded successfully
+                    Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue validado, cargado y almacenado exitosamente').'.');
+
+                    // 2019-09-24 : Begin the import process.
+
+                    // Gets the path and file name for the CSV file to upload.
+                    $path_name = Yii::getAlias('@webroot').Yii::getAlias('@uploads').'/';
+                    $file_name = 'imported_article_list.csv';
+
+                    // 2019-09-24 : If the file is loaded ...
+                    if (file_exists($path_name.$file_name)){
+
+                        // Import the content of the CSV file
+                        // Warning : If the Article table structure changes, this changes must be implemented in the SQL COPY statement.
+                        $sql = "COPY article(id,name_art,sp_desc,en_desc,type_art,price_art,currency_art,brand_id,part_num,created_at,updated_at,created_by,updated_by,catalog_id,shown_price_list,warehouse_id) FROM '$path_name$file_name' DELIMITER ',' CSV HEADER;";
+
+                        // 2019-09-24 : Try to execute the SQL statement, then shows the process status, otherwise sends a error message.
+                        try{
+                            if ($rows = Yii::$app->db->createCommand($sql)->execute()) {
+                                Yii::info('['.$rows.': records imported to the Article table]', 'cttwapp_user');
+                                if ($rows) Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue validado, cargado y almacenado exitosamente').'.'.'<br>'.Yii::t('app','Se han importado exitosamente al sistema').' '.$rows.' '.Yii::t('app','registro(s)').'.');
+                            }
+                            else{
+                                Yii::$app->session->setFlash('error', Yii::t('app', 'Ningun registro fue importado a la tabla').'.');
+                            }
+                        }catch (Exception $e) {
+                            // 2019-09-24 : The next statement is used to display the current error reported by SQLSTATUS : nl2br($e->errorInfo[0].' '.$e->errorInfo[2])
+                            // The error info provided by a PDO exception. This is the same as returned by PDO::errorInfo.
+                            switch ($e->errorInfo[0]){
+                                case '23505' :
+                                    Yii::info('[SQLState: 23505 - Integrity constraint violation]', 'cttwapp_user');
+                                    Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de importar registros al sistema desde un archivo en formato CSV, debido a una violación de restricción a la integridad. Se ha intentado duplicar uno o varios registros').'.');
+                                    break;
+                                default :
+                                    Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
+                            }
+                        }
+                    }
+                    else{
+                        // File does not exist
+                        Yii::$app->session->setFlash('error', Yii::t('app','El archivo no existe, verifique por favor').'.');
+                    }
+                }
+                else{
+                    // File isn't uploaded
+                    Yii::$app->session->setFlash('error', Yii::t('app','El archivo no fue cargado correctamente, por favor intente de nuevo').'.');
+                }
+                return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+            }
+        }
+        else {
+            // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
+            if (Yii::$app->user->getIsGuest()) {
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
+                Yii::error('[Access denied to import Article records from a CSV file]', 'cttwapp_user');
+                return $this->redirect(['site/index', 'hash' => '0']);
+            }
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
+            Yii::warning('[Unauthorized access profile to import a CSV file]', 'cttwapp_user');
+
+            return $this->redirect(['article/index', 'page' => '1', 'hash' => '0']);
+        }
+
+        return $this->render('upload_file1', ['model' => $model]);
     }
 
 }

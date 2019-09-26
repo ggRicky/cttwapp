@@ -84,7 +84,7 @@ class SiteController extends Controller
                 // Access success
 
                 $str1 = Yii::t('app', 'Bienvenido');
-                $str2 = Yii::t('app', 'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.');
+                $str2 = Yii::t('app', 'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar').'.';
                 $str3 = '<h4>'.$str1.'&nbsp;&nbsp;<b>'.Yii::$app->user->identity->username.'</b></h4><p>'.$str2.'<br/></p>';
 
                 Yii::$app->session->setFlash('successLogin', $str3);
@@ -102,7 +102,7 @@ class SiteController extends Controller
             // Access error
             // 2018-05-06 : An error occurred in the login process. A flash message is issued.
 
-            Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a su atentificación.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a su atentificación').'.');
             return $this->render('login', [
                 'model' => $model,
             ]);

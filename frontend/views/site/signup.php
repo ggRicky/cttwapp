@@ -7,8 +7,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Registro';
-$description = 'Registre sus datos como nuevo usuario del sistema.';
+$this->title = Yii::t('app','Registro');
+$description = Yii::t('app','Registre sus datos como nuevo usuario del sistema').'.';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;

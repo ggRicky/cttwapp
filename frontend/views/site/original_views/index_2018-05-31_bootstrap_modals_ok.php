@@ -404,7 +404,7 @@ $randomBg = rand(1,11);;
 
                 <!-- Modal Content -->
                 <div class="modal-body modal-body-config">
-                    <p><?= Yii::t('app','Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad.') ?></p>
+                    <p><?= Yii::t('app','Esta funcionalidad se encuentra en construcción y aún no está implementada en su totalidad').'.' ?></p>
                 </div>
 
                 <!-- Modal Footer -->

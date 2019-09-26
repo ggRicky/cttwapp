@@ -7,8 +7,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Autentificación';
-$description = 'Inicie su sesión de trabajo.';
+$this->title = Yii::t('app','Autentificación');
+$description = Yii::t('app','Inicie su sesión de trabajo').'.';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;

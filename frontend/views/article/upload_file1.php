@@ -1,0 +1,110 @@
+<?php
+
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Article */
+
+$this->title = 'Importar';
+$description = 'Cargar e importar un archivo CSV';
+
+$asset = \frontend\assets\AppAsset::register($this);
+$baseUrl = $asset->baseUrl;
+
+// 2018-06-05 : If there is a page parameter, then stores and validate it.
+// Verifies and validate the current page value.
+$ret_page = Yii::$app->getRequest()->getQueryParam('page');
+$ret_page = (empty($ret_page)?'1':$ret_page);
+
+?>
+
+<!-- Blue ribbon decoration -->
+<section class="ctt-section bg-primary">
+    <div class="col-lg-12">
+        <div id="work-view-area" class="row">
+            <!-- CTT water mark background logo decoration -->
+            <div class="ctt-water-mark"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Yii2 Content -->
+<section id="yii2" class="yii2-page">
+
+    <!-- Main menu return -->
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 text-center">
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['article/index', 'page' => $ret_page, 'hash' => '1'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+        </div>
+    </div>
+
+    <!-- Yii2 Title layout -->
+    <div class="row">
+        <div class="col-lg-10 yii2-header">
+            <p><?= Yii::t('app',Html::encode($this->title)); ?></p>
+        </div>
+    </div>
+
+    <!-- Yii2 complementary description -->
+    <div class="row">
+        <div class="col-lg-10 text-info yii2-description">
+            <p><?= Yii::t('app',Html::encode($description)); ?></p>
+        </div>
+    </div>
+
+    <!-- Yii2 work area -->
+    <div class="row">
+        <div class="col-lg-12 text-justify yii2-content">
+
+            <!-- Flash messages area -->
+
+            <!-- 2019-07-08 : Flash error message no auto-closable. -->
+            <?php if (Yii::$app->session->hasFlash('error')): ?>
+                <div class="alert alert-error alert-dismissible fade in slow-close">
+                    <a href="#" class="close link-close" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Error'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('error') ?></p>
+                </div>
+            <?php endif; ?>
+
+            <!-- 2018-07-08 : Flash warning message. Auto closable -->
+            <?php if (Yii::$app->session->hasFlash('warning')): ?>
+                <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Advertencia'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('warning') ?></p>
+                </div>
+            <?php endif; ?>
+
+            <!-- 2018-07-08 : Flash success message. Auto closable -->
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
+                <div id="auto-close" class="alert alert-success alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
+                    <h4><strong>¡ <?= Yii::t('app','Información'); ?> !</strong></h4>
+                    <p><?= Yii::$app->session->getFlash('success') ?></p>
+                </div>
+            <?php endif; ?>
+
+            <div class="well well-sm text-info">
+                <span>
+                    <b><?= Yii::t('app','IMPORTANTE').' :' ?></b>
+                    <?= Yii::t('app','Por favor seleccione el archivo en formato CSV que contiene los registros de Productos y Servicios que desea importar al sistema. Además, recuerde que las claves de los registros a imporar que ya estén asignadas previamente en el sistema, NO serán importadas para evitar duplicidad de información').'.' ?>
+                    <?= Yii::t('app','Una vez seleccionado el archivo en formato CSV, presione el botón de Enviar y el proceso de importación comenzará automáticamente. Al finalizar será notificado del resultado').'.' ?>
+                </span>
+            </div>
+
+
+            <!-- Business logic for upload a file -->
+            <div class="article-update">
+                <?= $this->render('_upload1', [
+                    'model' => $model,
+                    'page'  => $ret_page,
+                ]) ?>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Includes the actions view's footer file -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_actions_footer.inc'); ?>

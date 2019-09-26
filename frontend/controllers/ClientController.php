@@ -56,11 +56,11 @@ class ClientController extends Controller
         else {
             // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to the Client Module]', 'cttwapp_user');
             }
             else {
-                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
                 Yii::warning('[Unauthorized access profile to the Client Module]', 'cttwapp_user');
             }
         }
@@ -84,11 +84,11 @@ class ClientController extends Controller
         else {
             // 2018-07-26 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to view a client record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to view a client record]', 'cttwapp_user');
         }
         return $this->redirect(['client/index', 'page' => $page, 'hash' => '0']);
@@ -110,11 +110,11 @@ class ClientController extends Controller
                 if ($model->save()) {
                     // 2018-09-30 : Records the client create operation.
                     Yii::info('[The user has created the client record with ID='.$model->id.']', 'cttwapp_user');
-                    Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha creado exitosamente.'));
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha creado exitosamente').'.');
                     return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                 }
                 // 2018-05-07 : An error occurred in the data capture process. A flash message is issued.
-                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información').'.');
                 return $this->render('create_client', ['model' => $model, 'page' => $page]);
             }
 
@@ -124,11 +124,11 @@ class ClientController extends Controller
         else {
             // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to create a client record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to create a client record]', 'cttwapp_user');
             return $this->redirect(['client/index', 'page' => $page, 'hash' => '0']);
         }
@@ -154,12 +154,12 @@ class ClientController extends Controller
                     if ($model->update() !== false) {
                         // 2018-10-30 : Records the brand update operation.
                         Yii::info('[The user has updated the client record with ID='.$model->id.']', 'cttwapp_user');
-                        Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha actualizado exitosamente.'));
+                        Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha actualizado exitosamente').'.');
                         return $this->redirect(['view', 'id' => $model->id, 'page' => $page]);
                     }
                     else{
                         // 2018-05-07 : An error occurred in the data capture. A flash message is issued.
-                        Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                        Yii::$app->session->setFlash('warning', Yii::t('app', 'Por favor atienda las siguientes consideraciones antes de proceder a registrar la información').'.');
                         return $this->render('update_client', ['model' => $model, 'page' => $page]);
                     }
                 }catch (Exception $e) {
@@ -168,11 +168,11 @@ class ClientController extends Controller
                     switch ($e->errorInfo[0]){
                         case '23503' :
                             Yii::info('[SQLState: 23503 - Foreign key violation at the client record with ID='.$id.']', 'cttwapp_user');
-                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad').'.');
                             break;
                         case '42501' :
                             Yii::info('[SQLState: 42501 - Insufficient privileges at the client table]', 'cttwapp_user');
-                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                            Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios').'.');
                             break;
                         default :
                             Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
@@ -187,11 +187,11 @@ class ClientController extends Controller
         else {
             // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to update a client record]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to update a client record]', 'cttwapp_user');
             return $this->redirect(['client/index', 'page' => $page, 'hash' => '0']);
         }
@@ -212,7 +212,7 @@ class ClientController extends Controller
                 if ($this->findModel($id)->delete()){
                     // 2018-10-30 : Records the brand delete operation.
                     Yii::info('[The user has deleted the client record with ID='.$id.']', 'cttwapp_user');
-                    Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado exitosamente.'));
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'El registro se ha eliminado exitosamente').'.');
                 }
             }catch (Exception $e) {
                 // 2019-03-06 : The next statement is used to display the current error reported by SQLSTATUS : nl2br($e->errorInfo[0].' '.$e->errorInfo[2])
@@ -220,11 +220,11 @@ class ClientController extends Controller
                 switch ($e->errorInfo[0]){
                     case '23503' :
                          Yii::info('[SQLState: 23503 - Foreign key violation at the client record with ID='.$id.']', 'cttwapp_user');
-                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad.'));
+                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a una violación de llave foránea. Este registro forma parte de una referencia en otra entidad').'.');
                          break;
                     case '42501' :
                          Yii::info('[SQLState: 42501 - Insufficient privileges at the client table]', 'cttwapp_user');
-                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios.'));
+                         Yii::$app->session->setFlash('error',  Yii::t('app', 'Es imposible ejecutar la acción de Actualizar o Eliminar sobre este registro, debido a no contar con los suficientes privilegios').'.');
                          break;
                     default :
                          Yii::info('[SQLState: '.$e->errorInfo[0], 'cttwapp_user');
@@ -234,11 +234,11 @@ class ClientController extends Controller
         else {
             // 2018-07-27 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 Yii::error('[Access denied to delete a Client]', 'cttwapp_user');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
             Yii::warning('[Unauthorized access profile to delete a Client]', 'cttwapp_user');
         }
         return $this->redirect(['client/index', 'page' => $page, 'hash' => '0']);
@@ -257,7 +257,7 @@ class ClientController extends Controller
         if (($model = Client::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe.'));
+            throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe').'.');
         }
     }
 
@@ -363,10 +363,10 @@ class ClientController extends Controller
         else {
             // 2018-08-04 : If the user is a guest, then sends an error message to him. Otherwise it sends a warning message.
             if (Yii::$app->user->getIsGuest()) {
-                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+                Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
                 return $this->redirect(['site/index', 'hash' => '0']);
             }
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
         }
         return $this->redirect(['client/index', 'page' => $page, 'hash' => '0']);
     }
@@ -442,7 +442,7 @@ class ClientController extends Controller
         // Adds the type rule to the new dynamic model
         $model_2->addRule(['paginado'], 'integer', ['min' => 1, 'max' => 100, 'tooSmall' => Yii::t('app', 'El valor no debe ser menor a ') . '1.', 'tooBig' => Yii::t('app', 'El valor no debe ser mayor a ') . '100.']);
         // Adds the required rule to the new dynamic model
-        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app', 'El valor no puede estar vacío.')]); // The ->validate() can be used here to validate the user input data.
+        $model_2->addRule(['paginado'], 'required', ['message' => Yii::t('app', 'El valor no puede estar vacío').'.']); // The ->validate() can be used here to validate the user input data.
 
         if ($model_2->load(Yii::$app->request->post())) {
             // Saves the page size value collected through the form.

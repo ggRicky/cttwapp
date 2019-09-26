@@ -137,7 +137,7 @@ class ClientController extends Controller
         if (($model = Client::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe.'));
+            throw new NotFoundHttpException( Yii::t('app','La página solicitada no existe').'.');
         }
     }
 }

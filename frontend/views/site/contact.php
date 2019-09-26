@@ -76,7 +76,7 @@ $randomBg = rand(1,11);;
             <?php if (Yii::$app->session->hasFlash('success')): ?>
 
                 <div class="alert alert-success">
-                    <p><?= Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'); ?></p>
+                    <p><?= Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible').'.'; ?></p>
                 </div>
 
             <?php else: ?>
@@ -84,12 +84,12 @@ $randomBg = rand(1,11);;
                 <?php if (Yii::$app->session->hasFlash('warning')): ?>
 
                     <div class="alert alert-warning">
-                        <p><?= Yii::t('app','Se presentó un error al enviar su mensaje.'); ?></p>
+                        <p><?= Yii::t('app','Se presentó un error al enviar su mensaje').'.'; ?></p>
                     </div>
 
                 <?php else: ?>
 
-                    <p><?= Yii::t('app','Si desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias.'); ?></p>
+                    <p><?= Yii::t('app','Si desea comunicar algún detalle acerca del funcionamiento de esta aplicación o reportar algún fallo, por favor llene el siguiente formulario para contactar al equipo de desarrollo. Gracias').'.'; ?></p>
 
                     <div class="row">
                         <div class="col-lg-5">

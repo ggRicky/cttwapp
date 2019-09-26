@@ -5,14 +5,12 @@ use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\Controller;
 use yii\web\BadRequestHttpException;
-use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-use frontend\models\UploadForm;
 use common\models\LoginForm;
 
 
@@ -116,7 +114,7 @@ class SiteController extends Controller
                 // Access success
 
                 $str1 = Yii::t('app', 'Bienvenido');
-                $str2 = Yii::t('app', 'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar.');
+                $str2 = Yii::t('app', 'Su acceso ha sido autentificado correctamente. Por favor NO olvide cerrar su sesión al terminar').'.';
                 $str3 = '<h4>'.$str1.'&nbsp;&nbsp;<b>'.Yii::$app->user->identity->username.'</b></h4><p>'.$str2.'<br/></p>';
 
                 Yii::$app->session->setFlash('successLogin', $str3);
@@ -133,7 +131,7 @@ class SiteController extends Controller
 
             // Access error
             // 2018-05-06 : An error occurred in the login process. A flash message is issued.
-            Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a su atentificación.'));
+            Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a su atentificación').'.');
             return $this->render('login', [
                 'model' => $model,
             ]);
@@ -174,11 +172,11 @@ class SiteController extends Controller
             $model = new ContactForm();
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
                 if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                    Yii::$app->session->setFlash('success', Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible.'));
+                    Yii::$app->session->setFlash('success', Yii::t('app','Gracias por contactarnos. Responderemos tan pronto como nos sea posible').'.');
                     // 2019-01-06 : Sends a email when the current user record a contact form.
                     Yii::info('[NEW: A user has registered a contact form in the CTTwapp application]', 'cttwapp_mail');
                 } else {
-                    Yii::$app->session->setFlash('warning', Yii::t('app','Se presentó un error al enviar su mensaje.'));
+                    Yii::$app->session->setFlash('warning', Yii::t('app','Se presentó un error al enviar su mensaje').'.');
                 }
                 return $this->refresh();
             } else {
@@ -187,7 +185,7 @@ class SiteController extends Controller
                 ]);
             }
         }
-        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
         // 2018-07-27 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
         return $this->redirect(['site/index', 'hash' => '0']);
 
@@ -205,7 +203,7 @@ class SiteController extends Controller
             return $this->render('about');
         }
 
-        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
         // 2018-07-27 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
         return $this->redirect(['site/index', 'hash' => '0']);
     }
@@ -228,7 +226,7 @@ class SiteController extends Controller
                         // Signup success
 
                         $str1 = Yii::t('app', 'Bienvenido');
-                        $str2 = Yii::t('app', 'Su registro ha sido procesado correctamente. Por favor NO olvide cerrar su sesión al terminar.');
+                        $str2 = Yii::t('app', 'Su registro ha sido procesado correctamente. Por favor NO olvide cerrar su sesión al terminar').'.';
                         $str3 = '<h4>'.$str1.'&nbsp;&nbsp;<b>'.Yii::$app->user->identity->username.'</b></h4><p>'.$str2.'<br/></p>';
 
                         Yii::$app->session->setFlash('successLogin', $str3);
@@ -238,7 +236,7 @@ class SiteController extends Controller
                 }
 
                 // 2018-04-08 : An error occurred in the captured data. A flash message is issued.
-                Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a registrar la información.'));
+                Yii::$app->session->setFlash('warning', Yii::t('app','Por favor atienda las siguientes consideraciones antes de proceder a registrar la información').'.');
                 return $this->render('signup', [
                     'model' => $model,
                     'hash'  => '0',
@@ -250,7 +248,7 @@ class SiteController extends Controller
             ]);
         }
 
-        Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+        Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
         return $this->redirect(['site/login', 'hash' => '0']);
     }
 
@@ -264,11 +262,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success-req-passw-reset', Yii::t('app','Revise su correo para obtener más instrucciones.'));
+                Yii::$app->session->setFlash('success-req-passw-reset', Yii::t('app','Revise su correo para obtener más instrucciones').'.');
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('warning-req-passw-reset', Yii::t('app','Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada.'));
+                Yii::$app->session->setFlash('warning-req-passw-reset', Yii::t('app','Lo sentimos, no hemos logrado re-iniciar la contraseña de la cuenta de correo proporcionada').'.');
             }
         }
 
@@ -291,11 +289,11 @@ class SiteController extends Controller
         } catch (InvalidArgumentException $e) {
             // Original code : throw new BadRequestHttpException($e->getMessage());
             // 2018-06-22 : To customize the error message when user try the link to password reset token by a second time.
-            throw new BadRequestHttpException(Yii::t('app','Token incorrecto para el restablecimiento de la contraseña.'));
+            throw new BadRequestHttpException(Yii::t('app','Token incorrecto para el restablecimiento de la contraseña').'.');
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', Yii::t('app','Su nueva contraseña fue generada y almacenada correctamente.'));
+            Yii::$app->session->setFlash('success', Yii::t('app','Su nueva contraseña fue generada y almacenada correctamente').'.');
 
             return $this->goHome();
         }
@@ -319,7 +317,7 @@ class SiteController extends Controller
             return $this->render('help');
         }
 
-        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
+        Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.');
         // 2018-07-27 : Redirects to the login page and jumps immediately to the 'work-area-index' anchor.
         return $this->redirect(['site/index', 'hash' => '0']);
     }
@@ -343,36 +341,6 @@ class SiteController extends Controller
             // 2018-08-28 : Record the change language activity.
             Yii::info('[The user has changed the language config to '.strtoupper($_POST['lang']).']', __METHOD__);
         }
-    }
-
-    /**
-     * Implements the upload file action.
-     *
-     * 2018-07-08 11:23 Hrs.
-     *
-     * Source :  yii2/docs/guide/input-file-upload.md
-     * Resource : https://github.com/yiisoft/yii2/blob/master/docs/guide/input-file-upload.md
-     *
-     */
-
-    public function actionUpload($id=null)
-    {
-        $model = new UploadForm();
-
-        // 2018-07-27 : Yii2 Rbac - Validates the access to uploads files.
-        if (\Yii::$app->user->can('uploadFile')) {
-            if (Yii::$app->request->isPost) {
-                $model->file = UploadedFile::getInstance($model, 'file');
-                if ($model->upload($id)) {
-                    // file is uploaded successfully
-                    Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue validado, cargado y almacenado exitosamente.'));
-                }
-            }
-        }
-        else
-            Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.'));
-
-        return $this->render('upload_file', ['model' => $model, 'id' => $id]);
     }
 
     /**

@@ -610,14 +610,14 @@ $randomBg = rand(1,11);;
                 <div class="panel-heading"><span data-toggle="tooltip" title="<?=  Yii::t('app', 'Panel de Herramientas') ?>"><button class="btn btn-light" data-toggle="collapse" data-target="#tools"><span class="text-info"><?= Yii::t('app', 'Herramientas') ?></span>&nbsp;&nbsp;<span><i class="fa fa-refresh fa-spin fa-1x fa-fw text-info"></i></span></button></span></div>
                 <div id="tools" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <!-- Help Tool -->
+                        <!-- 2018-06-06 : Help Tool -->
                         <span>
                            <?php
                                echo Html::a('', ['help/view', 'theme' => '_article', 'ret_url' => 'article/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ayuda')]);
                                echo '<span>'.Yii::t('app', 'Ayuda').'</span>';
                            ?>
                         </span>
-                        <!-- Color Tool -->
+                        <!-- 2018-05-14 : Color Tool -->
                         <span>
                            <!-- 2018-05-14 : Improvement. The next two <a> tags call the color action from clientController and pass the color parameter to it. -->
                             <?php
@@ -632,39 +632,46 @@ $randomBg = rand(1,11);;
                             }
                             ?>
                         </span>
-                        <!-- Columns Selector Tool -->
+                        <!-- 2018-08-20 : Columns Selector Tool -->
                         <span>
                            <?php
                                echo Html::a('', ['article/get-columns'], ['class' => 'btn glyphicon glyphicon-list-alt', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Selector de Columnas')]);
                                echo '<span>'.Yii::t('app', 'Columnas').'</span>';
                            ?>
                         </span>
-                        <!-- Page Size Tool -->
+                        <!-- 2018-08-22 : Page Size Tool -->
                         <span>
                            <?php
                                echo Html::a('', ['article/get-page-size'], ['class' => 'btn glyphicon glyphicon-th-list', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tamaño del Paginado')]);
                                echo '<span>'.Yii::t('app', 'Paginado').'</span>';
                            ?>
                        </span>
-                        <!-- Uncheck Tool -->
+                        <!-- 2019-09-06 : Uncheck Tool -->
                         <span>
                            <?php
                            echo Html::a('', ['article/clean-keys'], ['class' => 'btn glyphicon glyphicon-unchecked', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Desmarcar Todo')]);
                            echo '<span>'.Yii::t('app', 'Desmarcar').'</span>';
                            ?>
                        </span>
-                        <!-- Print Tool -->
+                        <!-- 2019-09-07 : Print Tool -->
                         <span>
                            <?php
                            echo Html::a('', ['article/print2'], ['class' => 'btn glyphicon glyphicon-print', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Imprimir lo Marcado')]);
                            echo '<span>'.Yii::t('app', 'Imprimir').'</span>';
                            ?>
                        </span>
-                        <!-- Export Tool -->
+                        <!-- 2019-09-20 : Export Tool -->
                         <span>
                            <?php
                            echo Html::a('', ['article/export-csv'], ['class' => 'btn glyphicon glyphicon-export', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Exportar lo Marcado')]);
                            echo '<span>'.Yii::t('app', 'Exportar').'</span>';
+                           ?>
+                       </span>
+                        <!-- 2019-09-22 : Import Tool -->
+                        <span>
+                           <?php
+                           echo Html::a('', ['article/import-csv'], ['class' => 'btn glyphicon glyphicon-import', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Importar lo Marcado')]);
+                           echo '<span>'.Yii::t('app', 'Importar').'</span>';
                            ?>
                        </span>
 
@@ -672,7 +679,7 @@ $randomBg = rand(1,11);;
                 </div>
             </div>
 
-            <div class="well well-sm text-info"><span><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></span></div>
+            <div class="well well-sm text-info"><span><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba').'.';?></span></div>
 
         </div>
     </div>

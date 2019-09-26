@@ -17,7 +17,7 @@ use app\models\Brand;
 
 // 2018-06-09 : If the user isn't authenticated, then redirect him to the login form.
 if (Yii::$app->user->getIsGuest()){
-    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso.'));
+    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
     Yii::$app->response->redirect(Url::to(['site/login'], true));
     return;
 }
@@ -414,7 +414,7 @@ $randomBg = rand(1,11);;
 
             <?php else: ?>
 
-                <?php Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles.')); ?>
+                <?php Yii::$app->session->setFlash('warning', Yii::t('app', 'Su perfil de acceso no le autoriza a utilizar esta acción. Por favor contacte al administrador del sistema para mayores detalles').'.'); ?>
 
                 <div id="auto-close" class="alert alert-warning alert-dismissible fade in">
                     <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
@@ -456,7 +456,7 @@ $randomBg = rand(1,11);;
                 </div>
             </div>
 
-            <div class="well well-sm text-info"><span><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba.');?></span></div>
+            <div class="well well-sm text-info"><span><?= Yii::t('app', 'IMPORTANTE : La información que se muestra en la relación, corresponde a datos experimentales de prueba').'.';?></span></div>
 
         </div>
     </div>

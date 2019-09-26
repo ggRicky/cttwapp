@@ -70,7 +70,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
                     <div class="well well-lg text-info">
                         <a href="#" class="close" data-dismiss="alert" data-toggle="tooltip" aria-label="close" title="<?= Yii::t('app','Cerrar') ?>">&times;</a>
                         <h4><strong><?= Yii::t('app','Instrucciones'); ?></strong></h4>
-                        <p><?= Yii::t('app','Seleccione y marque las columnas que desea Mostrar o bien Ocultar en este módulo. Por último, al guardar los cambios que realizó, éstos serán aplicados de inmediato al mismo.'); ?></p>
+                        <p><?= Yii::t('app','Seleccione y marque las columnas que desea Mostrar o bien Ocultar en este módulo. Por último, al guardar los cambios que realizó, éstos serán aplicados de inmediato al mismo').'.'; ?></p>
                     </div>
 
                     <!-- Styles the form -->

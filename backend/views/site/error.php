@@ -60,8 +60,8 @@ $baseUrl = $asset->baseUrl;
                     <?php endif;?>
                 </div>
 
-                <p><?= Yii::t('app','El error que se indica arriba, ocurrió mientras el servidor Web procesaba su solicitud.'); ?></p>
-                <p><?= Yii::t('app','Por favor contáctenos si considera que se trata de un error del servidor. Gracias.'); ?></p>
+                <p><?= Yii::t('app','El error que se indica arriba, ocurrió mientras el servidor Web procesaba su solicitud').'.'; ?></p>
+                <p><?= Yii::t('app','Por favor contáctenos si considera que se trata de un error del servidor. Gracias').'.'; ?></p>
 
             </div>
 

@@ -6,11 +6,11 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 
 /**
- * This is the model class for upload an image file type
+ * This is the model class for upload a CSV file type.
  *
  */
 
-class UploadForm extends Model
+class UploadForm1 extends Model
 {
     /**
      * @var UploadedFile
@@ -19,12 +19,18 @@ class UploadForm extends Model
 
     public function rules()
     {
+        // 2019-09-23 : checkExtensionByMimeType property. Whether to check file type (extension) with mime-type.
+        // If extension produced by file mime-type check differs from uploaded file extension, the file will be
+        // considered as invalid.
+        //
+        // This property must be set to false because the revision of the file type against
+        // the file extension may fail due to a Yii2 bug.
+        //
+        // Issue : Wrong mime type detection for CSV files #6148
+        // Url   : https://github.com/yiisoft/yii2/issues/6148
+        // File  : 2019-09-23_ARTICULO_Wrong_Mime_Type_Detection_for_CSV_Files_yiisoft_yii2.pdf
         return [
-            [['file'], 'image',
-                'skipOnEmpty' => false,   //  Whether the validation can be skipped if the input is empty. Defaults to false, which means the input is required.
-                'extensions'  => 'png, jpg',
-                'minWidth'    => 100, 'maxWidth' => 1000,
-                'minHeight'   => 100, 'maxHeight' => 1000,],
+            [['file'], 'file', 'checkExtensionByMimeType' => false, 'extensions' => 'csv', 'skipOnEmpty' => false,],
         ];
     }
 
@@ -38,14 +44,15 @@ class UploadForm extends Model
         ];
     }
 
-    public function upload($id=null)
+    public function upload()
     {
         if ($this->validate()) {
             try {
-                $this->file->saveAs(Yii::getAlias('@webroot').Yii::getAlias('@uploads_inv').'/'.(is_null($id)? PREFIX_IMG.date('Ymd_his'):PREFIX_IMG.$id).'.'.$this->file->extension);
+                $file_name = '/imported_article_list.'; // The default name used to import data from a CSV file.
+                $this->file->saveAs(Yii::getAlias('@webroot').Yii::getAlias('@uploads').$file_name.$this->file->extension);
                 return true;
             } catch (\Exception $e) {
-                // file wasn't uploaded correctly
+                // File wasn't uploaded correctly
                 switch ($e->getCode()) {
                     case 2 :
                         $message = Yii::t('app','El sistema no puede encontrar el archivo especificado').'.';

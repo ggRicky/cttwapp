@@ -123,7 +123,7 @@ JS;
         else
            echo '<p><img src="'.$url_no_image.'"  width="auto" style="max-height:100%; max-width:100%"></p>';
 
-        echo Html::a(Yii::t('app','Asignar Imagen'), ['site/upload', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-ctt-warning btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Cargar la imagen para este artículo.')]);
+        echo Html::a(Yii::t('app','Asignar Imagen'), ['article/upload', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-ctt-warning btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Cargar la imagen para este artículo').'.']);
 
         echo '</div>';
         }

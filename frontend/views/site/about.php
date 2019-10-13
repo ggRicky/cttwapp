@@ -10,6 +10,20 @@ $description = 'CTT Web Application v-1.001 Beta';
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 
+// 2018-06-07 : Stores a hash parameter to jump to the requested area.
+$hash_param = Yii::$app->getRequest()->getQueryParam('hash');
+// 2018-06-07 : Translates the $hash_param value to the corresponding anchor to jump.
+// $hash_param [ 0 - Jumps to the work area index  1 - Jumps to the panel area ]
+$hash_param = ($hash_param=='0'?'work-area-index':($hash_param=='1'?'panel-area':null));
+
+// 2018-06-05 : if an anchor parameter was send, then jumps to it using javascript.
+if ($hash_param) {
+    $script = <<< JS
+    location.hash = "#$hash_param";
+JS;
+    $this->registerJs($script);
+}
+
 //2018-04-26 : Used to get a random int, and display a random parallax.
 $randomBg = rand(1,11);
 
@@ -45,7 +59,7 @@ $randomBg = rand(1,11);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['site/index', 'hash'=> '0',], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -85,7 +99,7 @@ $randomBg = rand(1,11);
                         <th><?= Yii::t('app','Plataforma') ?></th><td><?= Yii::t('app','Yii versión 2.0') ?></td>
                     </tr>
                     <tr>
-                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2019-09-25 &nbsp;&nbsp;&nbsp; 22:00 Hrs.</td>
+                        <th><?= Yii::t('app','Última Actualización') ?></th><td>2019-10-12 &nbsp;&nbsp;&nbsp; 21:34 Hrs.</td>
                     </tr>
                     </tbody>
                 </table>

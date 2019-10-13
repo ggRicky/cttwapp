@@ -922,7 +922,6 @@ class ArticleController extends Controller
 
            // If there is an session array named 'keylist' and there are elements, then ...
            if (isset($session['keylist']) && count($session['keylist'])>0){
-
               // Removes the itemkey from session array 'keylist' and assigns it back into a temp array named '$new_key_list_array'
               $new_key_list_array = array_values(array_diff( $session['keylist'], array($item_id) ));
               // Reassigns the temp array to as an session array named 'keylist'

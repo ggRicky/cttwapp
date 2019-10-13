@@ -334,9 +334,13 @@ class SiteController extends Controller
 
     public function actionLanguage()
     {
+        // 2018-08-28 : There is a post request ?
         if (Yii::$app->request->isPost) {
+            // 2018-08-28 : Gets the request isPost value ('lang' ) and stores it into in the Yii application property.
             Yii::$app->language = $_POST['lang'];
+            // 2018-08-28 : Creates a new cookie and sets the name, the value and the time life.
             $cookie = new \yii\web\Cookie(['name' => 'lang', 'value' => $_POST['lang'], 'expire' => time() + 86400 * 365,]);
+            // 2018-08-28 : Adds the new cookie.
             Yii::$app->getResponse()->getCookies()->add($cookie);
             // 2018-08-28 : Record the change language activity.
             Yii::info('[The user has changed the language config to '.strtoupper($_POST['lang']).']', __METHOD__);

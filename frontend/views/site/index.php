@@ -80,7 +80,9 @@ $randomBg = rand(1,11);
                 }
             ?>
         </div>
-        <div class="col-lg-10 yii2-message-area"><h2 class="barcode-font">ISC-RGG</h2></div>
+        <div class="col-lg-10 yii2-message-area"><h2 class="barcode-font">ISC-RGG</h2>
+            <?= Html::a(Yii::t('app','Última Actualización'), ['site/about', 'hash' => '0']) ?>
+        </div>
     </div>
 
     <!-- Yii2 work area -->

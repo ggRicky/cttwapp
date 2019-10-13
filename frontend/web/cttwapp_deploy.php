@@ -13,7 +13,8 @@
     $commands = [
         'pwd', 'echo $?',
         'whoami', 'echo $?',
-        'cd /var/www/web/cttwapp', 'echo $?',
+        'CD /var/www/web/cttwapp', 'echo $?',
+        'ls -l','echo $?',
         'pwd', 'echo $?',
         'sudo git pull origin master 2>&1', 'echo $?',
         // 2018-05-21 : Important. For a success execution to the next two commands, in the sudoers file add the next line :
@@ -27,7 +28,7 @@
     foreach($commands AS $command){
         $tmp = shell_exec($command);
 
-        $output .= "<span style=\"color: #6BE234;\">\$</span><span style=\"color: #729FCF;\">{$command}\n</span><br />";
+        $output .= "<span style=\"color: #6BE234;\">\$</span><span style=\"color: #729FCF;\">{$command}</span><br />";
         $output .= htmlentities(trim($tmp)) . "\n<br /><br />";
     }
 ?>

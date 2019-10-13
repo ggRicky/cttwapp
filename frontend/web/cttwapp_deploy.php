@@ -10,19 +10,16 @@
     //              due to the new redirect request config in nginx server.
 
     // array of commands
-    $commands = array(
+    $commands = [
         'echo $PWD',
         'whoami',
-        '(cd /var/www/web/cttwapp && git pull origin master 2>&1)',
-        '(cd /var/www/web/cttwapp && git status 2>&1)',
-        '(cd /var/www/web/cttwapp && git submodule sync 2>&1)',
-        '(cd /var/www/web/cttwapp && git submodule update 2>&1)',
-        '(cd /var/www/web/cttwapp && git submodule status 2>&1)',
+        '(cd /var/www/web/cttwapp)',
+        '(git pull origin master 2>&1)',
         // 2018-05-21 : Important. For a success execution to the next two commands, in the sudoers file add the next line :
         //              www-data ALL=(ALL) NOPASSWD: ALL
         'sudo chown -R ricardo:www-data /var/www/web/cttwapp/ *.*',
         'sudo setfacl -R -m u:ricardo:rwX -m u:www-data:rwX -m u:git:rwX /var/www/web/cttwapp/ *.*'
-    );
+    ];
 
     // execute each command
     $output = '';

@@ -13,7 +13,7 @@
     $commands = [
         'pwd',
         'whoami',
-        '(cd /var/www/web/cttwapp)',
+        '(sudo cd /var/www/web/cttwapp)',
         'pwd',
         '(sudo git pull origin master 2>&1)',
         // 2018-05-21 : Important. For a success execution to the next two commands, in the sudoers file add the next line :

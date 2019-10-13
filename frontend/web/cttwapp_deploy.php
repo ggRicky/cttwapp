@@ -11,11 +11,11 @@
 
     // array of commands
     $commands = [
-        'echo $PWD',
+        'echo $pwd',
         'whoami',
         '(cd /var/www/web/cttwapp)',
-        'echo $PWD',
-        '(git pull origin master 2>&1)',
+        'echo $pwd',
+        '(sudo git pull origin master 2>&1)',
         // 2018-05-21 : Important. For a success execution to the next two commands, in the sudoers file add the next line :
         //              www-data ALL=(ALL) NOPASSWD: ALL
         'sudo chown -R ricardo:www-data /var/www/web/cttwapp/ *.*',

@@ -11,16 +11,11 @@
 
     // array of commands
     $commands = [
-        'pwd', 'echo $?',
-        'whoami', 'echo $?',
-        'CD /var/www/web/cttwapp', 'echo $?',
-        'ls -l','echo $?',
-        'pwd', 'echo $?',
-        'sudo git pull origin master 2>&1', 'echo $?',
+        'pwd',
+        'whoami',
+        'sudo git pull origin master 2>&1;' ,
         // 2018-05-21 : Important. For a success execution to the next two commands, in the sudoers file add the next line :
         //              www-data ALL=(ALL) NOPASSWD: ALL
-        'sudo chown -R ricardo:www-data /var/www/web/cttwapp/ *.*', 'echo $?',
-        'sudo setfacl -R -m u:ricardo:rwX -m u:www-data:rwX -m u:git:rwX /var/www/web/cttwapp/ *.*', 'echo $?',
     ];
 
     // execute each command
@@ -53,11 +48,13 @@
 	<h1>CTTwapp Project - Git Deployment Script</h1>
 	<p>This page executes the git commands and reports the status of the updates on the production server, executing the webhook defined in GitHub.</p>
 
-    <p><?= date('Y-m-d G:i:s'); ?></p>
+    <p>Last Update : 2019-10-13  20:37 hrs.</p>
+
+    <p style="color:red;">Executed At : <?= date('Y-m-d G:i:s'); ?></p>
 
 	<div style="width:700px">
 		<div style="float:left;width:350px;">
-    			<p style="color:white;">CTTwapp Project - Git Deployment Script</p>
+    			<p style="color:red;">Commands</p>
 			<?= $output; ?>
 		</div>
 	</div>

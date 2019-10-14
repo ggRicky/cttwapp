@@ -13,7 +13,7 @@
     $commands = [
         'pwd',
         'whoami',
-        'git pull origin master >   /tmp/git.log 2>&1;' ,
+        'sudo -u www-data git pull origin master 2>&1;',
         // 2018-05-21 : Important. For a success execution to the next two commands, in the sudoers file add the next line :
         //              www-data ALL=(ALL) NOPASSWD: ALL
     ];
@@ -48,7 +48,7 @@
 	<h1>CTTwapp Project - Git Deployment Script</h1>
 	<p>This page executes the git commands and reports the status of the updates on the production server, executing the webhook defined in GitHub.</p>
 
-    <p>Last Update : 2019-10-13  20:37 hrs.</p>
+    <p>Last Update : 2019-10-13  22:00:00</p>
 
     <p style="color:red;">Executed At : <?= date('Y-m-d G:i:s'); ?></p>
 

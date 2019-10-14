@@ -13,7 +13,8 @@
 
     // array of commands
     $commands = [
-        'sudo git pull origin master 2>&1;',
+        '(cd /var/www/web/cttwapp && git pull origin master 2>&1)',
+        '(cd /var/www/web/cttwapp && git status 2>&1)',
     ];
 
     // execute each command
@@ -52,7 +53,7 @@
 
 	<div style="width:700px">
 		<div style="float:left;width:350px;">
-    			<p style="color:red;">Commands</p>
+    			<p style="color:red;">Deployment Status</p>
 			<?= $output; ?>
 		</div>
 	</div>

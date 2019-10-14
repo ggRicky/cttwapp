@@ -8,14 +8,12 @@
 
     // 2018-05-21 : The Payload URL in Github hook configuration is https://www.ctt-app.com/cttwapp_deploy.php
     //              due to the new redirect request config in nginx server.
+    // 2018-05-21 : Important. For a success execution to the next commands, in the sudoers file add the next line :
+    //              www-data ALL=(ALL) NOPASSWD: ALL
 
     // array of commands
     $commands = [
-        'pwd',
-        'whoami',
         'sudo git pull origin master 2>&1;',
-        // 2018-05-21 : Important. For a success execution to the next two commands, in the sudoers file add the next line :
-        //              www-data ALL=(ALL) NOPASSWD: ALL
     ];
 
     // execute each command

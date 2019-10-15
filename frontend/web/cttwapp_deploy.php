@@ -47,9 +47,9 @@
 <body>
 
 	<h1>CTTwapp Project - Git Deployment Script</h1>
-	<p>This page executes the git commands and reports the status of the updates on the production server, executing the webhook defined in GitHub.</p>
+	<p>This script executes the git commands and reports the status of the updates on the production server. The script is executed through a webhook defined in a GitHub project.</p>
 
-    <p>Last Update : 2019-10-14  22:45:00</p>
+    <p>Last Update : 2019-10-15  11:50:00</p>
 
     <p style="color:red;">Executed At : <?= date('Y-m-d G:i:s'); ?></p>
 

@@ -13,7 +13,7 @@
 
     // array of commands
     $commands = [
-        '(cd /var/www/web/cttwapp && su git git pull origin master 2>&1)',
+        '(cd /var/www/web/cttwapp && git pull origin master 2>&1)',
         '(cd /var/www/web/cttwapp && git status 2>&1)',
     ];
 

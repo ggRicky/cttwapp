@@ -13,6 +13,9 @@ use app\models\Article;
 <?php
 /**
  * Created by PhpStorm.
+ *
+ * This script is used to debug some functionalities before implementing them.
+ *
  * User: ricardo
  * Date: 15/06/18
  * Time: 12:09 PM

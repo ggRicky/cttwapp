@@ -98,7 +98,7 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                    pues de esta manera aumentará la seguridad del mismo y de los procesos de la empresa.</p>
 
                 <blockquote class="ctt-blockquote"><b>MUY IMPORTANTE</b> : En cualquier momento el usuario puede acercar el cursor del mouse a cualquier botón y al mantenerlo por un par de segundos se mostrará un mensaje o '<em>tooltip</em>' que dará una breve explicación acerca del uso de dicho botón.</blockquote>
-                <p>Por último, es importante mencionar que el <b>botón fijo de flecha arriba</b> que se haya en el <u>extremo inferior derecho</u>, se usa para desplazarse al tope del área de trabajo. El uso de este botón resulta muy útil para visualizar rápidamente el área de datos.</p>
+                <p>Por último, es importante mencionar que los <b>botones fijos de flecha arriba / flecha abajo</b> que se hayan en el <u>extremo inferior derecho</u>, se usan para que el usuario de forma sencilla se ubique en el tope o fondo del área de trabajo. El uso de estos botones resultan muy útil para visualizar rápidamente el área de datos.</p>
                 <br/>
 
                 <!--  Badge 3  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -154,13 +154,13 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 <b>IMPORTANTE</b> : Esta área muestra grupos de <b>10 registros</b> a la vez, lo que facilita la revisión y búsqueda de datos particulares de un cliente. Cada grupo representa una página de información y se puede recorrer toda la información de los
                    clientes usando el <b>Control Paginador</b> que más adelante se describirá.</blockquote>
 
-                <p>El usuario se puede desplazar entre las columnas sin perderlas de vista, usando la barra de desplazamiento horizontal. Cada columna mostrará el nombre de la misma y el usuario podrá hacer clic sobre el nombre y con ello <b>ORDENARÁ</b>
+                <p>El usuario se puede desplazar entre las columnas sin perderlas de vista, usando la barra de desplazamiento horizontal. Cada columna mostrará el nombre de la misma y el usuario podrá hacer clic sobre este nombre y con ello <b>ORDENARÁ</b>
                    automáticamente la información en base al valor de dicha columna. Una flecha hacia arriba, o bien una flecha hacia abajo con las letras iniciales del alfabeto ( <b>a-z</b> / <b>z-a</b> ) denotarán el <b>orden ascendente</b> o <b>descendente respectivamente</b>.</p>
             
                 <p>Otra funcionalidad muy importante, son los <b>CAMPOS DE FILTRADO</b> que aparecen justo debajo de los nombres de las columnas. Su finalidad es brindar al usuario un mecanismo a través del cual pueda <b>buscar y filtrar</b> datos de su interés.
                    Por ejemplo, si en el campo de filtrado el usuario escribe la palabra <b>ESTUDIOS</b>, el sistema mostrará y paginará únicamente los datos que coincidan con dicho criterio de filtrado.</p>
                 
-                <p>Para volver a mostrar y paginar <b>TODOS</b> los registros, se deberá suprimir la o las palabras del campo de filtrado para que dicho criterio deje de aplicarse a la vista de datos almacenados.</p>
+                <p>Para volver a mostrar y paginar <b>TODOS</b> los registros, <b>se deberá suprimir</b> la o las palabras del campo de filtrado para que dicho criterio deje de aplicarse a la vista de datos almacenados.</p>
 
                 <p>Acompañando al control de paginado, está la etiqueta de <b>ELEMENTOS MOSTRADOS</b>. En esta se indica el gurpo actual de páginas que se despliegan. Por ejemplo, el valor de la etiqueta <b>Mostrado 1-10 de 12 elementos</b> indica los registros desplegados actualmente,
                    así como el total de registros por mostrar. </p>
@@ -172,23 +172,39 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/8.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Acciones.</h4></span></div>
                 </div>
 
-                <p>En esta área se muestran tres diferentes iconos que visualmente representan las acciones de <b>consultar</b> un cliente ( <em>ojo</em> ), <b>modificar</b> un cliente ( <em>lápiz</em> ) y de <b>eliminar</b> un cliente ( <em>bote de basura</em> ).<br/><br/>
-                   Para cada una de las acciones disponibles, incluyendo <b>crear un nuevo cliente</b>, el usuario debe contar con el permiso correspondiente en su perfil de acceso, o de lo contrario el sistema emitirá un mensaje de advertencia por intentar acceder a una acción <b>NO permitida</b>.</p>
+                <p>En esta área se muestran diferentes iconos que visualmente representan las acciones de <b>consultar</b> un cliente ( <em>ojo</em> ), <b>modificar</b> un cliente ( <em>lápiz</em> ) y de <b>eliminar</b> un cliente ( <em>bote de basura</em> ).<br/><br/>
+                   Para cada una de las acciones disponibles, incluyendo <b>crear un nuevo cliente</b>, el usuario debe contar con el permiso correspondiente en su perfil de acceso, o de lo contrario el sistema emitirá un mensaje de advertencia por intentar ejecutar una acción <b>NO permitida</b>.</p>
                 <p>
 
-                <p><b>Acción Consultar</b>. Tener acceso a esta acción llevará al usuario a consultar los datos del cliente seleccionado en otra área especialmente diseñada para tal efecto.</p>
-                <p><b>Acción Actualizar</b>. Tener acceso a esta acción llevará al usuario a actualizar los datos del cliente seleccionado en un formulario de captura de datos especialmente diseñado. Ahí el usuario podrá modificar o bien descartar las modificaciones hechas.</p>
-                <p><b>Acción Eliminar</b>.  Al pasar el cursor sobre este icono ( <em>bote de basura</em> ), cambiará su color a <span style="color: red">ROJO</span>, para señalar que se trata de una <b>acción sensible</b>. Tener acceso a esta acción llevará al usuario a contestar una
-                      pregunta de confirmación para suprimir los datos del cliente seleccionado. De ser afirmativa la respuesta, el registro en cuestión se eliminará de la base de datos y aparecerá un mensaje de aviso en el área descrita en el punto 6 anterior.</p>
-                <p> En todo momento el usuario puede acercar el cursor del mouse y dejarlo un par de segundos para solicitar el '<em>tooltip</em>' que muestra una breve descripción de la acción.</p>
-                <br/>
+
+                <p><img src="<?=$baseUrl?>/img/actions_bar_01.jpg" align="left"></p>
+
+                <br/><br/>
+
+                <table class="table-bordered table-striped table-hover table-about">
+                    <tbody>
+                    <tr>
+                        <th style="width: 180px;"><b>Acción Consultar</b><br/>( <em>icono Ojo</em> )</th><td>Tener acceso a esta acción llevará al usuario a consultar los datos del cliente seleccionado en otra área especialmente diseñada para tal efecto.</td>
+                    </tr>
+                    <tr>
+                        <th><b>Acción Actualizar</b><br/>( <em>icono Lápiz</em> )</th><td>Tener acceso a esta acción llevará al usuario a actualizar los datos del cliente seleccionado en un formulario de captura de datos especialmente diseñado. Ahí el usuario podrá modificar o bien descartar las modificaciones hechas.</td>
+                    </tr>
+                    <tr>
+                        <th><b>Acción Eliminar</b><br/>( <em>icono Bote de Basura</em> )</th><td>Al pasar el cursor sobre este icono, cambiará su color a <span style="color: red">ROJO</span>, para señalar que se trata de una <b>acción sensible</b>. Tener acceso a esta acción llevará al usuario a contestar una
+                            pregunta de confirmación para suprimir los datos del cliente seleccionado. De ser afirmativa la respuesta, el registro en cuestión se eliminará de la base de datos y aparecerá un mensaje de aviso en el área descrita en el punto 6 anterior.</p>
+                            <p> En todo momento el usuario puede acercar el cursor del mouse y dejarlo un par de segundos para solicitar el '<em>tooltip</em>' que muestra una breve descripción de la acción.</p></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <br/><br/>
 
                 <!--  Badge 9  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
                 <div class="row ctt-bagde-padding">
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/9.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Control Paginador.</h4></span></div>
                 </div>
 
-                <p>En esta área se encuentra el <b>Control Paginador</b> que permite al usuario navegar entre las diferentes páginas de losn clientes almacenados en la base de datos del sistema. El usuario puede avanzar y retroceder entre las páginas del mismo modo que puede ir a la página final o
+                <p>En esta área se encuentra el <b>Control Paginador</b> que permite al usuario navegar entre las diferentes páginas de los clientes almacenados en la base de datos del sistema. El usuario puede avanzar y retroceder entre las páginas del mismo modo que puede ir a la página final o
                    inicial de clientes.</p>
                 <br/>
 
@@ -197,17 +213,41 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                     <div class="well well-sm"><img src="<?=$baseUrl?>/img/10.jpg" class="ctt-image-help-badge" align="left"><span class="text-info"><h4  style="padding-left: 60px; text-align: left">Área : Panel de Herramientas.</h4></span></div>
                 </div>
 
-                <p>Esta área se diseñó para mantener y organizar herramientas útiles para el módulo de Clientes. Por omisión y para ahorar espacio visual, este panel siempre esta cerrado y se abre presionando el botón Herramientas. Una pequeña animación que rota le indica al usuario que puede abrir o
-                   cerrar el panel.
+                <p>Esta área se diseñó para mantener y organizar herramientas útiles para el módulo de <b>Clientes</b>.</p>
+                <p>Por omisión y para optimizar el espacio de trabajo, este panel permanece cerrado y se abre o cierra al presionar el botón <b>Herramientas</b>. Una pequeña animación que rota le indica al usuario que puede abrir o
+                    cerrar el panel.
                 </p>
                 <p>
-                   Por ejemplo, este panel contiene la herramienta para <b>colorear registros</b>, y al hacer un clic sobre la '<em>gota de tinta</em>' inmediatamente los registros de clientes se marcarán en un color específico de acuerdo al <b>tipo de cliente</b> de que se trate.<br/>
-                   Realizando nuevamente la operación, los colores se desactivan.
+                    Como un ejemplo de su uso, al hacer clic sobre la herramienta <b>Colores</b> ( <em>gota de tinta</em> ) los registros de clientes inmediatamente son marcados en un color específico, de acuerdo al
+                    <b>tipo de cliente</b> de que se trate. Realizando nuevamente la operación, los colores se desactivarań.
                 </p>
-                <p>
-                   Otro ejemplo de herramienta, es el <b>icono de interrogación</b> que abre esta ayuda y que una vez concluida la consulta, al presionar el botón de <b>Regreso</b> el usuario volverá al módulo de Clientes.
-                </p>
+
+                <p>La siguiente tabla describe cada una de las herramientas disponibles en el panel.</p>
+
                 <br/>
+
+                <p><img src="<?=$baseUrl?>/img/tools_bar_01.jpg" align="left"></p>
+
+                <br/><br/>
+
+                <table class="table-bordered table-striped table-hover table-about">
+                    <tbody>
+                    <tr>
+                        <th style="width: 120px;"><b>Ayuda</b></th><td>Esta herramienta permite visualizar la ayuda general del módulo. Al hacer clic en el icono, se desplegará esta pantalla de información y una vez concluida la consulta, al presionar el botón de <b>Regreso</b> el usuario volverá al módulo de <b>Clientes</b>.</td>
+                    </tr>
+                    <tr>
+                        <th><b>Colores</b></th><td>Esta herramienta permite marcar o desmarcar con colores distintivos a cada uno de los registros que se muestran, dependiendo de su tipo de cliente.</td>
+                    </tr>
+                    <tr>
+                        <th><b>Columnas</b></th><td>Esta herramienta permite mostrar o bien ocultar temporalmente las columnas de información que el usuario requiera desplegar o no en el área de <b>Datos Almacenados</b>.</td>
+                    </tr>
+                    <tr>
+                        <th><b>Paginado</b></th><td>Esta herramienta permite cambiar y establecer temporalmente el número de registros por página que el usuario requiera desplegar en el área de <b>Datos Almacenados</b>.</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <br/><br/>
 
                 <!--  Badge 11  ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
                 <div class="row ctt-bagde-padding">

@@ -247,6 +247,7 @@ return ([
     'Identificador' => 'Identifier',
     'Módulo Administrador de Clientes' => 'Clients Administrator Module',
     'Módulo Administrador de Tipos de Clientes' => 'Client Types Administrator Module',
+    'Módulo Administrador de Productos y Servicios' => 'Products and Services Administrator Module',
     'Municipio' => 'Municipality',
     'Nombre del Contacto' => 'Contact Name',
     'Número Exterior' => 'Outdoor Number',

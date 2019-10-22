@@ -5,7 +5,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = 'Ayuda';
-$description = 'Módulo Administrador de Proctos y Servicios';
+$description = 'Módulo Administrador de Productos y Servicios';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;

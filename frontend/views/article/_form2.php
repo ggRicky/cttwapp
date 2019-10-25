@@ -8,6 +8,8 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $view_type */
 
+// Price List : This form is used to change the show/hide status for each one the article column.
+
 // 2019-01-07 : Gets the request param view_type
 $view_type = Yii::$app->getRequest()->getQueryParam('view_type');
 

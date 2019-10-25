@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'en_desc') ?>
 
-    <?= $form->field($model, 'type_art') ?>
+    <?= $form->field($model, 'article_type_id') ?>
 
     <?php // echo $form->field($model, 'price_art') ?>
 

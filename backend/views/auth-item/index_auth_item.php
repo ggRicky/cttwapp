@@ -218,7 +218,7 @@ $randomBg = rand(1,11);
                             [
                                 'attribute' => 'type',
                                 'headerOptions' => ['style' => 'width:3%'],
-                                'filter' => Html::activeDropDownList($searchModel, 'type', ['1' => Yii::t('app','Rol'), '2' => 'Permiso'], ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Objetos de Autorización')]),
+                                'filter' => Html::activeDropDownList($searchModel, 'type', ['1' => Yii::t('app','Rol'), '2' => 'Permiso'], ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Objetos de Autorización')]),
                                 'value' => function($model){
                                     return ($model->type=='1'?'Rol':Yii::t('app', 'Permiso'));
                                 },

@@ -3,16 +3,17 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-
-/* 2018-05-06 : Used for built a list of available Catalogs and Brands records */
-use yii\helpers\ArrayHelper;
+use yii\helpers\ArrayHelper;    /* 2018-05-06 : Used for built a list of available Catalogs and Brands records */
 use app\models\Catalog;
 use app\models\Brand;
 use app\models\Warehouse;
+use app\models\ArticleType;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
 /* @var $form yii\widgets\ActiveForm */
+
+// Products & Services : This form is used to gets the data for each one column the article record.
 
 // 2018-06-05 : If there is a page parameter, then stores and validate it.
 // Verifies and validate the current page value.
@@ -129,8 +130,8 @@ JS;
         }
     ?>
 
-    <!-- Type Art input text  -->
-    <?= $form->field($model, 'type_art')->radioList(['V' => 'Venta', 'R' => 'Renta']) ?>
+    <!-- Type Art Selector  -->
+    <?= $form->field($model, 'article_type_id')->dropDownList(ArrayHelper::map(ArticleType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Seleccione...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]); ?>
 
     <!-- Price input text  -->
     <?= $form->field($model, 'price_art')->textInput() ?>

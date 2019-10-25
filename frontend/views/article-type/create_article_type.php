@@ -3,10 +3,9 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Client */
 
-$this->title = 'Cliente';
-$description = 'Actualizar Cliente';
+$this->title = 'Tipo de Artículo';
+$description = 'Crear Nuevo Tipo de Artículo';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
@@ -34,7 +33,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['article-type/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -48,7 +47,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <!-- Yii2 complementary description -->
     <div class="row">
         <div class="col-lg-10 text-info yii2-description">
-            <p><?= Yii::t('app',Html::encode($description));?></p>
+            <p><?= Yii::t('app',Html::encode($description)); ?></p>
         </div>
     </div>
 
@@ -56,16 +55,14 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <div class="row">
         <div class="col-lg-12 text-justify yii2-content">
 
-            <!-- Business logic for update a client -->
-            <div class="client-update">
+            <!-- Business logic for create a article type -->
+            <div class="article-type-create">
 
                 <?= $this->render('_form', [
                     'model' => $model,
-                    'page' => $ret_page,
                 ]) ?>
 
             </div>
-
         </div>
     </div>
 </section>

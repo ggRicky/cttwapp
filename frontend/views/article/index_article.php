@@ -1,19 +1,17 @@
 <?php
 
 use yii\helpers\Html;
-/* use yii\grid\GridView; // 2019-01-30 : Disable the base class reference */
-
-/* 2018-05-06 : Used to display the catalog name for the actual article record */
-use yii\helpers\ArrayHelper;
+use yii\helpers\ArrayHelper;        /* 2018-05-06 : Used to display the catalog name for the actual article record */
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\web\View;
 use app\models\Catalog;
 use app\models\Brand;
 use app\models\Warehouse;
+use app\models\ArticleType;
 
-/* 2019-01-30 : Used to extend the GridView class */
-use frontend\components\GridView;
+// use yii\grid\GridView;           /* 2019-01-30 : Disable the base class reference */
+use frontend\components\GridView;   /* 2019-01-30 : Used to extend the GridView class */
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ArticleSearch */
@@ -155,6 +153,8 @@ $randomBg = rand(1,11);;
 
                 <p>
                     <?= Html::a(Yii::t('app', 'Crear Artículo'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de artículo')]) ?>
+                    <!-- 2019-10-23 : To disable pjax for a specific link inside the container adding data-pjax="0" attribute to this link.-->
+                    <?= Html::a(Yii::t('app', 'Tipos de Artículos'), ['article-type/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Administrar los tipos de artículos')]) ?>
                     <!-- 2018-06-07 : To disable pjax for a specific link inside the container adding data-pjax="0" attribute to this link.-->
                     <?= Html::a(Yii::t('app', 'Marcas'), ['brand/index'], ['data-pjax' => '0', 'target' => '_self', 'class' => 'btn btn-primary btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Administrar las marcas')]) ?>
                 </p>
@@ -215,11 +215,28 @@ $randomBg = rand(1,11);;
                         // 2018-05-14 : Improvement. The color on/off status is stored in a cookie.
                         if (Yii::$app->getRequest()->getCookies()->has('article-color') &&
                             Yii::$app->getRequest()->getCookies()->getValue('article-color') == '1'){
-                           // 2018-05-06 : Change the row background color based on the type_art value.
-                           if ($model->type_art == 'V')  // 'V'- Venta  'R' - Renta
+                           // 2018-05-06 : Change the row background color based on the article_type_id value.
+
+                           if ($model->article_type_id == '2')          // '2' - Venta  ( '1' - Renta )
                            {
                                return ['class' => 'yellow-light'];
+                           }else if ($model->article_type_id == '3')    // '3' - Freelance
+                           {
+                               return ['class' => 'blue-light'];
+                           }else if ($model->article_type_id == '4')    // '4' - Movil
+                           {
+                               return ['class' => 'red-light'];
+                           }else if ($model->article_type_id == '5')    // '5' - Planta
+                           {
+                               return ['class' => 'teal-light'];
+                           }else if ($model->article_type_id == '6')    // '6' - Daños
+                           {
+                               return ['class' => 'lime-light'];
+                           }else if ($model->article_type_id == '7')    // '7' - Viatcos
+                           {
+                               return ['class' => 'orange-light'];
                            };
+
                            return [];
                         }
                         return [];
@@ -413,7 +430,7 @@ $randomBg = rand(1,11);;
                         [
                             'attribute' => 'shown_price_list',
                             'headerOptions' => ['style' => 'width:2.5%; color:#8b8787;'],
-                            'filter' => Html::activeDropDownList($searchModel, 'shown_price_list', ['S' => Yii::t('app','Si'), 'N' => 'No'], ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Mostrar en la lista de precios')]),
+                            'filter' => Html::activeDropDownList($searchModel, 'shown_price_list', ['S' => Yii::t('app','Si'), 'N' => 'No'], ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Mostrar en la lista de precios')]),
                             'value' => function($model){
                                 return ($model->shown_price_list=='S'?Yii::t('app','Si'):'No');
                             },
@@ -434,7 +451,7 @@ $randomBg = rand(1,11);;
                             'visible' => ($c[0] == '1' ? true : false),     // 2018-08-20 : Set the column visibility status
                             'headerOptions' => ['style' => 'width:6%;'],
                             // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
-                            'filter' => Html::activeDropDownList($searchModel, 'catalog_id', ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Catálogos Disponibles')]),
+                            'filter' => Html::activeDropDownList($searchModel, 'catalog_id', ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Catálogos Disponibles')]),
                             'value' => function($model){
                                 return implode(",",ArrayHelper::map(Catalog::find()->where(['id' =>  $model->catalog_id])->all(),'id','displayNameCat'));
                             }
@@ -447,7 +464,7 @@ $randomBg = rand(1,11);;
                             'visible' => ($c[13] == '1' ? true : false),    // 2019-08-14 : Set the column visibility status
                             'headerOptions' => ['style' => 'width:6%;'],
                             // 2019-08-14 : Modified to display a DropDownList with the available warehouses, using the filter option.
-                            'filter' => Html::activeDropDownList($searchModel, 'warehouse_id', ArrayHelper::map(Warehouse::find()->select(['id','desc_warehouse'])->orderBy(['id' => SORT_ASC])->all(),'id','displayDescWarehouse'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Almacenes Disponibles')]),
+                            'filter' => Html::activeDropDownList($searchModel, 'warehouse_id', ArrayHelper::map(Warehouse::find()->select(['id','desc_warehouse'])->orderBy(['id' => SORT_ASC])->all(),'id','displayDescWarehouse'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Almacenes Disponibles')]),
                             'value' => function($model){
                                 return implode(",",ArrayHelper::map(Warehouse::find()->where(['id' =>  $model->warehouse_id])->all(),'id','displayDescWarehouse'));
                             }
@@ -473,18 +490,16 @@ $randomBg = rand(1,11);;
                             'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
-                        // 2018-05-06 : For type_art field, the right legend is displayed and colored properly.
+                        // 2018-05-06 : For article_type_id field, the right legend is displayed and colored properly.
 
                         [
-                            'attribute' => 'type_art',
-                            // 2018-08-21 : Modified to display a DropDownList with the available article typs list, using the filter option.
-                            'filter' => Html::activeDropDownList($searchModel, 'type_art', ['R' => 'RENTA', 'V' => 'VENTA'], ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]),
-                            'value' => function($model){
-                                return ($model->type_art=='R'?'RENTA':'VENTA');
-                            },
-                            'contentOptions' => function ($model, $key, $index, $column) {
-                                return ['style' => 'color:'. ($model->type_art=='V'?'#337AB7':'#428bca')];
-                            },
+                            'attribute' => 'article_type_id',
+                            // 2019-10-23 : Modified to display a DropDownList with the available article types, using the filter option.
+                            'filter' => Html::activeDropDownList($searchModel, 'article_type_id', ArrayHelper::map(ArticleType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]),
+                            'value' =>
+                                function($model){
+                                    return (implode(",",ArrayHelper::map(ArticleType::find()->where(['id' => $model->article_type_id])->all(),'id','displayTypeDesc')));
+                                },
                             'visible' => ($c[4] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
                         ],
 
@@ -507,8 +522,8 @@ $randomBg = rand(1,11);;
 
                         [
                             'attribute' => 'brand_id',
-                            // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
-                            'filter' => Html::activeDropDownList($searchModel, 'brand_id', ArrayHelper::map(Brand::find()->select(['id','brand_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayBrandDesc'), ['prompt' => Yii::t('app','Seleccionar...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Marcas Disponibles')]),
+                            // 2018-08-21 : Modified to display a DropDownList with the available brands, using the filter option.
+                            'filter' => Html::activeDropDownList($searchModel, 'brand_id', ArrayHelper::map(Brand::find()->select(['id','brand_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayBrandDesc'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Marcas Disponibles')]),
                             'value' =>
                                 function($model){
                                     return (implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')));
@@ -656,7 +671,7 @@ $randomBg = rand(1,11);;
                         <!-- 2019-09-07 : Print Tool -->
                         <span>
                            <?php
-                           echo Html::a('', ['article/print2'], ['class' => 'btn glyphicon glyphicon-print', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Imprimir lo Marcado')]);
+                           echo Html::a('', ['article/print2'], ['target'=>'_blank', 'class' => 'btn glyphicon glyphicon-print', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Imprimir lo Marcado')]);
                            echo '<span>'.Yii::t('app', 'Imprimir').'</span>';
                            ?>
                        </span>
@@ -672,6 +687,13 @@ $randomBg = rand(1,11);;
                            <?php
                            echo Html::a('', ['article/import-csv'], ['class' => 'btn glyphicon glyphicon-import', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Importar lo Marcado')]);
                            echo '<span>'.Yii::t('app', 'Importar').'</span>';
+                           ?>
+                       </span>
+                        <!-- 2019-10-22 : Report Tool -->
+                        <span>
+                           <?php
+                           echo Html::a('', ['article/reports'], ['class' => 'btn glyphicon glyphicon-print', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Reportes')]);
+                           echo '<span>'.Yii::t('app', 'Reportes').'</span>';
                            ?>
                        </span>
 

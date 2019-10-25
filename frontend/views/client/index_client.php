@@ -448,12 +448,15 @@ $randomBg = rand(1,11);
 
                         // 2018-03-17 : Modified to display the ID and the Client Type Description instead of the ID only.
                         [
+                            // 2019-10-24 : Adds the 'filter' option to display a DropDownList with the available client types.
+                            'filter' => Html::activeDropDownList($searchModel, 'client_type_id', ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]),
                             'attribute' => 'client_type_id',
                             'visible' => ($c[24]== '1' ? true : false),     // 2018-09-30 : Set the column visibility status
                             'headerOptions' => ['style' => 'width:12%'],
                             'value' => function($model){
                                 return implode(",",ArrayHelper::map(ClientType::find()->where(['id' =>  $model->client_type_id])->all(),'id','displayTypeDesc'));
                             }
+
                         ],
                     ],
 

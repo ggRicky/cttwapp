@@ -233,7 +233,7 @@ $randomBg = rand(1,11);;
                 </div>
 
                 <p>Debajo de las cabeceras de las columnas, pueden existir selectores ( <em>combobox</em> ) que sirven para mostrar una serie de criterios por los cuales un usuario puede <b>filtrar</b> la información desplegada en el área de <b>Datos Almacenados</b>.</p>
-                <p>De esta forma se puede facilitar la búsqueda de información específica. De igual modo se puede suprimir la acción de filtrado, elijiendo la opción <b>Seleccionar...</b></p>
+                <p>De esta forma se puede facilitar la búsqueda de información específica. De igual modo se puede suprimir la acción de filtrado, elijiendo la opción <b>Ver Todo...</b></p>
                 <br/>
 
 

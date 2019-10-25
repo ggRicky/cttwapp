@@ -6,9 +6,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * ClientTypeSearch represents the model behind the search form about `app\models\ClientType`.
+ * ArticleTypeSearch represents the model behind the search form about `app\models\ArticleType`.
  */
-class ClientTypeSearch extends ClientType
+class ArticleTypeSearch extends ArticleType
 {
     /**
      * @inheritdoc
@@ -39,7 +39,7 @@ class ClientTypeSearch extends ClientType
      */
     public function search($params)
     {
-        $query = ClientType::find();
+        $query = ArticleType::find();
 
         // add conditions that should always apply here
 

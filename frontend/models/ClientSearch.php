@@ -18,6 +18,7 @@ class ClientSearch extends Client
         return [
             [['id'], 'string'],
             [['rfc', 'curp', 'business_name', 'contact_name', 'street', 'suburb', 'municipality', 'delegation', 'state', 'phone_number_1', 'considerations'], 'safe'],
+            [['client_type_id'], 'integer'],
         ];
     }
 
@@ -73,6 +74,8 @@ class ClientSearch extends Client
 
         $query->andFilterWhere(['like', 'rfc', $this->rfc])
               ->andFilterWhere(['like', 'curp', $this->curp])
+              // 2019-10-24 : Adds a filter to the client_type_id field..
+              ->andFilterWhere(['=',    'client_type_id', $this->client_type_id])
               ->andFilterWhere(['like', 'business_name', $this->business_name])
               ->andFilterWhere(['like', 'contact_name', $this->contact_name])
               ->andFilterWhere(['like', 'street', $this->street])

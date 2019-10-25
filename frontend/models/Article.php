@@ -11,7 +11,7 @@ use Yii;
  * @property string $name_art
  * @property string $sp_desc
  * @property string $en_desc
- * @property string $type_art
+ * @property integer $article_type_id
  * @property string $price_art
  * @property string $currency_art
  * @property string $brand_id
@@ -44,22 +44,23 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'name_art', 'type_art', 'price_art', 'currency_art', 'brand_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'catalog_id', 'shown_price_list', 'warehouse_id'], 'required'],
+            [['id', 'name_art', 'article_type_id', 'price_art', 'currency_art', 'brand_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'catalog_id', 'shown_price_list', 'warehouse_id'], 'required'],
             [['id', 'name_art','sp_desc','en_desc'], 'filter', 'filter'=>'strtoupper'],
             [['id'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'default', 'value' => null],
-            [['created_by', 'updated_by'], 'integer'],
+            [['created_by', 'updated_by', 'article_type_id'], 'integer'],
 
             [['id', 'brand_id', 'catalog_id', 'warehouse_id'], 'string', 'max' => 15],
             [['name_art', 'part_num'], 'string', 'max' => 50],
             [['sp_desc', 'en_desc'], 'string', 'max' => 100],
-            [['type_art', 'currency_art', 'shown_price_list'], 'string', 'max' => 1],
+            [['currency_art', 'shown_price_list'], 'string', 'max' => 1],
             [['price_art'], 'number'],
 
             [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['brand_id' => 'id']],
             [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::class, 'targetAttribute' => ['catalog_id' => 'id']],
             [['warehouse_id'], 'exist', 'skipOnError' => true, 'targetClass' => Warehouse::class, 'targetAttribute' => ['warehouse_id' => 'id']],
+            [['article_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ArticleType::class, 'targetAttribute' => ['article_type_id' => 'id']],
         ];
     }
 
@@ -73,7 +74,7 @@ class Article extends \yii\db\ActiveRecord
             'name_art' => Yii::t('app', 'Nombre del Artículo'),
             'sp_desc' => Yii::t('app', 'Descripción en Español'),
             'en_desc' => Yii::t('app', 'Descripción en Inglés'),
-            'type_art' => Yii::t('app', 'Tipo de Artículo'),
+            'article_type_id' => Yii::t('app', 'Tipo de Artículo'),
             'price_art' => Yii::t('app', 'Precio'),
             'currency_art' => Yii::t('app', 'Moneda'),
             'brand_id' => Yii::t('app', 'Marca'),
@@ -112,5 +113,14 @@ class Article extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Warehouse::class, ['id' => 'warehouse_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getId0()
+    {
+        return $this->hasOne(ArticleType::class, ['id' => 'id']);
+    }
+
 
 }

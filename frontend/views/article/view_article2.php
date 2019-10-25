@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 use app\models\Catalog;
 use app\models\Brand;
 use app\models\Warehouse;
+use app\models\ArticleType;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
@@ -126,15 +127,9 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
                                 },
                             ],
 
-                            // 2018-05-06 : For type art, the right legend is displayed and colored properly.
                             [
-                                'attribute' => 'type_art',
-                                'value' => function($model){
-                                    return ($model->type_art=='R'?'RENTA':'VENTA');
-                                },
-                                'contentOptions' => function ($model, $key, $index, $column) {
-                                    return ['style' => 'color:'. ($model->type_art=='R'?'grey':'#337ab7')];
-                                },
+                                'attribute' => 'article_type_id',
+                                'value' => implode(",",ArrayHelper::map(ArticleType::find()->where(['id' => $model->article_type_id])->all(),'id','displayTypeDesc')),
                             ],
 
                             'price_art',

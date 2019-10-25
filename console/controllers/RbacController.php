@@ -202,6 +202,36 @@ class RbacController extends Controller
 
 
 
+        // Defines the permissions on the Article Types module
+        // --------------------------------------------------
+
+        // Adds "createArticleType" permission
+        $createArticleType = $auth->createPermission('createArticleType');
+        $createArticleType->description = 'Permission : Allows to create a article type in the CTTwapp system.';
+        $auth->add($createArticleType);
+
+        // Adds "updateArticleType" permission
+        $updateArticleType = $auth->createPermission('updateArticleType');
+        $updateArticleType->description = 'Permission : Allows to update a article type in the CTTwapp system.';
+        $auth->add($updateArticleType);
+
+        // Adds "viewArticleType" permission
+        $viewArticleType = $auth->createPermission('viewArticleType');
+        $viewArticleType->description = 'Permission : Allows to view a article type in the CTTwapp system.';
+        $auth->add($viewArticleType);
+
+        // Adds "deleteArticleType" permission
+        $deleteArticleType = $auth->createPermission('deleteArticleType');
+        $deleteArticleType->description = 'Permission : Allows to delete a article type in the CTTwapp system.';
+        $auth->add($deleteArticleType);
+
+        // Adds "listArticleType" permission
+        $listArticleType = $auth->createPermission('listArticleType');
+        $listArticleType->description = 'Permission : Allows to list the article types in the CTTwapp system.';
+        $auth->add($listArticleType);
+
+
+
         // Defines the permissions on the Articles module
         // ----------------------------------------------
 
@@ -524,6 +554,36 @@ class RbacController extends Controller
 
 
 
+        // Role : userArticleType
+        // ---------------------
+
+        // Adds the role 'userArticleType' for a user of the Article Type module.
+        $userArticleType = $auth->createRole('userArticleType');
+        $userArticleType->description = 'Role : Defines a user with the only permission to list types of articles.';
+        $auth->add($userArticleType);
+
+        // Adds permissions
+        $auth->addChild($userArticleType, $listArticleType);           // Add this permission to role userArticleType, to allows the access to the list client type.
+
+
+
+        // Role : adminArticleType
+        // ----------------------
+
+        // Adds the role 'adminArticleType' for an admin of the Article Type module.
+        $adminArticleType = $auth->createRole('adminArticleType');
+        $adminArticleType->description = 'Role : Defines an admin user with all permissions to process types of articles.';
+        $auth->add($adminArticleType);
+
+        // Adds roles and permissions
+        $auth->addChild($adminArticleType, $userArticleType);          // Add the role userTypeArticle to the role adminArticleType.
+        $auth->addChild($adminArticleType, $createArticleType);        // Add these permissions to role adminTypeArticle, to allows create, update, view, and delete client types.
+        $auth->addChild($adminArticleType, $updateArticleType);
+        $auth->addChild($adminArticleType, $viewArticleType);
+        $auth->addChild($adminArticleType, $deleteArticleType);
+
+
+
         // Role : userArticle
         // ------------------
 
@@ -738,6 +798,7 @@ class RbacController extends Controller
         $auth->addChild($userCTT, $userBrand);             // Grant access to list brand entities.
         $auth->addChild($userCTT, $userCatalog);           // Grant access to list catalog entities.
         $auth->addChild($userCTT, $userArticle);           // Grant access to list article entities.
+        $auth->addChild($userCTT, $userArticleType);       // Grant access to list article type entities.
         $auth->addChild($userCTT, $userInventory);         // Grant access to list inventory entities.
         $auth->addChild($userCTT, $userProject);           // Grant access to list project entities.
         $auth->addChild($userCTT, $userReservation);       // Grant access to list reservation entities.
@@ -762,6 +823,7 @@ class RbacController extends Controller
         $auth->addChild($inventoryCTT, $adminBrand);           // Grant access to admin all brand process.
         $auth->addChild($inventoryCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($inventoryCTT, $adminArticle);         // Grant access to admin all article process.
+        $auth->addChild($inventoryCTT, $adminArticleType);     // Grant access to admin all article types process.
         $auth->addChild($inventoryCTT, $adminInventory);       // Grant access to admin all inventory process.
         $auth->addChild($inventoryCTT, $adminWarehouse);       // Grant access to admin all warehouse process.
 
@@ -784,6 +846,7 @@ class RbacController extends Controller
         $auth->addChild($marketingCTT, $adminBrand);           // Grant access to admin all brand process.
         $auth->addChild($marketingCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($marketingCTT, $adminArticle);         // Grant access to admin all article process.
+        $auth->addChild($marketingCTT, $adminArticleType);     // Grant access to admin all article types process.
 
 
 
@@ -805,6 +868,7 @@ class RbacController extends Controller
         $auth->addChild($managementCTT, $adminBrand);           // Grant access to admin all brand process.
         $auth->addChild($managementCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($managementCTT, $adminArticle);         // Grant access to admin all article process.
+        $auth->addChild($managementCTT, $adminArticleType);     // Grant access to admin all article types process.
         $auth->addChild($managementCTT, $adminInventory);       // Grant access to admin all inventory entities.
         $auth->addChild($managementCTT, $adminWarehouse);       // Grant access to admin all warehouse entities.
         $auth->addChild($managementCTT, $adminProject);         // Grant access to admin all project entities.
@@ -832,6 +896,7 @@ class RbacController extends Controller
         $auth->addChild($adminCTT, $adminBrand);           // Grant access to admin all brand process.
         $auth->addChild($adminCTT, $adminCatalog);         // Grant access to admin all catalog process.
         $auth->addChild($adminCTT, $adminArticle);         // Grant access to admin all article process.
+        $auth->addChild($adminCTT, $adminArticleType);     // Grant access to admin all article type process.
         $auth->addChild($adminCTT, $adminInventory);       // Grant access to admin all inventory entities.
         $auth->addChild($adminCTT, $adminWarehouse);       // Grant access to admin all warehouse entities.
         $auth->addChild($adminCTT, $adminProject);         // Grant access to admin all project entities.

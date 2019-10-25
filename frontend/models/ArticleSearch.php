@@ -17,9 +17,9 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'name_art', 'sp_desc', 'en_desc', 'type_art', 'currency_art', 'brand_id', 'part_num', 'created_at', 'updated_at', 'catalog_id', 'shown_price_list', 'warehouse_id'], 'safe'],
+            [['id', 'name_art', 'sp_desc', 'en_desc', 'currency_art', 'brand_id', 'part_num', 'created_at', 'updated_at', 'catalog_id', 'shown_price_list', 'warehouse_id'], 'safe'],
             [['price_art'], 'number'],
-            [['created_by', 'updated_by'], 'integer'],
+            [['created_by', 'updated_by', 'article_type_id'], 'integer'],
         ];
     }
 
@@ -121,7 +121,8 @@ class ArticleSearch extends Article
               ->andFilterWhere(['ilike', 'name_art', $this->name_art])
               ->andFilterWhere(['ilike', 'sp_desc', $this->sp_desc])
               ->andFilterWhere(['ilike', 'en_desc', $this->en_desc])
-              ->andFilterWhere(['ilike', 'type_art', $this->type_art])
+              // 2019-10-23 : Due to the field type article_type_id was changed from VARCHAR to INTEGER the operator 'ilike' must be changed to '=' operator.
+              ->andFilterWhere(['=',     'article_type_id', $this->article_type_id])
               ->andFilterWhere(['ilike', 'currency_art', $this->currency_art])
               ->andFilterWhere(['ilike', 'brand_id', $this->brand_id])
               ->andFilterWhere(['ilike', 'part_num', $this->part_num])

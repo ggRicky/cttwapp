@@ -145,7 +145,7 @@ use app\models\Article;
 
         echo '<br/><br/>';
         echo 'Importing ... ';
-        $sql1 = "COPY article(id,name_art,sp_desc,en_desc,type_art,price_art,currency_art,brand_id,part_num,created_at,updated_at,created_by,updated_by,catalog_id,shown_price_list,warehouse_id) FROM '/var/www/web/cttwapp/frontend/web/uploads/imported_article_list.csv' DELIMITER ',' CSV HEADER;";
+        $sql1 = "COPY article(id,name_art,sp_desc,en_desc,article_type_id,price_art,currency_art,brand_id,part_num,created_at,updated_at,created_by,updated_by,catalog_id,shown_price_list,warehouse_id) FROM '/var/www/web/cttwapp/frontend/web/uploads/imported_article_list.csv' DELIMITER ',' CSV HEADER;";
         Yii::$app->db->createCommand($sql1)->execute();
         echo '<br/><br/>';
         echo '$sql1 : '. $sql1;

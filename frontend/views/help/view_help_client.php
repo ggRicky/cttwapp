@@ -162,7 +162,10 @@ $ret_hash_param = Yii::$app->getRequest()->getQueryParam('ret_hash');
                 
                 <p>Para volver a mostrar y paginar <b>TODOS</b> los registros, <b>se deberá suprimir</b> la o las palabras del campo de filtrado para que dicho criterio deje de aplicarse a la vista de datos almacenados.</p>
 
-                <p>Acompañando al control de paginado, está la etiqueta de <b>ELEMENTOS MOSTRADOS</b>. En esta se indica el gurpo actual de páginas que se despliegan. Por ejemplo, el valor de la etiqueta <b>Mostrado 1-10 de 12 elementos</b> indica los registros desplegados actualmente,
+                <p>También debajo de las cabeceras de las columnas, pueden existir selectores ( <em>combobox</em> ) que sirven para mostrar una serie de criterios por los cuales un usuario puede <b>filtrar</b> la información desplegada en el área de <b>Datos Almacenados</b>.
+                   De esta forma se puede facilitar la búsqueda de información específica. Se puede suprimir la acción de filtrado de este control, elijiendo la opción <b>Ver Todo...</b></p>
+
+                <p>Por último, acompañando al control de paginado, está la etiqueta de <b>ELEMENTOS MOSTRADOS</b>. En esta se indica el gurpo actual de páginas que se despliegan. Por ejemplo, el valor de la etiqueta <b>Mostrado 1-10 de 12 elementos</b> indica los registros desplegados actualmente,
                    así como el total de registros por mostrar. </p>
                 <p>Por último, esta área presenta un par de columnas de operación. La columna de <b>Acciones</b> y la columna de <b>Número Consecutivo</b> que se indica con un <b>símbolo #</b> ( <em>hash</em> ). La columna de Acciones se explicará más adelante a detalle.</p>
                 <br/>

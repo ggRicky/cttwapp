@@ -1,14 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-/* use yii\grid\GridView; // 2019-07-21 : Disable the base class reference */
-
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\web\View;
 
-/* 2019-07-21 : Used to extend the GridView class */
-use frontend\components\GridView;
+// use yii\grid\GridView;           /* 2019-07-21 : Disable the base class reference */
+use frontend\components\GridView;   /* 2019-07-21 : Used to extend the GridView class */
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CatalogSearch */

@@ -1,17 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Warehouse */
-
-// 2019-08-04 : If the user isn't authenticated, then redirect him to the login form.
-if (Yii::$app->user->getIsGuest()){
-    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
-    Yii::$app->response->redirect(Url::to(['site/login'], true));
-    return;
-}
 
 $this->title = 'Almacén';
 $asset = \frontend\assets\AppAsset::register($this);

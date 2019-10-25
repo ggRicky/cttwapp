@@ -90,6 +90,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         <?= $form->field($model, 'web_page')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'client_email')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'considerations')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
+        <?= $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Seleccione...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]); ?>
 
         <!-- The next four fields are read only and filled automatically -->
 
@@ -117,8 +118,6 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
         // v3.0
 
         // 2018-03-16 : Use a function callback ('displayTypeDesc') to return the Id and Description Type for this field ('client_type_id').
-
-        echo $form->field($model, 'client_type_id')->dropDownList(ArrayHelper::map(ClientType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Seleccione...')]);
 
         // 2018-06-05 : Sends the current page value through a hidden input.
         echo Html::hiddenInput('page', $ret_page);

@@ -89,6 +89,7 @@ class Client extends \yii\db\ActiveRecord
             'curp' => 'CURP',
             'taxpayer' => Yii::t('app', 'Contribuyente'),
             'business_name' => Yii::t('app', 'Razón Social / Nombre'),
+            'client_type_id' => Yii::t('app','Tipo de Cliente'),
             'provenance' => Yii::t('app','Procedencia'),
             'corporate' => Yii::t('app','Corporativo'),
             'contact_name' => Yii::t('app','Nombre del Contacto'),
@@ -110,7 +111,6 @@ class Client extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app','Actualizado en'),
             'created_by' => Yii::t('app','Creado por'),
             'updated_by' => Yii::t('app','Actualizado por'),
-            'client_type_id' => Yii::t('app','Tipo de Cliente'),
         ];
     }
 

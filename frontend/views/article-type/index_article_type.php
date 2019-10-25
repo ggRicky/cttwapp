@@ -13,7 +13,7 @@ use frontend\components\GridView;   /* 2019-07-21 : Used to extend the GridView 
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $qryParams */
 
-$this->title = 'Tipos de Clientes';
+$this->title = 'Tipos de Artículos';
 $description = 'Listado Nominal';
 
 $asset = \frontend\assets\AppAsset::register($this);
@@ -86,7 +86,7 @@ $randomBg = rand(1,11);;
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), Url::to(['client/index', 'page' => '1', 'hash' => '0']), ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), Url::to(['article/index', 'page' => '1', 'hash' => '0']), ['target' => '_self', 'class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -141,7 +141,7 @@ $randomBg = rand(1,11);;
             <?php Pjax::begin(); ?>
 
                 <p>
-                    <?= Html::a(Yii::t('app', 'Crear Nuevo Tipo de Cliente'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de tipo de cliente')]) ?>
+                    <?= Html::a(Yii::t('app', 'Crear Nuevo Tipo de Artículo'), ['create', 'page'=>$curr_page], ['class' => 'btn btn-success', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Crear un nuevo registro de tipo de artículo')]) ?>
                 </p>
 
                 <?= GridView::widget([
@@ -205,13 +205,13 @@ $randomBg = rand(1,11);;
                             // 2018-05-28 : Adds an url that include the current page in GridView widget.
                             'urlCreator' => function ($action, $model)  use ($dataProvider) {
                                 if ($action === 'delete') {
-                                    $url = Url::to(['client-type/delete', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    $url = Url::to(['article-type/delete', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                 }
                                 elseif ($action === 'view') {
-                                    $url = Url::to(['client-type/view', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    $url = Url::to(['article-type/view', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                 }
                                 elseif ($action === 'update') {
-                                    $url = Url::to(['client-type/update', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
+                                    $url = Url::to(['article-type/update', 'id' => $model->id, 'page' => ($dataProvider->pagination->page + 1)]);
                                 }
                                 else $url = null;
 
@@ -235,7 +235,6 @@ $randomBg = rand(1,11);;
                             'attribute' => 'type_desc',
                             'headerOptions' => ['style' => 'width:85%;'],
                             'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
-
                         ],
                     ],
 
@@ -271,7 +270,7 @@ $randomBg = rand(1,11);;
                         <!-- Help Tool -->
                         <span>
                            <?php
-                               echo Html::a('', ['help/view', 'theme' => '_client_type', 'ret_url' => 'client-type/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ayuda')]);
+                               echo Html::a('', ['help/view', 'theme' => '_article_type', 'ret_url' => 'article-type/index', 'ret_hash' => '0' ], ['class' => 'btn glyphicon glyphicon-question-sign', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Ayuda')]);
                                echo '<span>'.Yii::t('app', 'Ayuda').'</span>';
                            ?>
                        </span>

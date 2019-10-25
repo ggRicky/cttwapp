@@ -627,8 +627,8 @@ class ArticleController extends Controller
                 'orientation' => Pdf::ORIENT_PORTRAIT,
                 // Stream to browser inline
                 'destination' => Pdf::DEST_BROWSER,
-                // File name
-                'filename' => 'cttwapp_article_report.pdf',
+                // File name ( Date + Time + Name )
+                'filename' => date('Ymd_Gis').'_cttwapp_article_report.pdf',
                 // Your html content input
                 'content' => $content,
                 // Format content from your own css file if needed or use the
@@ -686,6 +686,7 @@ class ArticleController extends Controller
         // Redirect to the index page, according to the $view_type parameter.
         return $this->redirect(['article/index'.$view_type, 'page' => $page, 'hash' => '0']);
     }
+
     /**
      * Generates a PDF file with the user selected records of articles in printable version.
      * @return mixed
@@ -735,8 +736,8 @@ class ArticleController extends Controller
                 'orientation' => Pdf::ORIENT_LANDSCAPE,
                 // Stream to browser inline
                 'destination' => Pdf::DEST_BROWSER,
-                // File name
-                'filename' => 'cttwapp_articles_report.pdf',
+                // File name ( Date + Time + Name )
+                'filename' => date('Ymd_Gis').'_cttwapp_selected_articles_report.pdf',
                 // Your html content input
                 'content' => $content,
                 // Format content from your own css file if needed or use the
@@ -763,7 +764,7 @@ class ArticleController extends Controller
             $mpdf->SetAuthor('ISC. Ricardo González González');
             $mpdf->SetCreator('CTTwapp v1.0');
             $mpdf->SetSubject('Reporte');
-            $mpdf->SetKeywords('cttwapp, report, article, list, pdf');
+            $mpdf->SetKeywords('cttwapp, report, articles, list, selection, pdf');
             // 2018-08-11 : Enables a water mark text
             /*
             $mpdf->showWatermarkText = true;                         // To shows the water mark text.
@@ -1051,7 +1052,7 @@ class ArticleController extends Controller
 
                         // Import the content of the CSV file
                         // Warning : If the Article table structure changes, this changes must be implemented in the SQL COPY statement.
-                        $sql = "COPY article(id,name_art,sp_desc,en_desc,type_art,price_art,currency_art,brand_id,part_num,created_at,updated_at,created_by,updated_by,catalog_id,shown_price_list,warehouse_id) FROM '$path_name$file_name' DELIMITER ',' CSV HEADER;";
+                        $sql = "COPY article(id,name_art,sp_desc,en_desc,article_type_id,price_art,currency_art,brand_id,part_num,created_at,updated_at,created_by,updated_by,catalog_id,shown_price_list,warehouse_id) FROM '$path_name$file_name' DELIMITER ',' CSV HEADER;";
 
                         // 2019-09-24 : Try to execute the SQL statement, then shows the process status, otherwise sends a error message.
                         try{

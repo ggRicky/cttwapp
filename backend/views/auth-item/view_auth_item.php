@@ -1,18 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\AuthItem */
-
-// 2018-06-21 : If the user isn't authenticated, then redirect him to the login form.
-if (Yii::$app->user->getIsGuest()){
-    Yii::$app->session->setFlash('error', Yii::t('app', 'Usted esta tratando de ingresar al sistema de forma no autorizada. Por favor, primero autentifique su acceso').'.');
-    Yii::$app->response->redirect(Url::to(['site/login'], true));
-    return;
-}
 
 $this->title = 'Objeto de Autorización';
 $description = 'Vista de un Objeto de Autorización';

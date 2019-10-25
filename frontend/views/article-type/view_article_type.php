@@ -5,8 +5,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Tipo de Cliente';
-$description = 'Vista del Tipo de Cliente';
+$this->title = 'Tipo de Artículo';
+$description = 'Vista del Tipo de Artículo';
 
 $asset = \frontend\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
@@ -34,7 +34,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
     <!-- Main menu return -->
     <div class="row">
         <div class="col-lg-10 col-lg-offset-1 text-center">
-            <?= Html::a(Yii::t('app','R e g r e s a r'), ['client-type/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
+            <?= Html::a(Yii::t('app','R e g r e s a r'), ['article-type/index', 'page' => $ret_page, 'hash' => '0'], ['class' => 'btn btn-dark btn-ctt-fixed-width', 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Regresar al nivel anterior')]) ?>
         </div>
     </div>
 
@@ -86,7 +86,7 @@ $ret_page = (empty($ret_page)?'1':$ret_page);
             <?php endif; ?>
 
             <!-- Business logic for view a client_type -->
-            <div class="client-type-view">
+            <div class="article-type-view">
 
                 <p>
                     <?= Html::a(Yii::t('app','Actualizar'), ['update', 'id' => $model->id, 'page' => $ret_page], ['class' => 'btn btn-primary btn-ctt-fixed-width']) ?>

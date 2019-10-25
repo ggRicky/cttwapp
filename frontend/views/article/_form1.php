@@ -8,6 +8,8 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $view_type */
 
+// Products & Services : This form is used to change the show/hide status for each one the article column.
+
 // 2019-01-07 : Gets the request param view_type
 $view_type = Yii::$app->getRequest()->getQueryParam('view_type');
 
@@ -80,7 +82,7 @@ $view_type = Yii::$app->getRequest()->getQueryParam('view_type');
     // Shows the dropDownList control for the model column_3.
     echo $form->field($model_1, 'column_3')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Descripción en Inglés'));
 
-    // type_art : Gets the value from the cookie and assign it to the model column_4. Default value to : '1' [ Shows ].
+    // article_type_id : Gets the value from the cookie and assign it to the model column_4. Default value to : '1' [ Shows ].
     $model_1->column_4 = $c[4];
     // It determines and stores the right css class to apply in the dropDownList control.
     $css_rules = ($model_1->column_4=='1'?'dropDownList-1-css':'dropDownList-0-css');

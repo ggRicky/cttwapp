@@ -118,6 +118,9 @@ $baseUrl = $asset->baseUrl;
             'value' => implode(",",ArrayHelper::map(Warehouse::find()->where(['id' => $model->warehouse_id])->all(),'id','displayDescWarehouse')),
         ],
 
+        // 2019-11-01 : Modified to display the article remarks text
+        'remarks_art',
+
         'created_at',
         'updated_at',
         'created_by',

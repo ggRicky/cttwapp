@@ -207,6 +207,9 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
                                 },
                             ],
 
+                            // 2019-11-01 : Modified to display the article remarks text
+                            'remarks_art',
+
                             'created_at',
                             'updated_at',
                             'created_by',

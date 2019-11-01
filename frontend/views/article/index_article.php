@@ -252,7 +252,8 @@ $randomBg = rand(1,11);;
                             // 2019-07-21 : Determines the headers height ( 60px ) in the GridView control
                             'headerOptions' => ['style' => 'width:2.3%; height:60px; color:#8b8787;'],
                             // 2018-06-03 : Redefines the default {delete} action from the template and adds the new behaviors like an customized modal window.
-                            'template' => '{view} {update} {delete} {list} {show}',
+                            // 2019-11-01 : Modified to display the article remarks text
+                            'template' => '{view} {update} {delete} {list} {show} {display}',
                             'buttons' => [
                                 // 2018-06-03 : Adds the title property to show the right tooltip when mouse is hover the glyphicon.
                                 'view' => function ($url) {
@@ -364,9 +365,37 @@ $randomBg = rand(1,11);;
 
                                             'data-target' => '#ctt-modal-show-art',           // 2019-04-01 : The target to displays as a modal window
                                             'data' => [
-                                                'title' => Yii::t('app', 'Vista Detallada').' : '.($model->id),    // 2018-07-11 : Title header
-                                                'name'  => ($model->name_art),                                                      // 2018-07-11 : Article name
-                                                'url'   => Url::to('@uploads_inv'.'/').PREFIX_IMG.$model->id.$file_ext,         // 2018-07-11 : Article image Url
+                                                'title'   => Yii::t('app', 'Vista Detallada').' : '.($model->id),    // 2018-07-11 : Title header
+                                                'name'    => ($model->name_art),                                                      // 2018-07-11 : Article name
+                                                'url'     => Url::to('@uploads_inv'.'/').PREFIX_IMG.$model->id.$file_ext,         // 2018-07-11 : Article image Url
+                                            ],
+                                            'data-id'     => $key,                            // 2019-04-02 : Adds the article ID to the <a> tag as a unique descriptor.
+                                            'data-pjax'   => '0',
+                                        ]);
+                                    }
+
+                                    return null;
+                                },
+
+                                // 2019-10-31 : Adds a new display action to shows the associated remarks in a bootstrap modal window.
+                                'display' => function ($url, $model, $key) {
+                                    // 2019-10-31 : Check if there is one remarks.
+                                    if (!is_null($model->remarks_art)) {
+                                        return Html::a('<span class="glyphicon glyphicon-comment" data-toggle="tooltip" title="'.Yii::t('app', 'Desplegar').'"></span>', '#', [
+                                            'class'       => 'art-remarks-link',
+                                            'style'       => 'color:#337ab7, ',               // 2018-07-11 : Display the glyphicon-comment in default color.
+                                            'onMouseOver' => 'this.style.color=\'#ffcc11\'',  // 2019-10-31 : When mouse is hover on the link, the color changes to orange advising an available operation.
+                                            'onMouseOut'  => 'this.style.color=\'#337ab7\'',
+                                            'data-toggle' => 'modal',                         // 2019-04-01 : It is a HTML5 data attribute that automatically hooks up the element to the type of widget it is.
+                                            //              Some samples : data-toggle="modal", data-toggle="collapse", data-toggle="dropdown", data-toggle="tab"
+                                            // In summary : Activate a modal without writing JavaScript. Set data-toggle="modal" on a controller element,
+                                            //              like a button, along with a data-target="#foo" or href="#foo" to target a specific modal to toggle.
+
+                                            'data-target' => '#ctt-modal-display-remark',     // 2019-10-31 : The target to displays as a modal window
+                                            'data' => [
+                                                'title'   => Yii::t('app', 'Observaciones').' : '.($model->id),    // 2019-10-31 : Title header
+                                                'name'    => ($model->name_art),              // 2019-10-31 : Article name
+                                                'remarks' => ($model->remarks_art),           // 2019-10-31 : The article remarks
                                             ],
                                             'data-id'     => $key,                            // 2019-04-02 : Adds the article ID to the <a> tag as a unique descriptor.
                                             'data-pjax'   => '0',
@@ -564,7 +593,7 @@ $randomBg = rand(1,11);;
                 <!-- 2018-07-13 : This jQuery's piece of code implements the modal window for show the article image.-->
                 <?php $this->registerJs(
                     /** @lang jQuery */
-                "// This code is implemented to show the article image in a modal window
+                "// 2018-08-23 : This code is implemented to show the article image in a modal window
                     $('.detail-view-link').click(function(e) {
 
                         // 2018-10-23 : If this method is called, the default action of the event will not be triggered.
@@ -590,8 +619,35 @@ $randomBg = rand(1,11);;
                         modal.find('#content-body').html('<div><img src=\"'+p_url_image+'\" style=\"max-height:100%; max-width:100%\"></div><br/><div align=\"center\">'+p_name+'</div>');
     
                     });
+
+                    //  2019-10-31 : This code is implemented to display the article remarks in a modal window
+                    $('.art-remarks-link').click(function(e) {
+
+                        // 2019-10-31 : If this method is called, the default action of the event will not be triggered.
+                        e.preventDefault();
+                        // 2019-10-31 : Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
+                        e.stopPropagation();
+                        // 2019-10-31 : Closes the sidebar menu if this is opened.
+                        if ($('#sidebar-wrapper').hasClass('active')) 
+                            $('#sidebar-wrapper').toggleClass('active');
+                        
+                        // Gets the modal window title. 
+                        var p_title = $(this).data(\"title\");
+                        // Gets the article name. 
+                        var p_name = $(this).data(\"name\");
+                        // Gets the record remarks to display. 
+                        var p_remarks = $(this).data(\"remarks\");
+                        // Shows the modal window.
+                        var modal = $('#ctt-modal-display-remark').modal('show');
+    
+                        // Inserts the title message in the html content-title area. 
+                        modal.find('#content-title').html('<h5 class=\"modal-title\">' + p_title + '</h5>');
+                        // Inserts the image url in the html content-body area.
+                        modal.find('#content-body').html('<div><textarea rows=\"10\" style=\"width:100%; resize:none; background-color:#eff0f1\">'+p_remarks+'</textarea></div><br/><div align=\"center\">'+p_name+'</div>');
+    
+                    });
                    
-                    // This code is implemented for re-start several functionalities after each Pjax request.
+                    // 2018-08-23 : This code is implemented for re-start several functionalities after each Pjax request.
                     $(document).on('pjax:success', function(event) {
 
                         // 2018-08-23 : Re-start the Bootstrap Tooltips.
@@ -602,7 +658,7 @@ $randomBg = rand(1,11);;
                         
                     });
                     
-                    // This code is implemented for adds or removes the product id in the session array. 
+                    // 2019-09-06 : This code is implemented for adds or removes the product id in the session array. 
                     $('.sel_checkbox').on('click',function() {
 
                           // 2019-09-06 : Determine the action to be executed
@@ -719,6 +775,9 @@ $randomBg = rand(1,11);;
 
 <!-- Includes the modal window to show an article image -->
 <?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_show_image.inc'); ?>
+
+<!-- Includes the modal window to display the record remarks -->
+<?php include(Yii::getAlias('@app').'/views/layouts/cttwapp_views_display_remarks.inc'); ?>
 
 <!-- Includes the jQuery tableScroll plugin and configuring the height and width initial values for the size of the table window -->
 <?php $this->registerJs(/** @lang jquery */"jQuery(document).ready(function() { $(\"#dataTable\").tableScroll({height:500, width:5500}); });",View::POS_READY,'fix-Header'); ?>

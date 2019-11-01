@@ -93,6 +93,8 @@ JS;
     <?= $form->field($model, 'sp_desc')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
     <!-- English input text  -->
     <?= $form->field($model, 'en_desc')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
+    <!-- 2019-10-31 : Remarks text area -->
+    <?= $form->field($model, 'remarks_art')->textArea(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
 
     <!-- The anchor to show the Upload button -->
     <spam id="upload-area"></spam>

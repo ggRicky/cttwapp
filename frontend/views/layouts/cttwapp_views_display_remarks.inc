@@ -7,7 +7,7 @@
 
             <!-- Modal Header -->
             <div class="modal-shadow-effect modal-header-water-mark">
-                <div class="modal-header modal-header-config ctt-modal-header-info">
+                <div class="modal-header modal-header-config ctt-modal-header-warning"> <!-- 2019-11-02 : The ctt-modal-header-warning class is used to shows the header in orange color -->
                     <div class="row">
                         <!--
                              ctt-modal-header-info        glyphicon-info-sign

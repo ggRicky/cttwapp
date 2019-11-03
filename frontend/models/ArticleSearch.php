@@ -46,7 +46,7 @@ class ArticleSearch extends Article
             case '0':   // Price List. Shows filtered data in the Price List option,
 
                 // 2019-03-31 : Adds a new functionality to show filtered data in the Price List option. At the same time, it show all records in the article table in Products & Services option.
-                $query = Article::find()->where('shown_price_list LIKE \'S\'');  // 2019-03-31 : $qry_type == 'pl' [ Price List ] To filter only records for the Price List option
+                $query = Article::find()->where('shown_price_list LIKE \'1\'');  // 2019-03-31 : $qry_type == '0' [ Price List ] To filter only records for the Price List option
 
                 // Adds the conditions that should always apply to the dataProvider
                 $dataProvider = new ActiveDataProvider([

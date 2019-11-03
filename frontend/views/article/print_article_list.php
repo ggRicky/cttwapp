@@ -151,20 +151,37 @@ if (Yii::$app->getRequest()->getCookies()->has('article_columns_config')) {
             'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
         ],
 
+        // 2019-11-02 : Modified to display the alternative id
+        [
+            'attribute' => 'id_alt',
+            'headerOptions' => ['style' => 'width:3%'],
+            'value' => function($model){
+                return (trim($model->id_alt)==false ? 'N/D' : $model->id_alt);
+            },
+            'visible' => ($c[14] == '1' ? true : false),     // 2019-11-02 : Set the column visibility status
+            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-11-02 : Transforms all characters to uppercase
+        ],
+
         // 2018-05-06 : For article_type_id field, the right legend is displayed and colored properly.
 
         [
             'attribute' => 'article_type_id',
             'filter' => Html::activeDropDownList($searchModel, 'article_type_id', ArrayHelper::map(ArticleType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]),
-            'value' =>
-                function($model){
-                    return (implode(",",ArrayHelper::map(ArticleType::find()->where(['id' => $model->article_type_id])->all(),'id','displayTypeDesc')));
-                },
+            'value' => function($model){
+                return (implode(",",ArrayHelper::map(ArticleType::find()->where(['id' => $model->article_type_id])->all(),'id','displayTypeDesc')));
+            },
             'visible' => ($c[4] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
         ],
 
         [
             'attribute' => 'price_art',
+            'value' => function($model){
+                // Sets the currency code based on the currency_art field value.
+                if ($model->currency_art=='1') Yii::$app->formatter->currencyCode = 'MXN';
+                elseif ($model->currency_art=='2') Yii::$app->formatter->currencyCode = 'USD';
+
+                return (Yii::$app->formatter->asCurrency($model->price_art));
+            },
             'visible' => ($c[5] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
         ],
 
@@ -173,7 +190,7 @@ if (Yii::$app->getRequest()->getCookies()->has('article_columns_config')) {
         [
             'attribute' => 'currency_art',
             'value' => function($model){
-                return ($model->currency_art=='P'?'PESOS':'DÓLARES');
+                return ($model->currency_art=='1'?'PESOS':'DÓLARES');
             },
             'visible' => ($c[6] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
         ],

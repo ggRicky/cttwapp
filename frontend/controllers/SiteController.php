@@ -360,4 +360,19 @@ class SiteController extends Controller
     {
         return $this->render('debug');
     }
+
+    /**
+     * Displays current php info.
+     *
+     * 2019-11-03 00:11 Hrs.
+     *
+     * Author : ISC. Ricardo González González
+     * Reference : http://cttwapp.com/index.php?r=site/config
+     *
+     */
+    public function actionPhpConfig()
+    {
+        return $this->render('config');
+    }
+
 }

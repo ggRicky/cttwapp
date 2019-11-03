@@ -106,6 +106,24 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
                             'sp_desc',
                             'en_desc',
 
+                            // 2019-11-02 : Modified to display the alternative id
+                            [
+                                'attribute' => 'id_alt',
+                                'value' => function($model){
+                                    return (empty($model->id_alt)?'N/D':$model->id_alt);
+                                },
+                                'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-11-02 : Transforms all characters to uppercase
+                            ],
+
+                            // 2019-11-01 : Modified to display the article remarks text
+                            [
+                                'attribute' => 'remarks_art',
+                                'value' => function($model){
+                                    return (empty($model->remarks_art)?'':$model->remarks_art);
+                                },
+                                'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-11-02 : Transforms all characters to uppercase
+                            ],
+
                             // 2018-08-03 : To displays the image.
                             [
                                 'attribute' => 'photo',
@@ -132,16 +150,25 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
                                 'value' => implode(",",ArrayHelper::map(ArticleType::find()->where(['id' => $model->article_type_id])->all(),'id','displayTypeDesc')),
                             ],
 
-                            'price_art',
+                            [
+                                'attribute' => 'price_art',
+                                'value' => function($model){
+                                    // Sets the currency code based on the currency_art field value.
+                                    if ($model->currency_art=='1') Yii::$app->formatter->currencyCode = 'MXN';
+                                    elseif ($model->currency_art=='2') Yii::$app->formatter->currencyCode = 'USD';
+
+                                    return (Yii::$app->formatter->asCurrency($model->price_art));
+                                },
+                            ],
 
                             // 2018-05-06 : For currency art, the right legend is displayed and colored properly.
                             [
                                 'attribute' => 'currency_art',
                                 'value' => function($model){
-                                    return ($model->currency_art=='P'?'PESOS':'DÓLARES');
+                                    return ($model->currency_art=='1'?'PESOS':'DÓLARES');
                                 },
                                 'contentOptions' => function ($model, $key, $index, $column) {
-                                    return ['style' => 'color:'. ($model->currency_art=='P'?'grey':'#337ab7')];
+                                    return ['style' => 'color:'. ($model->currency_art=='1'?'grey':'#337ab7')];
                                 },
                             ],
 
@@ -158,17 +185,6 @@ $url_image = Url::to(Yii::getAlias('@uploads_inv').'/').PREFIX_IMG.$model->id.$f
                                 'attribute' => 'warehouse_id',
                                 'value' => implode(",",ArrayHelper::map(Warehouse::find()->where(['id' => $model->warehouse_id])->all(),'id','displayDescWarehouse')),
                             ],
-
-                            // 2019-03-31 : Display the show price list status
-                            [
-                                'attribute' => 'shown_price_list',
-                                'value' => function($model){
-                                    return ($model->shown_price_list=='S'?'Si':'No');
-                                },
-                            ],
-
-                            // 2019-11-01 : Modified to display the article remarks text
-                            'remarks_art',
 
                             'created_at',
                             'updated_at',

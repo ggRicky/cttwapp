@@ -16,20 +16,33 @@ return [
     'sourceLanguage' => 'es',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-        'request' => [
-            'csrfParam' => '_csrf-frontend',
-            // 2018-02-05 13:49 Hrs.  Disable the next param for properly function in servers calls via ajax's jQuery $.post( ... ) function
-            'enableCsrfValidation' => false,
-            'enableCookieValidation' => true,
+        'errorHandler' => [
+            'errorAction' => 'site/error',
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+        // 2019-11-03 14:16 Hrs. : Configuration for using i18n Formatter internationalization.
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => '.',
+            'thousandSeparator' => ',',
+            'currencyCode' => 'MXN',
+            'numberFormatterOptions' => [
+                NumberFormatter::MIN_FRACTION_DIGITS => 2,
+                NumberFormatter::MAX_FRACTION_DIGITS => 2,
+            ],
         ],
-        'session' => [
-            // this is the name of the session cookie used for login on the frontend
-            'name' => 'advanced-frontend',
+        // 2018-02-05 13:52 Hrs. : Configuration for using Yii2 internationalization module.
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                      //'basePath' => '@app/messages',
+                    'sourceLanguage' => 'es',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -40,22 +53,20 @@ return [
                 ],
             ],
         ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
+        'request' => [
+            'csrfParam' => '_csrf-frontend',
+            // 2018-02-05 13:49 Hrs.  Disable the next param for properly function in servers calls via ajax's jQuery $.post( ... ) function
+            'enableCsrfValidation' => false,
+            'enableCookieValidation' => true,
         ],
-        // 2018-02-05 13:52 Hrs. : Configuration for using Yii2 internationalization module.
-        'i18n' => [
-            'translations' => [
-                'app' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    //'basePath' => '@app/messages',
-                    'sourceLanguage' => 'es',
-                    'fileMap' => [
-                        'app' => 'app.php',
-                        'app/error' => 'error.php',
-                    ],
-                ],
-            ],
+        'session' => [
+            // this is the name of the session cookie used for login on the frontend
+            'name' => 'advanced-frontend',
+        ],
+        'user' => [
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
         ],
         /*
         'urlManager' => [

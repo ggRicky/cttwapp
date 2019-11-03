@@ -221,6 +221,8 @@ $randomBg = rand(1,11);;
                                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
                                         'data-toggle' => 'tooltip',
                                         'title' => Yii::t('app', 'Ver'),           // 2018-06-03 : Adds the tooltip View
+                                        'onMouseOver' => 'this.style.color=\'#606060\'',            // 2018-06-06 : When mouse is hover on the link, the color changes
+                                        'onMouseOut'  => 'this.style.color=\'#337ab7\'',            //              to gray advising warning in update operation.
                                     ]);
                                 },
 
@@ -235,7 +237,7 @@ $randomBg = rand(1,11);;
                                         return Html::a('<span class="glyphicon glyphicon-camera"></span>', '#', [
                                             'class'       => 'detail-view-link',
                                             'style'       => 'color:#337ab7;',                            // 2018-07-11 : Display the glyphicon-camera in default color.
-                                            'onMouseOver' => 'this.style.color=\'#ff8e00\'',              // 2018-07-11 : When mouse is hover on the link, the color changes to orange advising an available operation.
+                                            'onMouseOver' => 'this.style.color=\'#0088ff\'',              // 2018-07-11 : When mouse is hover on the link, the color changes to blue advising an available operation.
                                             'onMouseOut'  => 'this.style.color=\'#337ab7\'',
                                             'data-toggle' => 'tooltip',
                                             'title' => Yii::t('app', 'Mostrar'),         // 2018-06-03 : Adds the tooltip View
@@ -256,11 +258,11 @@ $randomBg = rand(1,11);;
                                 // 2019-10-31 : Adds a new display action to shows the associated remarks in a bootstrap modal window.
                                 'display' => function ($url, $model, $key) {
                                     // 2019-10-31 : Check if there is one remarks.
-                                    if (!is_null($model->remarks_art)) {
+                                    if (!is_null($model->remarks_art) && !empty($model->remarks_art)) {
                                         return Html::a('<span class="glyphicon glyphicon-comment" data-toggle="tooltip" title="'.Yii::t('app', 'Desplegar').'"></span>', '#', [
                                             'class'       => 'art-remarks-link',
                                             'style'       => 'color:#337ab7, ',               // 2018-07-11 : Display the glyphicon-comment in default color.
-                                            'onMouseOver' => 'this.style.color=\'#ffcc11\'',  // 2019-10-31 : When mouse is hover on the link, the color changes to orange advising an available operation.
+                                            'onMouseOver' => 'this.style.color=\'#ff8e00\'',  // 2019-10-31 : When mouse is hover on the link, the color changes to orange advising an available operation.
                                             'onMouseOut'  => 'this.style.color=\'#337ab7\'',
                                             'data-toggle' => 'modal',                         // 2019-04-01 : It is a HTML5 data attribute that automatically hooks up the element to the type of widget it is.
                                             //              Some samples : data-toggle="modal", data-toggle="collapse", data-toggle="dropdown", data-toggle="tab"
@@ -310,7 +312,7 @@ $randomBg = rand(1,11);;
 
                         [
                             'attribute' => 'catalog_id',
-                            'visible' => ($c[0] == '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[0] == '1' ? true : false),    // 2018-08-20 : Set the column visibility status
                             'headerOptions' => ['style' => 'width:6%;'],
                             // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
                             'filter' => Html::activeDropDownList($searchModel, 'catalog_id', ArrayHelper::map(Catalog::find()->select(['id','name_cat'])->orderBy(['id' => SORT_ASC])->all(),'id','displayNameCat'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Catálogos Disponibles')]),
@@ -323,7 +325,7 @@ $randomBg = rand(1,11);;
 
                         [
                             'attribute' => 'warehouse_id',
-                            'visible' => ($c[13] == '1' ? true : false),    // 2019-08-14 : Set the column visibility status
+                            'visible' => ($c[13] == '1' ? true : false),   // 2019-08-14 : Set the column visibility status
                             'headerOptions' => ['style' => 'width:6%;'],
                             // 2019-08-14 : Modified to display a DropDownList with the available warehouses, using the filter option.
                             'filter' => Html::activeDropDownList($searchModel, 'warehouse_id', ArrayHelper::map(Warehouse::find()->select(['id','desc_warehouse'])->orderBy(['id' => SORT_ASC])->all(),'id','displayDescWarehouse'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Almacenes Disponibles')]),
@@ -336,86 +338,110 @@ $randomBg = rand(1,11);;
 
                         [
                             'attribute' => 'name_art',
-                            'contentOptions' => ['style' => 'color:red; text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                             'visible' => ($c[1]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:10%;'],
+                            'contentOptions' => ['style' => 'color:red; text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
                             'attribute' => 'sp_desc',
-                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                             'visible' => ($c[2]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                         ],
 
                         [
                             'attribute' => 'en_desc',
-                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
                             'visible' => ($c[3]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-07-29 : Transforms all characters to uppercase
+                        ],
+
+                        // 2019-11-02 : Modified to display the alternative id
+                        [
+                            'attribute' => 'id_alt',
+                            'visible' => ($c[14] == '1' ? true : false),   // 2019-11-02 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:3%'],
+                            'contentOptions' => ['style' => 'text-transform:uppercase;'],  // 2019-11-02 : Transforms all characters to uppercase
+                            'value' => function($model){
+                                return (trim($model->id_alt)==false ? 'N/D' : $model->id_alt);
+                            },
                         ],
 
                         // 2018-05-06 : For article_type_id field, the right legend is displayed and colored properly.
-
                         [
                             'attribute' => 'article_type_id',
+                            'visible' => ($c[4] == '1' ? true : false),    // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
                             // 2019-10-23 : Modified to display a DropDownList with the available article types, using the filter option.
                             'filter' => Html::activeDropDownList($searchModel, 'article_type_id', ArrayHelper::map(ArticleType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]),
-                            'value' =>
-                                function($model){
-                                    return (implode(",",ArrayHelper::map(ArticleType::find()->where(['id' => $model->article_type_id])->all(),'id','displayTypeDesc')));
-                                },
-                            'visible' => ($c[4] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            'value' => function($model){
+                                return (implode(",",ArrayHelper::map(ArticleType::find()->where(['id' => $model->article_type_id])->all(),'id','displayTypeDesc')));
+                            },
                         ],
 
                         [
                             'attribute' => 'price_art',
-                            'visible' => ($c[5]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[5] == '1' ? true : false),    // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
+                            'value' => function($model){
+                                // Sets the currency code based on the currency_art field value.
+                                if ($model->currency_art=='1') Yii::$app->formatter->currencyCode = 'MXN';
+                                elseif ($model->currency_art=='2') Yii::$app->formatter->currencyCode = 'USD';
+                                return (Yii::$app->formatter->asCurrency($model->price_art));
+                            },
                         ],
 
                         // 2018-04-23 : To the provenance type, the right legend is displayed.
 
                         [
                             'attribute' => 'currency_art',
+                            'visible' => ($c[6]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
                             'value' => function($model){
-                                return ($model->currency_art=='P'?'PESOS':'DÓLARES');
+                                return ($model->currency_art=='1'?'PESOS':'DÓLARES');
                             },
-                            // 2018-08-20 : Set the column visibility status
-                            'visible' => ($c[6]== '1' ? true : false),
                         ],
 
                         // 2018-05-06 : Modified to display the ID and the Catalog Description instead of the ID only.
                         [
                             'attribute' => 'brand_id',
+                            'visible' => ($c[7]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
                             // 2018-08-21 : Modified to display a DropDownList with the available catalogs, using the filter option.
                             'filter' => Html::activeDropDownList($searchModel, 'brand_id', ArrayHelper::map(Brand::find()->select(['id','brand_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayBrandDesc'), ['prompt' => Yii::t('app','Ver Todos...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Marcas Disponibles')]),
                             'value' =>
                                 function($model){
                                     return (implode(",",ArrayHelper::map(Brand::find()->where(['id' => $model->brand_id])->all(),'id','displayBrandDesc')));
                                 },
-                            'visible' => ($c[7]== '1' ? true : false),  // 2018-08-20 : Set the column visibility status
                         ],
 
                         [
                             'attribute' => 'part_num',
-                            'visible' => ($c[8]== '1' ? true : false), // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[8]== '1' ? true : false),     // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
                         ],
 
                         [
                             'attribute' => 'created_at',
-                            'visible' => ($c[9] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[9] == '1' ? true : false),    // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
                         ],
 
                         [
                             'attribute' => 'updated_at',
-                            'visible' => ($c[10] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[10] == '1' ? true : false),   // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
                         ],
 
                         [
                             'attribute' => 'created_by',
-                            'visible' => ($c[11] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[11] == '1' ? true : false),   // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
                         ],
 
                         [
                             'attribute' => 'updated_by',
-                            'visible' => ($c[12] == '1' ? true : false),  // 2018-08-20 : Set the column visibility status
+                            'visible' => ($c[12] == '1' ? true : false),   // 2018-08-20 : Set the column visibility status
+                            'headerOptions' => ['style' => 'width:4%;'],
                         ],
 
                     ],

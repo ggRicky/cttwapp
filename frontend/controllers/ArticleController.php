@@ -485,20 +485,20 @@ class ArticleController extends Controller
     public function actionGetColumns($view_type='')
     {
         // Creates the new dynamic model
-        $model_1 = new DynamicModel(['column_0', 'column_1', 'column_2', 'column_3', 'column_4', 'column_5', 'column_6', 'column_7', 'column_8', 'column_9', 'column_10', 'column_11', 'column_12', 'column_13',]);
+        $model_1 = new DynamicModel(['column_0', 'column_1', 'column_2', 'column_3', 'column_4', 'column_5', 'column_6', 'column_7', 'column_8', 'column_9', 'column_10', 'column_11', 'column_12', 'column_13', 'column_14',]);
         // Add the rules to the new dynamic model
-        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
-                           'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12', 'column_13'], 'string', ['max' => 1]);
+        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6', 'column_7',
+                           'column_8',  'column_9',  'column_10', 'column_11', 'column_12', 'column_13', 'column_14'], 'string', ['max' => 1]);
         // Add the rules to the new dynamic model
-        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6',
-                           'column_7',  'column_8',  'column_9',  'column_10', 'column_11', 'column_12', 'column_13'], 'required'); // The ->validate() can be used here to validate the user input data.
+        $model_1->addRule(['column_0',  'column_1',  'column_2',  'column_3',  'column_4',  'column_5',  'column_6', 'column_7',
+                           'column_8',  'column_9',  'column_10', 'column_11', 'column_12', 'column_13', 'column_14'], 'required'); // The ->validate() can be used here to validate the user input data.
 
         if ($model_1->load(Yii::$app->request->post())) {
             // Saves all columns visibility status collected through the form.
             return $this->redirect(['article/set-columns',
                                     'article_columns_config' => $model_1->column_0. $model_1->column_1. $model_1->column_2. $model_1->column_3. $model_1->column_4.
                                                                 $model_1->column_5. $model_1->column_6. $model_1->column_7. $model_1->column_8. $model_1->column_9.
-                                                                $model_1->column_10.$model_1->column_11.$model_1->column_12.$model_1->column_13,
+                                                                $model_1->column_10.$model_1->column_11.$model_1->column_12.$model_1->column_13.$model_1->column_14,
                                     'view_type' => $view_type,
                                     ]
             );
@@ -1061,7 +1061,7 @@ class ArticleController extends Controller
                                 if ($rows) Yii::$app->session->setFlash('success', Yii::t('app','El archivo fue validado, cargado y almacenado exitosamente').'.'.'<br>'.Yii::t('app','Se han importado exitosamente al sistema').' '.$rows.' '.Yii::t('app','registro(s)').'.');
                             }
                             else{
-                                Yii::$app->session->setFlash('error', Yii::t('app', 'Ningun registro fue importado a la tabla').'.');
+                                Yii::$app->session->setFlash('error', Yii::t('app', 'Ningún registro fue importado a la tabla').'.');
                             }
                         }catch (Exception $e) {
                             // 2019-09-24 : The next statement is used to display the current error reported by SQLSTATUS : nl2br($e->errorInfo[0].' '.$e->errorInfo[2])

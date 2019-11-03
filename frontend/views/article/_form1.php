@@ -152,6 +152,13 @@ $view_type = Yii::$app->getRequest()->getQueryParam('view_type');
     // Shows the dropDownList control for the model column_13.
     echo $form->field($model_1, 'column_13')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Almacén'));
 
+    // id_alt : Gets the value from the cookie and assign it to the model column_14. Default value to : '1' [ Shows ].
+    $model_1->column_14 = $c[14];
+    // It determines and stores the right css class to apply in the dropDownList control.
+    $css_rules = ($model_1->column_14=='1'?'dropDownList-1-css':'dropDownList-0-css');
+    // Shows the dropDownList control for the model column_14.
+    echo $form->field($model_1, 'column_14')->dropDownList($listData,['options'=>$options, 'class'=>$css_rules])->label(Yii::t('app', 'Id. Alternativo'));
+
     ?>
 
     <div>

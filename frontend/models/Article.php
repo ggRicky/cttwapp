@@ -24,6 +24,7 @@ use Yii;
  * @property boolean $shown_price_list
  * @property string $warehouse_id
  * @property string $remarks_art
+ * @property string $id_alt
  *
  * @property Brand $brand
  * @property Catalog $catalog
@@ -46,17 +47,18 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'name_art', 'article_type_id', 'price_art', 'currency_art', 'brand_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'catalog_id', 'shown_price_list', 'warehouse_id'], 'required'],
-            [['id', 'name_art','sp_desc','en_desc', 'remarks_art'], 'filter', 'filter'=>'strtoupper'],
+            [['id', 'id_alt', 'name_art','sp_desc','en_desc', 'remarks_art'], 'filter', 'filter'=>'strtoupper'],
             [['id'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'default', 'value' => null],
             [['created_by', 'updated_by', 'article_type_id'], 'integer'],
 
             [['id', 'brand_id', 'catalog_id', 'warehouse_id'], 'string', 'max' => 15],
+            [['id_alt'], 'string', 'max' => 20],
             [['name_art', 'part_num'], 'string', 'max' => 50],
             [['sp_desc', 'en_desc'], 'string', 'max' => 100],
             [['currency_art', 'shown_price_list'], 'string', 'max' => 1],
-            [['price_art'], 'number'],
+            [['price_art'], 'number', 'min' => 0, 'max' => 9999999],
             [['remarks_art'], 'string'],
 
             [['brand_id'], 'exist', 'skipOnError' => true, 'targetClass' => Brand::class, 'targetAttribute' => ['brand_id' => 'id']],
@@ -90,6 +92,7 @@ class Article extends \yii\db\ActiveRecord
             'photo' => Yii::t('app','Fotografía del Artículo'),
             'shown_price_list' => Yii::t('app','Lista de Precios'),
             'remarks_art' => Yii::t('app','Observaciones'),
+            'id_alt' => Yii::t('app','Id. Alternativo'),
         ];
     }
 

@@ -56,7 +56,7 @@ JS;
 
     // Init the model's fields, with the user's data.
 
-    if (isset(Yii::$app->user->identity)) {
+    if (isset(Yii::$app->user->identity)){
 
         // If the user identity object is created, then init the model fields with the user Id
 
@@ -77,10 +77,23 @@ JS;
 
     // 2018-05-06 : Init some model fields to default values if new record.
 
-    if ($model->isNewRecord) {
-        $model->sp_desc = $model->en_desc = $model->part_num = "N/D";
-        $model->shown_price_list = "N";
-        $model->currency_art = "P";
+    if ($model->isNewRecord){
+
+        $model->sp_desc = $model->en_desc = $model->part_num = $model->id_alt = 'N/D';
+        $model->shown_price_list = "0";  // 0-No shows, 1-Shows
+        $model->price_art = 0.0;         // Yii::$app->formatter->asCurrency(0.0,'USD');
+        $model->currency_art = "1";      // 1-Pesos, 2-Dollars
+
+    }
+    else{
+
+        // 2019-11-02 : Update Record
+
+        $model->id_alt   = (is_null($model->id_alt)   || empty($model->id_alt)   ? 'N/D' : $model->id_alt);
+        $model->sp_desc  = (is_null($model->sp_desc)  || empty($model->sp_desc)  ? 'N/D' : $model->sp_desc);
+        $model->en_desc  = (is_null($model->en_desc)  || empty($model->en_desc)  ? 'N/D' : $model->en_desc);
+        $model->part_num = (is_null($model->part_num) || empty($model->part_num) ? 'N/D' : $model->part_num);
+
     }
 
     ?>
@@ -93,6 +106,8 @@ JS;
     <?= $form->field($model, 'sp_desc')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
     <!-- English input text  -->
     <?= $form->field($model, 'en_desc')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
+    <!-- Alternative ID input text  -->
+    <?= $form->field($model, 'id_alt')->textInput(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
     <!-- 2019-10-31 : Remarks text area -->
     <?= $form->field($model, 'remarks_art')->textArea(['style' => 'text-transform: uppercase', 'maxlength' => true]) ?>
 
@@ -139,7 +154,19 @@ JS;
     <?= $form->field($model, 'price_art')->textInput() ?>
 
     <!-- Currency input text  -->
-    <?= $form->field($model, 'currency_art')->radioList(['P' => 'Pesos', 'D' => 'Dólares']) ?>
+    <?= $form->field($model, 'currency_art')->radioList(['1' => 'Pesos', '2' => 'Dólares'],
+        [
+            'item' => function($index, $label, $name, $checked, $value) {
+
+                $return  = '<label class="modal-radio">';
+                $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" title="'.Yii::t('app','Determina la moneda base de cotización').'" data-toggle="tooltip" ' . ($checked?"checked":""). '>';
+                $return .= '<i></i>';
+                $return .= '<span>' . ucwords($label) .str_repeat('&nbsp;',5) . '</span>';
+                $return .= '</label>';
+
+                return $return;
+            }
+        ]); ?>
 
     <!-- Brand Selector  -->
     <?= $form->field($model, 'brand_id')->dropDownList(ArrayHelper::map(Brand::find()->select(['id','brand_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayBrandDesc'), ['prompt' => Yii::t('app','Seleccione...')]); ?>
@@ -155,16 +182,16 @@ JS;
 
     <!-- Shown in Price List Selector  -->
     <?= $form->field($model, 'shown_price_list')->radioList(
-            ['S' => 'Si', 'N' => 'No'],
+            ['0' => 'No', '1' => 'Si'],
             // 2019-03-31 : This code is for customize the tooltip in each radio button, avoiding have only one for the entire RadioList control.
             // Because this condition, the tooltip was displayed at the center of the screen area.
             [
                 'item' => function($index, $label, $name, $checked, $value) {
 
-                    $return = '<label class="modal-radio">';
+                    $return  = '<label class="modal-radio">';
                     $return .= '<input type="radio" name="' . $name . '" value="' . $value . '" title="'.Yii::t('app','Permite mostrar u ocultar este registro en el Listado de Precios').'" data-toggle="tooltip" ' . ($checked?"checked":""). '>';
                     $return .= '<i></i>';
-                    $return .= '<span>' . ucwords($label) . '</span>';
+                    $return .= '<span>' . ucwords($label) .str_repeat('&nbsp;',5) . '</span>';
                     $return .= '</label>';
 
                     return $return;

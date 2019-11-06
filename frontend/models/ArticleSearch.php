@@ -69,8 +69,8 @@ class ArticleSearch extends Article
                 // 2019-09-08 : Gets the list of selected article records.
                 $list = "'".implode("', '",$session['keylist'])."'";
 
-                // 2019-09-08 : Gets an article list based on the variable $list content.
-                $sql = "SELECT * FROM article WHERE \"id\" IN (".$list.")";
+                // 2019-09-08 : Gets an article list based on the variable $list content and ordered by the id field.
+                $sql = "SELECT * FROM article WHERE \"id\" IN (".$list.") ORDER BY \"id\"";
                 // 2019-09-08 : Find all the records listed in the $list variable.
                 $query = Article::findBySql($sql);
 

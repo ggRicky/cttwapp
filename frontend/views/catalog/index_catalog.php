@@ -184,20 +184,24 @@ $randomBg = rand(1,11);;
                                             'style'       => 'color:#337ab7, ',                            // 2018-05-28 : Display the glyphicon-trash in red color like a warning signal.
                                             'onMouseOver' => 'this.style.color=\'#f00\'',                  // 2018-06-06 : When mouse is hover on the link, the color changes
                                             'onMouseOut'  => 'this.style.color=\'#337ab7\'',               //              to red advising danger in delete operation.
-                                            // 2018-05-31 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
+                                            // 2018-06-03 : A data set may be send like parameters to the overwritten function yii.confirm. And in the function, the data may be retrieved
                                             // and displayed in the modal window.
                                             'data' => [
-                                                // 2019-04-04 : Adds to the modal content, the record id and other description like a warning message.
-                                                'message' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->name_cat,
-                                                'color' => 4,   // Red color header in modal window.
+                                                'color' => 4,  // Red color header in modal window.
                                             ],
-                                            // 2018-05-31 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
+                                            // 2019-11-04 : Important : The 'data-confirm' parameter must be there, because it trigger a modal confirmation window before run the action delete.
                                             // In the same way, through this parameter can be pass the user's message to the overwritten function yii.confirm, located in the cttwapp-stylish.css file.
-                                            // An other way to send the user's message to the overwritten function yii.confirm, is through a data array, like showed above.
-                                            // In this case the 'data-confirm' parameter must be empty.
-                                            'data-confirm' => '',
-                                            //  2018-05-31 : The next two parameters are needed to complete teh right call to the action delete, because it will be made using the post method.
+                                            // Another way to sends user's data (p.e. color code ) to the overwritten function yii.confirm, is through a data array like showed above.
+                                            // On the next line, the confirmation message is passed to the modal dialog window via the parameter 'confirm-data' just before starting the deletion action.
+                                            'data-confirm' => Yii::t('app', '¿ Está seguro de eliminar este elemento ?').'<br>'.$model->id.'&nbsp;-&nbsp;'.$model->name_cat,
+                                            // 2018-06-03 : The next two parameters are needed to complete the right call to the action delete, because it will be made using the post method.
                                             'data-method' => 'post',
+                                            // 2018-06-03 : The Pjax widget allows you to update a certain section of a page instead of reloading the entire page. You can use it to update only
+                                            // the GridView content when using filters. But this might be a problem for the links of an ActionColumn. To prevent this, add the HTML attribute
+                                            // data-pjax="0" to the links when you edit the ActionColumn::$buttons property.
+
+                                            // You may configure $linkSelector to specify which links should trigger pjax, and configure $formSelector to specify which form submission may trigger pjax.
+                                            // You may disable pjax for a specific link inside the container by adding data-pjax="0" attribute to this link.
                                             'data-pjax' => '0',
                                         ]);
                                 },

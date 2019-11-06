@@ -37,47 +37,57 @@ use app\models\Article;
     echo '<th>@webroot :</th> <tr><td>', Yii::getAlias('@webroot'), '</td></tr>';
     echo '<th>@vendor :</th> <tr><td>', Yii::getAlias('@vendor'), '</td></tr>';
     echo '<th>@bower :</th> <tr><td>', Yii::getAlias('@bower'), '</td></tr>';
+    echo '<th>$app->getHomeUrl() :</th> <tr><td>', Yii::$app->getHomeUrl(), '</td></tr>';
+    echo '<th>Url::base(true) :</th> <tr><td>', Url::base(true) , '</td></tr>';
+    echo '<th>Url::base(\'https\') :</th> <tr><td>', Url::base('https') , '</td></tr>';
+    echo '<th>Url::base(\'http\') :</th> <tr><td>', Url::base('http') , '</td></tr>';
+    echo '<th>Url::base(\'\') :</th> <tr><td>', Url::base('') , '</td></tr>';
 
-    // Gets and displays the cttwapp_user log file contents.
-    $str = file_get_contents( Yii::getAlias('@runtime')."/logs/cttwapp_user.log" );
+    if (false) {
 
-    // The regular expression to search the timestamp pattern [ YYYY-MM-DD HH:MM:SS ].
-    $re1='((?:2|1)\\d{3}(?:-|\\/)(?:(?:0[1-9])|(?:1[0-2]))(?:-|\\/)(?:(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))(?:T|\\s)(?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9]))';	# Time Stamp 1
+        // Gets and displays the cttwapp_user log file contents.
+        $str = file_get_contents(Yii::getAlias('@runtime') . "/logs/cttwapp_user.log");
 
-    // First replaces all timestamp pattern with the same value in red color, plus a carriage return prefix. Then, convert the resulting string in an array.
-    $data = explode('<br />', preg_replace("/".$re1."/is","<br /><span style='color: red;'><b>$1</b></span>", $str));
+        // The regular expression to search the timestamp pattern [ YYYY-MM-DD HH:MM:SS ].
+        $re1 = '((?:2|1)\\d{3}(?:-|\\/)(?:(?:0[1-9])|(?:1[0-2]))(?:-|\\/)(?:(?:0[1-9])|(?:[1-2][0-9])|(?:3[0-1]))(?:T|\\s)(?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9]))';    # Time Stamp 1
 
-    echo '<th>cttwapp_user.log :</th> <tr><td>';
+        // First replaces all timestamp pattern with the same value in red color, plus a carriage return prefix. Then, convert the resulting string in an array.
+        $data = explode('<br />', preg_replace("/" . $re1 . "/is", "<br /><span style='color: red;'><b>$1</b></span>", $str));
 
-    // Reorder the array content in reverse order and shows the very last data at the beginning.
-    // 2019-04-07 : Disabled temporarily
-    // rsort($data);
-    // foreach($data as $line){
-    //    echo $line."<br />";
-    // }
+        echo '<th>cttwapp_user.log :</th> <tr><td>';
 
-    echo '</td></tr>';
-    echo '</table></br></br>';
+        // Reorder the array content in reverse order and shows the very last data at the beginning.
+        // 2019-04-07 : Disabled temporarily
+        rsort($data);
+        foreach($data as $line){
+           echo $line."<br />";
+        }
 
-    //  2018-10-27 : Test-OK
-    //  Displays the current path to cttwapp_user.log
-    //  echo  Yii::getAlias('@runtime')."/logs/cttwapp_user.log";
+        echo '</td></tr>';
+        echo '</table></br></br>';
 
-    //  2018-10-28 : Test-OK
-    //  Gets and shows the cttwapp_user log file contents and replaces all nl with <br> label
-    //  echo nl2br(file_get_contents( Yii::getAlias('@runtime')."/logs/cttwapp_user.log"));
+        //  2018-10-27 : Test-OK
+        //  Displays the current path to cttwapp_user.log
+        //  echo  Yii::getAlias('@runtime')."/logs/cttwapp_user.log";
 
-    //  2018-10-29 : Test-OK
-    //  Gets the cttwapp_user log file contents and replaces all nl with <br> label. Then replaces all single <br /> tags with a double <br /> tags
-    //  $str = str_replace ('<br />', '<br /><br />', nl2br(file_get_contents( Yii::getAlias('@runtime')."/logs/cttwapp_user.log" )));
+        //  2018-10-28 : Test-OK
+        //  Gets and shows the cttwapp_user log file contents and replaces all nl with <br> label
+        //  echo nl2br(file_get_contents( Yii::getAlias('@runtime')."/logs/cttwapp_user.log"));
 
-    //  2018-10-30 : Test-OK
-    //  Replaces the regular expression with the same value in red color plus a <br /> tag.
-    //  $data = preg_replace("/".$re1."/is","<br /><span style='color: red;'><b>$1</b></span>", $str);
+        //  2018-10-29 : Test-OK
+        //  Gets the cttwapp_user log file contents and replaces all nl with <br> label. Then replaces all single <br /> tags with a double <br /> tags
+        //  $str = str_replace ('<br />', '<br /><br />', nl2br(file_get_contents( Yii::getAlias('@runtime')."/logs/cttwapp_user.log" )));
 
-    //  2018-11-10 : Debug data
-    //  echo var_dump($data);
-    //  echo print_r($data);
+        //  2018-10-30 : Test-OK
+        //  Replaces the regular expression with the same value in red color plus a <br /> tag.
+        //  $data = preg_replace("/".$re1."/is","<br /><span style='color: red;'><b>$1</b></span>", $str);
+
+        //  2018-11-10 : Debug data
+        //  echo var_dump($data);
+        //  echo print_r($data);
+
+    }
+    else echo '</table></br></br>';
 
     // 2019-04-07 : Test to refactoring the content of the window modal confirm.
     echo '<table class="table-bordered">';

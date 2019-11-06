@@ -18,6 +18,10 @@ $baseUrl = $asset->baseUrl;
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode(Yii::t('app', $this->title)) ?></title>
+
+        <!-- 2019-11-05 : Includes the link tag to custom the favicon.ico frontend ( in blue color ) -->
+
+        <link href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.ico" type="image/x-icon" rel="shortcut icon" />
         <?php $this->head() ?>
 
         <!-- 2019-06-09 : Code Snippet added for Positive SSL secure seal validation -->

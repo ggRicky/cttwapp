@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use yii\helpers\ArrayHelper;    /* 2018-05-06 : Used for built a list of available Catalogs and Brands records */
+use yii\helpers\ArrayHelper;          // 2018-05-06 : Used for built a list of available Catalogs and Brands records
 use app\models\Catalog;
 use app\models\Brand;
 use app\models\Warehouse;
 use app\models\ArticleType;
+use kartik\number\NumberControl;      // 2019-11-06 : kartik-v/yii2-number (v1.0.5)
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Article */
@@ -33,7 +34,6 @@ if ($hash_param) {
 JS;
     $this->registerJs($script);
 }
-
 ?>
 
 <div class="article-form">
@@ -147,13 +147,23 @@ JS;
         }
     ?>
 
-    <!-- Type Art Selector  -->
+    <!-- Type Art Selector -->
     <?= $form->field($model, 'article_type_id')->dropDownList(ArrayHelper::map(ArticleType::find()->select(['id','type_desc'])->orderBy(['id' => SORT_ASC])->all(),'id','displayTypeDesc'), ['prompt' => Yii::t('app','Seleccione...'), 'data-toggle' => 'tooltip', 'title' => Yii::t('app', 'Tipos Disponibles')]); ?>
 
-    <!-- Price input text  -->
-    <?= $form->field($model, 'price_art')->textInput() ?>
+    <!-- Price input text -->
+    <!-- 2019-11-06 : Adds the kartik-v/yii2-number (v1.0.5) extension to control the display and save formats for numbers. -->
+    <?= $form->field($model, 'price_art')->textInput()->widget(NumberControl::class, [
+            'maskedInputOptions' => [
+                'prefix' => '$ ',           // 2019-11-06 : Default price prefix
+                'min' => 10,                // 2019-11-06 : Min value accepted
+                'max' => 9999999.99,        // 2019-11-06 : Max value accepted
+                'allowMinus' => false,      // 2019-11-06 : No negative prices accepted
+            ],
+            'displayOptions' => ['style' =>'width:250px;'],  // 2019-11-06 : Set the field's width.
+        ]);
+    ?>
 
-    <!-- Currency input text  -->
+    <!-- Currency input text -->
     <?= $form->field($model, 'currency_art')->radioList(['1' => 'Pesos', '2' => 'Dólares'],
         [
             'item' => function($index, $label, $name, $checked, $value) {
